@@ -1,0 +1,94 @@
+<!-- -----------------------------------------------------------------------------------------------
+[Master Stylesheet /admin/catalogos/unidades-programaticas/unidades-programaticas-editar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2017
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño: 09/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+----------------------------------------------------------------------------------------------- -->
+
+<div class="ar-page" fullscreen fxLayout="column">
+  <div fxFlex fxLayout="column" layout>
+    <!-- Toolbar principal de la vista -->
+    <mat-toolbar class="ar-unidades-toolbar mat-elevation-z1 ar-text-dark">
+      <button mat-icon-button class="ar-margin-right-xs" (click)="IrPaginaAnterior()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span fxHide.xs>Catálogo unidades programáticas</span>
+      <span fxHide.gt-xs>Unidades programáticas</span>
+      <span fxFlex></span>
+      <button disabled mat-stroked-button mat-button>Listo</button>
+      <!-- <button mat-stroked-button mat-button>Listo</button> -->
+    </mat-toolbar>
+    <!-- Barra de progreso -->
+    <div class="ar-progressbar">
+      <mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+    </div>
+    <!-- Toolbar con input de búsqueda -->
+    <div class="ar-unidades-bar">
+      <div ngClass="ar-unidades-search" ngClass.xs="ar-unidades-search ar-margin-top-sm" fxFlex="40" fxFlex.sm="80"
+        fxFlex.md="65" fxFlex.xs="95">
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <input class="ar-unidades-input-search" placeholder="Buscar o agregar ítem" [(ngModel)]="txtFiltro">
+          <span fxFlex></span>
+          <div class="ar-unidades-bar-bottom" matTooltip="Agregar nuevo" (click)="AgregarItem()" fxLayoutAlign="center">
+            <i class="material-icons">add</i>
+          </div>
+          <div class="ar-unidades-bar-menu" (click)="txtFiltro=null;" matTooltip="Limpiar" fxLayoutAlign="center">
+            <i class="mdi mdi-close ar-icon-xs"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Inicio listado de ítems -->
+    <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+      <div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+        <div fxLayout="column" class="ar-padding-bottom-lg">
+          <!-- Ítem expandible tipo acordeón -->
+          <mat-accordion displayMode="flat">
+            <mat-expansion-panel *ngFor="let item of catalogo | filtrarIdDescripcion: txtFiltro" hideToggle="true">
+              <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center">
+                <mat-panel-title class="ar-text-dark">
+                  <div fxLayoutAlign="start center">
+                    <div fxLayoutAlign="start center">
+                      <div>
+                        <span class="ar-unidades-circle" *ngIf="!item.estado">H</span>
+                        <span class="ar-unidades-circle ar-green" *ngIf="item.estado">H</span>
+                      </div>
+                      <span class="mat-body-1 ar-text-uppercase"> {{item.descripcion}} </span>
+                    </div>
+                  </div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <!-- Input editar ítem -->
+              <div fxLayout="column">
+                <div class="ar-margin-top-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                  <div fxFlex="30" fxLayoutAlign="start center">
+                    <mat-form-field fxFlex appearance="legacy">
+                      <input matInput placeholder="Id del ítem" [value]="item.idUP">
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="70" fxLayoutAlign="start center">
+                    <mat-form-field fxFlex ngClass="ar-padding-left-xs" ngClass.xs="ar-padding-left-none" appearance="legacy">
+                      <input matInput placeholder="Descripción del ítem" [value]="item.descripcion">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- Menú de aciones -->
+              <mat-action-row>
+                <button mat-button color="warn" *ngIf="item.estado" (click)="item.estado=false;">Deshabilitar</button>
+                <button mat-button class="ar-text-green" *ngIf="!item.estado" (click)="item.estado=true;">Habilitar</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>

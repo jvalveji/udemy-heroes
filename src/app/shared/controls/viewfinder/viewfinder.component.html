@@ -1,0 +1,19 @@
+<div class="ar-reports-page" fullscreen fxLayout="column">
+  <div fxFlex fxLayout="column" layout>
+    <!-- Toolbar de acciones estilo formulario -->
+    <mat-toolbar class="mat-elevation-z1" style="z-index:99;">
+      <i class="mdi mdi-file-document ar-text-dark"></i>
+      <span class="ar-margin-left-sm ar-text-dark">Visor</span>
+      <span fxFlex></span>
+      <button mat-icon-button mat-dialog-close class="ar-margin-left-xs">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="ar-progressbar">
+        <mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+      </div>
+    <div fxLayout="column" fxFlex>
+      <iframe [src]="src" style="width:100%;height:100%;"></iframe>
+    </div>
+  </div>
+</div>

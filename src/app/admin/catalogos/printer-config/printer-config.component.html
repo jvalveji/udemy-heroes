@@ -1,0 +1,146 @@
+<!-- ************************************************************
+
+[HTML /printer-config/form]
+
+Proyecto:	arca Core
+Version:	1.0
+Fecha de creación:	06/2019
+Asignado a:	Alexander Picado Jiménez (Desarrollo)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Modificación: 
+******************************************************************* -->
+<html fullscreen fxLayout="column">
+<div fxFlex fxLayout="column" layout class="arca-dark-theme">
+	<!-- Toolbar de acciones estilo formulario -->
+	<mat-toolbar class="mat-elevation-z0 ar-pedidos-toolbar ar-text-secondary-white">
+		<button mat-icon-button class="ar-margin-left-xs" matTooltip="Página anterior" (click)="IrPaginaAnterior()">
+			<mat-icon>arrow_back</mat-icon>
+		</button>
+		<span class="ar-margin-left-xs" *ngIf="!areaIngresoDatos">Lista impresoras locales configuradas</span>
+		<span class="ar-margin-left-xs" *ngIf="areaIngresoDatos && esEditar">Editar parámetro de impresión</span>
+		<span class="ar-margin-left-xs" *ngIf="areaIngresoDatos && !esEditar">Agregar nuevo parámetro</span>
+		<span fxFlex></span>
+		<!-- Agregar nuevo parametro -->
+		<button class="ar-margin-right-xs"
+			*ngIf="!esEditar && !areaIngresoDatos" color="warn"
+			mat-button matTooltip="Agregar nuevo parámetro" (click)="Editar(null);">
+			<i class="mdi mdi-plus-box-outline ar-icon-xs"></i>
+			Nuevo
+		</button>
+		<!-- Cancelar cambios -->
+		<button class="ar-margin-right-xs" color="warn" mat-button matTooltip="Cancelar" (click)="Cancelar(); "
+			*ngIf="areaIngresoDatos">
+			<i class="mdi mdi-close-box-outline ar-icon-xs"></i>
+			Cancelar
+		</button>
+		<!-- Guardar cambios -->
+		<button *ngIf="areaIngresoDatos" class="ar-margin-right-xs" (click)="Guardar()" color="warn" mat-button
+			matTooltip="Guardar cambios" >
+			<i class="mdi mdi-content-save-outline ar-icon-xs"></i>
+			Listo
+		</button>
+	</mat-toolbar>
+	<div class="ar-progressbar">
+		<mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+	</div>
+	<!-- Formulario de parámetros de impresión -->
+	<perfect-scrollbar fxFlex class="ar-content">
+		<div fxLayoutAlign="center">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="90" fxFlex.md="85">
+				<div fxLayout="column">
+					<div fxLayout="column">
+					
+						<!-- Lista de impresoras locales configuradas -->
+						<div *ngIf="!areaIngresoDatos" fxFlex fxLayout="column" class="ar-margin-top-md">
+							<div fxFlex fxLayout="row" class="ar-pedidos-list-item" fxLayoutAlign="start center"
+								*ngFor="let item of listaParametrosJson">
+								<!-- Avatar circular -->
+								<div>
+									<div class="ar-pedidos-avatar ar-inactivo">
+                    {{item.descripcion ? (item.descripcion | slice:0:1) : null}}
+									</div>
+								</div>
+								<div fxLayout="column">
+									<div fxLayout="row" fxLayoutAlign="start center">
+										<span class="ar-text-white"> {{item.descripcion ?item.descripcion:null}}
+										</span>
+									</div>
+									<div fxLayout="row" fxLayoutAlign="start center">
+										<span class="mat-caption ar-text-secondary-white">
+											{{item.valor ?item.valor:null}}
+										</span>
+									</div>
+								</div>
+								<span fxFlex></span>
+								<button mat-icon-button (click)="Editar(item);">
+									<mat-icon aria-label="Abrir información" class="ar-text-secondary-white">edit
+									</mat-icon>
+								</button>
+							</div>
+						</div>
+						<!-- Área de editar o crear un registro nuevo -->
+						<div fxFlex fxLayout="column">
+							<!-- Sección para configuraciones locales de impresora -->
+							<div fxLayout="column" fxFlex *ngIf="areaIngresoDatos" class="ar-margin-bottom-sm">
+								<div fxLayout="column" fxFlex="100">
+									<!-- Lista de parametros vigentes -->
+									<div fxFlex fxLayout="column" class="ar-margin-top-md">
+										<div fxFlex class="ar-pedidos-list-item" fxLayoutAlign="start center" >
+											<!-- Avatar circular -->
+											<div>
+												<div class="ar-pedidos-avatar ar-inactivo">
+                          {{item.descripcion ? (item.descripcion | slice:0:1) : null}}
+												</div>
+											</div>
+											<div fxLayout="column">
+												<div fxLayout="row" fxLayoutAlign="start center">
+													<span class="ar-text-white">
+                            {{item.descripcion ? item.descripcion : null}}
+													</span>
+												</div>
+											
+											</div>
+										</div>
+									</div>
+									<form #addSolicitudForm="ngForm">
+										<div fxFlex="100" class="ar-margin-top-xs" fxLayout="column">
+										
+											<!-- Área de descripción del parámetro -->
+											<div fxLayout="column" fxFlex="100" class="ar-dietas-item">
+												<mat-form-field fxFlex appearance="outline">
+													<mat-label>Descripción del parámetro</mat-label>
+													<textarea class="ar-text-white" matInput matTextareaAutosize cdkAutosizeMinRows="3"
+														placeholder="Descripcion del parámetro" name="descripcion"
+														[(ngModel)]="item.descripcion" required></textarea>
+												</mat-form-field>
+											</div>
+											<!-- Área nombre de la impresora -->
+											<div fxLayout="column" fxFlex="100" class="ar-dietas-item">
+												<mat-form-field fxFlex appearance="outline">
+													<mat-select class="ar-text-white" [(ngModel)]="item.valor"
+														placeholder='Nombre de la impresora local' autofocus name="SeccionTrabajo" required>
+														<mat-option *ngFor="let opcion of optionImpresoras" [value]="opcion">
+															{{opcion}}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+											
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</perfect-scrollbar>
+</div>
+
+</html>

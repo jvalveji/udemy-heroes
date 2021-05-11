@@ -1,0 +1,69 @@
+<!-- *************************************************************
+[HTML /catalogos/catalogos-listar.component.html]
+  
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  09/2017
+Fecha de modificación: 12/2017
+Asignado a: Joseph Arias (jariass@ccss.sa.cr)(diseño); Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Modificación: 09/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+************************************************************* -->
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+  <div fxFlex fxLayout="column" layout>
+    <!-- Toolbar principal -->
+    <mat-toolbar class="mat-elevation-z0 ar-toolbar">
+      <button mat-icon-button matTooltip="Volver" (click)="IrPaginaAnterior()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="ar-margin-left-xs">Catálogos</span>
+    </mat-toolbar>
+    <!-- Toolbar de búsqueda -->
+    <div class="ar-searchbar-toolbar ar-margin-top-sm" fxLayoutAlign="center center">
+      <div class="ar-searchbar" fxFlex="45" fxFlex.sm="75" fxFlex.md="65" fxFlex.xs="80" fxLayoutAlign="center center">
+        <!-- Input de búsqueda  -->
+        <input class="ar-searchbar-input ar-margin-left-sm ar-color-54" placeholder="Buscar catálogo"
+          [ngModelOptions]="{standalone: true}" [(ngModel)]="txtFiltro">
+        <span fxFlex></span>
+        <button mat-icon-button matTooltip="Limpiar" (click)="txtFiltro=null;">
+          <i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Contenido principal de la vista, expansión panel -->
+    <perfect-scrollbar fxFlex class="ar-content">
+      <div fxLayoutAlign="center">
+        <div fxLayout="column" fxFlex="70" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="90">
+          <div fxLayout="column" class="ar-margin-top-sm ar-padding-bottom-lg">
+            <!-- Lista de salas con avatar -->
+            <div class="ar-list-item-sm" fxLayoutAlign="start center"
+              *ngFor="let item of catalogos | filtrarNombre: txtFiltro" routerLink="./{{item.path}}">
+              <!-- Avatar circular -->
+              <div class="ar-avatar ar-margin-left-xs">
+                <p class="ar-avatar-orange ar-avatar-sm" matTooltip="Cama">
+                  {{item.nombre | slice:0:1}}
+                </p>
+              </div>
+              <div fxLayout="column" class="ar-margin-left-sm">
+                <span class="ar-color-87 ar-h4">{{item.nombre}}</span>
+                <!-- Detalle de la descripción -->
+                <span class="ar-color-54 ar-truncate ar-caption">
+                  {{item.descripcion}}
+                </span>
+              </div>
+              <span fxFlex></span>
+              <!-- Botón de seleccionar -->
+              <button mat-icon-button color="primary" *ngIf="item.path">
+                <mat-icon aria-label="Seleccionar" class="ar-color-87">navigate_next
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>

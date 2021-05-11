@@ -1,0 +1,528 @@
+<!-- **********************************************************************
+  [Master Stylesheet /catalogos/documento-printer
+
+  Proyecto: arca Core
+  Version:  1.0
+  Fecha de creación:  03/2019
+  Fecha de modificación: 
+  Asignado a: 
+  Desarrollo: Centro de Gestión Informática
+  Centro: Hospital San Vicente de Paúl
+  Cliente: Caja Costarricense de Seguro Social
+  ********************************************************************** -->
+
+<div class="ar-page" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de edición -->
+		<mat-toolbar class="header-toolbar mat-elevation-z1 ar-text-dark" style="z-index:10;">
+			<button mat-icon-button (click)="IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span class="">{{nombreCatalogo}}</span>
+			<span fxFlex></span>
+			<button mat-raised-button matTooltip="Guardar los cambios" color="primary" *ngIf="!esEdicion"
+				[disabled]="!utilidadesService.DiffEstadoObjeto(estadoInicial, catalogo)"
+				(click)="ActualizarCatalogo();">Listo</button>
+			<button mat-raised-button matTooltip="Guardar los cambios" color="primary" *ngIf="esEdicion"
+				(click)="AgregarItem()">Listo</button>
+		</mat-toolbar>
+		<div class="ar-progressbar">
+			<mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+		</div>
+		<!-- Barra de búsqueda -->
+		<div class="ar-buscar-bar" *ngIf="!esEdicion">
+			<div ngClass="ar-catalogos-search" ngClass.xs="ar-catalogos-search ar-margin-top-sm" fxFlex="40" fxFlex.sm="80"
+				fxFlex.md="65" fxFlex.xs="95">
+				<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+					<input class="ar-ingredientes-input-search" placeholder="Buscar" [(ngModel)]="txtFiltro">
+					<span fxFlex></span>
+					<div class="ar-buscar-bar-bottom" matTooltip="Agregar nuevo" (click)="esEdicion=true;LimpiarItem();"
+						fxLayoutAlign="center">
+						<i class="material-icons"> add </i>
+					</div>
+					<div class="ar-buscar-bar-menu" matTooltip="Limpiar" (click)="txtFiltro=null;" fxLayoutAlign="center">
+						<i class="mdi mdi-close ar-icon-xs"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="90">
+				<div fxLayout="column" class="ar-catalogo-content ar-margin-bottom-md">
+					<!-- Item expandible tipo acordeón -->
+					<mat-accordion *ngIf="!esEdicion">
+						<mat-expansion-panel *ngFor="let item of catalogo | filtrarIdDescripcion: txtFiltro">
+							<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" class="ar-catalogo-header"
+								(click)="CapturarItem(item)">
+								<mat-panel-title class="ar-text-dark">
+									<!-- Lista  -->
+									<div fxLayoutAlign="start center">
+										<div fxLayoutAlign="start center">
+											<div fxHide.xs>
+												<span class="ar-catalogo-circle" *ngIf="!item.estado"> {{item.descripcion | slice:0:1}}
+												</span>
+												<span class="ar-catalogo-circle ar-green" *ngIf="item.estado"> {{item.descripcion |
+													slice:0:1}} </span>
+											</div>
+											<span class="mat-body-1"> {{item.descripcion}} </span>
+										</div>
+									</div>
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<div fxLayout="column">
+								<form #frmEstructura="ngForm">
+									<div fxLayout="column">
+										<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+											fxLayout.sm="column">
+											<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+												ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+												<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Descripción del ítem" name="descripcion"
+														[(ngModel)]="item.descripcion" [ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+												<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Nombre de la impresora" name="printerName"
+														[(ngModel)]="item.printerName" [ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+											</div>
+										</div>
+
+										<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+											fxLayout.sm="column">
+											<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+												ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+												<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+													<mat-select [(ngModel)]="item.paperSize" placeholder='Tamaño del papel' autofocus
+														name="paperSize">
+														<mat-option *ngFor="let opcion of optionPaper" [value]="opcion">
+															{{opcion}}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+												<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+													<mat-select [(ngModel)]="item.textAlignment" placeholder='Alineación del texto' autofocus
+														name="textAlignment">
+														<mat-option *ngFor="let opcion of optionTextAlignment" [value]="opcion">
+															{{opcion}}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+										</div>
+										<span class="mat-body-1 ar-padding-left-sm">Tamaño personalizado (**Tamaño del papel vacío**)</span>
+										<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+											fxLayout.sm="column">
+											<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+												ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+												<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Ancho del papel" name="paperSizeCustomWidth"
+														[(ngModel)]="item.paperSizeCustomWidth" [ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+												<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Alto del papel" name="paperSizeCustomHeight"
+														[(ngModel)]="item.paperSizeCustomHeight" [ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+											</div>
+										</div>
+
+										<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Margenes</span>
+										<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+											fxLayout.sm="column">
+											<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+												ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+												<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Inferior" name="bottomMargin" [(ngModel)]="item.bottomMargin"
+														[ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+												<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Superior" name="topMargin" [(ngModel)]="item.topMargin"
+														[ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+											</div>
+										</div>
+										<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+											fxLayout.sm="column">
+											<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+												ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+												<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Izquierdo" name="leftMargin" [(ngModel)]="item.leftMargin"
+														[ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+												<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Derecho" name="rightMargin" [(ngModel)]="item.rightMargin"
+														[ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+											</div>
+										</div>
+
+										<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Barcodes</span>
+										<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+											fxLayout.sm="column">
+											<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+												ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+												<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Texto" name="bottomMargin" [(ngModel)]="item.barcode.text"
+														[ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+												<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+													<mat-select [(ngModel)]="item.barcode.type" placeholder='Tipo' autofocus name="type">
+														<mat-option *ngFor="let opcion of optionBarcodes" [value]="opcion">
+															{{opcion}}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+										</div>
+										<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+											fxLayout.sm="column">
+											<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+												ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+												<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Ancho del barcode" name="width" [(ngModel)]="item.barcode.width"
+														[ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+												<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+													<input matInput placeholder="Alto del barcode" name="height" [(ngModel)]="item.barcode.height"
+														[ngModelOptions]="{standalone: true}">
+												</mat-form-field>
+											</div>
+										</div>
+
+										<!--area para lineas de impresión  -->
+										<div class="ar-padding-bottom-xs" fxLayoutAlign="row" fxLayoutAlign="start center">
+											<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Líneas de impresión</span>
+											<span fxFlex></span>
+											<div>
+												<button matTooltip="Agregar línea" mat-icon-button class="ar-margin-left-xs ar-text-dark"
+													(click)="AgregarLinea(item)">
+													<mat-icon>add_circle</mat-icon>
+												</button>
+											</div>
+										</div>
+
+										<mat-expansion-panel *ngFor="let itemLinea of item.lineas; let indice = index;">
+											<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center"
+												class="ar-catalogo-header">
+												<mat-panel-title class="ar-text-dark">
+													<!-- Lista  -->
+													<div fxLayoutAlign="start center">
+														<div fxLayoutAlign="start center">
+															<div fxHide.xs>
+																<span class="ar-catalogo-circle ar-green"> {{(indice+1)}}
+																</span>
+															</div>
+															<span class="mat-body-1"> {{itemLinea.text}} </span>
+														</div>
+													</div>
+												</mat-panel-title>
+											</mat-expansion-panel-header>
+											<div fxLayout="column">
+												<form #frmLineas="ngForm" fxLayout="column">
+													<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+														fxLayout.sm="column">
+														<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+															ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+															<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+																<input matInput placeholder="Descripción del ítem" name="descripcion"
+																	[(ngModel)]="itemLinea.text" [ngModelOptions]="{standalone: true}">
+															</mat-form-field>
+															<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+																<input matInput placeholder="Tamaño de letra" name="fontSize"
+																	[(ngModel)]="itemLinea.fontSize" [ngModelOptions]="{standalone: true}">
+															</mat-form-field>
+														</div>
+
+													</div>
+													<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+														fxLayout.sm="column">
+														<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+															ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+															<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+																<input matInput placeholder="Margen ízquierdo" name="marginLetf"
+																	[(ngModel)]="itemLinea.marginLetf" [ngModelOptions]="{standalone: true}">
+															</mat-form-field>
+
+														</div>
+
+													</div>
+
+													<div class="ar-padding-bottom-xs" fxLayoutAlign="row" fxLayoutAlign="start center">
+														<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Texto subrayado</span>
+														<span fxFlex></span>
+														<div>
+															<mat-slide-toggle class="ar-margin-left-xs ar-text-dark" name="underline"
+																matTooltip="Texto subrayado" [(ngModel)]="itemLinea.underline"
+																[ngModelOptions]="{standalone: true}" (click)="ActualizarCatalogo();">
+															</mat-slide-toggle>
+														</div>
+													</div>
+													<div class="ar-padding-bottom-xs" fxLayoutAlign="row" fxLayoutAlign="start center">
+														<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Texto en negrita</span>
+														<span fxFlex></span>
+														<div>
+															<mat-slide-toggle class="ar-margin-left-xs ar-text-dark" name="bold"
+																matTooltip="Texto subrayado" [(ngModel)]="itemLinea.bold"
+																[ngModelOptions]="{standalone: true}" (click)="ActualizarCatalogo();">
+															</mat-slide-toggle>
+														</div>
+													</div>
+
+													<div class="ar-padding-bottom-xs" fxLayoutAlign="row" fxLayoutAlign="start center">
+														<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Texto italic</span>
+														<span fxFlex></span>
+														<div>
+															<mat-slide-toggle class="ar-margin-left-xs ar-text-dark" name="italic"
+																matTooltip="Texto italic" [(ngModel)]="itemLinea.italic"
+																[ngModelOptions]="{standalone: true}" (click)="ActualizarCatalogo();">
+															</mat-slide-toggle>
+														</div>
+													</div>
+												</form>
+											</div>
+											<mat-action-row>
+												<button mat-button color="warn" (click)="EliminarLineaImpresion(itemLinea)">Borrar</button>
+											</mat-action-row>
+										</mat-expansion-panel>
+
+
+									</div>
+
+								</form>
+							</div>
+							<mat-action-row>
+								<button mat-button color="warn" *ngIf="item.estado"
+									(click)="item.estado=false;ActualizarCatalogo();">Deshabilitar</button>
+								<button mat-button class="ar-text-green" *ngIf="!item.estado"
+									(click)="item.estado=true;ActualizarCatalogo();">Habilitar</button>
+							</mat-action-row>
+						</mat-expansion-panel>
+					</mat-accordion>
+					<mat-card *ngIf="esEdicion" class="ar-margin-top-xs">
+						<div>
+							<span fxFlex></span>
+							<button mat-icon-button (click)="esEdicion = false;">
+								<mat-icon aria-label="Cerrar">close</mat-icon>
+							</button>
+						</div>
+
+						<form #frmEstructura="ngForm">
+							<div fxLayout="column">
+								<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+									<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+										ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+										<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Descripción del ítem" name="descripcion"
+												[(ngModel)]="item.descripcion" [ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+										<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Nombre de la impresora" name="printerName"
+												[(ngModel)]="item.printerName" [ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+								</div>
+
+								<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+									<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+										ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+										<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+											<mat-select [(ngModel)]="item.paperSize" placeholder='Tamaño del papel' autofocus
+												name="paperSize">
+												<mat-option *ngFor="let opcion of optionPaper" [value]="opcion">
+													{{opcion}}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+										<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+											<mat-select [(ngModel)]="item.textAlignment" placeholder='Alineación del texto' autofocus
+												name="textAlignment">
+												<mat-option *ngFor="let opcion of optionTextAlignment" [value]="opcion">
+													{{opcion}}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+								</div>
+								<span class="mat-body-1 ar-padding-left-sm">Tamaño personalizado (**Tamaño del papel vacío**)</span>
+								<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+									<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+										ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+										<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Ancho del papel" name="paperSizeCustomWidth"
+												[(ngModel)]="item.paperSizeCustomWidth" [ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+										<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Alto del papel" name="paperSizeCustomHeight"
+												[(ngModel)]="item.paperSizeCustomHeight" [ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+								</div>
+
+								<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Margenes</span>
+								<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+									<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+										ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+										<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Inferior" name="bottomMargin" [(ngModel)]="item.bottomMargin"
+												[ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+										<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Superior" name="topMargin" [(ngModel)]="item.topMargin"
+												[ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+								</div>
+								<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+									<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+										ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+										<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Izquierdo" name="leftMargin" [(ngModel)]="item.leftMargin"
+												[ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+										<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Derecho" name="rightMargin" [(ngModel)]="item.rightMargin"
+												[ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+								</div>
+
+								<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Barcodes</span>
+								<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+									<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+										ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+										<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Texto" name="bottomMargin" [(ngModel)]="item.barcode.text"
+												[ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+										<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+											<mat-select [(ngModel)]="item.barcode.type" placeholder='Tipo' autofocus name="type">
+												<mat-option *ngFor="let opcion of optionBarcodes" [value]="opcion">
+													{{opcion}}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+								</div>
+								<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+									<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+										ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+										<mat-form-field fxFlex class="ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Ancho del barcode" name="width" [(ngModel)]="item.barcode.width"
+												[ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+										<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+											<input matInput placeholder="Alto del barcode" name="height" [(ngModel)]="item.barcode.height"
+												[ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+								</div>
+
+								<!--area para lineas de impresión  -->
+								<div class="ar-padding-bottom-xs" fxLayoutAlign="row" fxLayoutAlign="start center">
+									<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Líneas de impresión</span>
+									<span fxFlex></span>
+									<div>
+										<button matTooltip="Agregar línea" mat-icon-button class="ar-margin-left-xs ar-text-dark"
+											(click)="AgregarLinea(item)">
+											<mat-icon>add_circle</mat-icon>
+										</button>
+									</div>
+								</div>
+
+								<mat-expansion-panel *ngFor="let itemLinea of item.lineas; let indice = index;">
+									<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" class="ar-catalogo-header">
+										<mat-panel-title class="ar-text-dark">
+											<!-- Lista  -->
+											<div fxLayoutAlign="start center">
+												<div fxLayoutAlign="start center">
+													<div fxHide.xs>
+														<span class="ar-catalogo-circle ar-green"> {{(indice+1)}}
+														</span>
+													</div>
+													<span class="mat-body-1"> {{itemLinea.text}} </span>
+												</div>
+											</div>
+										</mat-panel-title>
+									</mat-expansion-panel-header>
+									<div fxLayout="column">
+										<form #frmLineas="ngForm" fxLayout="column">
+											<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+												fxLayout.sm="column">
+												<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+													ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+													<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+														<input matInput placeholder="Descripción del ítem" name="descripcion"
+															[(ngModel)]="itemLinea.text" [ngModelOptions]="{standalone: true}">
+													</mat-form-field>
+													<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+														<input matInput placeholder="Tamaño de letra" name="fontSize"
+															[(ngModel)]="itemLinea.fontSize" [ngModelOptions]="{standalone: true}">
+													</mat-form-field>
+												</div>
+
+											</div>
+											<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column"
+												fxLayout.sm="column">
+												<div fxFlex="100" fxLayoutAlign="start center" ngClass="ar-margin-left-sm"
+													ngClass.xs="ar-margin-left-none" ngClass.sm="ar-margin-left-none">
+													<mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+														<input matInput placeholder="Margen ízquierdo" name="marginLetf"
+															[(ngModel)]="itemLinea.marginLetf" [ngModelOptions]="{standalone: true}">
+													</mat-form-field>
+
+												</div>
+
+											</div>
+											<div class="ar-padding-bottom-xs" fxLayoutAlign="row" fxLayoutAlign="start center">
+												<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Texto subrayado</span>
+												<span fxFlex></span>
+												<div>
+													<mat-slide-toggle class="ar-margin-left-xs ar-text-dark" name="underline"
+														matTooltip="Texto subrayado" [(ngModel)]="itemLinea.underline"
+														[ngModelOptions]="{standalone: true}"></mat-slide-toggle>
+												</div>
+											</div>
+											<div class="ar-padding-bottom-xs" fxLayoutAlign="row" fxLayoutAlign="start center">
+												<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Texto en negrita</span>
+												<span fxFlex></span>
+												<div>
+													<mat-slide-toggle class="ar-margin-left-xs ar-text-dark" name="bold"
+														matTooltip="Texto subrayado" [(ngModel)]="itemLinea.bold"
+														[ngModelOptions]="{standalone: true}"></mat-slide-toggle>
+												</div>
+											</div>
+
+											<div class="ar-padding-bottom-xs" fxLayoutAlign="row" fxLayoutAlign="start center">
+												<span class="mat-body-1 mat-body-1 ar-padding-left-sm">Texto italic</span>
+												<span fxFlex></span>
+												<div>
+													<mat-slide-toggle class="ar-margin-left-xs ar-text-dark" name="italic"
+														matTooltip="Texto italic" [(ngModel)]="itemLinea.italic"
+														[ngModelOptions]="{standalone: true}"></mat-slide-toggle>
+												</div>
+											</div>
+
+
+
+										</form>
+									</div>
+									<mat-action-row>
+										<button mat-button color="warn" (click)="EliminarLineaImpresion(itemLinea)">Borrar</button>
+									</mat-action-row>
+								</mat-expansion-panel>
+
+
+							</div>
+
+						</form>
+						<mat-card-actions>
+							<span fxFlex></span>
+							<button mat-button color="warn" *ngIf="item.estado" (click)="item.estado=false;">Deshabilitar</button>
+							<button mat-button class="ar-text-green" *ngIf="!item.estado"
+								(click)="item.estado=true;">Habilitar</button>
+						</mat-card-actions>
+					</mat-card>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

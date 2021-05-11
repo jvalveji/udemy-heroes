@@ -1,0 +1,171 @@
+@import "styles.scss";
+/* ------------------------------------------------------------------
+[Master Stylesheet /catalogos/documento-printer/documento-printer.component.scss]
+
+Proyecto: arca Core
+Version:  1.0
+Fecha de creación:  03/2019
+Fecha de modificación: 
+Asignado a: 
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Modificación: 
+------------------------------------------------------------------- */
+
+/* Estilos de la vista general */
+
+.ar-page {
+	padding-top: 0px;
+	height: 100%;
+	font-family: Roboto;
+	background-color: #ECEFF1 !important;
+}
+
+/* Círculo de información del paciente*/
+
+.ar-catalogo-circle {
+	background: #cccccc;
+	border-radius: 0.8em;
+	-moz-border-radius: 0.8em;
+	-webkit-border-radius: 0.8em;
+	color: #ffffff;
+	display: inline-block;
+	font-weight: bold;
+	line-height: 1.6em;
+	margin-right: 24px;
+	text-align: center;
+	width: 1.6em;
+	font-size: 20px;
+}
+
+/* Círculo de listado */
+
+.ar-catalogo-item:hover .ar-catalogo-circle {
+	background: #f57c00;
+	color: rgba(0, 0, 0, 0.87);
+}
+
+.ar-catalogo-item:hover {
+	background-color: #fcfcfc !important;
+	cursor: pointer;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+/* Estilos para dar diseño a la barra de búsqueda de ítems */
+
+.ar-catalogos-search {
+	background: #fff;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+	transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+	margin-top: 16px;
+	margin-bottom: 16px;
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
+	height: 48px;
+}
+
+.ar-catalogos-search:hover {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 9px rgba(0, 0, 0, 0.16);
+	transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Ícono en la barra de búsqueda */
+
+.ar-buscar-bar-icon {
+	color: rgba(0, 0, 0, 0.54) !important;
+	border-radius: 2px 0 0 2px;
+	-webkit-border-radius: 2px 0 0 2px;
+	border: 0;
+	margin-right: 5px;
+	margin-left: 5px;
+	display: inline-block;
+	outline: none;
+	padding: 7px 12px 16px 12px;
+}
+
+/* Botón tipo menú en la barra de búsqueda */
+
+.ar-buscar-bar {
+	background-color: transparent !important;
+}
+
+.ar-buscar-bar-menu {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 0.54) !important;
+	border-radius: 2px 0 0 2px;
+	-webkit-border-radius: 2px 0 0 2px;
+	border: 0;
+	margin-right: 0;
+	margin-left: 0;
+	display: inline-block;
+	outline: none;
+	padding: 0 12px 0px 12px;
+	height: 48px;
+}
+
+.ar-buscar-bar-menu:hover {
+	background-color: #f5f5f5 !important;
+}
+
+.ar-buscar-bar-menu i {
+	margin-top: 8px;
+}
+
+/* Input de barra de búsqueda */
+
+.ar-ingredientes-input-search {
+	border: none;
+	font: normal 14px Roboto, sans-serif;
+	-webkit-font-variant-ligatures: none;
+	font-variant-ligatures: none;
+	height: 44px;
+	outline: none;
+	padding: 0px 0 0px 16px;
+	width: 100%;
+	background: transparent;
+}
+
+.ar-buscar-bar-bottom {
+	height: 30px;
+	width: 30px;
+	border-radius: 2px;
+	background-color: #FFF;
+	background-size: 12px;
+	border: 1px solid rgba(178, 192, 200, 0.4);
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.ar-buscar-bar-bottom:hover {
+	background-color: #f5f5f5 !important;
+	color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ar-buscar-bar-bottom i {
+	margin-top: 6px;
+	font-size: 16px;
+}
+
+/* Linea divisoria */
+
+.ar-catalogo-divider {
+	display: block;
+	border-top-width: 1px;
+	border-top-style: solid;
+	width: 100%;
+	color: rgba(0, 0, 0, 0.1);
+}
+
+/* Ancho del header del panel de expansión */
+
+.ar-catalogo-header {
+	min-height: 64px;
+}

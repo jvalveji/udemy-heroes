@@ -1,0 +1,77 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /app/core/admin/jobs-task/jobs-task.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	10/2018
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+-------------------------------------------------------------------*/
+
+/* Estilos generales de la vista */
+
+.ar-page {
+	padding-top: 0;
+	height: 100%;
+	font-family: Roboto;
+	background-color: #2D3047 !important;
+}
+
+.ar-task-toolbar {
+	background-color: #2D3047 !important;
+}
+
+/* Toolbar de área de búsqueda */
+
+.ar-buscar-titular {
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+	color: rgba(255, 255, 255, 0.54);
+}
+
+.ar-task-content {
+	height: 100%;
+	background-color: #2D3047 !important;
+}
+
+.ar-task-page {
+	height: 100%;
+	background-color: rgb(255, 255, 255);
+}
+
+/* Estilo para que el texto del jobs haga el salto de linea */
+
+.ar-task-text-green {
+	color: #96b38a;
+	font-family: Inconsolata, monospace;
+}
+
+.ar-task-text-white {
+	color: #fff;
+	font-family: Inconsolata, monospace;
+}
+
+.ar-task-console {
+	height: 340px;
+	background: #2D3047;
+	color: #ffffff;
+	font-family: Inconsolata, monospace;
+	font-size: 11pt;
+	padding: 5px 25px 5px 25px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.ar-task-name {
+	height: 220px;
+	background: #2D3047;
+	font-family: Inconsolata, monospace;
+	font-size: 11pt;
+	padding: 25px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

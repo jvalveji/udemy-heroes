@@ -1,0 +1,54 @@
+<!-- ------------------------------------------------------------------
+[Master Stylesheet /app/shared/controls/personas-search/personas-search.component.html]
+
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  09/2018
+Asignado a: Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Félix Lee, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social 
+------------------------------------------------------------------- -->
+
+<div fxLayout="column" fxFlex="100">
+	<!-- Barra de progreso de la búsqueda -->
+	<div class="ar-progressbar">
+		<mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+	</div>
+	<!-- Toolbar con la barra de búsqueda -->
+	<mat-toolbar *ngIf="true" class="ar-search-bar">
+		<div ngClass="ar-search-personas" ngClass.xs="ar-search-personas ar-margin-top-sm" fxFlex="70" fxFlex.sm="90"
+		 fxFlex.md="80" fxFlex.xs="91">
+			<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+				<input class="ar-search-input" maxlength="200" [(ngModel)]="txtFiltro" placeholder="Buscar personas por cédula o nombre"
+				 (keyup.enter)="Buscar()">
+				<span fxFlex></span>
+				<div class="ar-search-bar-button" matTooltip="Limpiar búsqueda" (click)="Clear();" fxLayoutAlign="center">
+					<i class="mdi mdi-close"></i>
+				</div>
+			</div>
+			<div class="ar-search-bar-button ar-search-bar-gray-button" matTooltip="Buscar persona" fxLayoutAlign="center"
+			 (click)="Buscar();">
+				<i class="mdi mdi-magnify ar-text-dark"></i>
+			</div>
+		</div>
+	</mat-toolbar>
+	<!-- Área de filtrado de la búsqueda 56 resultados con scroll -->
+	<div fxFlex="70" [hidden]="mostrarListaSmall" (clickOutside)="onClickedOutside($event)" fxLayoutAlign="center" class="ar-search-area">
+		<mat-card fxFlex="70" fxFlex.sm="90" fxFlex.md="80" fxFlex.xs="91" class="ar-search-card-list ar-search-card-slideInDown">
+			<div mat-card-image fxLayout="column">
+				<div class="ar-search-expansion-header" fxLayoutAlign="start center" *ngFor="let persona of filtroPersonas" (click)="EstablecerSeleccion(persona); mostrarListaSmall=true; txtFiltro='';">
+					<div fxHide.xs fxHide.sm class="ar-margin-right-sm">
+						<i class="mdi mdi-account-circle ar-search-icon-list"></i>
+					</div>
+					<div fxLayout="column">
+						<span class="ar-search-text-id ar-text-dark">{{ persona.identificacion }}</span>
+						<span class="ar-search-text-header ar-text-dark">{{ persona.fullname }}</span>
+					</div>
+					<span fxFlex></span>
+					<mat-icon aria-label="Seleccionar" class="ar-text-secondary-color">navigate_next</mat-icon>
+				</div>
+			</div>
+		</mat-card>
+	</div>
+</div>

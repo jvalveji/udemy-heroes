@@ -1,0 +1,215 @@
+<!-- -----------------------------------------------------------------------------------------------
+[Master Stylesheet /admin/catalogos/paises/paises-editar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2017
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño: 09/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+----------------------------------------------------------------------------------------------- -->
+
+<div class="ar-page" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-unidades-toolbar header-toolbar mat-elevation-z1 ar-text-dark">
+			<button mat-icon-button class="ar-margin-right-xs"
+				(click)="esTipoUMSeleccionado ? IrListado() : IrPaginaAnterior()">
+				<mat-icon class="ar-text-black">arrow_back</mat-icon>
+			</button>
+			<span fxHide.xs class="ar-text-black">{{ !esTipoUMSeleccionado ? 'Catálogo unidades de medida' : ''}}</span>
+			<span fxHide.gt-xs class="ar-text-black">{{ !esTipoUMSeleccionado ? 'Unidades de medida' : ''}}</span>
+			<span fxFlex></span>
+			<button mat-stroked-button mat-button *ngIf="esTipoUMSeleccionado"
+				[ngClass]="ValidarCambios() ? 'ar-button-listo' : 'ar-button-listo-disabled'" [disabled]="!ValidarCambios()"
+				(click)="esNuevo ? InsertarCatalogo() : ActualizarCatalogo()">Listo</button>
+			<!-- <button class="ar-button-listo" matTooltip="Guardar cambios" mat-stroked-button mat-button>Listo</button> -->
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		<!-- Toolbar con input de búsqueda -->
+		<ng-container *ngIf="!esTipoUMSeleccionado">
+			<div class="ar-unidades-bar">
+				<div ngClass="ar-unidades-search" ngClass.xs="ar-unidades-search ar-margin-top-sm" fxFlex="40" fxFlex.sm="80"
+					fxFlex.md="65" fxFlex.xs="95">
+					<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+						<input class="ar-unidades-input-search" placeholder="Buscar" [(ngModel)]="txtFiltro"
+							[ngModelOptions]="{standalone: true}">
+						<span fxFlex></span>
+						<div class="ar-unidades-bar-menu" (click)="txtFiltro=null;" matTooltip="Limpiar" fxLayoutAlign="center">
+							<i class="mdi mdi-close ar-icon-xs"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+		<!-- Inicio listado de ítems -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-bottom-lg">
+					<!-- Div con cada uno de los ítems del catálogo -->
+					<ng-container *ngIf="!esTipoUMSeleccionado">
+						<div class="ar-margin-top-xs"
+							*ngFor="let tipo of tiposUnidadesMedida | filtrarIdDescripcion: txtFiltro; let i = index;"
+							(click)="ObtenerItemsUnidadMedida(tipo)">
+							<div class="ar-unidades-area-items">
+								<div class="ar-unidades-item" fxLayoutAlign="start center">
+									<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+										<div fxHide.xs>
+											<span class="ar-unidades-circle">{{tipo.descripcion | slice:0:1}}</span>
+										</div>
+										<div fxLayout="column">
+											<span class="mat-body-2">{{tipo.descripcion}}</span>
+										</div>
+										<span fxFlex></span>
+										<button mat-icon-button class="ar-text-dark">
+											<mat-icon>chevron_right</mat-icon>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+					<!-- Div área de agregar o editar sub ítems -->
+					<ng-container *ngIf="esTipoUMSeleccionado">
+						<div fxLayout="column" class="ar-margin-top-xs">
+							<form>
+								<!-- Div superior (nombre del grupo, botón activo-inactivo) -->
+								<div fxLayout="column">
+									<div fxLayout="row" fxLayout.xs="column">
+										<mat-card fxFlex class="ar-margin-bottom-xs">
+											<div fxLayout="column">
+												<div fxLayoutAlign="start center">
+													<div fxLayout="row" fxFlex="100" fxFlex.xs="100">
+														<div fxLayoutAlign="start center" class="ar-unidades-personal-item" fxFlex="100"
+															fxFlex.xs="100">
+															<div fxHide.xs>
+																<span class="ar-unidades-circle"
+																	[ngClass]="tiposUnidadesMedida[indexTipoUMSeleccionado].estado ? 'ar-green': ''">{{ tiposUnidadesMedida[indexTipoUMSeleccionado].descripcion | slice:0:1 }}</span>
+															</div>
+															<mat-form-field fxFlex appearance="legacy">
+																<input matInput placeholder="Nombre de unidad de medida" name="nombreUM"
+																	[(ngModel)]="tiposUnidadesMedida[indexTipoUMSeleccionado].descripcion"
+																	[ngModelOptions]="{standalone: true}">
+															</mat-form-field>
+														</div>
+													</div>
+												</div>
+											</div>
+											<mat-card-actions fxLayoutAlign="start center">
+												<span fxFlex></span>
+												<div class="ar-unidades-item-separator"></div>
+												<!-- Toggle activo inactivo -->
+												<div fxLayout="row" fxLayoutAlign="start center" class="ar-margin-left-sm">
+													<mat-slide-toggle class="ar-text-dark ar-margin-right-md" name="activo"
+														[(ngModel)]="tiposUnidadesMedida[indexTipoUMSeleccionado].estado"
+														[ngModelOptions]="{standalone: true}"></mat-slide-toggle>
+												</div>
+											</mat-card-actions>
+										</mat-card>
+										<!-- Boton agregar, editar nombre del ítem -->
+										<div class="ar-unidades-header-subitem ar-text-dark ar-margin-left-xs ar-margin-right-xs"
+											fxLayout="column" fxLayout.xs="row"
+											*ngIf="tiposUnidadesMedida[indexTipoUMSeleccionado].items.length === 0">
+											<span fxFlex></span>
+											<button class="ar-text-dark ar-margin-bottom-xs ar-margin-right-xs" mat-icon-button
+												matTooltip="Agregar ítem">
+												<mat-icon>add_circle</mat-icon>
+											</button>
+										</div>
+									</div>
+								</div>
+								<!-- Div inferior (descripción y símbolo del sub-ítem) -->
+								<div fxLayout="column">
+									<div fxLayout="row" fxLayout.xs="column"
+										*ngFor="let unidadMedida of tiposUnidadesMedida[indexTipoUMSeleccionado].items; let j = index;">
+										<mat-card fxFlex class="ar-margin-bottom-xs">
+											<div fxLayout="column">
+												<div fxLayout="column">
+													<div fxLayout="column">
+														<div fxLayoutAlign="start center" fxLayout="row" fxLayout.xs="column" fxFlex="100"
+															fxFlex.xs="100">
+															<div fxFlex fxLayout="column">
+																<div fxFlex fxLayout="row">
+																	<div class="ar-unidades-personal-item" fxFlex="50" fxFlex.xs="100">
+																		<mat-form-field fxFlex appearance="legacy">
+																			<input matInput placeholder="Descripción" name="descripcion"
+																				[(ngModel)]="unidadMedida.descripcion" [ngModelOptions]="{standalone: true}">
+																		</mat-form-field>
+																	</div>
+																	<div class="ar-unidades-personal-item" fxFlex="50" fxFlex.xs="100">
+																		<mat-form-field fxFlex appearance="legacy">
+																			<input matInput placeholder="Símbolo" name="simbolo"
+																				[(ngModel)]="unidadMedida.simbolo" [ngModelOptions]="{standalone: true}">
+																		</mat-form-field>
+																	</div>
+																</div>
+																<div fxFlex fxLayout="row">
+																	<div class="ar-unidades-personal-item" fxFlex="50" fxFlex.xs="100">
+																		<mat-form-field fxFlex appearance="legacy">
+																			<input matInput placeholder="Descripción de la equivalencia"
+																				name="descripcionEquivalencia"
+																				[(ngModel)]="unidadMedida.equivalencia.descripcion"
+																				[ngModelOptions]="{standalone: true}">
+																		</mat-form-field>
+																	</div>
+																	<div class="ar-unidades-personal-item" fxFlex="50" fxFlex.xs="100">
+																		<mat-form-field fxFlex appearance="legacy">
+																			<input type="number" matInput placeholder="Valor de la equivalencia" name="valor"
+																				[(ngModel)]="unidadMedida.equivalencia.valor"
+																				[ngModelOptions]="{standalone: true}">
+																		</mat-form-field>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<mat-card-actions fxLayoutAlign="start center">
+												<span fxFlex></span>
+												<div class="ar-unidades-item-separator"></div>
+												<!-- Toggle activo inactivo -->
+												<div fxLayout="row" fxLayoutAlign="start center" class="ar-margin-left-sm">
+													<mat-slide-toggle class="ar-text-dark ar-margin-right-md" name="activo" name="activo"
+														[(ngModel)]="unidadMedida.estado" [ngModelOptions]="{standalone: true}"></mat-slide-toggle>
+												</div>
+											</mat-card-actions>
+										</mat-card>
+										<!-- Boton agregar, editar nombre del sub-ítem -->
+										<div class="ar-unidades-header-subitem ar-text-dark ar-margin-left-xs ar-margin-right-xs"
+											fxLayout="column" fxLayout.xs="row">
+											<span fxFlex></span>
+											<ng-container *ngIf="((tiposUnidadesMedida[indexTipoUMSeleccionado].items.length )- 1) === j">
+												<button class="ar-text-dark ar-margin-bottom-xs ar-margin-right-xs" mat-icon-button
+													matTooltip="Agregar sub-ítem" (click)="AgregarUnidadMedida();"
+													[ngModelOptions]="{standalone: true}">
+													<mat-icon>add_circle</mat-icon>
+												</button>
+											</ng-container>
+											<button *ngIf="tiposUnidadesMedida[indexTipoUMSeleccionado].items.length > 1"
+												class="ar-text-dark ar-margin-right-xs" mat-icon-button matTooltip="Eliminar ítem"
+												(click)="EliminarUnidadMedida(j);">
+												<mat-icon class="ar-text-red">remove_circle</mat-icon>
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+	<smat-fab-speed-dial class="ar-catalogo-fab" *ngIf="!esTipoUMSeleccionado">
+		<smat-fab-trigger>
+			<button mat-fab (click)="AgregarTipoUnidadMedida();">
+				<mat-icon>add</mat-icon>
+			</button>
+		</smat-fab-trigger>
+	</smat-fab-speed-dial>
+</div>

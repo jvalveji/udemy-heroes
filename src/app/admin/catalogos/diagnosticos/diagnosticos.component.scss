@@ -1,0 +1,115 @@
+@import "styles.scss";
+/* ========================================================================
+[Master Stylesheet /catalogos/catalogos-listar.component.scss]
+
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  09/2017
+Fecha de modificación: 12/2017
+Asignado a: Joseph Arias (jariass@ccss.sa.cr)(diseño); Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+======================================================================== */
+
+/* Estilos de la vista general */
+
+.ar-page {
+  padding-top: 0;
+  height: 100%;
+  font-family: Roboto;
+  background-color: #ECEFF1 !important;
+}
+
+/* Toolbar de datos del catálogo principal */
+
+.ar-page-title {
+  height: auto;
+  min-height: 58px;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  z-index: 10;
+  background-color: #fff;
+  font-family: Roboto;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.ar-page-title button {
+  margin-right: 16px;
+}
+
+mat-progress-bar {
+  position: fixed;
+  top: 60px;
+  z-index: 11;
+}
+
+.ar-listar-content {
+  margin-top: 64px;
+  height: auto;
+  background-color: #ECEFF1;
+}
+
+/* Estilos para dar diseño a la barra de busqueda de ítems */
+
+.ar-catalogos-search {
+  background: #fff;
+  -webkit-border-radius: 4px;
+  border-radius: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+
+.ar-catalogos-search-icon {
+  color: rgba(0, 0, 0, 0.54);
+  display: inline-block;
+  height: 44px;
+  outline: none;
+  padding: 11px 0 11px 16px;
+}
+
+.ar-catalogos-input-search {
+  border: none;
+  font: normal 16px Roboto, sans-serif;
+  -webkit-font-variant-ligatures: none;
+  font-variant-ligatures: none;
+  height: 44px;
+  outline: none;
+  padding: 0px 0 0px 16px;
+  width: 100%;
+  background: transparent;
+}
+
+/* Estilos del card header */
+
+.ar-listar-header-item {
+  background-color: #fff;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-family: Roboto;
+  margin-bottom: 3px;
+}
+
+/* Estilos del avatar circle de los cards */
+
+.ar-listar-circle {
+  border: 1px solid #fff !important;
+  background-color: #ECEFF1 !important;
+  color: #FFB300 !important;
+  margin-right: 10px !important;
+}
+
+[hidden] {
+  display: none !important;
+}

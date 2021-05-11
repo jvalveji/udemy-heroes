@@ -1,0 +1,24 @@
+/*------------------------------------------------------------------
+[Master Stylesheet /admin/permisos-usuarios]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	01/04/2018
+Asignado a: Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+-------------------------------------------------------------------*/
+
+@import "styles.scss";
+
+.ar-page {
+  padding-top: 0;
+  height: 100%;
+}
+
+.ar-permisos-no-border {
+  outline: none !important;
+}

@@ -1,0 +1,387 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /ingredientes/SIGES]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	05/2018
+Asignado a:	Adrián Fallas. afallasp@ccss.sa.cr (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+-------------------------------------------------------------------*/
+
+/* Estilos de la vista general */
+
+.ar-buscar-page {
+  padding-top: 0;
+  height: 100%;
+  font-family: Roboto;
+  background-color: #ECEFF1 !important;
+}
+
+/* Progressbar */
+
+ar-buscar-progress-bar {
+  position: fixed;
+  top: 60px;
+  z-index: 11;
+}
+
+/* Toolbar de área de búsqueda */
+
+.ar-buscar-toolbar {
+  margin-top: 0;
+}
+
+/* Estilos para dar diseño a la barra de busqueda de ítems */
+
+.ar-buscar-search {
+  /* background: #fff; */
+  -webkit-border-radius: 4px;
+  border-radius: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+  z-index: 10;
+}
+
+/* Círculo de información de items encontrados */
+
+.ar-buscar-card-circle {
+  background: #cccccc;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 24px;
+  text-align: center;
+  width: 1.6em;
+  font-size: 24px;
+}
+
+.ar-busqueda-card:hover .ar-buscar-card-circle {
+  background-color: #f5b53f !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;
+}
+
+/* Selección múltiple */
+
+.ar-buscar-multiple-container {
+  position: relative;
+  width: 100%;
+  height: 132px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+  margin: 10px 0 0 0;
+  overflow: auto;
+}
+
+.ar-buscar-multiple-container-inside {
+  height: 84px;
+  
+}
+/* Área de item circulares de selección múltiple */
+
+.ar-buscar-multiple-item {
+  width: 100px;
+  height: 74px;
+}
+
+.ar-buscar-multiple-area-text {
+ height: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ar-buscar-multiple-circle-area {
+  position: relative;
+  display: inline-block;
+  
+}
+
+.ar-buscar-multiple-card-text {
+   height: 20px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  white-space: normal;
+  -webkit-font-smoothing: antialiased;
+}
+ 
+/* Tarjetas de selección múltiple */
+
+.ar-buscar-multiple-card {
+  background: #fff;
+  border-radius: 3px;
+  color: #5f6368;
+  font-size: 13px;
+  margin-right: 5px;
+  overflow: hidden;
+  transition: box-shadow 135ms cubic-bezier(.4,0,.2,1),width 235ms cubic-bezier(.4,0,.2,1);
+  width: 240px;
+  z-index: 1;
+  height: 108px;
+  color: inherit;
+  display: block;
+  padding: 6px 6px 9px 16px;
+}
+
+.ar-buscar-multiple-card:hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+ }
+
+ /* Etiqueta de código de tarjeta de selección múltiple */
+.ar-buscar-multiple-p {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.54);
+  display: block;
+  height: 14px;
+  width: 39px;
+  background: transparent;
+  padding: 1px 0 0 0;
+  margin: 10px auto;
+  perspective: 50px;
+  -webkit-perspective: 50px;
+  -moz-perspective: 50px;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.ar-buscar-multiple-card:hover .ar-buscar-multiple-p {
+ background-color: rgba(0, 0, 0, 0.74);
+ color: rgba(255, 255, 255, 0.87)
+}
+
+.ar-buscar-multiple-card__label {
+  clear: left;
+  margin: 0; 
+}
+
+.ar-buscar-multiple-card__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ar-buscar-multiple-card__body {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  white-space: normal;
+  overflow: hidden;
+}
+
+.ar-buscar-multiple-card__image {
+  background-size: cover;
+  border-radius: 50%;
+  float: left;
+  margin-bottom: 16px;
+  margin-right: 20px;
+  height: 44px;
+  width: 44px;
+}
+
+p.ar-buscar-multiple-card__label {
+display: block;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+
+}
+
+.ar-buscar-multiple-item-item-circle {
+  background: #cccccc;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  text-align: center;
+  width: 1.6em;
+  font-size: 25px;
+}
+
+.ar-buscar-multiple-item-close {
+  font-size: 15px !important;
+  padding-right: 0.28em;
+  color: rgba(255, 255, 255, 1)
+}
+
+.ar-buscar-multiple-item-close-circle {
+  right: -18px;
+  top: -4px;
+  z-index: 1;
+  background: #cccccc;
+  border: 3px solid #edeff1;
+  border-radius: 50%;
+  padding-top: 2px;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  line-height: 10px;
+  color: rgba(0, 0, 0, 0.54);
+  position: absolute;
+  cursor: pointer;
+  transition: 0.6s ease;
+}
+
+.ar-buscar-multiple-item-close-circle:hover {
+  background-color: rgba(0, 0, 0, 0.54);
+}
+
+.ar-buscar-text {
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Next & previous buttons */
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -29px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+} 
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.54);
+}
+
+/* Estilos para dar diseño a la barra de búsqueda de ítems */
+
+.ar-contratos-search {
+  background: #fff;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+  height: 48px;
+}
+
+.ar-contratos-search:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 9px rgba(0, 0, 0, 0.16);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Ícono en la barra de búsqueda */
+
+.ar-buscar-search-icon {
+  color: rgba(0, 0, 0, 0.54) !important;
+  border-radius: 2px 0 0 2px;
+  -webkit-border-radius: 2px 0 0 2px;
+  border: 0;
+  margin-right: 5px;
+  margin-left: 5px;
+  display: inline-block;
+  outline: none;
+  padding: 7px 12px 16px 12px;
+}
+
+/* Botón tipo menú en la barra de búsqueda */
+
+.ar-buscar-search-menu {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.54) !important;
+  border-radius: 2px 0 0 2px;
+  -webkit-border-radius: 2px 0 0 2px;
+  border: 0;
+  margin-right: 0;
+  margin-left: 0;
+  display: inline-block;
+  outline: none;
+  padding: 0 12px 0px 12px;
+  height: 48px;
+}
+
+.ar-buscar-search-menu:hover {
+  background-color: #f5f5f5 !important;
+}
+
+.ar-buscar-search-menu i {
+  margin-top: 8px;
+}
+
+/* Input de barra de búsqueda */
+
+.ar-buscar-input-search {
+  border: none;
+  font: normal 14px Roboto, sans-serif;
+  -webkit-font-variant-ligatures: none;
+  font-variant-ligatures: none;
+  height: 44px;
+  outline: none;
+  padding: 0px 0 0px 16px;
+  width: 100%;
+  background: transparent;
+}
+
+.ar-buscar-filter-area {
+  position: relative;
+  margin: 0 16px;
+}
+
+/* Área de toolbar del filtro flotante */
+
+.ar-buscar-toolbar-filter {
+  width: 100%;
+  display: inline-block;
+  z-index: 99;
+  position: absolute;
+  transition: width 0.25s ease-in-out;
+  content: "";
+  transform: translateY(-1.5em);
+}
+
+/* Header de tarjeta del toolbar */
+
+.ar-busqueda-search-header {
+  background-color: #fcfcfc;
+}
+
+/* Esconde menú flotante de filtros */
+[hidden] {
+  display: none !important;
+}

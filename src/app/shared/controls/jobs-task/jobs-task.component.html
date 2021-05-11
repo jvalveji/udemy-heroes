@@ -1,0 +1,53 @@
+<!-- ------------------------------------------------------------------
+[HTML /app/core/admin/jobs/jobs.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	10/2018
+Asignado a:	Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+------------------------------------------------------------------- -->
+
+<html class="ar-page" fullscreen fxLayout="column"> 
+<!-- Toolbar principal -->
+<mat-toolbar class="ar-task-toolbar">
+	<span fxFlex></span>
+	<button mat-icon-button class="ar-margin-left-xs" mat-dialog-close matDialogClose [disabled]="!esCancel">
+		<mat-icon class="ar-text-secondary-white">close</mat-icon>
+	</button>
+</mat-toolbar>
+<!-- Simulador de la consola -->
+<div id="divConsole" class="ar-task-console">
+	<div *ngFor="let prompt of consola" [innerHTML]="prompt | safeHtml"></div>
+</div>
+<!-- Descripción de la tarea-->
+<div class="ar-task-name" fxLayout="column">
+	<div fxLayout="row">
+		<span class="ar-task-text-green">[Nombre] #</span>
+		<span class="ar-task-text-white ar-margin-left-xs"> {{datosJOB?.nombre}} </span>
+	</div>
+	<div fxLayout="row">
+		<span class="ar-task-text-green"> [Descripción] #</span>
+		<span class="ar-task-text-white ar-margin-left-xs"> {{datosJOB?.descripcion}} </span>
+	</div>
+</div>
+<div class="ar-progressbar">
+	<mat-progress-bar *ngIf="esBarraProcesoJob" mode="indeterminate"></mat-progress-bar>
+</div>
+<div fxLayout="column" class="ar-task-content">
+	<!-- Card que contiene todo el contenido principal de la vista -->
+	<mat-card class="ar-task-page">
+
+		<!--Contenido dińamico con las opciones de filtrado para el job específico-->
+		<ng-content select="filtros"></ng-content>
+		<!-- Botón de ejecutar -->
+		<mat-card-actions>
+			<span fxFlex></span>
+			<button class="ar-margin-right-sm" mat-stroked-button color="primary" [disabled]="!esEjecutar" (click)="Ejecutar()">Ejecutar</button>
+		</mat-card-actions>
+	</mat-card>
+</div>
+
+</html>

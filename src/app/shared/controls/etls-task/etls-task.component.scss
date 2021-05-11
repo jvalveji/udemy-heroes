@@ -1,0 +1,58 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /app/core/admin/etls-task/etls-task.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	03/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+-------------------------------------------------------------------*/
+
+/* Estilos generales de la vista */
+
+.ar-page {
+	padding-top: 0;
+	height: 100%;
+	font-family: Roboto;
+	background-color: rgb(236, 239, 241) !important;
+}
+
+.ar-etls-content {
+	height: 100%;
+	background-color: rgb(255, 255, 255);
+}
+
+.ar-etls-page {
+	height: 100%;
+	background-color: rgb(255, 255, 255);
+}
+
+/* Estilo del barra de cargando (progress-bar) */
+
+.ar-etls-progress {
+	height: 10px;
+}
+
+/* Estilo para que el texto del etls haga el salto de linea */
+
+.ar-etls-text {
+	word-wrap: break-word;
+}
+
+.ar-etls-text-console {
+	background: #0a4692;
+}
+
+.ar-etls-console {
+	height: 150px;
+	background: #0a4692;
+	color: #ffffff;
+	font-family: Inconsolata, monospace;
+	font-size: 11pt;
+	padding: 5px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}

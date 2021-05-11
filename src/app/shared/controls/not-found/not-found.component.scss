@@ -1,0 +1,23 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /core/login/inicio-sesion]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	07/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+-------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+Rediseño:	11/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+-------------------------------------------------------------------*/
+
+html {
+	height: 100%;
+	font-family: Roboto;
+	background-color: #2D3047 !important;
+	display: flex;
+}

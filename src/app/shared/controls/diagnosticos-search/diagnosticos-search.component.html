@@ -1,0 +1,199 @@
+<!-- ***************************************************************
+[Master Stylesheet /controls/diagnosticos-search]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	05/2018
+Asignado a:	Adrián Fallas. afallasp@ccss.sa.cr (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+*************************************************************** -->
+
+<div class="ar-buscar-page" fullscreen fxLayout="column">
+  <div fxFlex fxLayout="column" layout>
+    <!-- Toolbar de acciones estilo formulario -->
+    <mat-toolbar class="mat-elevation-z1" style="z-index:99;">
+      <button mat-icon-button mat-dialog-close class="ar-margin-left-xs">
+        <mat-icon>close</mat-icon>
+      </button>
+      <span class="ar-margin-left-xs ar-text-dark">Buscar diagnósticos</span>
+      <span fxFlex></span>
+      <button mat-button *ngIf="itemSeleccionado.length > 0" [mat-dialog-close]="itemSeleccionado">Listo</button>
+    </mat-toolbar>
+    <!-- Toolbar de busqueda -->
+    <form [formGroup]="frmDiagnosticos" novalidate class="ar-buscar-toolbar">
+      <mat-toolbar class="ar-buscar-search" color="primary">
+        <div ngClass="ar-contratos-search" ngClass.xs="ar-contratos-search ar-margin-top-sm" fxFlex="55" fxFlex.sm="80" fxFlex.md="65"
+          fxFlex.xs="100">
+          <div [hidden]="!mostrarFiltroTexto" class="ar-buscar-search-icon" fxHide.xs>
+            <i class="mdi mdi-magnify"></i>
+          </div>
+          <div [hidden]="!mostrarFiltroTexto" fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <input class="ar-buscar-input-search" maxlength="200" formControlName="txtFiltro" placeholder="Buscar diagnósticos" (keyup.enter)="Buscar()">
+            <span fxFlex></span>
+            <div class="ar-buscar-search-menu" (click)="mostrarFiltroTexto=false; $event.stopPropagation();" *ngIf="frmDiagnosticos.controls.txtFiltro.valid"
+              fxLayoutAlign="center">
+              <i class="mdi mdi-menu-down"></i>
+            </div>
+            <div class="ar-buscar-search-menu" matTooltip="Limpiar" (click)="Clear()" fxLayoutAlign="center">
+              <i class="mdi mdi-close"></i>
+            </div>
+          </div>
+        </div>
+      </mat-toolbar>
+      <!-- Área de filtrado de la búsqueda -->
+      <div [hidden]="mostrarFiltroTexto" (clickOutside)="onClickedOutside($event)" class="ar-buscar-search" color="primary" fxLayoutAlign="center"
+        class="ar-buscar-filter-area">
+        <mat-card fxFlex="55" fxFlex.sm="80" fxFlex.xs="100" fxFlex.md="65" class="ar-buscar-toolbar-filter">
+          <div fxLayoutAlign="start center" mat-card-image class="ar-busqueda-search-header">
+            <span class="mat-caption ar-margin-left-sm ar-text-dark">Filtrado</span>
+            <span fxFlex></span>
+            <button class="ar-margin-right-xs" mat-icon-button (click)="CerrarFiltrosAutocompletar()">
+              <mat-icon class="ar-text-dark">close</mat-icon>
+            </button>
+          </div>
+          <div fxLayout="column">
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+              <div fxFlex="20" fxFlex.sm="30" fxHide.xs>
+                <span class="mat-caption ar-text-dark ar-margin-right-xs">Capítulos</span>
+              </div>
+              <div fxFlex="75" fxFlex.xs="100" fxLayoutAlign="start center">
+                <arca-autocomplete fxFlex="100" #capitulosAutoComplete Placeholder="Seleccione un capítulo" [Source]="catalogoCapitulos"
+                  (ItemSeleccionado)="SeleccionarCapitulo($event);">
+                </arca-autocomplete>
+                <button class="ar-margin-right-xs" mat-icon-button matTooltip="Limpiar capítulos" (click)="LimpiarCapitulosDelFormulario()">
+                  <mat-icon class="ar-text-dark">close</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+              <div fxFlex="20" fxFlex.sm="30" fxHide.xs>
+                <span class="mat-caption ar-text-dark ar-margin-right-xs">Grupos</span>
+              </div>
+              <div fxFlex="75" fxFlex.xs="100" fxLayoutAlign="start center">
+                <arca-autocomplete [Disable]="!capituloSeleccionado" fxFlex="100" #gruposAutoComplete Placeholder="Seleccione un grupo" [Source]="catalogoGrupos"
+                  (ItemSeleccionado)="SeleccionarGrupo($event);">
+                </arca-autocomplete>
+                <button class="ar-margin-right-xs" mat-icon-button matTooltip="Limpiar capítulos" (click)="LimpiarGruposDelFormulario()">
+                  <mat-icon class="ar-text-dark">close</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+              <div fxFlex="20" fxFlex.sm="30" fxHide.xs>
+                <span class="mat-caption ar-text-dark ar-margin-right-xs">Categorías</span>
+              </div>
+              <div fxFlex="75" fxFlex.xs="100" fxLayoutAlign="start center">
+                <arca-autocomplete [Disable]="!grupoSeleccionado" fxFlex="100" #categoriasAutoComplete Placeholder="Seleccione una categoría"
+                  [Source]="catalogoCategorias" (ItemSeleccionado)="SeleccionarCategoria($event)">
+                </arca-autocomplete>
+                <button class="ar-margin-right-xs" mat-icon-button matTooltip="Limpiar capítulos" (click)="LimpiarCategoriasDelFormulario()">
+                  <mat-icon class="ar-text-dark">close</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <mat-card-actions>
+            <span fxFlex></span>
+            <button mat-button class="ar-text-dark" (click)="Clear()">Restablecer</button>
+            <button mat-raised-button color="primary" (click)="Buscar()" [disabled]="!(frmDiagnosticos.controls.txtFiltro.valid)">Buscar</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </form>
+    <!-- Área de selección múltiple -->
+    <div fxLayout="column" fxFlex>
+      <div class="ar-buscar-multiple-container" fxLayout="row">
+        <div *ngFor="let item of itemSeleccionado; let idx=index;">
+          <div class="ar-buscar-multiple-card">
+            <div class="ar-buscar-multiple-card__label" fxLayoutAlign="start center">
+              <p class="ar-buscar-multiple-p">
+                {{item.cie10}}
+              </p>
+              <span fxFlex></span>
+              <button mat-icon-button (click)="QuitarItemSeleccionado(idx)">
+                <mat-icon class="ar-text-dark">close</mat-icon>
+              </button>
+            </div>
+            <div>
+              <p class="ar-buscar-multiple-card__body ar-text-dark">{{item.descripcion}}</p>
+            </div>
+          </div>
+        </div>
+        <!--Icono de items seleccionados vacios-->
+        <div *ngIf="itemSeleccionado.length === 0" fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <i class="mdi mdi-select ar-text-disabled-color ar-icon-md"></i>
+          </div>
+        </div>
+        <!-- ************************************************************************************ 
+                  Elementos de selección múltiple con avatar para uso de acuerdo a las necesidades de la aplicación
+                  donde se va a utilizar el componente de búsqueda.
+                ************************************************************************************ -->
+        <!-- <div class="ar-buscar-text" fxLayoutAlign="center center">
+              <div *ngFor="let item of itemSeleccionado; let idx=index;" class="ar-buscar-multiple-item" fxLayout="column" fxLayoutAlign="center center">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                  <div class="ar-buscar-multiple-circle-area">
+                    <div class="ar-buscar-multiple-item-close-circle" (click)="QuitarItemSeleccionado(idx)">
+                      <mat-icon class="ar-buscar-multiple-item-close">close</mat-icon>
+                    </div>
+                    <span class="ar-buscar-multiple-item-item-circle">{{item.cie10}}</span>
+                  </div>
+                </div>
+                <div class="ar-buscar-text">
+                  <span class="mat-caption ar-text-dark">{{item.descripcion}}</span>
+                </div>
+              </div>
+            </div> -->
+        <!-- Botones de navegación -->
+        <!-- <div class="prev">&#10094;</div>
+        <div class="next">&#10095;</div> -->
+      </div>
+      <!-- Área de listado de resultado de búsqueda -->
+      <div fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex="70" fxFlex.xs="95" fxFlex.md="85" fxFlex.sm="95">
+          <div fxLayout="column" class="ar-margin-top-xs">
+            <!--Mensaje vacio-->
+            <div *ngIf="mostrarInfoBusqueda" fxLayout="row" fxLayoutAlign="center center" class="ar-margin-percentage-sm">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <i class="material-icons ar-text-dark ar-icon-xmd">announcement</i>
+                <span class="mat-body-1 ar-text-dark ar-margin-top-xs">
+                  Buscar diagnósticos
+                </span>
+              </div>
+            </div>
+            <!--Mensaje error en la búsqueda-->
+            <div *ngIf="mostrarInfoError" fxLayout="row" fxLayoutAlign="center center" class="ar-margin-percentage-sm">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <i class="material-icons ar-text-dark ar-icon-xmd">highlight_off</i>
+                <span class="mat-body-1 ar-text-dark ar-margin-top-xs">
+                  Digitar 3 caracteres como mínimo
+                </span>
+              </div>
+            </div>
+            <mat-card *ngFor="let item of catalogoCIE10; let idx=index;" class="ar-text-dark ar-margin-bottom-xs ar-busqueda-card" fxLayout="row"
+              fxLayoutAlign="start center">
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <div fxHide.xs fxHide.sm>
+                    <span class="ar-buscar-card-circle">{{item.descripcion.substring(0,1)}}</span>
+                  </div>
+                  <div fxLayout="column">
+                    <span class="mat-caption ar-text-dark">{{item.cie10}} </span>
+                    <!-- <span class="mat-body-2">Nombre</span> -->
+                    <span class="ar-solicitud-subheading-1">{{item.descripcion}}</span>
+                  </div>
+                </div>
+              </div>
+              <span fxFlex></span>
+              <button class="ar-margin-left-sm" mat-icon-button (click)="SeleccionarItem(item, idx)">
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

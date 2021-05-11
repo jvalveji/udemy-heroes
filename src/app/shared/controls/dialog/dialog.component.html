@@ -1,0 +1,37 @@
+<!-- ***************************************************************
+[HTML /app/shared/controls/dialog/dialog.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2017
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Modificación: 05/2019 Adrián Fallas (afallasp@ccss.sa.cr) (diseño)
+*************************************************************** -->
+
+<!-- "Div" principal -->
+<div fxLayout="column" class="ar-dialog-area arca-dark-theme">
+  <!-- "Div" abarca los iconos y el header -->
+  <mat-toolbar class="ar-cantones-toolbar header-toolbar mat-elevation-z0 ar-text-secondary-white">
+    <div fxLayout="row" fxLayoutAlign="start center" [ngClass]="claseEstilo">
+      <i class="ar-dialog-icon material-icons">{{iconoEstilo}}</i>
+    </div>
+  </mat-toolbar>
+  <div fxLayout="column" fxLayoutAlign="center center" class="ar-margin-bottom-md">
+    <!-- Titulo del mensaje -->
+    <span class="mat-title ar-dialog-title" [innerHTML]="titulo"></span>
+    <!-- Mensaje principal -->
+    <span class="mat-body-1 ar-dialog-message" [innerHTML]="mensaje"></span>
+  </div>
+  <!-- "Div" contiene los botones de acuerdo al error -->
+  <div fxLayout="row" fxLayoutAlign="start center" class="ar-dialog-button ar-margin-top-md">
+    <span fxFlex></span>
+    <button class="ar-margin-right-xs" *ngIf="esOK" mat-stroked-button color="warn" (click)="Cerrar('OK')">Listo</button>
+    <button *ngIf="esYES" mat-stroked-button color="warn" (click)="Cerrar('YES')">Si</button>
+    <button class="ar-margin-left-xs ar-margin-right-xs" *ngIf="esNO" mat-stroked-button color="warn"
+      (click)="Cerrar('NO')">No</button>
+  </div>
+</div>

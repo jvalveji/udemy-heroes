@@ -1,0 +1,313 @@
+/*------------------------------------------------------------------
+[Master Stylesheet /main/home]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	07/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Rediseño:	11/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Modificado:	06/2018
+-------------------------------------------------------------------*/
+
+@import "styles.scss";
+
+html {
+	padding-top: 64px;
+	height: 100%;
+	font-family: Roboto;
+	display: flex;
+}
+
+.ar-core-card:hover {
+	cursor: pointer;
+	-ms-transform: translateY(-1.2px) translateZ(0);
+	/* IE 9 */
+	-webkit-transform: translateY(-1.2px) translateZ(0);
+	/* Chrome, Safari, Opera */
+	transform: translateY(-1.2px) translateZ(0);
+	-webkit-transition: ease, transform 0.2s ease;
+	/* Safari */
+	transition: ease, transform 0.2s ease;
+}
+
+.ar-core-header-circle {
+	background: #cccccc;
+	border-radius: 0.8em;
+	-moz-border-radius: 0.8em;
+	-webkit-border-radius: 0.8em;
+	color: #ffffff;
+	display: inline-block;
+	font-weight: bold;
+	line-height: 1.6em;
+	margin-right: 24px;
+	text-align: center;
+	width: 1.6em;
+	font-size: 24px;
+}
+
+.ar-core-card:hover .ar-core-header-circle {
+	background-color: #ffb300 !important;
+	color: rgba(0, 0, 0, 0.87) !important;
+	transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;
+}
+
+.ar-core-headline {
+	font-size: 1.5rem;
+	margin: 0 0 16px;
+}
+
+/*Tarjetas de recetas*/
+
+.ar-core-card-area {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.ar-core-card {
+	cursor: pointer;
+	flex: 1 0 500px;
+	box-sizing: border-box;
+	margin: 0.25rem 0.25em;
+	outline: none !important;
+}
+
+/* The media queries are where the number of cards is determined: */
+@media screen and (min-width: 20em) {
+	.ar-core-card {
+		max-width: calc(100% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 30em) {
+	.ar-core-card {
+		max-width: calc(100% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 40em) {
+	.ar-core-card {
+		max-width: calc(50% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 60em) {
+	.ar-core-card {
+		max-width: calc(50% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 64em) {
+	.ar-core-card {
+		max-width: calc(25% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 80em) {
+	.ar-core-card {
+		max-width: calc(25% - 0.5em);
+	}
+}
+
+// Titulares
+
+.ar-justificacion-title {
+	@include font(18, 3);
+	font-weight: 800;
+	font-family: "Mada", sans-serif;
+}
+
+// Titulares
+
+.ar-core-hour {
+	@include font(36, 3);
+	font-weight: 800;
+	font-family: "Mada", sans-serif;
+}
+
+// Párrafos
+
+.ar-justificacion-paragraph {
+	@include font(16, 10);
+	font-weight: 400;
+	font-family: "Mada", sans-serif;
+}
+
+.ar-justificacion-paragraph-footer {
+	@include font(12, 10);
+	font-weight: 300;
+	font-family: "Mada", sans-serif;
+}
+
+.ar-justificacion-paragraph-keywords {
+	@include font(14, 10);
+	font-weight: 300;
+	font-family: "Mada", sans-serif;
+}
+
+.ar-core-card {
+	flex: 1 0 500px;
+	box-sizing: border-box;
+	// margin: 0.05rem 0.05em;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	text-decoration: none;
+	outline: none;
+}
+
+.ar-core-card-item {
+	// border: 1px solid rgba(0, 0, 0, 0.16);
+	// background: rgba(255, 255, 255, 0.08);
+	// border: 1px solid rgba(0, 0, 0, 0.16);
+	background-color: rgba(var(--ar-color-black), 0.08);
+	@include border-radius(8px);
+	width: 60px;
+	height: 60px;
+	outline: none;
+}
+
+.ar-core-card-text {
+	text-align: center;
+	-moz-text-align-last: center;
+	text-align-last: center;
+	font-size: 12px;
+}
+
+/* The media queries are where the number of cards is determined: */
+
+@media screen and (min-width: 20em) {
+	.ar-core-card {
+		max-width: calc(20% - 0.5em);
+		/* max-width: 94px;
+   max-height: 94px; */
+	}
+}
+
+@media screen and (min-width: 30em) {
+	.ar-core-card {
+		max-width: calc(16% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 40em) {
+	.ar-core-card {
+		max-width: calc(14% - 1.5em);
+	}
+}
+
+@media screen and (min-width: 60em) {
+	.ar-core-card {
+		max-width: calc(12% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 64em) {
+	.ar-core-card {
+		max-width: calc(10% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 80em) {
+	.ar-core-card {
+		max-width: calc(10.3% - 0.5em);
+	}
+}
+
+.ar-core-card-news:hover {
+	cursor: pointer;
+	-ms-transform: translateY(-1.2px) translateZ(0);
+	/* IE 9 */
+	-webkit-transform: translateY(-1.2px) translateZ(0);
+	/* Chrome, Safari, Opera */
+	transform: translateY(-1.2px) translateZ(0);
+	-webkit-transition: ease, transform 0.2s ease;
+	/* Safari */
+	transition: ease, transform 0.2s ease;
+}
+
+.ar-core-header-circle {
+	background: #cccccc;
+	border-radius: 0.8em;
+	-moz-border-radius: 0.8em;
+	-webkit-border-radius: 0.8em;
+	color: #ffffff;
+	display: inline-block;
+	font-weight: bold;
+	line-height: 1.6em;
+	margin-right: 24px;
+	text-align: center;
+	width: 1.6em;
+	font-size: 24px;
+}
+
+.ar-core-card-news:hover .ar-core-header-circle {
+	background-color: #ffb300 !important;
+	color: rgba(0, 0, 0, 0.87) !important;
+	transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;
+}
+
+.ar-core-headline {
+	font-size: 1.5rem;
+	margin: 0 0 16px;
+}
+
+/*Tarjetas de recetas*/
+
+.ar-core-card-news-area {
+	display: flex;
+	// flex-wrap: wrap;
+}
+
+.ar-core-card-news {
+	cursor: pointer;
+	// flex: 1 0 500px;
+	box-sizing: border-box;
+	margin: 0.25rem 0.25em;
+	outline: none !important;
+	background-color: rgba(var(--ar-color-black), 0.08);
+	min-height: 200px;
+	// background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.06)) !important;
+}
+
+/* The media queries are where the number of cards is determined: */
+@media screen and (min-width: 20em) {
+	.ar-core-card-news {
+		max-width: calc(100% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 30em) {
+	.ar-core-card-news {
+		max-width: calc(100% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 40em) {
+	.ar-core-card-news {
+		max-width: calc(100% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 60em) {
+	.ar-core-card-news {
+		max-width: calc(100% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 64em) {
+	.ar-core-card-news {
+		max-width: calc(100% - 0.5em);
+	}
+}
+
+@media screen and (min-width: 80em) {
+	.ar-core-card-news {
+		max-width: calc(100% - 0.5em);
+	}
+}

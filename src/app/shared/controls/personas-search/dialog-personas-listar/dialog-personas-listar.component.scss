@@ -1,0 +1,51 @@
+@import "styles.scss";
+.ar-dialog-main {
+	padding-top: 0;
+	height: 100%;
+	font-family: Roboto;
+	background-color: #2B2B32 !important;
+	overflow: hidden;
+}
+
+/* Estilos del toolbar principal */
+
+.ar-dialog-toolbar {
+	z-index: 10;
+	background-color: #2B2B32;
+	font-weight: 350;
+	color: #fff !important;
+	padding-top: 10px;
+	padding-right: 30px;
+}
+
+/* Estilos texto de header del expansion panel  */
+
+.ar-dialog-text-header {
+	font-family: 'Mada', sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.87);
+	-webkit-font-smoothing: antialiased;
+}
+
+.ar-dialog-expansion-header {
+	cursor: pointer;
+	height: 74px;
+	padding: 15px;
+	border-radius: 2px;
+	outline: 0 !important;
+	background-color: #2B2B32;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+}
+
+.ar-dialog-expansion-header:hover {
+	background-color: rgba(0, 0, 0, 0.04) !important;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+.ar-dialog-icon-list {
+	font-size: 30px;
+	color: rgba(255, 255, 255, 0.87);
+}

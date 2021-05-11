@@ -1,0 +1,144 @@
+@import "styles.scss";
+/* -----------------------------------------------------------------------------------------------
+[Master Stylesheet /admin/catalogos/paths/paths.component.scss]
+
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  01/2018
+Asignado a: Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño: 10/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+----------------------------------------------------------------------------------------------- */
+
+/* Estilos de la vista general */
+
+.ar-page {
+  padding-top: 0px;
+  height: 100%;
+  font-family: Roboto;
+  background-color: #ECEFF1 !important;
+}
+
+/* Estilos del toolbar principal */
+
+.ar-paths-toolbar {
+  z-index: 10;
+  background-color: #ECEFF1;
+}
+
+.ar-paths-toolbar span {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Estilos de la barra de búsqueda de ítems */
+
+.ar-paths-search {
+  background: #fff;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+  height: 48px;
+}
+
+.ar-paths-search:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 9px rgba(0, 0, 0, 0.16);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.ar-paths-input-search {
+  border: none;
+  font: normal 14px Roboto, sans-serif;
+  -webkit-font-variant-ligatures: none;
+  font-variant-ligatures: none;
+  height: 44px;
+  outline: none;
+  padding: 0px 0 0px 16px;
+  width: 100%;
+  background: transparent;
+}
+
+.ar-paths-bar-menu {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.54) !important;
+  border-radius: 2px 0 0 2px;
+  -webkit-border-radius: 2px 0 0 2px;
+  border: 0;
+  margin-right: 0;
+  margin-left: 0;
+  display: inline-block;
+  outline: none;
+  padding: 0 12px 0px 12px;
+  height: 48px;
+}
+
+/* Estilos header panel de expansion */
+
+mat-expansion-panel-header {
+  min-height: 64px !important;
+}
+
+.ar-paths-bar-menu:hover {
+  background-color: #f5f5f5 !important;
+}
+
+.ar-paths-bar-menu i {
+  margin-top: 8px;
+}
+
+/* Estilos header div */
+
+.ar-paths-area-items {
+  min-height: 76px !important;
+}
+
+.ar-paths-item {
+  cursor: pointer;
+  height: 74px;
+  padding: 15px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  outline: 0 !important;
+  background-color: #fff !important;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+/* Estilos avatar circle */
+
+.ar-paths-circle {
+  background: #cccccc;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 24px;
+  text-align: center;
+  width: 1.6em;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.ar-paths-item:hover .ar-paths-circle {
+  background: #FFB300;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.ar-paths-item:hover {
+  background-color: #fcfcfc !important;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}

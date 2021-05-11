@@ -1,0 +1,159 @@
+<!--Contenedor del Sidenav-->
+<mat-sidenav-container fullscreen class="{{temaApp}}">
+	<!--Toolbar-->
+	<mat-toolbar color="primary" class="ar-header-toolbar mat-elevation-z0">
+		<!-- Etiqueta flotante para indicar el ambiente actual -->
+		<div *ngIf="ambienteActual" class="ar-label">
+			<div class="ar-label-container">
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<div class="ar-elevation-03 icon" fxLayoutAlign="center center">
+						<i class="mdi mdi-alert ar-icons-sm"></i>
+					</div>
+					<div class="text ar-elevation-03 ar-margin-left-sm" fxLayoutAlign="center center">
+						<span class="ar-color-54">AMBIENTE DE {{ambienteActual}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<a mat-icon-button (click)="sidenav.toggle()">
+			<img [src]="UrlWebkit + '/images/about/arca.svg' | safeURL" width="24" height="24">
+		</a>
+		<span class="ar-margin-left-xs ar-color-87 ar-arca-logo">arca</span>
+		<span fxFlex></span>
+		<!--Contenido dińamico con las opciones del toolbar para el módulo específico-->
+		<ng-content select="toolbar"></ng-content>
+		<div class="ar-toolbar-line ar-margin-left-xs ar-elevation-24"></div>
+		<!-- Menú de notificaciones de chat y alertas del sistema -->
+		<button mat-icon-button [matMenuTriggerFor]="alertasMensajes" class="ar-margin-left-xs">
+			<mat-icon *ngIf="mensajesEntrantes.length>0" class="ar-text-red" matBadge="+" matBadgeColor="warn">
+				notifications
+			</mat-icon>
+			<!-- Icono de notificación cuando no hay nuevos mensajes o alertas -->
+			<mat-icon *ngIf="mensajesEntrantes.length===0" class="ar-color-87">notifications_none</mat-icon>
+		</button>
+		<!-- Área de notificaciones -->
+		<mat-menu #alertasMensajes="matMenu" class="ar-chat-menu" yPosition="below" [overlapTrigger]="false">
+			<div fxLayout="row" fxLayoutAlign="start center" class="ar-text-dark ar-margin-left-xs ar-margin-right-xs">
+				<i class="mdi mdi-hexagon ar-icons-xs"></i>
+				<span class="ar-arca-logo ar-margin-left-xxs">arca</span>
+				<span class="mat-caption ar-margin-left-xs">Mensajería</span>
+				<span fxFlex></span>
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<i class="mdi mdi-arrow-expand ar-icons-xs"></i>
+				</div>
+			</div>
+			<div>
+				<perfect-scrollbar perfect-scrollbar="useBothWheelAxes"
+					class="ar-margin-top-xs ar-chat-content ar-chat-arca-background">
+					<!-- Mensaje vacío -->
+					<div fxLayout="column" fxLayoutAlign="center center" class="ar-text-dark ar-margin-top-lg"
+						*ngIf="mensajesEntrantes || chatsEntrantes">
+						<i class="mdi mdi-message-bulleted-off ar-icon-sm ar-margin-top-md"></i>
+						<span class="mat-caption">No hay mensajes</span>
+					</div>
+					<button mat-menu-item class="ar-chat-item" *ngFor="let _mensaje of mensajesEntrantes"
+						(click)="MostrarChat(_mensaje)">
+						<div fxLayout="row" fxLayoutAlign="start center">
+							<mat-icon>chat</mat-icon>
+							<div fxLayout="column" style="width: 220px;">
+								<span class="mat-caption">{{_mensaje.logs.created.nombre}}</span>
+								<span class="ar-truncate ar-text-dark">{{_mensaje.mensaje}}</span>
+							</div>
+						</div>
+					</button>
+					<button mat-menu-item class="ar-chat-item" *ngFor="let _chat of chatsEntrantes"
+						(click)="MostrarChat(_chat)">
+						<div fxLayout="row" fxLayoutAlign="start center">
+							<mat-icon>chat</mat-icon>
+							<div fxLayout="column" style="width: 220px;">
+								<span class="mat-caption">{{_chat.usuario}}</span>
+								<span class="ar-truncate ar-text-dark">{{_chat.mensaje}}</span>
+							</div>
+						</div>
+					</button>
+				</perfect-scrollbar>
+			</div>
+		</mat-menu>
+	</mat-toolbar>
+	<!--Sidenav-->
+	<mat-sidenav #sidenav mode="over" opened="false" class="ar-sidenav-profile">
+		<!--Toolbar del Sidenav-->
+		<mat-toolbar color="primary" class="ar-sidenav-toolbar">
+			<i class="mdi mdi-hexagon ar-icons-sm ar-arca-hex"></i>
+			<span style="margin-bottom:3px; font-size: 12px;" class="ar-margin-left-xs ar-color-54">Plataforma Arca (CCSS)</span>
+			<span fxFlex></span>
+			<a mat-icon-button (click)="sidenav.toggle()">
+				<mat-icon class="ar-color-54">keyboard_arrow_left</mat-icon>
+			</a>
+		</mat-toolbar>
+		<!-- Área de ávatar -->
+		<div fxLayoutAlign="start center" fxLayout="row" class="ar-sidenav-exit-area ar-margin-top-xs">
+			<div class="ar-sidenav-avatar-person">
+				<i class="material-icons">account_circle</i>
+				<!-- <img src="https://www.gravatar.com/avatar/ad2b41613c8702b5372bbdc9a8107040?d=identicon" /> -->
+			</div>
+			<div fxLayout="column">
+				<span class="ar-sidenav-name">{{nombreCompletoUsuario}}</span>
+				<span class="ar-sidenav-place">{{nombreUnidadProgramatica}}</span>
+			</div>
+		</div>
+		<div class="ar-sidenav-line"></div>
+		<!--Contenido dińamico con las opciones del menú para el módulo específico-->
+		<div class="ar-sidenav-area">
+			<perfect-scrollbar>
+				<ul class="ar-sidenav-menu">
+					<!-- Modo claro/oscuro -->
+					<li fxLayout="row" fxLayoutAlign="start center" (click)="CambiarTema()">
+						<div class="ar-margin-right-xs">
+							<i
+								class="mdi mdi-weather-{{(temaApp==='ar-theme-dark arca-dark-theme')? 'night':'sunny'}} ar-icons-sm ar-color-54"></i>
+						</div>
+						<div fxLayoutAlign="start center">
+							<span>Modo {{ (temaApp==='ar-theme-dark arca-dark-theme')? 'oscuro':'claro' }}
+								<sup>Beta</sup></span>
+						</div>
+						<span fxFlex></span>
+						<div class="ar-margin-right-xs">
+							<i
+								class="mdi mdi-toggle-switch{{(temaApp==='ar-theme-dark arca-dark-theme')? '':'-off'}}-outline ar-icons-sm ar-color-54"></i>
+						</div>
+					</li>
+					<!-- Cambio de contraseña -->
+					<li fxLayout="row" fxLayoutAlign="start center" (click)="CambiarPassword()">
+						<div class="ar-margin-right-xs">
+							<i class="mdi mdi-lock-reset ar-icons-sm ar-color-54"></i>
+						</div>
+						<div fxLayoutAlign="start center">
+							<span>Cambiar contraseña</span>
+						</div>
+					</li>
+				</ul>
+			</perfect-scrollbar>
+		</div>
+		<div class="ar-sidenav-footer-menu">
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<div class="ar-sidenav-footer-item ar-color-54">
+					<a href="https://serviciostic.ccss.sa.cr:8553/CAisd/pdmweb.exe" target="_blank" style="text-decoration: none;">
+						<div>
+							<span class="ar-margin-left-xs">Soporte</span>
+						</div>
+					</a>
+				</div>
+				<div class="ar-sidenav-footer-item ar-color-54">
+					<span>•</span>
+				</div>
+				<div class="ar-sidenav-footer-item ar-color-54">
+					<div (click)="IrAbout()">
+						<span>Acerca</span>
+					</div>
+				</div>
+				<span fxFlex></span>
+				<button mat-stroked-button class="ar-sidenav-button ar-margin-right-sm ar-border-38"
+					(click)="LogOut()">Salir</button>
+			</div>
+		</div>
+	</mat-sidenav>
+	<!--Contenido dińamico para incluir el módulo de RUTAS-->
+	<ng-content select="visor">
+	</ng-content>
+</mat-sidenav-container>

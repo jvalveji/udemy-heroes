@@ -1,0 +1,116 @@
+<!-- *************************************************************
+[HTML /app/core/admin/token/token.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	03/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+ Modificado: 10/2018 Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+************************************************************* -->
+
+<html class="ar-page ar-background" fullscreen fxLayout="column">
+<div fxFlex fxLayout="column" layout>
+	<!-- Toolbar principal -->
+	<mat-toolbar class="ar-toolbar mat-elevation-z0">
+		<button mat-icon-button (click)="IrPaginaAnterior()">
+			<mat-icon>arrow_back</mat-icon>
+		</button>
+		<span class="ar-margin-left-xs">Generador de tokens</span>
+	</mat-toolbar>
+	<div class="ar-progressbar">
+		<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+	</div>
+	<perfect-scrollbar fxFlex class="ar-content" fxLayoutAlign="center start">
+		<div fxLayoutAlign="center">
+			<div fxLayout="column" fxFlex="70" fxFlex.md="80" fxFlex.sm="90" fxFlex.xs="100">
+				<div fxLayout="column">
+					<!-- Card que contiene todo el contenido principal de la vista -->
+					<mat-card fxLayout="column" class="ar-margin-top-md ar-background mat-elevation-z0 ar-border-12">
+						<!-- Formulario de la vista -->
+						<form fxLayout="column" [formGroup]="frmGeneradorTokens" (ngSubmit)="Solicitar()">
+							<!-- Div con los campos de cantidad y tipo de tiempo -->
+							<div fxLayout="column">
+								<div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column"
+									fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.xs="none"
+									fxLayoutAlign.sm="none">
+									<!-- Input para el valor de tiempo -->
+									<div fxFlex="50" fxLayoutAlign="center center">
+										<mat-form-field fxFlex appearance="outline">
+											<mat-label>Cantidad de tiempo</mat-label>
+											<input matInput type="number" placeholder="Cantidad de tiempo"
+												formControlName="ttl" min=1>
+											<mat-error *ngIf="frmGeneradorTokens.get('ttl')?.invalid">Rangos: Min(1) -
+												Máx(60)</mat-error>
+										</mat-form-field>
+									</div>
+									<!-- Selección de tipo de tiempo -->
+									<div fxFlex="50">
+										<mat-radio-group fxFlex formControlName="medida" fxLayout="row"
+											fxLayoutAlign="center center" fxLayoutAlign.xs="start center">
+											<mat-radio-button class="ar-margin-right-xs" value="m">
+												<span class="ar-color-54">Minutos</span>
+											</mat-radio-button>
+											<mat-radio-button class="ar-margin-right-xs" value="h">
+												<span class="ar-color-54">Horas</span>
+											</mat-radio-button>
+											<mat-radio-button class="ar-margin-right-xs" value="d">
+												<span class="ar-color-54">Días</span>
+											</mat-radio-button>
+											<mat-radio-button value="a"><span class="ar-color-54">Años</span>
+											</mat-radio-button>
+										</mat-radio-group>
+									</div>
+								</div>
+							</div>
+							<!-- Campo textfield de observaciones -->
+							<div class="ar-margin-bottom-sm ar-margin-top-xs">
+								<mat-form-field fxFlex appearance="outline">
+									<mat-label>Payload (data en formato JSON)</mat-label>
+									<textarea matInput matTextareaAutosize formControlName="payload" matTextareaAutosize
+										matAutosizeMinRows="3" placeholder="Payload (data en formato JSON)"></textarea>
+									<mat-hint>
+										<span>Ejemplo: &#123; up: &#123; idUP: 9999 &#125;, user: &#123; usuario:
+											'username'
+											&#125;&#125;</span>
+									</mat-hint>
+								</mat-form-field>
+							</div>
+							<!-- Botón para generar token -->
+							<div fxFlex="100" fxLayoutAlign="center center">
+								<button fxFlex="50" class="ar-margin-bottom-xs" matTooltip="Generar" mat-raised-button
+									color="primary" type="submit" [disabled]="frmGeneradorTokens.invalid">Generar
+									Token</button>
+							</div>
+						</form>
+						<!-- Card que contiene el texto del token generado -->
+						<div class="ar-margin-top-sm">
+							<div fxLayout="column">
+								<div class="ar-margin-bottom-sm" fxlayout="row" fxLayoutAlign="start center">
+									<span class="mat-title ar-margin-bottom-none">Token:</span>
+									<span fxFlex></span>
+									<!-- Botón para copiar el texto del token -->
+									<button [disabled]="!token" matTooltip="Copiar texto" mat-icon-button
+										(click)="Copiar()">
+										<mat-icon class="ar-color-54">content_copy</mat-icon>
+									</button>
+								</div>
+								<!-- Texto del token generado -->
+								<mat-form-field fxFlex appearance="outline">
+									<textarea matInput matTextareaAutosize class="ar-token-text ar-color-54"
+										id="tokenGenerado" matTextareaAutosize matAutosizeMinRows="6"
+										[innerHTML]="token" readonly></textarea>
+								</mat-form-field>
+							</div>
+						</div>
+					</mat-card>
+				</div>
+			</div>
+		</div>
+	</perfect-scrollbar>
+</div>
+
+</html>

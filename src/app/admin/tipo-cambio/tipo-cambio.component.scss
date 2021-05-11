@@ -1,0 +1,202 @@
+/* ****************************************************************************
+[Master Stylesheet /admin/catalogos/bancos/tipo-cambio.component.scss]
+
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  03/2020
+Asignado a: Adrián Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+ 
+**************************************************************************** */
+
+@import "styles.scss";
+
+/* Estilos de la vista general */
+
+.ar-page {
+	padding-top: 0;
+	height: 100%;
+	font-family: Roboto;
+}
+
+.ar-tipo-cambio-day__number {
+	line-height: 20px;
+	&--number {
+		font-size: 1.8rem;
+		font-family: "Mada", sans-serif;
+	}
+	&--text {
+		font-size: 1rem;
+		font-family: "Mada", sans-serif;
+	}
+}
+
+.ar-tipo-cambio-vertical-line {
+	border: none;
+	border-left: 1px solid;
+	height: 50%;
+	width: 1px;
+}
+
+.ar-tipo-cambio-card-headband {
+	&--ubicacion-01 {
+		background-color: rgba(var(--ar-color-blue), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-02 {
+		background-color: rgba(var(--ar-color-yellow), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-03 {
+		background-color: rgba(var(--ar-color-orange), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-04 {
+		background-color: rgba(var(--ar-color-teal), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-05 {
+		background-color: rgba(var(--ar-color-purple), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-06 {
+		background-color: rgba(var(--ar-color-green), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-07 {
+		background-color: rgba(var(--ar-color-cyan), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-08 {
+		background-color: rgba(var(--ar-color-amber), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-09 {
+		background-color: rgba(var(--ar-color-deep-orange), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-10 {
+		background-color: rgba(var(--ar-color-deep-purple), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-11 {
+		background-color: rgba(var(--ar-color-pink), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-12 {
+		background-color: rgba(var(--ar-color-indigo), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-13 {
+		background-color: rgba(var(--ar-color-light-blue), 0.92) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+	&--ubicacion-14 {
+		background-color: rgba(var(--ar-color-light-green), 0.921) !important;
+		min-height: 5px !important;
+		max-height: 5px !important;
+		margin: -16px -16px 16px -16px !important;
+		@include border-radius(4px 4px 0 0);
+	}
+}
+
+.ar-tipo-cambio-date {
+	font-family: "Mada", sans-serif;
+	font-size: 11px;
+}
+
+/*Tarjetas de recetas*/
+
+.ar-core-card-area {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.ar-core-card {
+	cursor: pointer;
+	flex: 1 0 400px;
+	box-sizing: border-box;
+	margin: 0.5rem 0.5em;
+	@include border-radius(8px);
+	outline: none;
+	@include box-shadow(none);
+}
+
+/* The media queries are where the number of cards is determined: */
+
+@media screen and (min-width: 20em) {
+	.ar-core-card {
+		max-width: calc(100% - 1em);
+	}
+}
+
+@media screen and (min-width: 30em) {
+	.ar-core-card {
+		max-width: calc(100% - 1em);
+	}
+}
+
+@media screen and (min-width: 40em) {
+	.ar-core-card {
+		max-width: calc(50% - 1em);
+	}
+}
+
+@media screen and (min-width: 60em) {
+	.ar-core-card {
+		max-width: calc(50% - 1em);
+	}
+}
+
+@media screen and (min-width: 64em) {
+	.ar-core-card {
+		max-width: calc(33% - 1em);
+	}
+}
+
+@media screen and (min-width: 80em) {
+	.ar-core-card {
+		max-width: calc(33% - 1em);
+	}
+}

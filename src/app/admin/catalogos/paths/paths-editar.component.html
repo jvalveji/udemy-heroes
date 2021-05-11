@@ -1,0 +1,187 @@
+<!-- -----------------------------------------------------------------------------------------------
+[Master Stylesheet /admin/catalogos/paths/paths-editar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	01/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño: 09/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+----------------------------------------------------------------------------------------------- -->
+
+<div class="ar-page" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-paths-toolbar header-toolbar mat-elevation-z1 ar-text-dark">
+			<button mat-icon-button class="ar-margin-right-xs" (click)="estadoTabPaths ? estadoTabPaths=false : IrPaginaAnterior()"
+			 (click)="txtFiltro=null;">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span fxHide.xs>Catálogo paths</span>
+			<span fxFlex></span>
+			<ng-container *ngIf="estadoTabPaths">
+				<button disabled mat-stroked-button mat-button *ngIf="!esEditado">Listo</button>
+				<button matTooltip="Guardar cambios" mat-stroked-button mat-button *ngIf="esEditado" (click)="Guardar()">Listo</button>
+			</ng-container>
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<div class="ar-progressbar">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Toolbar con input de búsqueda -->
+		<ng-container *ngIf="!estadoTabPaths">
+			<div class="ar-paths-bar">
+				<div ngClass="ar-paths-search" ngClass.xs="ar-paths-search ar-margin-top-sm" fxFlex="40" fxFlex.sm="80" fxFlex.md="65"
+				 fxFlex.xs="95">
+					<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+						<input class="ar-paths-input-search" placeholder="Buscar o agregar ítem" [(ngModel)]="txtFiltro">
+						<span fxFlex></span>
+						<div class="ar-paths-bar-menu" (click)="txtFiltro=null;" matTooltip="Limpiar" fxLayoutAlign="center">
+							<i class="mdi mdi-close ar-icon-xs"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+		<!-- Inicio listado de ítems -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-top-xs ar-padding-bottom-lg">
+					<!-- Div con cada uno de los ítems del catálogo -->
+					<ng-container *ngIf="!estadoTabPaths">
+						<div *ngFor="let item of aplicaciones | filtrarNombre: txtFiltro" (click)="ObtenerPaths(item._id)">
+							<div class="ar-paths-area-items">
+								<div class="ar-paths-item" fxLayoutAlign="start center">
+									<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+										<div>
+											<span class="ar-paths-circle">{{item.nombre | slice:0:1}}</span>
+										</div>
+										<div fxLayout="column">
+											<span class="mat-body-2">{{item.nombre}}</span>
+											<span fxHide.xs class="mat-caption ar-text-dark">{{item.descripcion}}</span>
+										</div>
+										<span fxFlex></span>
+										<button mat-icon-button class="ar-text-dark">
+											<mat-icon>chevron_right</mat-icon>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+					<!-- Div sub-ítems de cada catálogo seleccionado -->
+					<ng-container *ngIf="estadoTabPaths">
+						<form fxLayout="column" [formGroup]="frmPaths" (ngSubmit)="AgregarItem()">
+							<!-- Segmento con los inputs de id y nombre -->
+							<mat-card fxLayout="column" class="ar-margin-bottom-xs">
+								<div fxLayout.xs="column" fxFlex="100">
+									<div fxFlex="30">
+										<mat-form-field fxFlex>
+											<input class="ar-text-dark" matInput placeholder="Id" formControlName="idPath">
+										</mat-form-field>
+									</div>
+									<div fxFlex="35" fxLayout="row" fxLayoutAlign=" center" ngClass="ar-margin-left-sm" ngClass.xs="ar-margin-left-none">
+										<mat-form-field fxFlex>
+											<input class="ar-text-dark" matInput placeholder="Nombre" formControlName="nombre">
+										</mat-form-field>
+									</div>
+									<div fxFlex="35" fxLayout="row" fxLayoutAlign=" center" ngClass="ar-margin-left-sm" ngClass.xs="ar-margin-left-none">
+										<mat-form-field fxFlex>
+											<input class="ar-text-dark" matInput placeholder="Path (ruta)" formControlName="path">
+										</mat-form-field>
+									</div>
+								</div>
+								<div fxLayout.xs="column" fxFlex="100">
+									<div fxFlex="70">
+										<mat-form-field fxFlex>
+											<input class="ar-text-dark" type="text" matInput placeholder="Descripción" formControlName="descripcion">
+										</mat-form-field>
+									</div>
+									<div fxLayout="row" fxLayoutAlign="center" ngClass="ar-margin-left-sm" ngClass.xs="ar-margin-left-none">
+										<mat-form-field fxFlex>
+											<input class="ar-text-dark" type="text" matInput placeholder="Icono" formControlName="icono" matTooltip="Referencia -> https://materialdesignicons.com/">
+										</mat-form-field>
+										<i fxFlex class="mdi mdi-24px {{ frmPaths.get('icono').value }}"></i>
+									</div>
+									<button type="button" class="ar-text-dark" mat-icon-button matTooltip="Limpiar campos" (click)="Limpiar()">
+										<mat-icon fxFlex>delete_sweep</mat-icon>
+									</button>
+									<button *ngIf="indice===null" class="ar-text-dark" mat-icon-button matTooltip="Agregar Path" type="submit"
+									 [disabled]="!frmPaths.valid">
+										<mat-icon fxFlex>add</mat-icon>
+									</button>
+									<!-- <button *ngIf="indice!==null" class="ar-text-dark" mat-icon-button matTooltip="Actualizar Path">
+										<mat-icon>cached</mat-icon>
+									</button> -->
+								</div>
+							</mat-card>
+						</form>
+						<!-- Inicio del acordeón -->
+						<mat-accordion *ngIf="true">
+							<mat-expansion-panel *ngFor="let item of paths; let i = index">
+								<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center">
+									<mat-panel-title class="ar-text-dark">
+										<div fxLayoutAlign="start center">
+											<div fxLayoutAlign="start center">
+												<div>
+													<span class="ar-paths-circle" *ngIf="!item.estado">{{item.nombre | slice:0:1}}</span>
+													<span class="ar-paths-circle ar-green" *ngIf="item.estado">{{item.nombre | slice:0:1}}</span>
+												</div>
+												<span class="mat-body-1 ar-text-uppercase"> {{item.nombre}} </span>
+											</div>
+										</div>
+									</mat-panel-title>
+								</mat-expansion-panel-header>
+								<!-- Input editar ítem -->
+								<div fxLayout="column">
+									<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+										<div fxFlex="30" fxLayoutAlign="start center">
+											<mat-form-field fxFlex appearance="fill">
+												<input matInput placeholder="Id del ítem" [value]="item.idPath" disabled>
+											</mat-form-field>
+										</div>
+										<div fxFlex="35" fxLayoutAlign="start center">
+											<mat-form-field fxFlex ngClass="ar-padding-left-xs" ngClass.xs="ar-padding-left-none" appearance="fill">
+												<input matInput (keyup)="EsEditarItem()" placeholder="Nombre del ítem" [(ngModel)]="paths[i].nombre">
+											</mat-form-field>
+										</div>
+										<div fxFlex="35" fxLayoutAlign="start center">
+											<mat-form-field fxFlex ngClass="ar-padding-left-xs" ngClass.xs="ar-padding-left-none" appearance="fill">
+												<input matInput (keyup)="EsEditarItem()" placeholder="Ruta o path" [(ngModel)]="paths[i].path">
+											</mat-form-field>
+										</div>
+									</div>
+									<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+										<div fxFlex="70" fxLayoutAlign="start center">
+											<mat-form-field fxFlex ngClass="ar-padding-left-xs" ngClass.xs="ar-padding-left-none" appearance="fill">
+												<input matInput (keyup)="EsEditarItem()" placeholder="Descripción del ítem" [(ngModel)]="paths[i].descripcion">
+											</mat-form-field>
+										</div>
+										<div fxFlex="5" fxLayoutAlign="start center">
+											<mat-form-field fxFlex ngClass="ar-padding-left-xs" ngClass.xs="ar-padding-left-none" appearance="fill">
+												<input matInput (keyup)="EsEditarItem()" placeholder="Icono ítem" [(ngModel)]="paths[i].icono">
+											</mat-form-field>
+											<i fxFlex class="mdi mdi-24px {{ paths[i].icono }}"></i>
+										</div>
+									</div>
+								</div>
+								<!-- Menú de aciones -->
+								<mat-action-row class="ar-text-dark">
+									<button mat-button color="warn" *ngIf="item.estado" (click)="ActualizarEstadoItem(i)">Deshabilitar</button>
+									<button mat-button class="ar-text-green" *ngIf="!item.estado" (click)="ActualizarEstadoItem(i)">Habilitar</button>
+									<!-- Botón de Eliminar path -->
+									<button *ngIf="esAdministrador" class="ar-text-dark" mat-icon-button matTooltip="Eliminar Path" (click)="EliminarItem(i)">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</mat-action-row>
+							</mat-expansion-panel>
+						</mat-accordion>
+					</ng-container>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+</div>

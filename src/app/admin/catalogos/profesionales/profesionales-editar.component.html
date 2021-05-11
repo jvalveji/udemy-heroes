@@ -1,0 +1,107 @@
+<div class="ar-page" fullscreen fxLayout="column">
+  <div fxFlex fxLayout="column" layout>
+    <mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+    <!-- Toolbar principal de edición -->
+    <mat-toolbar class="mat-elevation-z1 ar-text-dark" style="z-index:10;">
+      <button mat-icon-button (click)="IrPaginaAnterior()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="">Profesionales</span>
+      <span fxFlex></span>
+      <button class="ar-text-dark" mat-icon-button matTooltip="Guardar cambios">
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-toolbar>
+    <!-- Toolbar secundario -->
+    <div class="ar-identificacion-title ar-padding-left-sm ar-text-dark ar-padding-top-xs ar-padding-bottom-xs" fxLayout="row"
+      fxLayoutAlign="center center">
+      <mat-icon fxHide.xs class="ar-margin-right-sm">folder</mat-icon>
+      <div fxLayout="column" fxLayoutAlign="center start">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span class="mat-body-2">Nombre: {{catalogo?.nombre }}</span>
+        </div>
+        <div>
+          <span fxFlex class="mat-body-2">Path: {{ catalogo?.path }}</span>
+        </div>
+        <div>
+          <span class="mat-caption" fxHide.xs>Descripción: {{ catalogo?.descripcion }}</span>
+        </div>
+      </div>
+      <span fxFlex></span>
+      <button class="ar-text-dark ar-margin-right-sm" mat-icon-button matTooltip="Agregar ítem">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+    <!-- Barra de búsqueda -->
+    <div fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+      <div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="80">
+        <div fxLayout="column" class="ar-catalogo-content">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxFlex="50" fxFlex.sm="70" fxFlex.xs="80" class="ar-catalogos-search">
+              <div fxLayout="row" matTooltip="Buscar ítems" fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="ar-text-dark ar-margin-top-xs ar-margin-bottom-xs ar-margin-left-xs">search</mat-icon>
+                <span fxFlex></span>
+                <input class="ar-margin-left-sm" matInput placeholder="Buscar ítems" [(ngModel)]="txtFiltro">
+                <span fxFlex></span>
+                <div fxLayout="row" fxLayoutAlign="start center" role="button">
+                  <button class="ar-text-dark" mat-icon-button matTooltip="Limpiar" (click)="txtFiltro=null;">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ar-catalogo-header-item" fxLayout="row" fxLayoutAlign="center center">
+            <div fxFlex>
+              <mat-card class="ar-text-dark">
+                <span fxFlex="20" class="mat-body-2">Estado</span>
+              </mat-card>
+            </div>
+          </div>
+          <!-- Item expandible tipo acordeón -->
+          <mat-accordion>
+            <mat-expansion-panel class="ar-margin-bottom-xs" *ngFor="let item of catalogo | filtrarIdDescripcion: txtFiltro">
+              <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center">
+                <mat-panel-title fxFlex="20" class="ar-text-dark" fxLayoutAlign="start center">
+                  <i *ngIf="item.estado" class="material-icons ar-catalogo-circle-enable">power_settings_new</i>
+                  <i *ngIf="!item.estado" class="material-icons ar-catalogo-circle-disable">power_settings_new</i>
+                </mat-panel-title>
+                <mat-panel-description fxFlex="80">
+                  {{item.descripcion}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div fxLayout="column">
+                <div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                  <div fxFlex="100" fxLayoutAlign="center center" class="ar-catalogo-item-input" ngClass="ar-margin-left-smm" ngClass.xs="ar-margin-left-none"
+                    ngClass.sm="ar-margin-left-none">
+                    <mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+                      <input matInput placeholder="Código del ítem" [value]="item.codigo">
+                    </mat-form-field>
+                    <mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+                      <input matInput placeholder="Nombre del ítem" [value]="item.nombre">
+                    </mat-form-field>
+                    <mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+                      <input matInput placeholder="Primer Apellido del ítem" [value]="item.primerApellido">
+                    </mat-form-field>
+                    <mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+                      <input matInput placeholder="Segundo Apellido del ítem" [value]="item.segundoApellido">
+                    </mat-form-field>
+                    <mat-form-field fxFlex class="ar-padding-left-xs ar-padding-right-xs ar-padding-top-xs">
+                      <input matInput placeholder="Unidad Programática del ítem" [value]="item.idUnidadProgramatica">
+                    </mat-form-field>
+                    <button *ngIf="item.estado" mat-icon-button matTooltip="Ítem habilitado" (click)="item.estado=false;">
+                      <mat-icon class="ar-text-green">check_circle</mat-icon>
+                    </button>
+                    <button *ngIf="!item.estado" mat-icon-button matTooltip="Ítem deshabilitado" (click)="item.estado=true;">
+                      <mat-icon class="ar-text-disabled-color">check_circle</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

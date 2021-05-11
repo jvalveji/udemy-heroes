@@ -1,0 +1,45 @@
+<!-- <div fxLayout="column" style="margin-top: 74px;"> -->
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+	<perfect-scrollbar fxFlex class="ar-content">
+		<div fxLayout="row" fxLayout.xs="row" fxFlex="100" fxLayoutAlign="center">
+			<div fxFlex="85" fxFlex.xs="95" fxFlex.sm="90" fxFlex.md="85">
+				<div fxLayoutWrap fxLayout="row" class="ar-core-card-area ar-margin-top-lg ar-padding-bottom-sm">
+					<div fxFlex fxLayout="column" layout>
+						<button mat-icon-button class="ar-margin-right-xs" (click)="ReportePruebaPDF()">
+							Reporte prueba - PDF <mat-icon>report</mat-icon>
+						</button>
+						<button mat-icon-button class="ar-margin-right-xs" (click)="ReportePruebaExcel()">
+							Reporte prueba - Excel <mat-icon>report</mat-icon>
+						</button>
+						<button mat-icon-button class="ar-margin-right-xs" (click)="EjecutarETL(true)">
+							ETL con salida JSON<mat-icon>home</mat-icon>
+						</button>
+						<button mat-icon-button class="ar-margin-right-xs" (click)="EjecutarETL(false)">
+							ETL con salida XML<mat-icon>phone</mat-icon>
+						</button>
+						<!-- <button mat-icon-button class="ar-margin-right-xs" label="SIGES" (click)="BusquedaSIGES()">
+							Búsqueda SIGES<mat-icon>report</mat-icon>
+						</button>
+						<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" layout>
+							<div fxFlex="50">
+							<arca-dashboard ID="grafica1" height="70vh" dashboardPath="/arca.bcore/dashboards" dashboardName="tablero1.wcdf"></arca-dashboard>
+							</div>
+							<div fxFlex="50">
+							<arca-dashboard ID="grafica2" height="50vh" dashboardPath="/arca.bcore/dashboards" dashboardName="tablero2.wcdf"></arca-dashboard>
+							</div>
+						</div>
+						<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" layout>
+							<div fxFlex="100">
+							<arca-dashboard ID="grafica3" height="50vh" dashboardPath="/arca.bcore/dashboards" dashboardName="tablero3.wcdf"></arca-dashboard>
+							</div>
+						</div> -->
+						<!-- <button mat-icon-button class="ar-margin-right-xs" (click)="Jobs()">
+							<mat-icon>report</mat-icon>
+						</button> -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</perfect-scrollbar>
+</div>

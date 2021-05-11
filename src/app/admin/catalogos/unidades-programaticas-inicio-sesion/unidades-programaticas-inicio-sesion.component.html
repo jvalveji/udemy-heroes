@@ -1,0 +1,161 @@
+<!-- -----------------------------------------------------------------------------------------------
+[Master Stylesheet catalogos/unidades-programaticas-inicio-sesion/unidades-programaticas-inicio-sesion.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	11/2017
+Diseño por:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo por: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+----------------------------------------------------------------------------------------------- -->
+
+<div class="ar-page" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-unidades-toolbar header-toolbar mat-elevation-z1 ar-text-dark">
+			<button mat-icon-button class="ar-margin-right-xs" (click)="esEditar? CerrarGrupo() : IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span *ngIf="!esGrupoActivo">Aplicaciones arca</span>
+			<span fxHide.xs fxHide-sm *ngIf="esGrupoActivo">Unidades programáticas habilitadas por aplicación</span>
+			<span fxHide.gt-sm *ngIf="esGrupoActivo">Unidades por aplicación</span>
+			<span fxFlex></span>
+			<!-- <button mat-raised-button matTooltip="Guardar cambios" color="primary" [disabled]="!esBotonListo" (click)="Actualizar()">Listo</button> -->
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		<!-- Segmento input de búsqueda -->
+		<!-- <ng-container *ngIf="!esGrupoActivo">
+			<div class="ar-unidades-bar">
+				<div ngClass="ar-unidades-search" ngClass.xs="ar-unidades-search ar-margin-top-sm" fxFlex="40" fxFlex.sm="80"
+				 fxFlex.md="65" fxFlex.xs="95">
+					<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+						<input class="ar-unidades-input-search" placeholder="Buscar, agregar ítem" [(ngModel)]="txtFiltro">
+						<span fxFlex></span>
+						<div class="ar-unidades-bar-menu" (click)="txtFiltro=null;" matTooltip="Limpiar" fxLayoutAlign="center">
+							<i class="mdi mdi-close ar-icon-xs"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container> -->
+		<!-- Inicio listado de aplicaciones -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-bottom-lg">
+					<!-- Segmento con cada uno de las aplicaciones del catálogo -->
+					<!-- Primera parte de la vista (Listado) -->
+					<ng-container *ngIf="!esGrupoActivo">
+						<div *ngFor="let item of tiposAplicacionesArca;">
+							<div class="ar-unidades-area-items" (click)="MostrarDetallesGrupo(item);">
+								<div class="ar-unidades-item" fxLayoutAlign="start center">
+									<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+										<div fxHide.xs>
+											<span class="ar-unidades-circle">{{item.nombre | slice:0:1}}</span>
+										</div>
+										<div fxLayout="column">
+											<span class="mat-body-2">{{ item.nombre }}</span>
+										</div>
+										<span fxFlex></span>
+										<button mat-icon-button class="ar-text-dark">
+											<mat-icon>chevron_right</mat-icon>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+					<!-- Segmento con las opciones de editar o agregar unidades programáticas -->
+					<!-- Segunda parte de la vista (Edición) -->
+					<ng-container *ngIf="esGrupoActivo">
+						<div fxLayout="column" class="ar-margin-top-xs">
+							<!-- Segmento superior (nombre de la aplicación y botón activo-inactivo) -->
+							<div fxLayout="column">
+								<div fxLayout="row" fxLayout.xs="column">
+									<mat-card fxFlex class="ar-margin-bottom-xs">
+										<div fxLayout="column">
+											<div fxLayoutAlign="start center">
+												<div fxLayout="row" fxFlex="100" fxFlex.xs="100">
+													<div fxLayoutAlign="start center" class="ar-unidades-personal-item" fxFlex="100" fxFlex.xs="100">
+														<div fxHide.xs>
+															<span class="ar-unidades-circle">{{appSeleccionada?.nombre | slice:0:1}}</span>
+														</div>
+														<span class="mat-body-2">{{ appSeleccionada?.nombre }}</span>
+														<span fxFlex></span>
+														<div class="ar-unidades-item-separator"></div>
+														<!-- Toggle activo-inactivo -->
+														<div fxLayout="row" fxLayoutAlign="start center">
+															<span class="ar-margin-right-sm">Activo</span>
+															<span *ngIf="false" class="ar-margin-right-sm">Inactivo</span>
+															<mat-slide-toggle class="ar-text-dark ar-margin-right-md" name="activo" matTooltip="Activo"></mat-slide-toggle>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</mat-card>
+								</div>
+							</div>
+							<!-- Segmento inferior (unidades agregadas y select mas unidades) -->
+							<div fxLayout="column">
+								<!-- Segmento card unidades agregadas -->
+								<div fxLayout="row" fxLayout.xs="column" *ngFor="let item of tempUnidadesProgramaticas; let idx = index;">
+									<mat-card fxFlex class="ar-margin-bottom-xs">
+										<div fxLayout="column">
+											<div fxLayout="column">
+												<div fxLayout="column">
+													<div fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
+														<div fxLayoutAlign="start center" class="ar-unidades-personal-item" fxFlex="100" fxFlex.xs="100">
+															<i fxHide.xs class="mdi mdi-hospital-building ar-icon-xs ar-margin-right-sm ar-text-dark"></i>
+															<span ngClass="ar-margin-left-xs" ngClass.xs="ar-margin-left-none">{{item?.unidadProgramatica_id.descripcion}}</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</mat-card>
+									<!-- Boton agregar, editar nombre del sub-ítem -->
+									<div class="ar-unidades-header-subitem ar-text-dark ar-margin-left-xs ar-margin-right-xs" fxLayout="column"
+									 fxLayout.xs="row">
+										<span fxFlex></span>
+										<button flex class="ar-text-dark ar-margin-right-xs" mat-icon-button matTooltip="Eliminar ítem" (click)="EliminarUP(item._id, idx)">
+											<mat-icon class="ar-text-red">remove_circle</mat-icon>
+										</button>
+									</div>
+								</div>
+								<!-- Segmento selecccionar unidades para agregar -->
+								<div fxLayout="row" fxLayout.xs="column">
+									<mat-card fxFlex class="ar-margin-bottom-xs">
+										<div fxLayout="column">
+											<div fxLayout="column">
+												<div fxLayout="column">
+													<div fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
+														<div fxFlex class="example-form-field">
+															<arca-autocomplete Placeholder="Unidades programáticas" #unidadesProgramaticasAutoComplete
+															 (ItemSeleccionado)="SeleccionarUnidadProgramatica($event)" [Source]="tiposUnidadesProgramaticas"
+															 (keyup.enter)="AgregarUP()"></arca-autocomplete>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</mat-card>
+									<!-- Boton agregar unidades programáticas -->
+									<div class="ar-unidades-header-subitem ar-text-dark ar-margin-left-xs ar-margin-right-xs" fxLayout="column"
+									 fxLayout.xs="row">
+										<span fxFlex></span>
+										<button flex class="ar-text-dark ar-margin-right-xs" mat-icon-button matTooltip="Agregar ítem" [disabled]="!upSeleccionada"
+										 (click)="AgregarUP()">
+											<mat-icon>add_circle</mat-icon>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+</div>

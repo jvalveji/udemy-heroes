@@ -1,0 +1,36 @@
+<!-- **************************************************************
+Proyecto:	arca graficos
+Version:	1.0
+Fecha de creación:	04/2020
+Asignado a:	Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Felipe Jiménez C, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+************************************************************** -->
+
+<ng-container>
+	<div fxLayoutAlign="center">
+		<nav  class="ar-insumo-nav-arrows" fxHide.xs fxHide.sm >
+			<span class="nav-arrow-prev" (click)="RetrocederGrafico()" >Previous</span>
+			<span class="nav-arrow-next" (click)="AvanzarGrafico()">Next</span>
+		</nav>
+		<div fxLayout="column" fxFlex="120" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="90">
+			<div fxLayout="column" class="ar-margin-top-sm ar-padding-bottom-lg">
+				<div fxFlex="100">
+				<ng-container *ngIf="grafico1">
+					<arca-dashboard ID="grafica1" height="81vh" dashboardPath="/arca.bcore/dashboards/tipoCambio"
+						dashboardName="IndicadoresBCCR.wcdf"></arca-dashboard>
+				</ng-container>
+				<ng-container *ngIf="grafico2">
+					<arca-dashboard ID="grafica2" height="81vh" dashboardPath="/arca.bcore/dashboards/tipoCambio"
+						dashboardName="IndicadoresVentaBancos.wcdf"></arca-dashboard>
+				</ng-container>
+				<ng-container *ngIf="grafico3">
+					<arca-dashboard ID="grafica3" height="81vh" dashboardPath="/arca.bcore/dashboards/tipoCambio"
+						dashboardName="IndicadoresCompraBancos.wcdf"></arca-dashboard>
+				</ng-container>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-container>

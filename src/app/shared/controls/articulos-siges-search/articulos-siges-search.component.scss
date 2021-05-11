@@ -1,0 +1,349 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /ingredientes/SIGES]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	04/2018
+Asignado a:	Adrián Fallas. afallasp@ccss.sa.cr (diseño), Joseph Arias.jariass@ccss.sa.cr (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Modificación: 09/2018 Adrián Fallas (afallasp@ccss.sa.cr) (diseño)
+
+-------------------------------------------------------------------*/
+
+/* Estilos de la vista general */
+
+.ar-buscar-page {
+  padding-top: 0;
+  height: 100%;
+  font-family: Roboto;
+  background-color: #2D3047 !important;
+}
+
+/* Toolbar de área de búsqueda */
+
+.ar-buscar-toolbar {
+  background-color: #2D3047 !important;
+}
+
+/* Estilos para dar diseño a la barra de busqueda de ítems */
+
+.ar-search-bar {
+  background: #2D3047 !important;
+  -webkit-border-radius: 4px;
+  border-radius: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+  z-index: 10;
+}
+
+/* Círculo de información de items encontrados */
+
+.ar-buscar-card-circle {
+  background: #cccccc;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 24px;
+  text-align: center;
+  width: 1.6em;
+  font-size: 24px;
+}
+
+.ar-busqueda-card:hover .ar-buscar-card-circle {
+  background-color: #f57c00 !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;
+}
+
+/* Letra del botón del menú flotante */
+
+.ar-search-bar-menu-letter {
+  margin-top: 7px;
+}
+
+/* Selección múltiple */
+
+.ar-buscar-multiple-container {
+  position: relative;
+  width: 100%;
+  height: 64px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 10px 0 0 0;
+  overflow: hidden;
+}
+
+/* Estilos para dar diseño a la barra de búsqueda de ítems */
+
+.ar-contratos-search {
+  background: #fff;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+  height: 48px;
+}
+
+.ar-contratos-search:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 9px rgba(0, 0, 0, 0.16);
+  transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Ícono en la barra de búsqueda */
+
+.ar-search-bar-icon {
+  color: rgba(0, 0, 0, 0.54) !important;
+  border-radius: 2px 0 0 2px;
+  -webkit-border-radius: 2px 0 0 2px;
+  border: 0;
+  margin-right: 5px;
+  margin-left: 5px;
+  display: inline-block;
+  outline: none;
+  padding: 7px 12px 16px 12px;
+}
+
+/* Botón tipo menú en la barra de búsqueda */
+
+.ar-search-bar-menu {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.54) !important;
+  border-radius: 0 2px 2px 0;
+  -webkit-border-radius: 0 2px 2px 0;
+  border: 0;
+  margin-right: 0;
+  margin-left: 0;
+  display: inline-block;
+  outline: none;
+  padding: 0 12px 0px 12px;
+  height: 48px;
+}
+
+.ar-search-bar-menu:hover {
+  background-color: #f5f5f5 !important;
+}
+
+.ar-search-bar-menu i {
+  margin-top: 8px;
+}
+
+/* Input de barra de búsqueda */
+
+.ar-buscar-input-search {
+  border: none;
+  font: normal 14px Roboto, sans-serif;
+  -webkit-font-variant-ligatures: none;
+  font-variant-ligatures: none;
+  height: 44px;
+  outline: none;
+  padding: 0px 0 0px 16px;
+  width: 100%;
+  background: transparent;
+}
+
+.ar-buscar-filter-area {
+  position: relative;
+  margin: 0 16px;
+}
+
+/* Área de toolbar del filtro flotante */
+
+.ar-buscar-toolbar-filter {
+  width: 100%;
+  display: inline-block;
+  z-index: 99;
+  position: absolute;
+  transition: width 0.25s ease-in-out;
+  content: "";
+  transform: translateY(0.4em);
+}
+
+/* Header de tarjeta del toolbar */
+
+.ar-busqueda-search-header {
+  background-color: #f9f9f9;
+}
+
+/* Esconde menú flotante de filtros */
+
+[hidden] {
+  display: none !important;
+}
+
+/* Animación de menú flotante */
+
+.ar-filter-slideInDown {
+  -webkit-animation-name: ar-filter-slideInDown;
+  animation-name: ar-filter-slideInDown;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes ar-filter-slideInDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes ar-filter-slideInDown {
+  0% {
+    -webkit-transform: translateY(-10%);
+    transform: translateY(-10%);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+/* Área de chips de filtros */
+
+.ar-buscar-chips-area {
+  padding: 10px 0 6px 0;
+  overflow: hidden;
+  height: 50px;
+}
+
+.ar-buscar-parents {
+  height: 46px;
+  width: 100%;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.ar-buscar-chips {
+  border: 1px solid rgba(255, 255, 255, 0.87);
+  background-color: transparent;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  z-index: 10;
+  /* margin: 0 5px 0 0; */
+  color: rgba(255, 255, 255, 0.87);
+}
+
+/* Items de la búsqueda avanzada  */
+
+.items {
+  height: 54px;
+  width: 100%;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  perspective: 500px;
+  line-height: 32px;
+  flex: 0 0 auto;
+}
+
+.items.active {
+  background: rgba(255, 255, 255, 0.3);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.item {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 400;
+  background-color: transparent !important;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  margin: 0 0 0 0;
+}
+
+/* Listado de catálogos */
+
+.ar-catalogos-expansion-header {
+  cursor: pointer;
+  height: 74px;
+  padding: 15px;
+  border-radius: 2px;
+  outline: 0 !important;
+}
+
+.ar-supervision-expansion-active {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.ar-catalogos-expansion-header:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* Cambio de color del círculo del avatar */
+
+.ar-catalogos-expansion-header:hover .ar-catalogos-avatar {
+  background-color: #f57c00 !important;
+}
+
+.ar-inactivo {
+  background-color: #9C9AA4 !important;
+}
+
+.ar-catalogos-avatar {
+  font-family: 'Mada', sans-serif;
+  color: rgba(0, 0, 0, 0.87);
+  border-radius: 0.9em;
+  -moz-border-radius: 0.9em;
+  -webkit-border-radius: 0.9em;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.9em;
+  margin-right: 24px;
+  text-align: center;
+  width: 1.9em;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Texto los item de lalista de catálogos */
+
+.ar-catalogos-text-header {
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: rgb(255, 255, 255);
+  -webkit-font-smoothing: antialiased;
+}
+
+.ar-catalogos-text-descripcion {
+  font-family: 'Mada', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #f57c00;
+  -webkit-font-smoothing: antialiased;
+}

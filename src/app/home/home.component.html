@@ -1,0 +1,323 @@
+<!-- ***************************************
+[HTML /home/]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	07/2017
+Asignado a:	Adrián Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Rediseño: 01/2019 
+*********************************************-->
+
+<body id="page-top">
+    <!-- Menú -->
+    <nav
+        id="mainNav"
+        class="navbar navbar-default navbar-fixed-top"
+        style="background-color: #2d3047"
+    >
+        <div class="container">
+            <div class="navbar-header navbar-left">
+                <a
+                    class="navbar-brand page-scroll"
+                    pageScroll
+                    [pageScrollDuration]="300"
+                    href="#page-top"
+                    ><img
+                        [src]="UrlWebkit + '/images/home/arca.svg' | safeURL"
+                        width="24"
+                        height="24"
+                /></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a
+                            class="navbar-brand page-scroll"
+                            pageScroll
+                            [pageScrollDuration]="300"
+                            href="#features"
+                            >Características</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="navbar-brand page-scroll"
+                            pageScroll
+                            [pageScrollDuration]="300"
+                            href="#arcapp"
+                            >Arcapp</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="navbar-brand"
+                            target="_blank"
+                            href="http://soporte.gmedica.caja.ccss.sa.cr"
+                            >Soporte</a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header con imagen cover -->
+    <header class="ar-home-cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="header-content">
+                        <div class="header-content-inner section-title">
+                            <h1>Una nueva versión en la familia de aplicaciones Arca.</h1>
+                            <!--Ejemplo de queryParams
+								 <a [routerLink]="['/bitzu/login']" [queryParams]="{layvie: 0}" routerLinkActive="active"
+								class="btn btn-outline btn-xl page-scroll">Iniciar</a> -->
+                            <a
+                                [routerLink]="['/bitzu/login']"
+                                routerLinkActive="active"
+                                class="btn btn-outline btn-xl page-scroll"
+                                >Iniciar</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Botón de navegación -->
+        <div
+            class="ar-navegation-bar scrollIndicator hidden-xs hidden-sm"
+            fxLayoutAlign="center center"
+            pageScroll
+            [pageScrollDuration]="300"
+            href="#features"
+        >
+            <i
+                class="mdi mdi-chevron-down ar-text-secondary-white ar-icon-md ar-core-element-animation"
+            ></i>
+        </div>
+    </header>
+    <!-- Características -->
+    <section class="feature-area section-padding-top" id="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                    <div class="page-title text-center">
+                        <h5 class="title">CARACTERÍSTICAS</h5>
+                        <div class="space-10"></div>
+                        <h3>Diseñado para simplificar tareas</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row ar-margin-top-lg">
+                <div class="col-xs-12 col-sm-6 col-mat-4 ar-margin-top-md">
+                    <div class="service-box">
+                        <div class="box-icon">
+                            <i class="mdi mdi-monitor-cellphone ar-icon-md"></i>
+                        </div>
+                        <h4>Adaptable</h4>
+                        <p>Se ajusta a los diferentes resoluciones de dispositivos.</p>
+                    </div>
+                    <div class="service-box" data-wow-delay="0.4s">
+                        <div class="box-icon">
+                            <i class="mdi mdi-flash ar-icon-md"></i>
+                        </div>
+                        <h4>Actualizado</h4>
+                        <p>Creado con las últimas tecnologías de desarrollo de Software.</p>
+                    </div>
+                    <div class="service-box">
+                        <div class="box-icon">
+                            <i class="mdi mdi-star ar-icon-md"></i>
+                        </div>
+                        <h4>Personalizado</h4>
+                        <p>
+                            Diseño y lógica de funcionamiento desarrollado en coordinación con el
+                            usuario final.
+                        </p>
+                    </div>
+                </div>
+                <div class="hidden-xs hidden-sm col-mat-4">
+                    <figure class="mobile-image">
+                        <img
+                            [src]="UrlWebkit + '/images/home/arca_home01.png' | safeURL"
+                            alt="Feature Photo"
+                        />
+                    </figure>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-mat-4 ar-margin-top-md">
+                    <div class="service-box">
+                        <div class="box-icon">
+                            <i class="mdi mdi-lock-open ar-icon-md"></i>
+                        </div>
+                        <h4>Open Source</h4>
+                        <p>Desarrollado con tecnología de código abierto.</p>
+                    </div>
+                    <div class="service-box">
+                        <div class="box-icon">
+                            <i class="mdi mdi-gesture-tap ar-icon-md"></i>
+                        </div>
+                        <h4>Experiencia de usuario</h4>
+                        <p>
+                            Funcionalidades simples y sin elementos innecesarios, mediante la
+                            incorporación de funciones táctiles.
+                        </p>
+                    </div>
+                    <div class="service-box wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="box-icon">
+                            <i class="mdi mdi-animation ar-icon-md"></i>
+                        </div>
+                        <h4>Dinámico</h4>
+                        <p>
+                            Puede moverse y personalizarse sin problemas entre sus aplicaciones
+                            favoritas en el escritorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Descripción -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-mat-5">
+                    <div class="page-title">
+                        <h5 class="title">MÓDULOS</h5>
+                        <div class="space-10"></div>
+                        <h3 class="dark-color">Variedad de soluciones</h3>
+                    </div>
+                    <div>
+                        <p class="text-color">
+                            Lo mejor de Arca está integrado. Todas las aplicaciones de arca están en
+                            una sola solución, de acuerdo a su perfil de usuario, por lo que estás
+                            listo para comenzar desde el momento en que inicias sesión.
+                        </p>
+                        <p class="text-color">
+                            Actualmente se desarrollan aplicaciones para diferentes áreas, agregando
+                            nuevas funcionalidades y conceptos, de la mano con el usuario final,
+                            haciendo el trabajo más fácil y productivo.
+                        </p>
+                        <p class="text-color">
+                            Entre los productos más importantes tenemos Hospitalización, Nutrición,
+                            Patología, el Módulo Quirúrgico y Recursos Humanos.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-mat-7 col-md-offset-1 module">
+                    <div class="service-box">
+                        <div class="box-icon">
+                            <i class="mdi mdi-hexagon ar-icon-md"></i>
+                        </div>
+                        <h4>NUTRICIÓN</h4>
+                        <p class="text-color">
+                            Gestiona menús, ingredientes, tipos de dietas, recetas, administración
+                            de pedidos, calendarización de menús y registro de existencia de insumos
+                            y contratos.
+                        </p>
+                    </div>
+                    <div class="service-box">
+                        <div class="box-icon">
+                            <i class="mdi mdi-hexagon ar-icon-md"></i>
+                        </div>
+                        <h4>PATOLOGÍA</h4>
+                        <p class="text-color">
+                            Registro de solicitudes de análisis patológicos, estudios Macroscópicos
+                            y elaboración de estudios especializados de patogía.
+                        </p>
+                    </div>
+                    <div class="service-box">
+                        <div class="box-icon">
+                            <i class="mdi mdi-hexagon ar-icon-md"></i>
+                        </div>
+                        <h4>MÓDULO QUIRÚRGICO</h4>
+                        <p class="text-color">
+                            Asignación de salas, diagnóstico pre operatorio, autorización de la
+                            programación del paciente, notas operatoria, registro de lesiones,
+                            técnica empleada, asignación de médicos y asistentes, procedimientos
+                            realizados y los tiempos quirúrgicos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Arcapp -->
+    <section class="arcapp-area" id="arcapp">
+        <div class="container" style="margin-top: -180px">
+            <div class="row">
+                <div class="col-xs-12 col-mat-4">
+                    <div class="arcapp-photo">
+                        <img
+                            [src]="UrlWebkit + '/images/home/arca_home02.png' | safeURL"
+                            alt="Feature Photo"
+                        />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-mat-8 col-md-offset-1" style="margin-top: 20%">
+                    <div class="page-title">
+                        <h5 class="title">Arcapp</h5>
+                        <h3 class="ar-text-primary-white">Visita Hospitalaria</h3>
+                        <div class="desc ar-text-secondary-white">
+                            <p>
+                                La aplicación arcapp Visita Hospitalaria permite el ingreso a la
+                                visita de asegurados hospitalizados y enviar autorizaciones de
+                                visita a terceros.
+                            </p>
+                        </div>
+                        <a
+                            href="https://play.google.com/store/apps/details?id=sa.cr.ccss.arcapp"
+                            target="_blank"
+                            class="btn btn-outline btn-xl"
+                            >Google Play</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-mat-3 col-sm-4">
+                    <div style="text-align: center">
+                        <img
+                            [src]="UrlWebkit + '/images/home/arca.svg' | safeURL"
+                            width="35"
+                            height="35"
+                        />
+                        <div style="color: #fffbee; font-size: 26px">arca</div>
+                    </div>
+                </div>
+                <div class="col-mat-4 col-sm-4">
+                    <p>
+                        Arca es desarrollado en el Centro de Gestión Informática del Hospital San
+                        Vicente de Paúl, con el objetivo de contribuir con el desarrollo de sistemas
+                        para la Caja Costarricense de Seguro Social. Arca Visita Hospitalaria no se
+                        encuentra disponible en otros centros médicos. CGI. 2017-{{
+                            annoActual.getFullYear()
+                        }}
+                        . Google Play y el logotipo de Google Play son marcas comerciales de Google
+                        LLC.
+                    </p>
+                </div>
+                <div class="col-mat-5 col-sm-4">
+                    <p>
+                        Éste sistema se encuentra en desarrollo, las caraterísticas, diseño y
+                        funcionalidades pueden cambiar sin previo aviso.
+                    </p>
+                    <p></p>
+                    <p class="ar-margin-top-xs">
+                        <i class="mdi mdi-map-marker ar-icon-sm ar-margin-right-xs"></i> 700 metros
+                        sur del Estadio Eladio Rosabal Cordero, Heredia, Costa Rica.
+                    </p>
+                    <p>
+                        <i class="mdi mdi-phone ar-icon-sm ar-margin-right-xs"></i> (506) 2562-8600
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>

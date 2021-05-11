@@ -1,0 +1,218 @@
+<!-- ****************************************************************
+[Master Stylesheet /admin/home]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	07/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Rediseño:	11/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Modificado:	06/2018
+
+Referencia iconos -> https://fontawesome.com/icons?d=gallery
+**************************************************************** -->
+
+<html fullscreen class="ar-background ar-core-background">
+    <div fxLayout="row" fxLayout.xs="row" fxFlex="100" fxLayoutAlign="center">
+        <perfect-scrollbar fxFlex class="ar-content">
+            <div fxLayoutAlign="center">
+                <div fxFlex="90" fxFlex.xs="95" fxFlex.sm="90" fxFlex.md="85">
+                    <div fxLayout="row">
+                        <!-- Área de acceso a módulos -->
+                        <div fxLayout="row" fxFlex class="ar-margin-top-lg ar-padding-bottom-sm">
+                            <div fxFlex>
+                                <!-- Área de tarjetas de acceso a los componentes  -->
+                                <div fxLayout="row" class="ar-core-card-area">
+                                    <ng-container>
+                                        <!-- Mensajes Broadcast -->
+                                        <div
+                                            [@apps]="'fadeIn'"
+                                            class="ar-core-card"
+                                            routerLink="./broadcast"
+                                        >
+                                            <div fxLayoutAlign="center center">
+                                                <div
+                                                    class="ar-core-card-item"
+                                                    fxLayoutAlign="center center"
+                                                >
+                                                    <i
+                                                        class="fas fa-broadcast-tower ar-color-54 ar-icons-sm"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="center center">
+                                                <p class="ar-color-54 ar-core-card-text">
+                                                    Broadcast
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Catálogos sistema -->
+                                        <div
+                                            [@apps]="'fadeIn'"
+                                            class="ar-core-card"
+                                            routerLink="./catalogos"
+                                        >
+                                            <div fxLayoutAlign="center center">
+                                                <div
+                                                    class="ar-core-card-item"
+                                                    fxLayoutAlign="center center"
+                                                >
+                                                    <i
+                                                        class="fas fa-list-alt ar-color-54 ar-icons-sm"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="center center">
+                                                <p class="ar-color-54 ar-core-card-text">
+                                                    Catálogos
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Parámetros sistema -->
+                                        <div
+                                            [@apps]="'fadeIn'"
+                                            class="ar-core-card"
+                                            routerLink="./parametros"
+                                        >
+                                            <div fxLayoutAlign="center center">
+                                                <div
+                                                    class="ar-core-card-item"
+                                                    fxLayoutAlign="center center"
+                                                >
+                                                    <i
+                                                        class="fas fa-toolbox ar-color-54 ar-icons-sm"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="center center">
+                                                <p class="ar-color-54 ar-core-card-text">
+                                                    Parámetros
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Carga SIGES -->
+                                        <div
+                                            [@apps]="'fadeIn'"
+                                            class="ar-core-card"
+                                            (click)="SIGES()"
+                                        >
+                                            <div fxLayoutAlign="center center">
+                                                <div
+                                                    class="ar-core-card-item"
+                                                    fxLayoutAlign="center center"
+                                                >
+                                                    <i
+                                                        class="fas fa-cloud-upload-alt ar-color-54 ar-icons-sm"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="center center">
+                                                <p class="ar-color-54 ar-core-card-text">SIGES</p>
+                                            </div>
+                                        </div>
+                                        <!-- Tipos de cambio -->
+                                        <div
+                                            [@apps]="'fadeIn'"
+                                            class="ar-core-card"
+                                            routerLink="./tipo-cambio"
+                                        >
+                                            <div fxLayoutAlign="center center">
+                                                <div
+                                                    class="ar-core-card-item"
+                                                    fxLayoutAlign="center center"
+                                                >
+                                                    <i
+                                                        class="fas fa-dollar-sign ar-color-54 ar-icons-sm"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="center center">
+                                                <p class="ar-color-54 ar-core-card-text">
+                                                    Tipo Cambio
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Manejo de tokens -->
+                                        <div
+                                            [@apps]="'fadeIn'"
+                                            class="ar-core-card"
+                                            routerLink="./token"
+                                        >
+                                            <div fxLayoutAlign="center center">
+                                                <div
+                                                    class="ar-core-card-item"
+                                                    fxLayoutAlign="center center"
+                                                >
+                                                    <i
+                                                        class="fas fa-key ar-color-54 ar-icons-sm"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="center center">
+                                                <p class="ar-color-54 ar-core-card-text">Tokens</p>
+                                            </div>
+                                        </div>
+                                        <!-- Usuarios -->
+                                        <div
+                                            [@apps]="'fadeIn'"
+                                            class="ar-core-card"
+                                            routerLink="./usuarios"
+                                        >
+                                            <div fxLayoutAlign="center center">
+                                                <div
+                                                    class="ar-core-card-item"
+                                                    fxLayoutAlign="center center"
+                                                >
+                                                    <i
+                                                        class="fas fa-user-circle ar-color-54 ar-icons-sm"
+                                                    ></i>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="center center">
+                                                <p class="ar-color-54 ar-core-card-text">
+                                                    Usuarios
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
+    <!-- Barra flotante de acciones -->
+    <div fxFlex class="ar-floating-bar" fxLayout="row">
+        <div
+            fxFlex
+            fxLayoutAlign="center center"
+            class="ar-floating-bar-container mat-elevation-z0"
+        >
+            <!-- Inicio (va en todos los home de cada módulo pero se puede exluir del home principal)-->
+            <div
+                class="ar-floating-bar-button"
+                fxLayoutAlign="center center"
+                matTooltip="Inicio"
+                routerLink="/bitzu/main"
+            >
+                <i class="fad fa-hexagon ar-icons-sm fa-rotate-90"></i>
+            </div>
+            <!-- Módulo administrador-->
+            <div
+                class="ar-floating-bar-button"
+                fxLayoutAlign="center center"
+                matTooltip="Administración"
+                *arcaAccesoPermiso="'administracion'"
+                routerLink="/bitzu/admin"
+            >
+                <i class="fad fa-lock ar-color-orange ar-icons-sm"></i>
+            </div>
+        </div>
+    </div>
+</html>

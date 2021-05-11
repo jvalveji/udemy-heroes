@@ -1,0 +1,148 @@
+<!-- *************************************************************
+  [HTML /catalogos/catalogos-listar.component.html]
+  
+  Proyecto: arca Core
+  Version:  1.1
+  Fecha de creación:  09/2017
+  Fecha de modificación: 12/2017
+  Asignado a: Joseph Arias (jariass@ccss.sa.cr)(diseño)
+  Desarrollo: Centro de Gestión Informática
+  Centro: Hospital San Vicente de Paúl
+  Cliente: Caja Costarricense de Seguro Social
+
+  Modificado: 10/2018 Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+************************************************************* -->
+
+<div class="ar-buscar-page ar-background" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal -->
+		<mat-toolbar class="ar-toolbar mat-elevation-z0">
+			<button mat-icon-button (click)="IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span class="ar-margin-left-xs">Usuarios</span>
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<div class="ar-progressbar">
+			<mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+		</div>
+		<!-- Toolbar de búsqueda -->
+		<div class="ar-searchbar-toolbar ar-margin-top-sm ar-buscar-tooltip" fxLayoutAlign="center center">
+			<form fxFlex [formGroup]="frmFiltroBusqueda">
+				<div class="ar-searchbar" fxFlex="45" fxFlex.sm="75" fxFlex.md="65" fxFlex.xs="80"
+					fxLayoutAlign="center center">
+					<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+						<!-- Input de búsqueda  -->
+						<input class="ar-searchbar-input ar-margin-left-sm ar-color-54"
+							placeholder="Buscar usuario por nombre o identificación" formControlName="filtro"
+							(keyup.enter)="Filtrar()">
+						<span fxFlex></span>
+						<div matTooltip="Limpiar" class="ar-margin-right-xs"
+							(click)="frmFiltroBusqueda.reset(); usuarios = [];" fxLayoutAlign="center">
+							<i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- Buscar tooltip -->
+			<div class="ar-buscar-tooltip-content" fxFlex="55" fxFlex.sm="80" fxFlex.md="65" fxFlex.xs="90">
+				<div fxLayout="row" fxLayout.xs="row" fxLayoutAlign="start center">
+					<span class="ar-search-text-xs">APELLIDO [+]</span>
+					<span class="ar-margin-left-xs">APELLIDO [+]</span>
+					<span class="ar-margin-left-xs">NOMBRE</span>
+				</div>
+			</div>
+		</div>
+		<!-- Barra de búsqueda -->
+		<mat-toolbar class="ar-buscar-search ar-buscar-tooltip" *ngIf="false">
+			<form fxFlex [formGroup]="frmFiltroBusqueda">
+				<div ngClass="ar-usuario-search" ngClass.xs="ar-usuario-search ar-margin-top-sm" fxFlex="55"
+					fxFlex.sm="80" fxFlex.md="65" fxFlex.xs="100">
+					<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+						<input class="ar-usuario-input-search" placeholder="Buscar usuario por nombre o identificación"
+							formControlName="filtro" (keyup.enter)="Filtrar()">
+						<span fxFlex></span>
+						<div class="ar-buscar-search-menu" matTooltip="Limpiar"
+							(click)="frmFiltroBusqueda.reset(); usuarios = [];" fxLayoutAlign="center">
+							<i class="mdi mdi-close ar-icon-xs"></i>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- ar-buscar-tooltip -->
+			<div class="ar-buscar-tooltip-content" fxFlex="55" fxFlex.sm="80" fxFlex.md="65" fxFlex.xs="90">
+				<div fxLayout="row" fxLayout.xs="row" fxLayoutAlign="start center">
+					<span class="ar-search-text-xs">APELLIDO [+]</span>
+					<span class="ar-margin-left-xs">APELLIDO [+]</span>
+					<span class="ar-margin-left-xs">NOMBRE</span>
+				</div>
+			</div>
+		</mat-toolbar>
+		<!-- Área de listado de resultados de la búsqueda -->
+		<div fxLayout="column" fxFlex>
+			<perfect-scrollbar fxFlex class="ar-content">
+				<div fxLayoutAlign="center">
+					<div fxLayout="column" fxFlex="70" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="90">
+						<!-- Lista de salas con avatar -->
+						<div class="ar-list-item-sm" fxLayoutAlign="start center" *ngFor="let item of usuarios">
+							<!-- Avatar circular -->
+							<div class="ar-avatar ar-margin-left-xs">
+								<p class="ar-avatar-orange ar-avatar-sm">
+									{{item.persona.apellido1 | slice:0:1}}
+								</p>
+							</div>
+							<div fxLayout="column" class="ar-margin-left-sm">
+								<span class="ar-color-54 ar-body-2">
+									{{item.persona.identificacion}}
+								</span>
+								<span class="ar-color-87 ar-h3">{{item.persona.nombre}}
+									{{item.persona.apellido1}}
+									{{item.persona.apellido2}}
+								</span>
+								<!-- Detalle de la ubicación -->
+								<div fxLayout="row" fxLayoutAlign="start center">
+									<i class="mdi mdi-account-circle-outline ar-icons-xs ar-margin-right-xxs ar-color-38"
+										matTooltip="Ubicación del paciente"></i>
+									<span class="ar-color-54 ar-truncate ar-caption">
+										{{item.usuario.usuario}}
+									</span>
+								</div>
+							</div>
+							<span fxFlex></span>
+							<!-- Botones de opciones -->
+							<button mat-icon-button class="ar-margin-right-xs ar-color-54"
+								(click)="RestablecerPassword(item)" matTooltip="Restablecer contraseña">
+								<mat-icon>cached</mat-icon>
+							</button>
+							<button mat-icon-button class="ar-margin-right-xs ar-color-54"
+								(click)="EditarPermisos(item)" matTooltip="Editar permisos">
+								<mat-icon>lock</mat-icon>
+							</button>
+							<button mat-icon-button class="ar-color-54"
+								(click)="EditarUsuario(item.usuario.id, item.persona.id)" matTooltip="Editar información usuario">
+								<mat-icon>edit</mat-icon>
+							</button>
+						</div>
+						<!--Mensaje vacio-->
+						<ng-container *ngIf="usuarios?.length <= 0">
+							<div fxLayout="row" fxLayoutAlign="center center" class="ar-margin-percentage-xs">
+								<div fxLayout="column" fxLayoutAlign="center center">
+									<i class="material-icons ar-color-54 ar-icons-xmd">announcement</i>
+									<span class="mat-body-1 ar-color-54 ar-margin-top-xs">
+										Realizar búsqueda de usuario
+									</span>
+								</div>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</perfect-scrollbar>
+		</div>
+		<smat-fab-speed-dial class="ar-listar-fab">
+			<smat-fab-trigger>
+				<button matTooltipPosition="left" matTooltip="Crear un nuevo usuario" mat-fab (click)="NuevoUsuario()">
+					<mat-icon>add</mat-icon>
+				</button>
+			</smat-fab-trigger>
+		</smat-fab-speed-dial>
+	</div>

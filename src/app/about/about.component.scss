@@ -1,0 +1,294 @@
+/*------------------------------------------------------------------
+[Master Stylesheet /about]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2018
+Asignado a:	Adrián Fallas. afallasp@ccss.sa.cr (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+-------------------------------------------------------------------*/
+
+@import "styles.scss";
+
+html {
+  padding-top: 0;
+  height: 100%;
+  font-family: Roboto;
+  background-color: #fffdef !important;
+  overflow: hidden;
+}
+
+/* Imagen background */
+
+.ar-about-cover {
+  content: "";
+  left: 0;
+  right: 0;
+  top: 0;
+  height: auto;
+  // Indicar SIEMPRE el nombre del servidor de recursos Web a travez de las variables definidas en el styles.scss
+  background: url(#{$webKitServer}/images/about/arcaBackgroundAbout.svg) no-repeat center center fixed;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* Marca arca */
+
+.ar-about-marca {
+  font-family: muli;
+  margin-bottom: 0.25em;
+  font-size: 1.2em;
+}
+
+/* Toolbar principal */
+
+.ar-about-toolbar {
+  background-color: #fffdef !important;
+}
+
+/* Parrafo destacado */
+
+.about-lead-paragraph {
+  font-size: 28px;
+  line-height: 34px;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Slabo 27px", roboto;
+  color: rgb(100, 111, 121);
+}
+
+/* Quotes */
+
+.about-quote {
+  font-size: 64px;
+  color: rgb(100, 111, 121);
+  /* margin: 5px; */
+}
+
+/* Párrafo principal */
+
+.about-paragraph {
+  font-size: 20px;
+  line-height: 28px;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Slabo 27px", roboto;
+  color: rgb(100, 111, 121);
+  padding: 15px 0 15px 0;
+}
+
+/* Párrafo footer */
+
+.about-paragraph-footer {
+  font-size: 11px;
+  line-height: 16px;
+  -webkit-font-smoothing: antialiased;
+  color: rgba(var(--ar-color-white), 0.38);
+}
+
+/* Títulares */
+
+.ar-about-titulares {
+  color: #2d3047;
+  font-family: "Slabo 27px", roboto;
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 48px;
+  padding: 20px 0 30px 0;
+}
+
+/*Subárea*/
+
+.ar-about-subarea {
+  background-color: transparent;
+}
+
+/* Footer */
+
+.ar-about-footer {
+  padding: 24px 0 24px 0;
+  background-color: #2d3047 !important;
+}
+
+.ar-carousel-area {
+  padding: 0 0 30px 0;
+}
+
+/* Carrousel parents */
+
+.ar-about-parents {
+  height: 255px;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+/* Items de la búsqueda avanzada  */
+
+.items {
+  width: 100%;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.items.active {
+  background: rgba(255, 255, 255, 0.3);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.item {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent !important;
+}
+
+/* Circulo de versión */
+
+.ar-about-circle {
+  background-color: rgba(var(--ar-color-black), 0.06);
+  @include border-radius(0.4em);
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 0;
+  text-align: center;
+  min-width: 17em;
+  font-size: 12px;
+  padding: 10px 16px 10px 16px;
+  color: rgba(var(--ar-color-black), 0.54);
+}
+
+/* Tarjetas del Carousel */
+
+.card {
+  flex-direction: column;
+  width: 228px;
+  margin: 5px;
+  padding: 25px 0 25px 0;
+}
+
+.card-info {
+  position: relative;
+  text-align: center;
+}
+
+.card-image {
+  margin: auto;
+  max-width: 9em;
+}
+
+.card-avatar {
+  display: block;
+  height: auto;
+  width: 138px;
+}
+
+.card-avatar--circle {
+  border-radius: 50%;
+}
+
+.card-name {
+  font-size: 1.3em;
+  margin-top: 20px;
+  font-family: "Slabo 27px", roboto;
+}
+
+.card-email {
+  font-size: 1em;
+  font-weight: 400;
+  margin-top: 0;
+  color: rgba(var(--ar-color-black), 0.54);
+  font-family: "Slabo 27px", roboto;
+}
+
+/*keyframe animations*/
+
+.first {
+  -webkit-animation: slideshow 60s linear infinite;
+  -moz-animation: slideshow 60s linear infinite;
+  -ms-animation: slideshow 60s linear infinite;
+  -o-animation: slideshow 60s linear infinite;
+  animation: slideshow 60s linear infinite;
+}
+
+@keyframes slideshow {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: -5950px;
+  }
+}
+
+@-moz-keyframes slideshow {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: -5950px;
+  }
+}
+
+@-webkit-keyframes slideshow {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: -5950px;
+  }
+}
+
+@-ms-keyframes slideshow {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: -5950px;
+  }
+}
+
+@-o-keyframes slideshow {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: -5950px;
+  }
+}
+
+.photobanner {
+  height: 233px;
+  width: 3550px;
+  margin-bottom: 80px;
+}
+
+.photobanner img {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.photobanner img:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  cursor: pointer;
+  -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+}

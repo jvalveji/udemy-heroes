@@ -1,0 +1,197 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /shared/controls/usuarios-search/usuarios-search.component.scss]
+
+Proyecto:	arca Core
+Version:	1.0
+Fecha de creación:	07/2019
+Asignado a:	
+Desarrollo: 
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social 
+-------------------------------------------------------------------*/
+
+/* Estilos para dar diseño a la barra de búsqueda de ítems */
+
+.ar-search-bar {
+	background: #fff !important;
+	-webkit-border-radius: 4px;
+	border-radius: 1px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	position: relative;
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
+	z-index: 99;
+}
+
+/* Botón tipo menú en la barra de búsqueda */
+
+.ar-search-bar-button {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 0.54) !important;
+	border-radius: 0 2px 2px 0;
+	-webkit-border-radius: 0 2px 2px 0;
+	border: 0;
+	margin-right: 0;
+	margin-left: 0;
+	display: inline-block;
+	outline: none;
+	padding: 0 12px 0px 12px;
+	height: 48px;
+}
+
+.ar-search-bar-button:hover {
+	background-color: #f5f5f5 !important;
+}
+
+/* Botón del bar search en gris */
+
+.ar-search-bar-gray-button {
+	background-color: #fcfcfc !important;
+}
+
+.ar-search-bar-button i {
+	margin-top: 8px;
+}
+
+/* Estilos para dar diseño a la barra de búsqueda de ítems */
+
+.ar-search-usuarios {
+	background: #fff;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+	transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+	margin-top: 16px;
+	margin-bottom: 16px;
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
+	height: 48px;
+}
+
+.ar-search-usuarios:hover {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 9px rgba(0, 0, 0, 0.16);
+	transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Input de barra de búsqueda */
+
+.ar-search-input {
+	border: none;
+	font: normal 14px Roboto, sans-serif;
+	-webkit-font-variant-ligatures: none;
+	font-variant-ligatures: none;
+	height: 44px;
+	outline: none;
+	padding: 0px 0 0px 16px;
+	width: 100%;
+	background: transparent;
+}
+
+/* Estilos de área listado búsqueda */
+
+.ar-search-area {
+	position: relative;
+	margin: 0px;
+	background-color: #fff;
+}
+
+/* Área de toolbar del filtro flotante */
+
+.ar-search-card-list {
+	width: 100%;
+	display: inline-block;
+	z-index: 99;
+	position: absolute;
+	transition: width 0.25s ease-in-out;
+	content: "";
+	transform: translateY(0.4em);
+	padding-bottom: 0px !important;
+	max-height: 500px !important;
+	height: 500px !important;
+	overflow-y: scroll !important;
+}
+
+/* Esconde menú flotante de filtros */
+
+[hidden] {
+	display: none !important;
+}
+
+/* Animación de menú flotante */
+
+.ar-search-card-slideInDown {
+	-webkit-animation-name: ar-search-card-slideInDown;
+	animation-name: ar-search-card-slideInDown;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+@-webkit-keyframes ar-search-card-slideInDown {
+	0% {
+		-webkit-transform: translateY(-100%);
+		transform: translateY(-100%);
+		visibility: visible;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+}
+
+@keyframes ar-search-card-slideInDown {
+	0% {
+		-webkit-transform: translateY(-10%);
+		transform: translateY(-10%);
+		visibility: visible;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+}
+
+.ar-search-expansion-header {
+	cursor: pointer;
+	height: 50px !important;
+	min-height: 50px !important;
+	padding: 15px;
+	outline: 0 !important;
+	background-color: #fff;
+}
+
+.ar-search-expansion-header:hover {
+	background-color: #f5f5f5 !important;
+	cursor: pointer;
+}
+
+.ar-search-icon-list {
+	font-size: 24px;
+	color: rgba(0, 0, 0, 0.34);
+}
+
+/* Estilos texto de header del expansion panel  */
+
+.ar-search-text-header {
+	font-family: 'Mada', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	text-transform: uppercase;
+	-webkit-font-smoothing: antialiased;
+}
+
+.ar-search-text-id {
+	font-family: 'Mada', sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	text-transform: uppercase;
+	-webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,14 @@
+<html fullscreen fxLayoutAlign="center">
+<div fxLayout="row" fxLayoutAlign="center center">
+	<div fxLayout="column" fxLayoutAlign="center center">
+		<img class="ar-margin-top-sm" [src]="UrlWebkit + '/images/not-found/arca_401.svg' | safeURL" width="400">
+		<div fxFlex class="ar-text" fxLayoutAlign="center center">
+			<span fxFlex="60" class="mat-subheading-2 ar-text-primary-white">
+				Lo sentimos, su cuenta de usuario no se encuentra autorizada para acceder a este recurso.
+			</span>
+		</div>
+		<button mat-button mat-raised-button color="accent" (click)="IrPaginaAnterior()">Regresar</button>
+	</div>
+</div>
+
+</html>

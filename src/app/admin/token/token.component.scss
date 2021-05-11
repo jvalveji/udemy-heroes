@@ -1,0 +1,28 @@
+/*------------------------------------------------------------------
+[Master Stylesheet /app/core/admin/token/token.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	03/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+ Modificado: 10/2018 Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+-------------------------------------------------------------------*/
+
+@import "styles.scss";
+
+/* Estilos generales de la vista */
+
+.ar-page {
+  padding-top: 0;
+  height: 100%;
+}
+
+/* Estilo para que el texto del token haga el salto de linea */
+
+.ar-token-text {
+  word-break: break-all;
+}
