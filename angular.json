@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "arca-projects",
+  "newProjectRoot": "bitzu-projects",
   "projects": {
-    "Arca-Mean": {
+    "Bitzu": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -99,24 +99,24 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Arca-Mean:build"
+            "browserTarget": "Bitzu:build"
           },
           "configurations": {
             "test": {
-              "browserTarget": "Arca-Mean:build:test"
+              "browserTarget": "Bitzu:build:test"
             },
             "production": {
-              "browserTarget": "Arca-Mean:build:production"
+              "browserTarget": "Bitzu:build:production"
             },
             "demo": {
-              "browserTarget": "Arca-Mean:build:demo"
+              "browserTarget": "Bitzu:build:demo"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Arca-Mean:build"
+            "browserTarget": "Bitzu:build"
           }
         },
         "test": {
@@ -173,7 +173,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "Arca-Mean:serve"
+            "devServerTarget": "Bitzu:serve"
           }
         },
         "lint": {
@@ -188,14 +188,14 @@
       }
     }
   },
-  "defaultProject": "Arca-Mean",
+  "defaultProject": "Bitzu",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "arca",
+      "prefix": "bitzu",
       "style": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "arca"
+      "prefix": "bitzu"
     }
   }
 }

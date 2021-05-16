@@ -1,10 +1,10 @@
-# Plataforma Arca - MEAN (CCSS)
+# Plataforma Bitzú
 
-[![pipeline status](http://arcagitlab.ccss.sa.cr/arca-base/arca.bcore/badges/master/pipeline.svg)](http://arcagitlab.ccss.sa.cr/arca-base/arca.bcore/commits/master)
+[![pipeline status](http://arcagitlab.ccss.sa.cr/grupo.pi/pi.bitzu/badges/master/pipeline.svg)](http://arcagitlab.ccss.sa.cr/grupo.pi/pi.bitzu/commits/master)
 
-ARCA es una plataforma que brinda soluciones a distintas áreas y/o servicios dentro del entorno de la Caja Costarricense del Seguro Social (CCSS).
+Bitzú es una plataforma que brinda soluciones a distintas áreas y/o servicios dentro del entorno del proyecto Plan de Innovación, el cual tiene como objetivo la implantación del ERP SAP en la Caja Costarricense del Seguro Social (CCSS).
 
-El proyecto **Arca - MEAN** esta concebido bajo un conjunto de soluciones Open-Source conocidas como **"Full-Stack MEAN"**; donde convergen múltiples tecnologias basadas 100% en el lenguaje **javascript** (MongoDB, ExpressJS, Angular, NodeJS) y en su construcción se incluyeron las mejores prácticas del ciclo de vida de desarrollo de software.
+El proyecto **Bitzú** esta concebido bajo un conjunto de soluciones Open-Source conocidas como **"Full-Stack MEAN"**; donde convergen múltiples tecnologias basadas 100% en el lenguaje **javascript** (MongoDB, ExpressJS, Angular, NodeJS) y en su construcción se incluyeron las mejores prácticas del ciclo de vida para el desarrollo de software.
 
 El código fuente del proyecto se divide en 2 partes; la primera es donde se ubican los fuentes correspondientes a la interfaz de usuario y por otro lado tenemos el código fuente donde reside el servidor de servicios REST para las aplicaciones.
 
@@ -17,7 +17,7 @@ Dicha distribución de código se indica a continuación:
 
 ## Instalación
 
-El proyecto ARCA esta construido con tecnología multiplataforma, lo que permite poder descargar, codificar y ejecutarlo en cualquier sistema operativo (Windows, Linux, MACOS).
+El proyecto Bitzú esta construido con tecnología multiplataforma, lo que permite poder descargar, codificar y ejecutarlo en cualquier sistema operativo (Windows, Linux, MACOS).
 
 Basicamente se require:
 
@@ -25,7 +25,7 @@ Basicamente se require:
 -   El cliente de linea de comandos para Angular llamado [Angular CLI](https://github.com/angular/angular-cli).
 -   Instalar la base de datos [MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/#install-mongodb-community-edition) para realizar el desarrollo y/o pruebas en su versión **v4.2**.
 
-Una vez instalado lo anterior deberá realizar los siguientes pasos para obtener y ejecutar el proyecto ARCA:
+Una vez instalado lo anterior deberá realizar los siguientes pasos para obtener y ejecutar el proyecto:
 
 1. Obtener una copia del proyecto y ubicarlo en alguna carpeta de su estación de trabajo; esta copia del fuente le será suministrada por el desarrollador MASTER de cada proyecto en el cuál usted va a trabajar.
     - $`git clone git://ejemplo.com/prueba/test.git <rutaCarpetaProyecto>`
@@ -34,7 +34,7 @@ Una vez instalado lo anterior deberá realizar los siguientes pasos para obtener
     - $`npm install`
 4. Antes de inicializar la solución deberá:
 
-    - Modificar en todo el código fuente el nombre del proyecto; nada más busca todas las referencias llamadas **bitzu** y las sustituye por el nombre de su proyecto (Ej.: nutricion, patologia, quirurgico, widgets, etc.).
+    - Modificar en todo el código fuente el nombre del proyecto; nada más busca todas las referencias llamadas **bitzu** y las sustituye por el nombre de su proyecto (Ej.: nutricion, patologia, quirurgico, widgets, etc.). En caso de estar asignado el nombre por defecto, omitir este paso. 
     - Tener la base de datos MongoDB con los datos básicos para que funcione su proyecto; puede restarurar un _backup_ del ambiente **TEST** localmente y si corresponde, agregar la información para su proyecto en las colecciones:
 
         - arca-core.catalogo-aplicaciones-arca
@@ -78,6 +78,6 @@ Para cada una de estas etapas se utiliza igualmente los comandos provistos por e
 
 ## Licencia
 
-©ARCA es una plataforma desarrollada por el CGI del Hospital San Vicente de Paúl que pertenece a la [Caja Costarricense de Seguro Social (CCSS)](https://www.ccss.sa.cr/).
+©Bitzú es una plataforma desarrollada por el equipo de TI del Plan de Innovación que pertenece a la [Caja Costarricense de Seguro Social (CCSS)](https://www.ccss.sa.cr/).
 
-Heredia. Costa Rica. 2017 - 2020.
+San José. Costa Rica. 2020 - 2021.

@@ -32,7 +32,7 @@ module.exports = {
             "error",
             {
                 "type": "element",
-                "prefix": "arca",
+                "prefix": "bitzu",
                 "style": "kebab-case"
             }
         ],
@@ -41,7 +41,7 @@ module.exports = {
             "error",
             {
                 "type": "attribute",
-                "prefix": "arca",
+                "prefix": "bitzu",
                 "style": "camelCase"
             }
         ],
