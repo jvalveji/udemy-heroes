@@ -1,7 +1,7 @@
-// Definición para el fichero environment.prod.ts v6.4.0
-// Proyecto: Arca - MEAN
-// Definiciones por: Ing. Dagoberto Gómez Jiménez <dgomezj@ccss.sa.cr>
-// Modificado: (30-07-2020) Ing. Dagoberto Gómez Jiménez
+// Definición para el fichero environment.ts v1.0.0
+// Proyecto: Bitzu
+// Definiciones por: Equipo de TI Plan de Innovación
+// Modificado:
 
 /**
  * Fichero utilizado para establecer las variables de configuración
@@ -9,7 +9,7 @@
  */
 export const environment = {
 	// Indicador de la versión de la aplicación (igual al package.json)
-	version: '10.3.0',
+	version: '0.1.0',
 	// Parámetro para indicar el aplicativo registrado en el catálogo de aplicaciones Arca
 	aplicativo: 'arca.<nombre_clave>',
 	// Indicador de ambiente actual para el usuario
@@ -23,9 +23,9 @@ export const environment = {
 		// API principal del proyecto (ajustar protocolo dependiendo de su api: HTTP/HTTPS)
 		main: '<http|https>://<ip|dns>/bitzu-api',
 		// API para el manejo de impresoras a nivel local
-		printer: 'http://127.0.0.1:9310/arcaPrinter-1.0/'
+		printer: 'http://127.0.0.1:9310/bitzuPrinter-1.0/'
 	},
-	// Url's para los distintos sockets de las aplicaciones Arca - MEAN
+	// Url's para los distintos sockets de las aplicaciones Bitzú
 	sockets: {
 		// Socket principal del proyecto (ajustar protocolo y puerto dependiendo de su api: HTTP/HTTPS)
 		main: '<http|https>://<ip|dns>:<port>'
@@ -33,7 +33,7 @@ export const environment = {
 	},
 	// Url's de los servicios Web generales
 	urlWs: {
-		hospitalizacion: 'http://10.76.18.20/WSInformacionArca/InformacionArcaRest.svc/'
+		nombre: 'http://url/'
 	},
 	pentaho: 'https://arcapentaho.ccss.sa.cr/pentaho/api/repos/'
 };

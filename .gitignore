@@ -42,7 +42,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Arca
+# Bitzu
 package-lock.json
 /documentation
 /logs

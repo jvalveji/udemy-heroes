@@ -1,7 +1,7 @@
 // Definición  para el fichero de tareas jakefile v2.0.0
-// Proyecto: Arca - MEAN
-// Definiciones por: Ing. Dagoberto Gómez Jiménez <dgomezj@ccss.sa.cr>
-// Fichero con las instrucciones para los despliegues de las aplicaciones Arca Mean según ambiente.
+// Proyecto: Bitzú
+// Definiciones por: Ing. Dagoberto Gómez Jiménez
+// Fichero con las instrucciones para los despliegues de las aplicaciones Bitzú según ambiente.
 // Referencias 	-> (jake) https://jakejs.com/index.html
 // 				-> (bash colors and formatting) https://misc.flogisoft.com/bash/tip_colors_and_formatting
 // Este fichero contiene los comandos necesarios para la compilación de la aplicación Angular del proyecto MEAN.
@@ -24,9 +24,9 @@
 // 				Esto se hace agregando  la siguiente linea al fichero ~/.zshrc (si no existe, se crea):
 // 				alias jake="noglob jake"
 // 				Una vez editado se abre otro shell o se reinicia el shell actual ejecutando el comando: $ source ~/.zshrc
-// Modificado: (29-07-2020) Ing. Dagoberto Gómez Jiménez
+// Modificado: (15-05-2021) Equipo TI Plan de Innovación
 
-// Se importa eel módulo principal de jake
+// Se importa el módulo principal de jake
 let { task, desc } = require('jake');
 
 // Constante que indica el nombre del proyecto
@@ -71,7 +71,7 @@ task('BuildEnvironment', function (env, esF5) {
 	let CMD = null;
 
 	// Mensaje indicando el ambiente a desplegar
-	console.log(`${darkGrayBG}ArcaBuild${endFormat}${blueText} -> Ambiente: ${greenText}${env}`);
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Ambiente: ${greenText}${env}`);
 
 	// Valida el ambiente indicado por el usuario
 	switch (env.toLowerCase()) {
@@ -95,34 +95,34 @@ task('BuildEnvironment', function (env, esF5) {
 	// Valida el ambiente
 	if (!CMD) {
 		// Al no existir se notifica del error
-		throw new Error(`${darkGrayBG}ArcaBuild${endFormat}${redText} -> No se puede establecer el ambiente a desplegar.\nVerifique el ambiente.`);
+		throw new Error(`${darkGrayBG}BitzuBuild${endFormat}${redText} -> No se puede establecer el ambiente a desplegar.\nVerifique el ambiente.`);
 	}
 
 	// Se valida si el despliegue es para CODISA o es normal
 	if (esF5) {
 		// Mensaje indicando que se va a cambiar la URL del proyecto durante el build
-		console.log(`${darkGrayBG}ArcaBuild${endFormat}${yellowText} -> Cambio en la URL del proyecto: "/${project}/"`);
+		console.log(`${darkGrayBG}BitzuBuild${endFormat}${yellowText} -> Cambio en la URL del proyecto: "/${project}/"`);
 		// Se agrega al comando el flag para cambio en el ruteo del proyecto
 		CMD += ` --deploy-url /${project}/`;
 	}
 
 	// Elimina (limpia) la carpeta dist en caso de existir
-	console.log(`${darkGrayBG}ArcaBuild${endFormat}${blueText} -> Limpiando build previo del proyecto...`);
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Limpiando build previo del proyecto...`);
 
 	// Mensaje indicando que se realizo un ajuste en la memoria de node para la compilación
-	console.log(`${darkGrayBG}ArcaBuild${endFormat}${yellowText} -> Ajuste de memoria del motor V8 para la compilación (--max_old_space_size=${memV8}).`);
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${yellowText} -> Ajuste de memoria del motor V8 para la compilación (--max_old_space_size=${memV8}).`);
 
 	// Mensaje indicando que se va a iniciar el proceso build
-	console.log(`${darkGrayBG}ArcaBuild${endFormat}${blueText} -> Iniciando proceso build; por favor espere...`);
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Iniciando proceso build; por favor espere...`);
 
 	// Se ejecuta el comando para el build
 	proc.execSync(CMD, { stdio: 'inherit' });
 
 	// Mensaje indicando que se finalizo con éxito el proceso build
-	console.log(`${darkGrayBG}ArcaBuild${endFormat}${blueText} -> Proceso build finalizado con éxito.`);
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Proceso build finalizado con éxito.`);
 
 	// Mensaje indicando que se realiza un ajuste en la memoria de node post compilación
-	console.log(`${darkGrayBG}ArcaBuild${endFormat}${yellowText} -> Restableciendo memoria del motor V8 post-compilación (--max_old_space_size=${defaultMem}).`);
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${yellowText} -> Restableciendo memoria del motor V8 post-compilación (--max_old_space_size=${defaultMem}).`);
 
 	// Se aplica el comando de memoria para restablecerla
 	proc.execSync(`export NODE_OPTIONS=--max_old_space_size=${defaultMem}`);
@@ -132,7 +132,7 @@ task('BuildEnvironment', function (env, esF5) {
 		// Ejecuta el comando que cambia el nombre del fichero index.html
 		proc.execSync('mv ./dist/index.prod.html ./dist/index.html');
 		// Mensaje indicando que se cambio el fichero index.html
-		console.log(`${darkGrayBG}ArcaBuild${endFormat}${blueText} -> Estableciendo fichero index.html para producción.`);
+		console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Estableciendo fichero index.html para producción.`);
 	}
 
 	// Cuando termine la ejecución del comando se procede a llamar a la función complete()
@@ -149,7 +149,7 @@ task('MoveBundles', function (env) {
 	const proc = require('child_process');
 
 	// Mensaje indicando que va iniciarse la tarea de mover los ficheros
-	console.log(`${darkGrayBG}ArcaBuild${endFormat}${blueText} -> Iniciando proceso para relocalizar los bundles del proyecto...`);
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Iniciando proceso para relocalizar los bundles del proyecto...`);
 
 	// Crea la carpeta con el nombre del proyecto
 	jake.mkdirP(`./dist/${project}`);
@@ -164,7 +164,7 @@ task('MoveBundles', function (env) {
 	proc.execSync(CMD, { stdio: 'inherit' });
 
 	// Mensaje indicando que se finalizo con éxito el proceso de mover los ficheros
-	console.log(`${darkGrayBG}ArcaBuild${endFormat}${blueText} -> Proceso para relocalizar los bundles finalizado con éxito.`);
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Proceso para relocalizar los bundles finalizado con éxito.`);
 
 	// Cuando termine la ejecución del comando se procede a llamar a la función complete()
 	// para salir de la tarea actual y pasar a la siguiente
