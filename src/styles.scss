@@ -14,7 +14,7 @@ $array-map: null;
 
 // Variables css
 :root {
-	--ar-color-base: #2d3047;
+	--ar-color-base: #0D1B2A;
 	--ar-color-white: 255, 255, 255;
 	--ar-color-black: 1, 1, 1;
 	--ar-color-blue: 33, 150, 243;
@@ -95,7 +95,7 @@ $webKitServer: "https://arcapruebas.ccss.sa.cr/webkit";
 $themes: (light: ( // Background color del tema
 		arBackgroundThemeColor: rgba(var(--ar-color-white), 1),
 		// Background color del tema
-		arBackgroundThemeColorInverse: #2d3047,
+		arBackgroundThemeColorInverse: #0D1B2A,
 		// Toolbar background color del tema
 		arBackgroundToolbarColor: rgba(var(--ar-color-white), 1),
 		// Background color de tarjetas
@@ -103,7 +103,7 @@ $themes: (light: ( // Background color del tema
 		// Color del borde de las tarjetas
 		arColorCardBorder: rgba(1, 1, 1, 0.12) !important,
 		// Background color de chips
-		arBackgroundChipColor: #2d3047 !important,
+		arBackgroundChipColor: #0D1B2A !important,
 		// Color base inverso
 		arColorInverse: rgba(var(--ar-color-white), 1) !important,
 		// Color base con diferentes opacidades
@@ -127,17 +127,17 @@ $themes: (light: ( // Background color del tema
 		// Elevación base sin opacidad
 		arElevationBase: rgba(var(--ar-color-white), 1) !important),
 	dark: ( // Background color del tema
-		arBackgroundThemeColor: #2d3047 !important,
+		arBackgroundThemeColor: #0D1B2A !important,
 		// Background color del tema
 		arBackgroundThemeColorInverse: rgba(var(--ar-color-white), 1),
 		// Toolbar background color del tema
-		arBackgroundToolbarColor: #2d3047,
+		arBackgroundToolbarColor: #0D1B2A,
 		// Background color de tarjetas
 		arBackgroundCardColor: rgba(255, 255, 255, 0.05) !important,
 		// Background color de chips
 		arBackgroundChipColor: rgba(var(--ar-color-white), 1) !important,
 		// Color del borde de las tarjetas
-		arColorCardBorder: #2d3047 !important,
+		arColorCardBorder: #0D1B2A !important,
 		// Color base inverso
 		arColorInverse: rgba(0, 0, 0, 1) !important,
 		// Color base con diferentes opacidades

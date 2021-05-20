@@ -9,9 +9,10 @@
   }
 }
 
-.ar-arca-logo {
+.ar-bitzu-logo {
   font-family: muli;
-  margin-bottom: 3px;
+  font-weight: 800;
+  // margin-bottom: 3px;
   @include customize(theme) {
     color: getValue(arColor87);
   }
