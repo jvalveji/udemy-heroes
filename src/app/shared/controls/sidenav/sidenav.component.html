@@ -15,10 +15,13 @@
 				</div>
 			</div>
 		</div>
-		<a mat-icon-button (click)="sidenav.toggle()">
+		<!-- <a mat-icon-button (click)="sidenav.toggle()">
 			<img [src]="UrlWebkit + '/images/about/arca.svg' | safeURL" width="24" height="24">
-		</a>
-		<span class="ar-margin-left-xs ar-color-87 ar-arca-logo">arca</span>
+		</a> -->
+		<button class="ar-color-87" mat-icon-button aria-label="Menú" (click)="sidenav.toggle()">
+			<mat-icon>menu</mat-icon>
+		</button>
+		<span class="ar-margin-left-xs ar-color-87 ar-bitzu-logo">Bitzú</span>
 		<span fxFlex></span>
 		<!--Contenido dińamico con las opciones del toolbar para el módulo específico-->
 		<ng-content select="toolbar"></ng-content>
@@ -35,7 +38,7 @@
 		<mat-menu #alertasMensajes="matMenu" class="ar-chat-menu" yPosition="below" [overlapTrigger]="false">
 			<div fxLayout="row" fxLayoutAlign="start center" class="ar-text-dark ar-margin-left-xs ar-margin-right-xs">
 				<i class="mdi mdi-hexagon ar-icons-xs"></i>
-				<span class="ar-arca-logo ar-margin-left-xxs">arca</span>
+				<span class="ar-arca-logo ar-margin-left-xxs">Bitzú</span>
 				<span class="mat-caption ar-margin-left-xs">Mensajería</span>
 				<span fxFlex></span>
 				<div fxLayout="row" fxLayoutAlign="start center">
@@ -79,8 +82,8 @@
 	<mat-sidenav #sidenav mode="over" opened="false" class="ar-sidenav-profile">
 		<!--Toolbar del Sidenav-->
 		<mat-toolbar color="primary" class="ar-sidenav-toolbar">
-			<i class="mdi mdi-hexagon ar-icons-sm ar-arca-hex"></i>
-			<span style="margin-bottom:3px; font-size: 12px;" class="ar-margin-left-xs ar-color-54">Plataforma Arca (CCSS)</span>
+			<!-- <i class="mdi mdi-hexagon ar-icons-sm ar-arca-hex"></i> -->
+			<span style="margin-bottom:3px; font-size: 14px;" class="ar-margin-left-xs ar-color-54">PI Bitzú</span>
 			<span fxFlex></span>
 			<a mat-icon-button (click)="sidenav.toggle()">
 				<mat-icon class="ar-color-54">keyboard_arrow_left</mat-icon>
@@ -109,8 +112,7 @@
 								class="mdi mdi-weather-{{(temaApp==='ar-theme-dark arca-dark-theme')? 'night':'sunny'}} ar-icons-sm ar-color-54"></i>
 						</div>
 						<div fxLayoutAlign="start center">
-							<span>Modo {{ (temaApp==='ar-theme-dark arca-dark-theme')? 'oscuro':'claro' }}
-								<sup>Beta</sup></span>
+							<span>Modo {{ (temaApp==='ar-theme-dark arca-dark-theme')? 'oscuro':'claro' }}</span>
 						</div>
 						<span fxFlex></span>
 						<div class="ar-margin-right-xs">
@@ -133,7 +135,8 @@
 		<div class="ar-sidenav-footer-menu">
 			<div fxLayout="row" fxLayoutAlign="start center">
 				<div class="ar-sidenav-footer-item ar-color-54">
-					<a href="https://serviciostic.ccss.sa.cr:8553/CAisd/pdmweb.exe" target="_blank" style="text-decoration: none;">
+					<a href="https://serviciostic.ccss.sa.cr:8553/CAisd/pdmweb.exe" target="_blank"
+						style="text-decoration: none;">
 						<div>
 							<span class="ar-margin-left-xs">Soporte</span>
 						</div>

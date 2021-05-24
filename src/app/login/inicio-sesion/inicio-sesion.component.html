@@ -33,21 +33,21 @@ Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
 		</div>
 	</div>
 </div>
-<div class="ar-margin-top-md" fxLayoutAlign="center">
+<div class="ar-margin-top-md" fxLayoutAlign="center center">
 	<div fxFlex="30" fxFlex.xs="95" fxFlex.sm="75" fxFlex.md="45" fxLayout="column">
-		<div fxLayout="column">
+		<div fxLayout="column" class="ar-margin-top-lg">
 			<mat-card fxFlex class="ar-login-background">
-				<div fxLayout="column">
+				<!-- <div fxLayout="column">
 					<div class="ar-margin-top-none ar-margin-right-none">
 						<img mat-card-image [src]="UrlWebkit + '/images/login/arcaLogin.svg' | safeURL"
 							alt="Imagen principal de login">
 					</div>
-				</div>
+				</div> -->
 				<div fxLayout="column">
 					<div class="ar-margin-top-md">
 						<form class="ar-form-inicio-sesion ar-margin-left-sm ar-margin-right-sm"
 							[formGroup]="frmInicioSesion" (ngSubmit)="Validar()">
-							<mat-horizontal-stepper class="ar-login-background">
+							<mat-horizontal-stepper class="ar-login-background ar-margin-top-lg">
 								<mat-step>
 									<ng-template matStepLabel>
 										<span fxHide.xs>Usuario</span>
