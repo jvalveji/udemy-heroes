@@ -14,7 +14,7 @@ $array-map: null;
 
 // Variables css
 :root {
-	--ar-color-base: #0D1B2A;
+	--ar-color-base: #0d1b2a;
 	--ar-color-white: 255, 255, 255;
 	--ar-color-black: 1, 1, 1;
 	--ar-color-blue: 33, 150, 243;
@@ -52,23 +52,23 @@ $webKitServer: "https://arcapruebas.ccss.sa.cr/webkit";
 	@if ($arg==theme) {
 		$array: $themes;
 		$prefix: ar-theme;
-	}
-
-	@else {
+	} @else {
 		$array: $color-schemes;
 		$prefix: color;
 	}
 
-	@each $theme,
-	$map in $array {
+	@each $theme, $map in $array {
 		.#{$prefix}-#{$theme} & {
 			$array-map: () !global;
 
-			@each $key,
-			$submap in $map {
+			@each $key, $submap in $map {
 				$value: map-get(map-get($array, $theme), "#{$key}");
-				$array-map: map-merge($array-map,
-						($key: $value)) !global;
+				$array-map: map-merge(
+					$array-map,
+					(
+						$key: $value,
+					)
+				) !global;
 			}
 
 			@content;
@@ -92,10 +92,12 @@ $webKitServer: "https://arcapruebas.ccss.sa.cr/webkit";
 // Definiciones del Tema
 //
 
-$themes: (light: ( // Background color del tema
+$themes: (
+	light: (
+		// Background color del tema
 		arBackgroundThemeColor: rgba(var(--ar-color-white), 1),
 		// Background color del tema
-		arBackgroundThemeColorInverse: #0D1B2A,
+		arBackgroundThemeColorInverse: #0d1b2a,
 		// Toolbar background color del tema
 		arBackgroundToolbarColor: rgba(var(--ar-color-white), 1),
 		// Background color de tarjetas
@@ -103,7 +105,7 @@ $themes: (light: ( // Background color del tema
 		// Color del borde de las tarjetas
 		arColorCardBorder: rgba(1, 1, 1, 0.12) !important,
 		// Background color de chips
-		arBackgroundChipColor: #0D1B2A !important,
+		arBackgroundChipColor: #0d1b2a !important,
 		// Color base inverso
 		arColorInverse: rgba(var(--ar-color-white), 1) !important,
 		// Color base con diferentes opacidades
@@ -125,19 +127,21 @@ $themes: (light: ( // Background color del tema
 		arElevation16: rgba(0, 0, 0, 0.15) !important,
 		arElevation24: rgba(0, 0, 0, 0.16) !important,
 		// Elevación base sin opacidad
-		arElevationBase: rgba(var(--ar-color-white), 1) !important),
-	dark: ( // Background color del tema
-		arBackgroundThemeColor: #0D1B2A !important,
+		arElevationBase: rgba(var(--ar-color-white), 1) !important,
+	),
+	dark: (
+		// Background color del tema
+		arBackgroundThemeColor: #0d1b2a !important,
 		// Background color del tema
 		arBackgroundThemeColorInverse: rgba(var(--ar-color-white), 1),
 		// Toolbar background color del tema
-		arBackgroundToolbarColor: #0D1B2A,
+		arBackgroundToolbarColor: #0d1b2a,
 		// Background color de tarjetas
 		arBackgroundCardColor: rgba(255, 255, 255, 0.05) !important,
 		// Background color de chips
 		arBackgroundChipColor: rgba(var(--ar-color-white), 1) !important,
 		// Color del borde de las tarjetas
-		arColorCardBorder: #0D1B2A !important,
+		arColorCardBorder: #0d1b2a !important,
 		// Color base inverso
 		arColorInverse: rgba(0, 0, 0, 1) !important,
 		// Color base con diferentes opacidades
@@ -160,23 +164,26 @@ $themes: (light: ( // Background color del tema
 		arElevation16: rgba(255, 255, 255, 0.15) !important,
 		arElevation24: rgba(255, 255, 255, 0.16) !important,
 		// Elevación base
-		arElevationBase: rgba(255, 255, 255, 0.05) !important));
+		arElevationBase: rgba(255, 255, 255, 0.05) !important,
+	),
+);
 
 //
 // Implementación del Tema
 //
 @mixin themify($themes) {
-
-	@each $theme,
-	$map in $themes {
+	@each $theme, $map in $themes {
 		.theme-#{$theme} & {
 			$theme-map: () !global;
 
-			@each $key,
-			$submap in $map {
+			@each $key, $submap in $map {
 				$value: map-get(map-get($themes, $theme), "#{$key}");
-				$theme-map: map-merge($theme-map,
-						($key: $value)) !global;
+				$theme-map: map-merge(
+					$theme-map,
+					(
+						$key: $value,
+					)
+				) !global;
 			}
 
 			@content;
@@ -449,6 +456,31 @@ $ar-background-color: #2b2b33 !important;
 	}
 }
 
+// Color de background red
+.ar-background-red {
+	background-color: rgba(var(--ar-color-red), 0.74);
+}
+
+// Color de background red
+.ar-background-purple {
+	background-color: rgba(var(--ar-color-purple), 0.74);
+}
+
+// Color de background blue
+.ar-background-blue {
+	background-color: rgba(var(--ar-color-blue), 0.74);
+}
+
+// Color de background yellow
+.ar-background-yellow {
+	background-color: rgba(var(--ar-color-yellow), 0.74);
+}
+
+// Color de background orange
+.ar-background-orange {
+	background-color: rgba(var(--ar-color-orange), 0.74);
+}
+
 // Color de fondo inverso de la aplicación de acuerdo al tema
 .ar-background-inverse {
 	@include customize(theme) {
@@ -559,12 +591,14 @@ $separator: "-";
 $allKey: "all";
 $verticalKey: "vertical";
 $horizontalKey: "horizontal";
-$positions: (top: "top",
+$positions: (
+	top: "top",
 	right: "right",
 	bottom: "bottom",
-	left: "left"
+	left: "left",
 );
-$sizes: (none: 0rem,
+$sizes: (
+	none: 0rem,
 	xxs: 0.325rem,
 	xs: 0.625rem,
 	sm: 1.25rem,
@@ -581,23 +615,22 @@ $sizes: (none: 0rem,
 	35: 35%,
 	40: 40%,
 	45: 45%,
-	50: 50%);
+	50: 50%,
+);
 
 @function size-value($value) {
 	@if $value==0 {
 		@return $value;
 	}
 
-	@if $value=="auto" {
+	@if $value== "auto" {
 		@return $value;
 	}
 
 	@return #{$value};
 }
 
-@each $sizeKey,
-$sizeValue in $sizes {
-
+@each $sizeKey, $sizeValue in $sizes {
 	// "all" (top-right-bottom-left)
 	.#{$marginKey}#{$allKey}#{$separator}#{$sizeKey} {
 		margin: size-value($sizeValue);
@@ -630,8 +663,7 @@ $sizeValue in $sizes {
 	}
 
 	// each of top,right,bottom,left:
-	@each $posKey,
-	$posValue in $positions {
+	@each $posKey, $posValue in $positions {
 		.#{$marginKey}#{$posKey}#{$separator}#{$sizeKey} {
 			margin-#{$posValue}: size-value($sizeValue);
 		}
@@ -653,7 +685,8 @@ $sizeValue in $sizes {
 $sizeUnit: em;
 $marginKey: "ar-icons";
 $separator: "-";
-$sizes: (none: 0,
+$sizes: (
+	none: 0,
 	xs: 0.875,
 	sm: 1.5,
 	md: 2,
@@ -668,23 +701,22 @@ $sizes: (none: 0,
 	7x: 7,
 	8x: 8,
 	9x: 9,
-	10x: 10);
+	10x: 10,
+);
 
 @function size-value($value) {
 	@if $value==0 {
 		@return $value;
 	}
 
-	@if $value=="auto" {
+	@if $value== "auto" {
 		@return $value;
 	}
 
 	@return #{$value}#{$sizeUnit};
 }
 
-@each $sizeKey,
-$sizeValue in $sizes {
-
+@each $sizeKey, $sizeValue in $sizes {
 	// "all" (sizes)
 	.#{$marginKey}#{$separator}#{$sizeKey} {
 		font-size: size-value($sizeValue);
@@ -1239,67 +1271,50 @@ $sizeValue in $sizes {
 	width: 100%;
 }
 
-// Menú fotante de navegación
+// Toolbar footer
 
-.ar-floating-bar {
-	position: fixed;
-	height: 60px;
-	bottom: 20px;
-	background-color: rgba(var(--ar-color-black), 0.08) !important;
-	left: 50%;
-	right: 50%;
-	justify-content: center;
-}
-
-.ar-floating-bar-button {
-	width: 54px;
-	height: 54px;
-	outline: none;
-	margin: 0.25rem 0.25em;
-	cursor: pointer;
-
+.ar-footer-bar { 
+	@include height(64);
+	padding: 0 16px; 
+  }
+  
+  .ar-footer-bar-button {
 	:hover {
-		color: rgba(var(--ar-color-orange), 1) !important;
+	  color: rgba(var(--ar-color-orange), 1) !important;
+	  transition: 0.5s ease;
+	  -webkit-transition: 0.5s ease;
+	  -moz-transition: 0.5s ease;
 	}
-}
-
-.ar-floating-bar-container {
-	padding: 10px;
-	background-color: rgba(var(--ar-color-black), 0.06) !important;
-	@include border-radius(32px);
-}
-
-// Spinner de carga entre módulos (lazy-loading)
-.loader-spinner-arca {
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	position: absolute;
-	left: 0;
-	right: 0;
-	margin-left: auto;
-	margin-right: auto;
-	top: calc(50% - 50px);
-	transform: translateY(-50%);
-}
-
-.loader-spinner-arca:after {
-	content: ' ';
-	display: block;
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	border: 5px solid #fff;
-	border-color: #fff transparent #fff transparent;
-	animation: loader 1.2s linear infinite;
-}
-
-@keyframes loader-spinner-arca {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
-	}
-}
+  }
+  
+  .ar-footer-bar-container {
+	z-index: 99;
+  }
+  
+  // Text
+  
+  .ar-core-caption {
+	font-size: 0.8rem;
+	font-family: "Mada", sans-serif;
+  }
+  
+  .ar-core-text {
+	font-size: 1rem;
+	font-family: "Mada", sans-serif;
+  }
+  
+  .ar-core-headline {
+	font-size: 1.4rem;
+	margin: 0 0 16px;
+	font-family: "Mada", sans-serif;
+  }
+  
+  .ar-core-code {
+	font-size: 1rem;
+	font-family: Inconsolata, monospace;
+  }
+  
+  .ar-core-title {
+	font-size: 1.3rem;
+	font-family: "Mada", sans-serif;
+  }
