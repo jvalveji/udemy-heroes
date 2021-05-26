@@ -23,6 +23,8 @@ import { ILogin } from '../interfaces/login';
 
 // Importa los componentes a utilizar
 import { AutocompleteComponent } from './../../shared/controls/autocomplete/autocomplete.component';
+// Importa los componentes de animación
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
  * Componente destinado al despligue y manejo de la funcionalidad que permite el inicio de sesión
@@ -32,7 +34,21 @@ import { AutocompleteComponent } from './../../shared/controls/autocomplete/auto
 	selector: 'arca-inicio-sesion',
 	templateUrl: './inicio-sesion.component.html',
 	styleUrls: ['./inicio-sesion.component.scss'],
-	providers: [DialogService]
+	providers: [DialogService],
+	animations: [ 
+		// Evento que se ejecuta la transición 'fade in o fade out' para los componentes que tienen como identificador 'apps'
+		trigger('apps', [
+			// Transición de cualquier identificador a 'fadeIn'
+			transition('* => fadeIn', [
+				style({ opacity: 0 }),
+				animate(1000, style({ opacity: 1 }))
+			]),
+			// Transición de cualquier identificador a 'fadeOut'
+			transition('* => fadeOut', [
+				animate(1000, style({ opacity: 0 }))
+			])
+		])
+	]
 })
 export class InicioSesionComponent implements OnInit {
 	/**
@@ -81,6 +97,30 @@ export class InicioSesionComponent implements OnInit {
 	 */
 	private horizontalPosition: MatSnackBarHorizontalPosition = 'center';
 	private verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+	/**Variable que habilita el campo de ingreso de usuario */
+	public esUsuario: Boolean = true;
+
+	/**Variable que habilita el campo de ingreso de unidad programatica */
+	public esUnidadProgramatica: Boolean = false;
+
+	/**Variable que habilita el campo de ingreso de contraseña */
+	public esPassword: Boolean = false;
+
+	/**Variable que habilita el boton de ingresar */
+	public esIngresar: Boolean = false;
+
+	/**Variable que habilita el boton de regresar */
+	public esRegresar: Boolean = false;
+
+	/**Varible que habilita el boton de siguiente de usuario */
+	public esSiguienteUsuario: Boolean = true;
+
+	/**Varible que muestra el boton de siguiente de unidad programatica */
+	public esSiguienteUP: Boolean = false;
+
+	/**Varible que habilita el boton de siguiente de unidad programatica */
+	public esDisableSiguienteUP: Boolean = true;
 
 	/**
 	 * Constructor de la clase
@@ -146,6 +186,11 @@ export class InicioSesionComponent implements OnInit {
 					// Se obtiene solo la lista de unidades programáticas
 					return unidad.unidadProgramatica_id;
 				});
+				this.esUsuario = false;
+				this.esUnidadProgramatica = true;
+				this.esRegresar = true;
+				this.esSiguienteUsuario = false;
+				this.esSiguienteUP = true;
 				// Muestra el control de autocompletar
 				this.disableAuto = false;
 			}
@@ -177,6 +222,7 @@ export class InicioSesionComponent implements OnInit {
 		this.upSeleccionada = (item) ? item : null;
 		// Marca el campo de contraseña para indicarle al usuario que debe ingresarla
 		this.frmInicioSesion.controls.clave.enable();
+		this.esDisableSiguienteUP = false;
 	};
 
 	/**
@@ -209,7 +255,7 @@ export class InicioSesionComponent implements OnInit {
 				// Redirige al usuario hacia el home principal de la aplicación
 				// MODIFIQUE AQUI LA RUTA COMPLETA DEL HOME INICIAL DE SU PROYECTO
 				// (Acá se indica la ruta del HOME del módulo principal del proyecto basado en el fichero de rutas [app.routing.module.ts])
-				// Ej.: Nutrición => this.rutas.navigate(['/nutricion/main']);
+				// Ej.: Nutrición => this.rutas.navigate(['/trasplantes/main']);
 				this.rutas.navigate(['/bitzu/main']);
 			} else {
 				// Valida el mensaje de error
@@ -235,6 +281,36 @@ export class InicioSesionComponent implements OnInit {
 			this.esCargando = false;
 		});
 	};
+
+	/**
+	 * Metodo que se encarga de continuar con el registros despues de seleccionar la unidad programatica
+	 */
+	public IngresoPassword(){
+		this.esUnidadProgramatica = false;
+		this.esSiguienteUP = false;
+		this.esPassword = true;
+		this.esIngresar = true;
+
+	};
+	/**
+	 * Metodo que se encarga de mostrar regresar los componentes a un paso anterior en el ingreso
+	 */
+	public Regresar(){
+		if (this.esUnidadProgramatica){
+			this.esUnidadProgramatica = false;
+			this.esSiguienteUP = false;
+			this.esRegresar = false;
+			this.esUsuario = true;
+			this.esSiguienteUsuario = true;
+		}else if (this.esPassword){
+			this.esPassword = false;
+			this.esIngresar = false;
+			this.esUnidadProgramatica = true;
+			this.esDisableSiguienteUP = true;
+			this.esSiguienteUP = true;
+		}
+	};
+
 
 	/**
 	 * Método inicial del componente
