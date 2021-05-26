@@ -15,13 +15,13 @@
 				</div>
 			</div>
 		</div>
-		<!-- <a mat-icon-button (click)="sidenav.toggle()">
-			<img [src]="UrlWebkit + '/images/about/arca.svg' | safeURL" width="24" height="24">
-		</a> -->
 		<button class="ar-color-87" mat-icon-button aria-label="Menú" (click)="sidenav.toggle()">
 			<mat-icon>menu</mat-icon>
 		</button>
-		<span class="ar-margin-left-xs ar-color-87 ar-bitzu-logo">Bitzú</span>
+		<a mat-icon-button (click)="sidenav.toggle()">
+			<i class="bi-isotipo_bitzu ar-icons-sm ar-color-87"></i>
+		</a>
+		<!-- <span class="ar-margin-left-xs ar-color-87 ar-bitzu-logo">Bitzú</span> -->
 		<span fxFlex></span>
 		<!--Contenido dińamico con las opciones del toolbar para el módulo específico-->
 		<ng-content select="toolbar"></ng-content>
@@ -37,10 +37,9 @@
 		<!-- Área de notificaciones -->
 		<mat-menu #alertasMensajes="matMenu" class="ar-chat-menu" yPosition="below" [overlapTrigger]="false">
 			<div fxLayout="row" fxLayoutAlign="start center" class="ar-text-dark ar-margin-left-xs ar-margin-right-xs">
-				<i class="mdi mdi-hexagon ar-icons-xs"></i>
-				<span class="ar-arca-logo ar-margin-left-xxs">Bitzú</span>
-				<span class="mat-caption ar-margin-left-xs">Mensajería</span>
+				<i class="bi-isotipo_bitzu ar-icons-xs ar-color-87"></i>
 				<span fxFlex></span>
+				<span class="mat-caption ar-margin-right-xs">Mensajería</span>
 				<div fxLayout="row" fxLayoutAlign="start center">
 					<i class="mdi mdi-arrow-expand ar-icons-xs"></i>
 				</div>
@@ -83,27 +82,26 @@
 		<!--Toolbar del Sidenav-->
 		<mat-toolbar color="primary" class="ar-sidenav-toolbar">
 			<!-- <i class="mdi mdi-hexagon ar-icons-sm ar-arca-hex"></i> -->
-			<span style="margin-bottom:3px; font-size: 14px;" class="ar-margin-left-xs ar-color-54">PI Bitzú</span>
+			<i class="bi-isotipo_bitzu ar-icons-xs ar-color-87"></i> 
 			<span fxFlex></span>
 			<a mat-icon-button (click)="sidenav.toggle()">
 				<mat-icon class="ar-color-54">keyboard_arrow_left</mat-icon>
 			</a>
 		</mat-toolbar>
 		<!-- Área de ávatar -->
-		<div fxLayoutAlign="start center" fxLayout="row" class="ar-sidenav-exit-area ar-margin-top-xs">
-			<div class="ar-sidenav-avatar-person">
-				<i class="material-icons">account_circle</i>
-				<!-- <img src="https://www.gravatar.com/avatar/ad2b41613c8702b5372bbdc9a8107040?d=identicon" /> -->
+		<div fxLayoutAlign="start center" fxLayout="row" class="ar-sidenav-exit-area ar-margin-top-sm">
+			<div class="ar-margin-right-sm ar-margin-left-sm">
+				<i class="far fa-user ar-color-54 ar-icons-sm"></i>
 			</div>
 			<div fxLayout="column">
 				<span class="ar-sidenav-name">{{nombreCompletoUsuario}}</span>
 				<span class="ar-sidenav-place">{{nombreUnidadProgramatica}}</span>
 			</div>
 		</div>
-		<div class="ar-sidenav-line"></div>
+		<div class="ar-border-05 ar-margin-top-sm"></div>
 		<!--Contenido dińamico con las opciones del menú para el módulo específico-->
 		<div class="ar-sidenav-area">
-			<perfect-scrollbar>
+			<perfect-scrollbar> 
 				<ul class="ar-sidenav-menu">
 					<!-- Modo claro/oscuro -->
 					<li fxLayout="row" fxLayoutAlign="start center" (click)="CambiarTema()">
