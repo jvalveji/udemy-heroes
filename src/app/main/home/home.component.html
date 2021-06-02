@@ -16,70 +16,68 @@ Modificado:	06/2018
 Referencia iconos -> https://fontawesome.com/icons?d=gallery
 **************************************************************** -->
 
-<!-- ar-core-background -->
+<html fxLayout="column" fullscreen class="ar-background">
+<div fxFlex fxLayout="column" layout class="ar-page">
+	<perfect-scrollbar fxFlex class="ar-content">
+		<div fxLayoutAlign="center">
+			<div fxLayout="column" fxFlex="90" fxFlex.xs="90" fxFlex.sm="90" fxFlex.md="90">
+				<!-- Contenedor de accesos de componentes -->
+				<div fxLayout="row" fxFlex fxLayoutAlign="center">
+					<div fxFlex>
+						<!-- Área de tarjetas de acceso a los componentes  -->
+						<div fxLayoutWrap fxLayout="row" class="ar-core-card-area ar-margin-top-sm"
+							fxLayoutAlign="start start">
+							<ng-container>
+								<!-- Cola general -->
+								<div [@apps]="'fadeIn'" class="ar-core-card">
+									<div fxLayout="column" fxLayoutAlign="space-between start" matRipple
+										class="ar-core-card-item ar-background-orange">
+										<i class="far fa-stream ar-color-54 ar-icons-sm"></i>
+										<p class="ar-color-54 ar-core-card-text">
+											Cola general
+										</p>
+									</div>
+								</div>
+								<!-- Solicitudes asignadas -->
+								<div [@apps]="'fadeIn'" class="ar-core-card">
+									<div fxLayout="column">
+										<div fxLayout="column" fxLayoutAlign="space-between start" matRipple
+											class="ar-core-card-item ar-background-card">
+											<i class="far fa-paper-plane ar-color-54 ar-icons-sm"></i>
+											<p class="ar-color-54 ar-core-card-text">
+												Solicitudes asignadas
+											</p> 
+										</div>
+									</div>
+								</div>
+							</ng-container>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</perfect-scrollbar>
+	<!-- Footer -->
+	<app-footer fxFlexOffset="auto">
+		<div class="ar-footer-bar ar-background-card" fxLayout="row">
+			<div fxFlex fxLayoutAlign="start center" class="ar-footer-bar-container">
+				<div fxFlex fxLayoutAlign="center center">
+					<div fxLayout="row" fxFlex="90" fxFlex.sm="90" fxFlex.md="90" fxFlex.xs="90">
+						<button class="ar-footer-bar-button" mat-icon-button aria-label="Inicio" matTooltip="Inicio"
+                        routerLink="/bitzu/main">
+							<i class="fas fa-dot-circle ar-color-orange ar-icons-sm fa-rotate-90"></i>
+						</button>
+						<button class="ar-footer-bar-button ar-margin-left-sm" mat-icon-button 
+							aria-label="Solicitudes" matTooltip="Solicitudes"
+							routerLink="/bitzu/admin"
+                            *arcaAccesoPermiso="'administracion'">
+							<i class="fas fa-cogs ar-color-54 ar-icons-sm"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</app-footer>
+</div>
 
-<html fullscreen class="ar-background">
-    <div fxLayout="row" fxLayout.xs="row" fxFlex="100" fxLayoutAlign="center">
-        <perfect-scrollbar fxFlex class="ar-content">
-            <div fxLayoutAlign="center">
-                <div fxFlex="90" fxFlex.xs="95" fxFlex.sm="90" fxFlex.md="85">
-                    <div fxLayout="row">
-                        <!-- Área de acceso a módulos -->
-                        <div fxLayout="row" fxFlex class="ar-margin-top-lg ar-padding-bottom-sm">
-                            <div fxFlex>
-                                <!-- Área de tarjetas de acceso a los componentes  -->
-                                <div fxLayout="row" class="ar-core-card-area">
-                                    <ng-container>
-                                        <div [@apps]="'fadeIn'" class="ar-core-card">
-                                            <div fxLayoutAlign="center center">
-                                                <div
-                                                    class="ar-core-card-item ar-background-card"
-                                                    fxLayoutAlign="center center"
-                                                >
-                                                    <i
-                                                        class="fa fa-paw ar-color-54 ar-icons-sm"
-                                                    ></i>
-                                                </div>
-                                            </div>
-                                            <div fxLayoutAlign="center center">
-                                                <p class="ar-color-54 ar-core-card-text">Demo</p>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </perfect-scrollbar>
-    </div>
-    <!-- Barra flotante de acciones -->
-    <div fxFlex class="ar-floating-bar" fxLayout="row">
-        <div
-            fxFlex
-            fxLayoutAlign="center center"
-            class="ar-floating-bar-container mat-elevation-z0"
-        >
-            <!-- Inicio (va en todos los home de cada módulo pero se puede exluir del home principal)-->
-            <div
-                class="ar-floating-bar-button"
-                fxLayoutAlign="center center"
-                matTooltip="Inicio"
-                routerLink="/bitzu/main"
-            >
-                <i class="fad fa-hexagon ar-color-orange ar-icons-sm fa-rotate-90"></i>
-            </div>
-            <!-- Módulo administrador-->
-            <div
-                class="ar-floating-bar-button"
-                fxLayoutAlign="center center"
-                matTooltip="Administración"
-                *arcaAccesoPermiso="'administracion'"
-                routerLink="/bitzu/admin"
-            >
-                <i class="fad fa-lock ar-color-54 ar-icons-sm"></i>
-            </div>
-        </div>
-    </div>
-</html>
+</html>  
