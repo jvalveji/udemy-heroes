@@ -1,0 +1,161 @@
+@import "styles.scss";
+/* -----------------------------------------------------------------------------------------------
+[Master Stylesheet catalogos/unidades-programaticas-inicio-sesion/unidades-programaticas-inicio-sesion.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	11/2017
+Diseño por :	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo por: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+----------------------------------------------------------------------------------------------- */
+
+/* Estilos de la vista general */
+
+.ar-page {
+	padding-top: 0px;
+	height: 100%;
+	font-family: Roboto;
+	background-color: #ECEFF1 !important;
+}
+
+/* Estilos del toolbar principal */
+
+.ar-unidades-toolbar {
+	z-index: 10;
+	background-color: #ECEFF1;
+}
+
+.ar-unidades-toolbar span {
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Estilos barra de progreso */
+
+mat-progress-bar {
+	position: fixed;
+	top: 60px;
+	z-index: 11;
+}
+
+/* Estilos de la barra de búsqueda de ítems */
+
+.ar-unidades-search {
+	background: #fff;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+	transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+	margin-top: 16px;
+	margin-bottom: 16px;
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
+	height: 48px;
+}
+
+.ar-unidades-search:hover {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 9px rgba(0, 0, 0, 0.16);
+	transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.ar-unidades-input-search {
+	border: none;
+	font: normal 14px Roboto, sans-serif;
+	-webkit-font-variant-ligatures: none;
+	font-variant-ligatures: none;
+	height: 44px;
+	outline: none;
+	padding: 0px 0 0px 16px;
+	width: 100%;
+	background: transparent;
+}
+
+.ar-unidades-bar-menu {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 0.54) !important;
+	border-radius: 2px 0 0 2px;
+	-webkit-border-radius: 2px 0 0 2px;
+	border: 0;
+	margin-right: 0;
+	margin-left: 0;
+	display: inline-block;
+	outline: none;
+	padding: 0 12px 0px 12px;
+	height: 48px;
+}
+
+.ar-unidades-bar-menu:hover {
+	background-color: #f5f5f5 !important;
+}
+
+.ar-unidades-bar-menu i {
+	margin-top: 8px;
+}
+
+/* Estilos header div */
+
+.ar-unidades-area-items {
+	min-height: 76px !important;
+}
+
+.ar-unidades-item {
+	cursor: pointer;
+	height: 74px;
+	padding: 15px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	outline: 0 !important;
+	background-color: #fff !important;
+	box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+/* Estilos avatar circle */
+
+.ar-unidades-circle {
+	background: #cccccc;
+	border-radius: 0.8em;
+	-moz-border-radius: 0.8em;
+	-webkit-border-radius: 0.8em;
+	color: #ffffff;
+	display: inline-block;
+	font-weight: bold;
+	line-height: 1.6em;
+	margin-right: 24px;
+	text-align: center;
+	width: 1.6em;
+	font-size: 20px;
+}
+
+.ar-unidades-item:hover .ar-unidades-circle {
+	background: #FFB300;
+	color: rgba(0, 0, 0, 0.87);
+}
+
+.ar-unidades-item:hover {
+	background-color: #fcfcfc !important;
+	cursor: pointer;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+/* Estilos div nombre y descripción ítem y sub-ítem */
+
+/* .ar-unidades-personal-item {
+	padding: 0 15px 10px 15px;
+	border-bottom: 1px solid #ebebeb;
+} */
+
+.ar-unidades-item-separator {
+	border-left: 1px solid #ebebeb;
+	height: 32px;
+	margin: 0 16px;
+	width: 0;
+}
+
+.ar-unidades-header-subitem {
+	padding: 4px 5px 4px;
+}

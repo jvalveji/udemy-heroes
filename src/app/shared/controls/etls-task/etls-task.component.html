@@ -1,0 +1,58 @@
+<!-- ------------------------------------------------------------------
+[Master Stylesheet /app/core/admin/etls/etls.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	03/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+------------------------------------------------------------------- -->
+
+<html class="ar-page" fullscreen fxLayout="column">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css" />
+<!-- Toolbar principal -->
+<mat-toolbar class="header-toolbar mat-elevation-z1 ar-text-dark" style="z-index:10;">
+	<span>Arca - Administrador de tareas (ETL's)</span>
+</mat-toolbar>
+<div class="ar-etls-progress">
+	<mat-progress-bar mode="indeterminate" *ngIf="esBarraProcesoEtl"></mat-progress-bar>
+</div>
+<div fxLayout="column" ngClass="ar-etls-content">
+	<!-- Card que contiene todo el contenido principal de la vista -->
+	<mat-card class="ar-etls-page">
+		<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign.xs="none" fxLayoutAlign.sm="none">
+			<div fxFlex="50" fxLayoutAlign="center center">
+				<!-- Input para el nombre del etl -->
+				<mat-form-field fxFlex>
+					<input matInput placeholder="Nombre" [value]="datosETL?.nombre" readonly>
+				</mat-form-field>
+			</div>
+		</div>
+		<!--Contenido dińamico con las opciones de filtrado para el etl específico-->
+		<ng-content select="filtros"></ng-content>
+		<!-- Descripción de la tarea-->
+		<div class="ar-margin-bottom-sm ar-margin-top-sm">
+			<label>Descripción</label>
+			<div class="ar-etls-text ar-text-dark">
+				{{datosETL?.descripcion}}
+			</div>
+		</div>
+		<div class="ar-etls-progress">
+			<mat-progress-bar *ngIf="esBarraProcesoEtl" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Simulador de la consola -->
+		<div id="divConsole" class="ar-etls-console">
+			<mat-list>
+				<mat-list-item *ngFor="let prompt of consola" [innerHTML]="prompt | safeHtml"></mat-list-item>
+			</mat-list>
+		</div>
+		<mat-card-actions>
+			<button mat-button [disabled]="!esEjecutar" (click)="Ejecutar()">Ejecutar</button>
+			<button mat-button mat-dialog-close matDialogClose [disabled]="!esCancel">Cancel</button>
+		</mat-card-actions>
+	</mat-card>
+</div>
+
+</html>

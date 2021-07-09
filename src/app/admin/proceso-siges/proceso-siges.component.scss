@@ -1,0 +1,59 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /app/core/admin/archivos/jobs-task.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	10/2018
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+-------------------------------------------------------------------*/
+
+/*Estilos del botón de subir archivos*/
+
+.ar-archivos-file-input {
+    display: inline-block;
+    text-align: left;
+    background: #fff;
+    padding: 16px 0 16px 0;
+    width: 100%;
+    position: relative;
+    border-radius: 3px;
+}
+
+.ar-archivos-file-input>[type='file'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.ar-archivos-file-input>.button {
+    display: inline-block;
+    cursor: pointer;
+    background: #f9f9f9;
+    padding: 8px 16px;
+    border-radius: 2px;
+    margin-right: 8px;
+    width: 100%;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.24);
+    border: 1px solid transparent;
+}
+
+.ar-archivos-file-input-filter>.button {
+    background: #f2f2f2;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.ar-archivos-file-input-text {
+    background: #f2f2f2;
+    color: rgba(0, 0, 0, 0.54);
+    font-family: Inconsolata, monospace;
+}

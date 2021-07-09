@@ -1,0 +1,158 @@
+<!-- ***************************************************************************
+[HTML catalogos/permisos/permisos-editar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	11/2017
+Diseño por:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo por: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+*************************************************************************** -->
+
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-toolbar mat-elevation-z0">
+			<button mat-icon-button (click)="esEditar? CerrarGrupo() : IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span *ngIf="!esGrupoActivo" class="ar-margin-left-xs">Permisos por aplicación</span>
+			<span fxHide.xs fxHide-sm *ngIf="esGrupoActivo" class="ar-margin-left-xs">Permisos habilitados</span>
+			<span fxFlex></span>
+			<!-- <button mat-raised-button matTooltip="Guardar cambios" color="primary" [disabled]="!esBotonListo" (click)="Actualizar()">Listo</button> -->
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<div class="ar-progressbar">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Inicio listado de aplicaciones -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-bottom-lg ar-margin-top-md">
+					<!-- Segmento con cada uno de las aplicaciones del catálogo -->
+					<!-- Primera parte de la vista (Listado) -->
+					<ng-container *ngIf="!esGrupoActivo">
+						<!-- Lista de opciones con avatar -->
+						<div class="ar-list-item-xs ar-margin-bottom-xs" fxLayoutAlign="start center"
+							*ngFor="let item of tiposAplicacionesArca;" (click)="MostrarDetallesGrupo(item);">
+							<!-- Avatar circular -->
+							<div class="ar-avatar">
+								<p class="ar-avatar-xs" matTooltip="Cama">
+									{{(item.nombre | slice:0:1)}}
+								</p>
+							</div>
+							<div class="ar-margin-left-xs" fxLayout="row" fxLayoutAlign="start center">
+								<span class="ar-body-1 ar-color-87">
+									{{item.nombre}}
+								</span>
+							</div>
+							<span fxFlex></span>
+							<!-- Botón de seleccionar -->
+							<button mat-icon-button color="primary">
+								<mat-icon aria-label="Seleccionar" class="ar-color-87">navigate_next
+								</mat-icon>
+							</button>
+						</div>
+					</ng-container>
+					<!-- Segmento con las opciones de editar o agregar permisos  -->
+					<!-- Segunda parte de la vista (Edición) -->
+					<ng-container *ngIf="esGrupoActivo">
+						<div fxLayout="column">
+							<!-- Segmento superior (nombre de la aplicación y botón activo-inactivo) -->
+							<mat-card fxFlex class="ar-margin-bottom-xs ar-background mat-elevation-z0">
+								<div fxLayout="row" fxLayoutAlign="start center">
+									<div class="ar-avatar">
+										<p class="ar-avatar-xs ar-avatar-orange">
+											{{appSeleccionada?.nombre | slice:0:1}}
+										</p>
+									</div>
+									<div class="ar-margin-left-xs">
+										<span class="mat-body-2">{{ appSeleccionada?.nombre }}</span>
+									</div>
+								</div>
+							</mat-card>
+							<!-- Segmento inferior (permisos agregados y select mas permisos) -->
+							<mat-card fxFlex class="ar-margin-bottom-xs ar-background mat-elevation-z0">
+								<form [formGroup]="frmPermisos" novalidate>
+									<div fxLayout="column">
+										<div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+											<div fxFlex="30">
+												<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-right-xs"
+													ngClass.xs="ar-margin-left-none" ƒ>
+													<mat-label>Id. interno</mat-label>
+													<input matInput placeholder="Indentificador interno"
+														formControlName="idPermiso">
+												</mat-form-field>
+											</div>
+											<div fxFlex="70">
+												<mat-form-field fxFlex appearance="outline">
+													<mat-label>Nombre</mat-label>
+													<input matInput placeholder="Nombre" formControlName="nombre">
+												</mat-form-field>
+											</div>
+										</div>
+										<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+											<mat-form-field fxFlex="100" appearance="outline">
+												<mat-label>Descripción</mat-label>
+												<input matInput placeholder="Descripción" formControlName="descripcion">
+											</mat-form-field>
+										</div>
+									</div>
+								</form>
+								<mat-card-actions fxLayoutAlign="start center">
+									<span fxFlex></span>
+									<div fxLayout="row" fxLayoutAlign="start center" class="ar-margin-left-sm">
+										<span class="ar-margin-right-sm ar-color-54">Activo</span>
+										<!-- Botón de habilitar o deshabilitar-->
+										<mat-slide-toggle fxFlex formControlName="estado">
+										</mat-slide-toggle>
+									</div>
+									<div class="ar-permisos-item-separator ar-border-12"></div>
+									<button mat-stroked-button color="warn" [disabled]="frmPermisos.invalid"
+										(click)="AgregarPermiso()">Agregar</button>
+								</mat-card-actions>
+							</mat-card>
+							<div class="ar-border-05 ar-margin-bottom-sm"></div>
+							<!-- Segmento card permisos agregados -->
+							<div fxLayout="column">
+								<!-- Lista de salas con avatar -->
+								<div class="ar-list-item-sm" fxLayoutAlign="start center"
+									*ngFor="let item of tempPermisos; let idx = index;">
+									<!-- Avatar circular -->
+									<div class="ar-avatar ar-margin-left-xs">
+										<p class="ar-avatar-orange ar-avatar-sm" matTooltip="Cama">
+											<i fxHide.xs class="mdi mdi-key-plus ar-icons-sm"></i>
+										</p>
+									</div>
+									<div fxLayout="column" class="ar-margin-left-sm">
+										<span class="ar-color-54 ar-body-2">
+											{{item.idPermiso}}
+										</span>
+										<span class="ar-color-87 ar-h5">{{item.nombre}}</span>
+										<div fxLayout="row" fxLayoutAlign="start center">
+											<i class="mdi mdi-bookmark-outline ar-icons-xs ar-margin-right-xxs ar-color-54"
+												matTooltip="Ubicación del paciente"></i>
+											<span class="ar-color-54 ar-truncate ar-caption">
+												{{item.descripcion}}
+											</span>
+										</div>
+									</div>
+									<span fxFlex></span>
+									<!-- Botón de seleccionar -->
+									<button mat-icon-button color="primary" (click)="EliminarPermiso(item._id, idx)"
+										matTooltip="Eliminar permiso">
+										<mat-icon aria-label="Seleccionar" class="ar-text-red">remove_circle
+										</mat-icon>
+									</button>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+</div>

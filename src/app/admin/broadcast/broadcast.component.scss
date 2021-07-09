@@ -1,0 +1,243 @@
+/*------------------------------------------------------------------
+[Master Stylesheet /admin/broadcast]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	07/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+-------------------------------------------------------------------*/
+
+@import "styles.scss";
+
+html {
+  height: 100%;
+  display: flex;
+}
+
+.ar-chat-background {
+  background-color: #fafafa;
+}
+
+/* Textarea de barra de escritura de mensajes */
+textarea.ar-chat-textarea {
+  position: relative;
+  outline: none;
+  border: none;
+  resize: none;
+  background: inherit;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 2.5;
+  text-align: inherit;
+}
+
+/* Item de burbuja */
+.ar-chat-message-item {
+  margin: 0 12px 0 12px;
+}
+
+/* Burbuja de mensaje */
+.ar-chat-bubble-message {
+  display: inline-block;
+  font-size: 15px;
+  letter-spacing: 0.1px;
+  max-width: 400px;
+  position: relative;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 8px 16px;
+}
+
+/* Burbuja de mensaje de sistema */
+.ar-chat-bubble-system-message {
+  display: inline-block;
+  font-size: 15px;
+  letter-spacing: 0.1px;
+  max-width: 400px;
+  position: relative;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 8px 16px;
+  border-radius: 10px 10px 10px 2px !important;
+}
+
+/* Color picker */
+.ar-chat-color-picker {
+  display: block; 
+  background: lightgrey;
+  border-radius: 10px 10px 10px 2px !important;
+  height: 20px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Color picker */
+.ar-chat-color-picker-active i {
+  color: #fafafa !important;
+}
+
+/* Color picker icono */
+.ar-chat-color-picker i {
+  font-size: 12px;
+  padding: 5px 5px 5px 5px !important;
+  color: transparent;
+  font-weight: bold;
+}
+
+/* Área de opcones */
+.ar-chat-options-area {
+  margin: 0;
+}
+
+.ar-chat-options-item {
+  padding: 0 34px 0 34px;
+}
+
+.ar-chat-textarea {
+  height: 200px;
+}
+
+/* Burbuja de mensaje enviado */
+.ar-chat-message-sent {
+  float: right;
+  margin: 2px 0 2px 25px;
+  background-color: #f2f2f2;
+  color: rgba(0, 0, 0, 0.54);
+  border-radius: 18px 18px 4px 18px;
+}
+
+/* Burbuja de mensaje recibido */
+.ar-chat-message-received {
+  float: left;
+  margin: 2px 25px 2px 0;
+  background-color: #4f86ec;
+  color: white;
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* Burbuja de mensaje recibido del sistema */
+.ar-chat-message-received {
+  float: left;
+  margin: 2px 25px 2px 0;
+  color: white;
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* User name de área de contactos */
+.ar-chat-user-name {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 2px;
+  color: rgb(69, 90, 100);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Burbujas de mensajes en area de contactos */
+.ar-chat-user-message {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 13px;
+  margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 160px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Unidad programática en toolbar principal */
+.ar-chat-user-up {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 13px;
+  margin-top: 5px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ávatar de arca en notificaciones del sistema */
+.ar-chat-arca-circle {
+  // Indicar SIEMPRE el nombre del servidor de recursos Web a travez de las variables definidas en el styles.scss
+  background-image: url(#{$webKitServer}/images/home/arca_chat.svg);
+  box-shadow: none;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 50%;
+  height: 38px;
+  overflow: hidden;
+  width: 38px;
+  size: 44px;
+}
+
+/* Imagen svg background del área de mensajes */
+.ar-chat-arca-background {
+  // Indicar SIEMPRE el nombre del servidor de recursos Web a travez de las variables definidas en el styles.scss
+  background-image: url(#{$webKitServer}/images/home/arcaBackgroundChat.svg);
+  box-shadow: none;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Círculo numeral de mensajes no leidos */
+.ar-chat-contador-circle {
+  border-radius: 17px;
+  color: rgba(0, 0, 0, 0.54);
+  display: inline-block;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  width: 24px;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f2f2f2;
+}
+
+/* Colores random de los avatares de los contactos */
+.ar-chat-avatar-01 {
+  background-color: #db4437 !important;
+}
+
+.ar-chat-avatar-02 {
+  background-color: #4285f4 !important;
+}
+
+.ar-chat-avatar-03 {
+  background-color: #57bb8a !important;
+}
+
+.ar-chat-avatar-04 {
+  background-color: #ff5722 !important;
+}
+
+.ar-chat-avatar-05 {
+  background-color: #673ab7 !important;
+}
+
+.ar-chat-avatar-06 {
+  background-color: #3f51b5 !important;
+}
+
+.ar-chat-avatar-07 {
+  background-color: #00bcd4 !important;
+}
+
+.ar-chat-avatar-08 {
+  background-color: #f4b400 !important;
+}
+.ar-chat-avatar-09 {
+  background-color: #e91e63 !important;
+}

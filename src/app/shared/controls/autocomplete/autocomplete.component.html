@@ -1,0 +1,20 @@
+<form class="example-form" fxFlex="100">
+	<mat-form-field fxFlex appearance="outline">
+		<mat-label>{{placeholder}}</mat-label>
+		<input matInput [placeholder]="placeholder" aria-label="AutoCompletar" [matAutocomplete]="auto"
+			[formControl]="filtro" (keyup.enter)="EstablecerSeleccion()" (blur)='ValidarItemDigitado($event)' required>
+		<mat-autocomplete #auto="matAutocomplete" [showPanel]="true">
+			<mat-option *ngFor="let item of resultadoFiltro | async" [value]="item.descripcion"
+				(click)="EstablecerSeleccion()">
+				{{ item.descripcion }}
+				<span fxFlex></span>
+				<button *ngIf="eventoQuitar"  mat-icon-button class="ar-icons-xs ar-margin-right-xs ar-text-secondary-black" matTooltip="Quitar"
+					(click)="QuitarRegistro(item)">
+					<!-- <i class="far fa-times ar-icons-sm"></i> -->
+					<mat-icon class="ar-color-87 ar-icons-sm">close</mat-icon>
+				</button>
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+</form>
+

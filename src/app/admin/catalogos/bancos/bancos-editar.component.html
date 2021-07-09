@@ -1,0 +1,155 @@
+<!-- ***************************************************************************
+[HTML /admin/catalogos/bancos/bancos-editar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	03/2020
+Asignado a:	Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Felipe Jimenez Calderon, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+*************************************************************************** -->
+
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-toolbar mat-elevation-z0">
+			<button mat-icon-button (click)="IrPaginaAnterior()" *ngIf="!esEdicion">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<button mat-icon-button (click)="esEdicion = false;" *ngIf="esEdicion">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span class="ar-margin-left-xs" *ngIf="!esEdicion" fxHide.xs>Bancos</span>
+			<span class="ar-margin-left-xs" *ngIf="esEdicion">Agregar banco</span>
+			<span fxFlex></span>
+			<div class="ar-margin-right-xs">
+				<!-- Agregar nuevo -->
+				<div *ngIf="!esEdicion">
+					<button color="warn" mat-button matTooltip="Crear nueva solicitud"
+						(click)="esEdicion=true; LimpiarItem();">
+						<i class="mdi mdi-plus ar-icons-sm"></i>
+						Nuevo
+					</button>
+				</div>
+			</div>
+			<!-- Habilitar o deshabilitar en modo edición -->
+			<div *ngIf="esEdicion" class="ar-margin-right-xs">
+				<button mat-stroked-button color="warn" *ngIf="item.estado"
+					(click)="item.estado=false;">Deshabilitar</button>
+				<button mat-stroked-button class="ar-text-green" *ngIf="!item.estado"
+					(click)="item.estado=true;">Habilitar</button>
+			</div>
+			<button mat-stroked-button matTooltip="Guardar los cambios" color="primary" *ngIf="!esEdicion"
+				[disabled]="!utilidadesService.DiffEstadoObjeto(estadoInicial, catalogo)"
+				(click)="ActualizarCatalogo();">Listo</button>
+			<button mat-stroked-button matTooltip="Guardar los cambios" color="primary" *ngIf="esEdicion"
+				[disabled]="item.nombreBanco.length === 0" (click)="AgregarItem()">Listo</button>
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<div class="ar-progressbar">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Inicio listado de ítems -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-bottom-lg ar-margin-top-sm">
+					<!-- Ítem expandible tipo acordeón -->
+					<mat-accordion *ngIf="!esEdicion">
+						<mat-expansion-panel class="ar-background mat-elevation-z0"
+							*ngFor="let item of catalogo | filtrarIdDescripcion: txtFiltro">
+							<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center"
+								(click)="CapturarItem(item)">
+								<mat-panel-title>
+									<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+										<div class="ar-avatar" *ngIf="item.estado">
+											<p class="ar-avatar-xs ar-avatar-green"> {{item.nombreBanco | slice:0:1}}
+											</p>
+										</div>
+										<div class="ar-avatar" *ngIf="!item.estado">
+											<p class="ar-avatar-xs ar-avatar-red"> {{item.nombreBanco | slice:0:1}}</p>
+										</div>
+										<div fxLayout="column" class="ar-margin-left-sm">
+											<span fxLayout="row" class="ar-h4 ar-color-87"> {{item.nombreBanco}} </span>
+										</div>
+										<span fxFlex></span>
+										<mat-chip-list class="ar-margin-right-xs" *ngIf="!item.estado">
+											<ng-container>
+												<mat-chip class="ar-chips-xs ar-chips-red">
+													<span>DESHABILITADO</span>
+												</mat-chip>
+											</ng-container>
+										</mat-chip-list>
+									</div>
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<div fxLayout="column">
+								<!-- Input editar ítem  nombre del banco-->
+								<div fxFlex="100">
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Nombre</mat-label>
+										<input matInput placeholder="Nombre del ítem" name="nombre"
+											[(ngModel)]="item.nombreBanco" [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+								</div>
+								<div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+									<!-- Input editar ítem  indicador de venta segun el BCCR-->
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Indicador venta</mat-label>
+										<input matInput placeholder="Indicador de venta del ítem" name="indicadorVenta"
+											[(ngModel)]="item.indicadorVenta" [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+									<!-- Input editar ítem indicador de compra segun el BCCR-->
+									<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs"
+										ngClass.xs="ar-margin-left-none">
+										<mat-label>Indicador compra</mat-label>
+										<input matInput placeholder="Indicador de compra del ítem"
+											name="indicadorCompra" [(ngModel)]="item.indicadorCompra"
+											[ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+								</div>
+							</div>
+							<!-- Menú de aciones -->
+							<mat-action-row>
+								<button mat-button color="warn" *ngIf="item.estado"
+									(click)="item.estado=false;ActualizarCatalogo();">Deshabilitar</button>
+								<button mat-button class="ar-text-green" *ngIf="!item.estado"
+									(click)="item.estado=true;ActualizarCatalogo();">Habilitar</button>
+							</mat-action-row>
+						</mat-expansion-panel>
+					</mat-accordion>
+					<mat-card *ngIf="esEdicion" class="ar-margin-top-md ar-background mat-elevation-z0">
+						<form #frmTiposEntrega="ngForm">
+							<div fxFlex="100" fxLayout="column">
+								<div fxFlex="100">
+									<!-- Input ingresar ítem el nombre del banco-->
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Nombre</mat-label>
+										<input matInput placeholder="Nombre del ítem" name="nombre"
+											[(ngModel)]="item.nombreBanco" [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+								</div>
+								<div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+									<!-- Input editar ítem indicador de venta segun el BCCR-->
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Indicador venta</mat-label>
+										<input matInput placeholder="Indicador de venta del ítem" name="indicadorVenta"
+											[(ngModel)]="item.indicadorVenta" [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+									<!-- Input editar ítem indicador de compra segun el BCCR-->
+									<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs"
+										ngClass.xs="ar-margin-left-none">
+										<mat-label>Indicador compra</mat-label>
+										<input matInput placeholder="Indicador de compra del ítem"
+											name="indicadorCompra" [(ngModel)]="item.indicadorCompra"
+											[ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+								</div>
+							</div>
+						</form>
+					</mat-card>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+</div>

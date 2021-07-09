@@ -1,0 +1,373 @@
+<!-- ***************************************************************
+HTML /admin/chat]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	05/2018
+Asignado a:	Adrián Fallas. afallasp@ccss.sa.cr (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+*************************************************************** -->
+<html fullscreen fxLayout="column">
+<!-- Toolbar principal -->
+<mat-toolbar class="ar-chat-toolbar">
+	<button type="button" mat-icon-button class="ar-margin-right-xs" (click)="IrPaginaAnterior()">
+		<mat-icon class="ar-text-black">arrow_back</mat-icon>
+	</button>
+	<span class="ar-margin-left-xs ar-chat-toolbar ar-chat-marca" fxHide.xs>arca</span>
+	<span class="ar-margin-left-xs ar-chat-title" fxHide.xs>Mensajería</span>
+	<span fxFlex></span>
+	<div fxLayout="row" class="ar-margin-right-xs">
+		<!-- Nombre de contacto y unidad programática -->
+		<div fxLayout="column" fxLayoutAlign="center end" class="ar-margin-right-xs">
+			<span class="ar-chat-user-name">arca notificaciones</span>
+			<!-- <span class="ar-chat-user-up">Hospital San Vicente de Paúl</span> -->
+		</div>
+		<span fxFlex></span>
+		<div>
+			<span class="ar-chat-contact-circle ar-chat-avatar-01">A</span>
+		</div>
+	</div>
+	<!-- <div>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon class="ar-text-dark">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>
+        <span>Limpiar mensajes</span>
+      </button>
+      <button mat-menu-item>
+        <span>Quitar contacto</span>
+      </button>
+    </mat-menu>
+  </div> -->
+</mat-toolbar>
+<!-- Área general del chat -->
+<div fxLayout="row" fxFlex="100">
+	<div fxFlex="30" fxFlex.xs="20" fxFlex.sm="15" class="ar-chat-user-area" fxLayout="column">
+		<!-- Área de usuarios de contacto -->
+		<perfect-scrollbar fxFlex fxLayout="column" class="ar-content">
+			<div>
+				<!-- Agregar nueva conversación -->
+				<!-- <div class="ar-chat-user-item" fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.xs="center" fxLayoutAlign.sm="center"
+          fxLayoutAlign.md="center">
+          <div>
+            <i class="material-icons ar-chat-contact-circle ar-chat-avatar-02 ar-text-white">chat_bubble</i>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center start" class="ar-margin-left-xs" fxHide.xs fxHide.sm>
+            <span class="ar-chat-user-name">Iniciar nueva conversación</span>
+          </div>
+          <span fxFlex fxHide.xs fxHide.sm></span>
+        </div> -->
+				<!-- Notificaciones del sistema -->
+				<div class="ar-chat-user-item" fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.xs="center"
+					fxLayoutAlign.sm="center" fxLayoutAlign.md="center">
+					<!-- Avatar de arca como usuario -->
+					<div>
+						<div class="ar-chat-arca-circle"></div>
+					</div>
+					<!-- Nombre del contacto y previsualización del último mensaje -->
+					<div fxLayout="column" fxLayoutAlign="center start" class="ar-margin-left-xs" fxHide.xs fxHide.sm
+						(click)="ObtenerMensajesBroadcast()">
+						<span class="ar-chat-user-name">arca notificaciones</span>
+						<!-- <span class="ar-chat-user-message">{{(mensajesBroadcast.length>0)?mensajesBroadcast[0].mensaje:''}}</span> -->
+						<span
+							class="ar-chat-user-message">{{mensajesBroadcast[mensajesBroadcast.length-1]?.mensaje}}</span>
+					</div>
+					<span fxFlex fxHide.xs fxHide.sm></span>
+					<!-- Contador de mensajes no leidos -->
+					<!-- <div class="ar-chat-contador-circle" fxHide.xs fxHide.sm>+99</div> -->
+				</div>
+				<!-- Usuario de contacto -->
+				<!-- <div class="ar-chat-user-item" fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.xs="center" fxLayoutAlign.sm="center"
+          fxLayoutAlign.md="center">
+          <div>
+            <span class="ar-chat-contact-circle ar-chat-avatar-01">J</span>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center start" class="ar-margin-left-xs" fxHide.xs fxHide.sm>
+            <span class="ar-chat-user-name">José Ramírez Vega</span>
+            <span class="ar-chat-user-message">Providing is optional and when the configuration in your root module</span>
+          </div>
+          <span fxFlex fxHide.xs fxHide.sm></span>
+          <div class="ar-chat-contador-circle" fxHide.xs fxHide.sm>5</div>
+        </div> -->
+				<div class="ar-padding-bottom-xlg"></div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+	<!-- Área de mensajes recibidos -->
+	<div fxFlex="70" fxFlex.xs="80" fxFlex.sm="85" fxLayout="column">
+		<perfect-scrollbar fxLayout="column" class="ar-content ar-chat-arca-background">
+			<div fxFlex="100" fxLayoutAlign="center" fxLayout="row">
+				<div fxFlex="85" fxFlex.md="95" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+					<!-- Fecha de los mensajes -->
+					<div fxLayoutAlign="center">
+						<span class="ar-text-dark mat-caption ar-margin-top-sm ar-margin-bottom-sm">{{fechaMensajes | date:'dd MMMM.
+							yyyy'}}</span>
+					</div>
+					<!-- 
+            *********************************************
+            Mostrar esta lista (div abajo) de los mensajes recibidos del sistema.
+          Se incluyen diferentes colores de acuerdo al tipo de mensaje (Informativo, de advertencia...) 
+          *********************************************
+        -->
+					<div fxFlex fxLayout="column" class="ar-padding-top-sm">
+						<!-- Lista de mensajes del sistema recibidos -->
+						<div class="ar-chat-message-item" *ngFor="let _mensaje of mensajesBroadcast">
+							<!-- <div class="ar-chat-bubble-system-message ar-chat-message-received ar-chat-avatar-01"
+                fxLayout="row">
+                <div>
+                  <span>Se informa que el sistema será suspendido el día martes 05 de julio, de 10 pm a 12 am.</span>
+                  <span class="mat-caption ar-text-italic">10:34</span>
+                </div>
+              </div> -->
+							<div class="ar-chat-bubble-system-message ar-chat-message-received {{_mensaje.color}}"
+								fxLayout="row">
+								<div>
+									<span>{{_mensaje.mensaje}}</span>
+									<span class="mat-caption ar-text-italic ar-margin-left-xs">10:34</span>
+								</div>
+							</div>
+						</div>
+						<div class="ar-padding-bottom-xlg"></div>
+					</div>
+
+					<!-- Lista de mensajes enviados -->
+
+					<!-- 
+            *********************************************
+            Ocultar el área de burbujas de mensajes (div abajo) cuando está en modo
+          de búsqueda de contactos o mensajes del sistema
+            *********************************************
+          -->
+					<!-- <div fxFlex fxLayout="column" class="ar-padding-top-sm">
+            <div class="ar-chat-message-item" *ngFor="let item of mensajes2; let idx=index;">
+              <div class="ar-chat-bubble-message ar-chat-message-sent">
+                <span> {{ item.mensaje }} </span>
+                <span class="mat-caption ar-text-italic">10:24</span>
+              </div>
+            </div> -->
+					<!-- Lista de mensajes recibidos -->
+					<!-- <div class="ar-chat-message-item" *ngFor="let item of mensajes; let idx=index;">
+              <div class="ar-chat-bubble-message ar-chat-message-received">
+                <span> {{ item.mensaje }}</span>
+                <span class="mat-caption ar-text-italic">10:34</span>
+              </div>
+            </div>
+            <div class="ar-padding-bottom-xlg"></div>
+          </div> -->
+					<!-- *********************************************
+            Área de búsqueda de contacto para iniciar conversación 
+          ************************************************** -->
+
+					<!-- *******************************************************************
+              
+              El área de búsqueda de contactos se activa con el botón "Iniciar nueva conversación" del panel izquierdo. 
+            Cuando esta área esté activada debe ocultar la imagen svg del background (class="ar-chat-arca-background") linea 95.
+            También debe ocultar la barra de escritura de mensajes y el área de mensajes.
+
+            Cuando se encuentra el contacto, se selecciona con click y se muestra en la lista lateral izquierda de contactos, de cierra
+            el área de búsqueda y abre el chat para iniciar la conversación. 
+
+          ******************************************************************* -->
+
+
+					<!-- <div fxFlex fxLayout="row" class="ar-padding-top-sm"> -->
+					<!-- <div fxLayout="column" fxFlex="55" fxFlex.sm="90" fxFlex.md="80" fxFlex.xs="95"> -->
+					<!-- <div class="ar-margin-top-xs ar-margin-left-xs"> -->
+					<!-- Formulario de búsqueda de contacto -->
+					<!-- <form>
+                  <mat-form-field fxFlex color="primary" class="ar-text-primary-white">
+                    <input fxFlex matInput placeholder="Agregue usuarios para iniciar una conversación">
+                    <mat-hint>Buscar contacto por nombre</mat-hint>
+                    <mat-error>
+                      Usuario no encontrado. Inténtale de nuevo.
+                    </mat-error>
+                  </mat-form-field>
+                  <button mat-icon-button tooltip="Buscar contacto" class="ar-text-dark">
+                    <mat-icon aria-label="Buscar persona">search</mat-icon>
+                  </button>
+                </form> -->
+					<!-- </div> -->
+					<!-- <div class="ar-margin-top-sm"> -->
+					<!-- Usuario de contacto encontrado -->
+					<!-- <div class="ar-chat-user-item" fxLayout="row" fxLayoutAlign="start center">
+                  <div class="ar-margin-right-xs" fxHide.xs>
+                    <span class="ar-chat-contact-circle ar-chat-avatar-01">J</span>
+                  </div>
+                  <div fxLayout="column" fxLayoutAlign="center start">
+                    <span class="ar-chat-user-name">José Ramírez Vega</span>
+                    <span class="ar-chat-user-message">Hospital San Vicente de Paúl</span>
+                  </div>
+                </div> -->
+					<!-- </div> -->
+					<!-- </div> -->
+					<!-- </div> -->
+				</div>
+			</div>
+		</perfect-scrollbar>
+		<!-- Área de toolbar flotante de envío de mensajes -->
+		<div fxFlex="100" fxLayoutAlign="start end" fxLayout="row" class="ar-chat-compose-footer">
+			<div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column"
+				fxLayoutAlign="start end">
+				<!-- <div id="ar-chat-composer" class="messages-view" fxLayoutAlign="start end" style="padding: 20px;"> -->
+				<!-- Campo de introducción de texto de mensaje -->
+				<!-- <span fxFlex="30" fxFlex.xs="0" fxFlex.md="30" fxFlex.sm="20"></span> -->
+				<!-- <div fxFlex="70" fxFlex.xs="100" fxFlex.md="70" fxFlex.sm="80" fxLayoutAlign="center center" fxLayout="row"> -->
+				<!-- <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column"> -->
+				<!-- Área de toolbar flotante de envío de mensajes -->
+				<!-- <div fxLayoutAlign="center"> -->
+				<!-- Campo de introducción de texto de mensaje -->
+				<!-- <div id="ar-chat-composer" class="ar-chat-compose-bar" style="width: 740px;">
+                  <div fxLayout="row" fxLayoutAlign="start center" class="ar-chat-compose-bar">
+                    <textarea id="input" [(ngModel)]="txtMensaje" class="ar-text-primary-white ar-chat-textarea" rows="1" autocomplete="off"
+                      autofocus="true" placeholder="Escriba un mensaje..." aria-label="Campo de introducción de texto de arca web messenger."></textarea>
+                    <span fxFlex></span>
+                    <button mat-icon-button (click)="EnviarMensaje()" [disabled]="!txtMensaje">
+                      <mat-icon aria-label="Enviar mensaje" class="ar-text-primary-white">send</mat-icon>
+                    </button>
+                  </div>
+                </div> -->
+				<!-- </div> -->
+				<!-- </div> -->
+				<!-- </div> -->
+				<!-- </div> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div fxLayout="row" fxLayoutAlign="space-evenly center">
+    <div flex class="wrapper">
+      <nav class="nav" id="nav">
+        <div class="default-nav">
+          <div class="main-nav">
+            <div class="toggle"></div>
+            <div class="main-nav-item">
+              <a class="main-nav-item-link" href="#">{{usuario1}}</a>
+            </div>
+            <div class="options"></div>
+          </div>
+        </div>
+      </nav>
+      <div class="inner" id="inner">
+        <div *ngFor="let item of mensajes; let idx=index;" class="content" id="content">
+          {{(item.usuario === usuario1) ? '' : item.usuario}} -> {{ item.mensaje }}
+        </div>
+      </div>
+      <div class="bottom" id="bottom">
+        <textarea class="input" id="input" [(ngModel)]="txtMensaje"></textarea>
+        <div class="send" id="send" (click)="EnviarMensaje()" *ngIf="txtMensaje"></div>
+      </div>
+    </div>
+    <div flex class="wrapper" style="margin-left: 400px;">
+      <nav class="nav" id="nav">
+        <div class="default-nav">
+          <div class="main-nav">
+            <div class="toggle"></div>
+            <div class="main-nav-item">
+              <a class="main-nav-item-link" href="#">{{usuario2}}</a>
+            </div>
+            <div class="options"></div>
+          </div>
+        </div>
+      </nav>
+      <div class="inner" id="inner">
+        <div *ngFor="let item of mensajes2; let idx=index;" class="content" id="content">
+          {{(item.usuario === usuario2) ? '' : item.usuario}} -> {{ item.mensaje }}
+        </div>
+      </div>
+      <div class="bottom" id="bottom">
+        <textarea class="input" id="input" [(ngModel)]="txtMensaje2"></textarea>
+        <div class="send" id="send" (click)="EnviarMensaje2()" *ngIf="txtMensaje2"></div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div fxLayout="row" fxLayoutAlign="space-evenly center">
+  <div flex class="wrapper">
+    <nav class="nav" id="nav">
+      <div class="default-nav">
+        <div class="main-nav">
+          <div class="toggle"></div>
+          <div class="main-nav-item">
+            <a class="main-nav-item-link" href="#">{{usuario1}}</a>
+          </div>
+          <div class="options"></div>
+        </div>
+      </div>
+    </nav>
+    <div class="inner" id="inner">
+      <div *ngFor="let item of mensajes; let idx=index;" class="content" id="content">
+        {{(item.usuario === usuario1) ? '' : item.usuario}} -> {{ item.mensaje }}
+      </div>
+    </div>
+    <div class="bottom" id="bottom">
+      <textarea class="input" id="input" [(ngModel)]="txtMensaje"></textarea>
+      <div class="send" id="send" (click)="EnviarMensaje()" *ngIf="txtMensaje"></div>
+    </div>
+  </div>
+  <div flex class="wrapper" style="margin-left: 400px;">
+    <nav class="nav" id="nav">
+      <div class="default-nav">
+        <div class="main-nav">
+          <div class="toggle"></div>
+          <div class="main-nav-item">
+            <a class="main-nav-item-link" href="#">{{usuario2}}</a>
+          </div>
+          <div class="options"></div>
+        </div>
+      </div>
+    </nav>
+    <div class="inner" id="inner">
+      <div *ngFor="let item of mensajes2; let idx=index;" class="content" id="content">
+        {{(item.usuario === usuario2) ? '' : item.usuario}} -> {{ item.mensaje }}
+      </div>
+    </div>
+    <div class="bottom" id="bottom">
+      <textarea class="input" id="input" [(ngModel)]="txtMensaje2"></textarea>
+      <div class="send" id="send" (click)="EnviarMensaje2()" *ngIf="txtMensaje2"></div>
+    </div>
+  </div>
+</div> -->

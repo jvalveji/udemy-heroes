@@ -1,0 +1,158 @@
+<!-- ************************************************************************
+[Master Stylesheet /app/shared/controls/archivos/archivos.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	03/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Modificaciones: Adrián Fallas (afallasp@ccss.sa.cr)(diseño)       
+Fecha de modificación:	03/2018
+************************************************************************ -->
+
+<div fxLayout="column" fxFlex>
+	<!-- Área de Tip -->
+	<div *ngIf="!disabled && !areaVisor &&!sinMensaje" class="ar-archivos-text-space ar-archivos-tips" fxLayoutAlign="start center">
+		<i class="material-icons ar-margin-right-xs">lightbulb_outline</i>
+		<span>{{mensaje}}</span>
+	</div>
+	<!-- <span>Categoría: {{tipoInformacion}}</span> -->
+	<!-- Toolbar del visor de imágenes -->
+	<div class="ar-archivos-text-space ar-margin-top-xs" fxLayoutAlign="start center" *ngIf="galeria.length > 0 && visor">
+		<i class="material-icons ar-margin-right-xs">folder</i>
+		<!-- Título del toolbar del visor de imágenes -->
+		<span>{{encabezado}}</span>
+		<span fxFlex></span>
+		<!-- Botón para descargar carpeta de imágenes -->
+		<button matTooltip="Descargar imagen" mat-icon-button class="ar-margin-right-xs ar-text-dark" *ngIf="areaVisor"
+		 (click)="DownloadImg()">
+			<i class="mdi mdi-download ar-icon-xs"></i>
+		</button>
+		<!-- Botón para descargar imagen -->
+		<button matTooltip="Descargar carpeta" mat-icon-button class="ar-margin-right-xs ar-text-dark" *ngIf="false">
+			<i class="mdi mdi-package-down ar-icon-xs"></i>
+		</button>
+		<!-- Botón para abrir visor de imágenes -->
+		<button *ngIf="((areaVisor)); else noActivadoVisor" matTooltip="Ocultar visor de imágenes" mat-icon-button class="ar-margin-right-xs"
+		 (click)="areaVisor = false;">
+			<i class="material-icons ar-text-black" color="accent">remove_red_eye</i>
+		</button>
+	</div>
+	<ng-template>
+		<button matTooltip="Visualizar imágenes" mat-icon-button class="ar-margin-right-xs ar-text-dark" (click)="CargarGaleria()">
+			<i class="material-icons">remove_red_eye</i>
+		</button>
+	</ng-template>
+	<ng-template #noActivadoVisor>
+		<button matTooltip="Visualizar imágenes" mat-icon-button class="ar-margin-right-xs ar-text-dark" (click)="CargarGaleria()">
+			<i class="material-icons">remove_red_eye</i>
+		</button>
+	</ng-template>
+	<div fxLayout="column" class="ar-archivos-content" *ngIf="!areaVisor">
+		<!-- Botón de seleccionar archivo -->
+		<div class="ar-archivos-file-input" *ngIf="!disabled">
+			<input type="file" id="filePicker" name="filePicker" [accept]="archivosPermitidos" (change)="handleFileSelect($event)"
+			 [disabled]="disabled">
+			<span class="button">Seleccionar archivo</span>
+		</div>
+		<!-- Área de archivos almacenados temporalmente -->
+		<div fxLayout="row" fxLayoutAlign="start center" class="ar-margin-bottom-xs ar-text-dark ar-archivos-temporal" *ngFor="let archivo of listadoTemporal"
+		 [ngSwitch]="archivo.type">
+			<div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center" fxLayoutAlign.xs="center start">
+				<div fxLayout="row" fxFlex="40" fxLayoutAlign="start center">
+					<div fxHide.xs mat-card-avatar class="ar-archivos-circle ar-margin-right-xs" fxLayout="row" fxLayoutAlign="center center">
+						<i *ngSwitchCase="'image/png'" class="material-icons ar-text-primary-white" fxHide.xs>picture_in_picture</i>
+						<i *ngSwitchCase="'image/jpeg'" class="material-icons ar-text-primary-white" fxHide.xs>picture_in_picture</i>
+						<i *ngSwitchCase="'audio/mp3'" class="material-icons ar-text-primary-white" fxHide.xs>audiotrack</i>
+						<i *ngSwitchCase="'audio/mp4'" class="material-icons ar-text-primary-white" fxHide.xs>audiotrack</i>
+						<i *ngSwitchCase="'audio/ogg'" class="material-icons ar-text-primary-white" fxHide.xs>audiotrack</i>
+						<i *ngSwitchCase="'video/mp3'" class="material-icons ar-text-primary-white" fxHide.xs>video_library</i>
+						<i *ngSwitchCase="'video/mp4'" class="material-icons ar-text-primary-white" fxHide.xs>video_library</i>
+						<i *ngSwitchCase="'application/pdf'" class="material-icons ar-text-primary-white" fxHide.xs>picture_as_pdf</i>
+						<i *ngSwitchDefault class="material-icons ar-text-primary-white">insert_drive_file</i>
+					</div>
+					<span fxFlex class="ar-text-primary-white">{{archivo.name ? archivo.name : null}}</span>
+				</div>
+				<div fxFlex="35" fxLayout="row" fxLayoutAlign="start center">
+					<span fxFlex class="ar-text-primary-white">Pendiente a subir</span>
+				</div>
+				<div class="ar-margin-right-xs" fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+					<span fxFlex></span>
+					<!-- Botón de guardar en base de datos el archivo -->
+					<button matTooltip="Subir archivo" mat-icon-button class="ar-text-black ar-margin-right-xs" (click)="Insertar(archivo)">
+						<mat-icon class="ar-text-primary-white">file_upload</mat-icon>
+					</button>
+					<!-- Botón de eliminar archivo temporal -->
+					<button matTooltip="Eliminar archivo temporal" mat-icon-button class="ar-text-black" (click)="EliminarListadoTemporal(archivo)">
+						<mat-icon class="ar-text-primary-white">clear</mat-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Área de archivos guardados -->
+	<div *ngIf="!areaVisor">
+		<div fxLayout="row" fxLayoutAlign="start center" class="ar-text-dark ar-archivos-permanente ar-margin-top-xs ar-margin-bottom-xs"
+		 *ngFor="let archivo of listadoPermanente" [ngSwitch]="archivo.contentType">
+			<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+
+				<div fxHide.xs mat-card-avatar class="ar-margin-right-xs" fxLayout="row" fxLayoutAlign="center center">
+					<i *ngSwitchCase="'image/png'" class="material-icons ar-text-dark" fxHide.xs>picture_in_picture</i>
+					<i *ngSwitchCase="'image/jpeg'" class="material-icons ar-text-dark" fxHide.xs>picture_in_picture</i>
+					<i *ngSwitchCase="'audio/mp3'" class="material-icons ar-text-dark" fxHide.xs>audiotrack</i>
+					<i *ngSwitchCase="'audio/mp4'" class="material-icons ar-text-dark" fxHide.xs>audiotrack</i>
+					<i *ngSwitchCase="'audio/ogg'" class="material-icons ar-text-dark" fxHide.xs>audiotrack</i>
+					<i *ngSwitchCase="'video/mp3'" class="material-icons ar-text-dark" fxHide.xs>video_library</i>
+					<i *ngSwitchCase="'video/mp4'" class="material-icons ar-text-dark" fxHide.xs>video_library</i>
+					<i *ngSwitchCase="'application/pdf'" class="material-icons ar-text-dark" fxHide.xs>picture_as_pdf</i>
+					<i *ngSwitchDefault class="material-icons ar-text-dark">insert_drive_file</i>
+				</div>
+
+				<span class="ar-archivos-truncate">{{archivo.filename ? archivo.filename : null}}</span>
+				<span fxFlex></span>
+				<!-- Botón de descargar documento al equipo -->
+				<button matTooltip="Descargar archivo" mat-icon-button class="ar-text-dark ar-margin-right-xs" (click)="CargarLocal(archivo)">
+					<mat-icon>file_download</mat-icon>
+				</button>
+				<!-- Botón de borrar archivo de la base de datos  -->
+				<button matTooltip="Eliminar archivo" mat-icon-button class="ar-text-dark" (click)="Eliminar(archivo)" *ngIf="!disabled">
+					<mat-icon>clear</mat-icon>
+				</button>
+				<div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Área para visor de imágenes se asegura de que se haya cargado el listado de imágenes-->
+	<div class="ar-archivos-visor ar-margin-top-xs" fxLayout="column">
+		<div fxLayout="column">
+			<div class="ar-archivos-c-slider-wrap ar-margin-bottom-sm ar-margin-bottom-sm" *ngIf="areaVisor && mostrarGaleria">
+				<div class="ar-archivos-c-slider" id="hammer-slider">
+					<div class="ar-archivos-c-slider__container u-text-center">
+						<div class="ar-archivos-c-slider__slide">
+							<div class="ar-archivos-c-slider__banner ar-archivos-u-bg-brand">
+								<div class="ar-archivos-c-slider__content">
+									<div class="ar-archivos-o-flag u-fill-height">
+										<div class="ar-archivos-o-flag__body" class="ar-archivos-visor-img">
+											<img mat-card-image [src]="src.src | safeURL" alt="Visor de imágenes" style='max-width: 900px'>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="ar-archivos-text-wrap" fxLayoutAlign="center">
+							<span>{{src.filename}}</span>
+						</div>
+					</div>
+					<button *ngIf="galeria.length > 1" class="ar-archivos-c-slider__btn ar-archivos-c-slider__btn--left" (click)="Anterior()"
+					 id="prev-btn"></button>
+					<button *ngIf="galeria.length > 1" class="ar-archivos-c-slider__btn ar-archivos-c-slider__btn--right" (click)="Siguiente()"
+					 id="next-btn"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

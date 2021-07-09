@@ -1,0 +1,120 @@
+<!-- *************************************************************
+  [HTML /parametros-editar.html]
+
+  Proyecto: arca Core
+  Version:  1.1
+  Fecha de creación:  03/2019
+  Asignado a: Adrián Fallas (afallasp@ccss.sa.cr)
+  Desarrollo: Centro de Gestión Informática
+  Centro: Hospital San Vicente de Paúl
+  Cliente: Caja Costarricense de Seguro Social
+************************************************************* -->
+
+<div class="ar-page arca-dark-theme" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar de acciones estilo formulario -->
+		<mat-toolbar class="ar-catalogos-toolbar mat-elevation-z0" style="z-index:10;">
+			<button type="button" mat-icon-button (click)="IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<div fxFlex fxLayout="row" fxLayoutAlign="start center" class="ar-margin-left-md">
+				<div class="ar-avatar">
+					<p class="ar-avatar-xs ar-avatar-orange"> {{descripcionTipoParametro | slice:0:1}}
+					</p>
+				</div>
+				<div fxLayout="column" class="ar-margin-left-sm">
+					<span class="mat-body-1 ar-color-87"> {{descripcionTipoParametro}} </span>
+				</div>
+			</div>
+			<span fxFlex></span>
+			<div class="ar-margin-right-xs">
+				<!-- Agregar nuevo -->
+				<button color="accent" mat-button matTooltip="Agregar parámetro" (click)="AgregarParametro()">
+					<i class="mdi mdi-plus ar-icons-sm"></i>
+					Nuevo
+				</button>
+			</div>
+			<div *ngIf="esBotonListo">
+				<button mat-stroked-button color="primary" class="ar-margin-right-xs" (click)="Guardar()">Listo</button>
+			</div>
+		</mat-toolbar>
+		<div class="ar-border-05"></div>
+		<!-- Progressbar -->
+		<div class="ar-progressbar">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Toolbar de búsqueda -->
+		<div class="ar-searchbar-toolbar ar-margin-top-sm" fxLayoutAlign="center center" *ngIf="esAreaSearch">
+			<div class="ar-searchbar" fxFlex="45" fxFlex.sm="75" fxFlex.md="65" fxFlex.xs="80"
+				fxLayoutAlign="center center">
+				<!-- Input de búsqueda  -->
+				<input class="ar-searchbar-input ar-margin-left-sm ar-color-54" placeholder="Buscar"
+					[(ngModel)]="txtFiltro">
+				<span fxFlex></span>
+				<button mat-icon-button matTooltip="Limpiar" (click)="txtFiltro=null;">
+					<i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+				</button>
+			</div>
+		</div>
+		<!-- Área principal -->
+		<perfect-scrollbar fxFlex class="ar-content">
+			<div fxLayoutAlign="center">
+				<div fxLayout="column" class="ar-padding-bottom-lg" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95"
+					fxFlex.md="90">
+					<!--Listado de parametros para edición-->
+					<ng-container
+						*ngFor="let item of listaParametros | filtrarNombre: txtFiltro; let idxParametro=index;">
+						<mat-card class="ar-margin-top-xs ar-background mat-elevation-z0 ar-border-12">
+							<div fxLayout="column">
+								<div fxLayout="row" fxLayoutAlign="start center">
+									<div class="ar-avatar ar-margin-bottom-sm" *ngIf="item.estado"
+										matTooltip="Inactivo">
+										<p class="ar-avatar-xs ar-avatar-green">
+											{{RellenarConZeros(idxParametro + 1,2)}}
+										</p>
+									</div>
+									<div class="ar-avatar ar-margin-bottom-sm" *ngIf="!item.estado"
+										matTooltip="Inactivo">
+										<p class="ar-avatar-xs ar-avatar-red"> {{RellenarConZeros(idxParametro + 1,2)}}
+										</p>
+									</div>
+									<div fxFlex fxLayout="row" fxLayoutAlign="start center" class="ar-margin-left-xs">
+										<mat-form-field fxFlex="100" appearance="outline">
+											<mat-label>Nombre</mat-label>
+											<input matInput placeholder="Nombre" [(ngModel)]="item.nombre" required>
+										</mat-form-field>
+									</div>
+								</div>
+								<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+									<mat-form-field fxFlex="100" appearance="outline">
+										<mat-label>Valor <i *ngIf="!item.valor">[datos
+												booleanos indicar 1(true) ó 0(false)]</i>
+										</mat-label>
+										<input matInput placeholder="Valor" [(ngModel)]="item.valor" required>
+									</mat-form-field>
+								</div>
+								<div fxLayout="row" fxLayoutAlign="start center">
+									<mat-form-field fxFlex="100" appearance="outline">
+										<mat-label>Descripción</mat-label>
+										<textarea matInput placeholder="Descripción" [(ngModel)]="item.descripcion"
+											matTextareaAutosize matAutosizeMinRows="4"></textarea>
+									</mat-form-field>
+								</div>
+							</div>
+							<!-- Botón de acción -->
+							<mat-card-actions fxLayoutAlign="start center">
+								<span fxFlex></span>
+								<div fxLayout="row" fxLayoutAlign="start center" class="ar-margin-right-xs">
+									<span class="ar-margin-right-sm ar-color-54" *ngIf="item.estado">Activo</span>
+									<span class="ar-margin-right-sm ar-color-54" *ngIf="!item.estado">Inactivo</span>
+									<!-- Botón de habilitar o deshabilitar-->
+									<mat-slide-toggle fxFlex [(ngModel)]="item.estado">
+									</mat-slide-toggle>
+								</div>
+							</mat-card-actions>
+						</mat-card>
+					</ng-container>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>

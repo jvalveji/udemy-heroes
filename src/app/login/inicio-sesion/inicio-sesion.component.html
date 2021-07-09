@@ -1,0 +1,146 @@
+<!-- *************************************************************
+[Master /core/login/inicio-sesion.component.html]
+
+Proyecto:	arca Core
+Version:	1.2
+Fecha de creación:	07/2017
+Fecha de modificación: 11/2017
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño);
+Desarrollador: Dagoberto Gómez Jiménez (dgomezj@ccss.sa.cr)
+Desarrollo: Centro de Gestión Informática.
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Fecha de modificación: 24/11/2017 Adrian Fallas (afallasp@ccss.sa.cr)
+Fecha de modificación: 19/03/2021 Adrian Fallas (afallasp@ccss.sa.cr)
+ ************************************************************-->
+
+<div fxLayout="column" fullscreen class="ar-page ar-theme-dark arca-dark-theme ar-login-background">
+	<!-- Banda de colores y progress bar -->
+	<!-- <div class="ar-login-card-headband--01 ar-progressbar" fxHide.gt-sm>
+		<mat-progress-bar fxFlex mode="indeterminate" *ngIf="esCargando">
+		</mat-progress-bar>
+	</div> -->
+	<!-- Toolbar principal de la vista -->
+	<mat-toolbar fxHide.xs>
+		<i class="bi-isotipo_bitzu ar-icons-sm ar-color-87"></i>
+	</mat-toolbar>
+	<!-- Etiqueta flotante para indicar el ambiente actual -->
+	<div *ngIf="ambienteActual" class="ar-label">
+		<div class="ar-label-container">
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<div class="ar-elevation-03 icon" fxLayoutAlign="center center">
+					<i class="mdi mdi-alert ar-icons-sm"></i>
+				</div>
+				<div class="text ar-elevation-03 ar-margin-left-sm" fxLayoutAlign="center center">
+					<span class="ar-color-54">AMBIENTE DE {{ambienteActual}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<perfect-scrollbar fxLayout="column" fxFlex class="ar-content ar-padding-bottom-md">
+		<div fxFlex fxLayoutAlign="center center">
+			<div fxFlex="35" fxFlex.xs="95" fxFlex.sm="75" fxFlex.md="45" fxLayout="column">
+				<div fxFlex="100" fxLayoutAlign="center center">
+					<mat-card fxLayout="column" fxFlex
+						class="ar-login-card mat-elevation-z1 ar-border-radio-8 ar-login-card">
+						<!-- Banda de colores y progress bar -->
+						<div class="ar-login-card-headband--01 radius ar-progressbar" fxHide.xs>
+							<mat-progress-bar fxFlex mat-card-image mode="indeterminate" *ngIf="esCargando">
+							</mat-progress-bar>
+						</div>
+						<!-- Formulario principal -->
+						<div class="ar-margin-top-sm" fxFlex fxLayout="column">
+							<div fxFlex fxLayoutAlign="center center">
+								<div fxFlex="85" fxFlex.xs="95" fxFlex.sm="75" fxFlex.md="80" fxLayout="column">
+									<div fxFlex fxLayout="column">
+										<div fxFlex fxLayout="column" class="ar-margin-bottom-sm ar-margin-top-sm">
+											<span class="ar-login--title ar-text-primary-white ar-margin-top-xs">
+												Empecemos
+											</span>
+											<span class="ar-login--text ar-text-secondary-white ar-margin-top-xs">
+												Iniciar sesión con su cuenta del Módulo Integrado de Seguridad de la
+												Caja
+												Costarricense de Seguro Social.
+											</span>
+										</div>
+										<form [formGroup]="frmInicioSesion" (ngSubmit)="Validar()">
+											<div fxLayout="column">
+												<!-- Nombre de usuario -->
+												<mat-form-field [@apps]="'fadeIn'" fxFlex *ngIf="esUsuario" fxFlex
+													appearance="outline">
+													<mat-label>Usuario</mat-label>
+													<input class="ar-text-primary-white" matInput autofocus
+														formControlName="usuario" autocomplete="off"
+														(input)="RestablecerVistaFormulario()"
+														placeholder="Nombre de usuario">
+													<mat-error>
+														Usuario es
+														<strong>requerido.</strong>
+													</mat-error>
+												</mat-form-field>
+												<!-- Unidad Programática -->
+												<arca-autocomplete [@apps]="'fadeIn'" *ngIf="esUnidadProgramatica"
+													Placeholder="Unidades programáticas" #unidadesAutoComplete
+													[value]="unidadesProgramaticas._id" [Source]="unidadesProgramaticas"
+													(ItemSeleccionado)="SeleccionarUnidadProgramatica($event)"
+													[Disable]="disableAuto"></arca-autocomplete>
+												<!-- Contraseña -->
+												<mat-form-field [@apps]="'fadeIn'" fxFlex appearance="outline"
+													*ngIf="esPassword">
+													<mat-label>Contraseña</mat-label>
+													<input fxFlex matInput autocomplete="off" placeholder="Contraseña"
+														type="password" formControlName="clave">
+													<mat-error>
+														Ingrese los datos de la contraseña.
+													</mat-error>
+												</mat-form-field>
+												<!-- Siguiente usuario -->
+												<div class="ar-margin-top-sm" *ngIf="esSiguienteUsuario">
+													<button [@apps]="'fadeIn'" fxFlex class="ar-margin-bottom-xs"
+														mat-raised-button type="button" color="primary"
+														[disabled]="frmInicioSesion.controls.usuario.invalid"
+														(click)="ObtenerUnidadesProgramaticas()">Siguiente</button>
+												</div>
+												<!-- Siguiente unidad -->
+												<div class="ar-margin-top-sm" *ngIf="esSiguienteUP">
+													<button [@apps]="'fadeIn'" fxFlex class="ar-margin-bottom-xs"
+														mat-raised-button type="button" color="primary"
+														[disabled]="esDisableSiguienteUP"
+														(click)="IngresoPassword()">Siguiente</button>
+												</div>
+												<!-- Ingresar -->
+												<div class="ar-margin-top-sm" *ngIf="esIngresar">
+													<button [@apps]="'fadeIn'" fxFlex class="ar-margin-bottom-xs"
+														mat-raised-button type="submit" color="primary"
+														[disabled]="!(upSeleccionada && frmInicioSesion.controls.clave.valid)">Ingresar</button>
+												</div>
+												<!-- Regresar -->
+												<div fxFlex>
+													<span fxFlex></span>
+													<button class="ar-margin-bottom-xs" mat-button type="button"
+														(click)="Regresar()" color="warn" [disabled]="!esRegresar">
+														<mat-icon class="ar-margin-right-xs">arrow_back</mat-icon>
+														Regresar
+													</button>
+												</div>
+											</div>
+										</form>
+										<!-- Créditos -->
+										<span fxFlex
+											class="ar-login--credits ar-margin-top-md ar-margin-bottom-sm ar-text-disabled-white">
+											Desarrollo y diseño. Plan de Innovación institucional con la colaboración del C.G.I. del
+											HSVG para la Caja Costarricense de Seguro Social. © 2017-{{annoActual.getFullYear()}}
+										</span>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</mat-card>
+				</div>
+			</div>
+		</div>
+	</perfect-scrollbar>
+</div>

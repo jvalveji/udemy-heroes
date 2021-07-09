@@ -1,0 +1,26 @@
+<div fxLayout="column" class="arca-dark-theme">
+	<div fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
+		<div fxLayoutAlign="start center" fxFlex="100" fxFlex.xs="100" class="ar-datepicker-item">
+			<!-- Selector de fecha -->
+			<mat-form-field (click)="dp.open()" fxFlex appearance="outline" class="ar-text-white">
+				<mat-label>{{placeholderfecha}}</mat-label>
+				<input [(ngModel)]="fecha" matInput [matDatepicker]="dp" [placeholder]="placeholderfecha"
+					(ngModelChange)="EstablecerSeleccion()">
+				<mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+				<mat-datepicker touchUi #dp></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<div fxLayoutAlign="start center" ngClass="ar-margin-left-xs" ngClass.xs="ar-margin-left-none" fxFlex="100"
+			fxFlex.xs="100">
+			<mat-form-field (click)='openTime()' fxFlex appearance="outline" class="ar-text-white">
+				<mat-label>{{placeholderhora}}</mat-label>
+				<input matInput value="{{horaSeleccionada}}" [placeholder]="placeholderhora" autocomplete="off">
+				<!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+				<!-- <mat-datepicker #picker></mat-datepicker> -->
+				<a mat-button matSuffix mat-icon-button aria-label="Abrir">
+					<mat-icon>watch_later</mat-icon>
+				</a>
+			</mat-form-field>
+		</div>
+	</div>
+</div>

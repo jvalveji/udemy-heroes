@@ -1,0 +1,108 @@
+<!-- -----------------------------------------------------------------------------------------------
+[Master Stylesheet /admin/catalogos/especialidades/especialidades-editar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2017
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño: 10/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+----------------------------------------------------------------------------------------------- -->
+
+<div class="ar-page" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-especialidades-toolbar header-toolbar mat-elevation-z1 ar-text-dark">
+			<button mat-icon-button class="ar-margin-right-xs" (click)="IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span fxHide.xs>Catálogo de especialidades</span>
+			<span fxHide.gt-xs>Especialidades</span>
+			<span fxFlex></span>
+		</mat-toolbar>
+		<!-- Select filtro provincia -->
+		<div fxLayout="column" class="ar-especialidades-filtro">
+			<!-- Barra de progreso -->
+			<div class="ar-progressbar">
+				<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+			</div>
+			<div fxLayout="row" fxLayoutAlign="center center">
+				<div fxFlex="40" fxFlex.sm="70" fxFlex.md="55" fxFlex.xs="80">
+					<div fxLayout="row" fxLayoutAlign="center center">
+						<mat-icon class="ar-text-dark ar-margin-right-sm">domain</mat-icon>
+						<mat-form-field fxFlex>
+							<mat-select fxFlex placeholder="Seleccione el servicio" [(ngModel)]="servicioSeleccionado"
+								name="servicioSeleccionado" (ngModelChange)="ObtenerEspecialidadesByServicio(servicioSeleccionado)">
+								<mat-option *ngFor="let servicio of servicios" [value]="servicio">
+									{{servicio.descripcion}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Toolbar con input de búsqueda -->
+		<div class="ar-especialidades-bar" *ngIf="true">
+			<div ngClass="ar-especialidades-search" ngClass.xs="ar-especialidades-search ar-margin-top-sms" fxFlex="40"
+				fxFlex.sm="80" fxFlex.md="65" fxFlex.xs="95">
+				<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+					<input class="ar-especialidades-input-search" placeholder="Buscar" [disabled]="catalogo.length === 0"
+						[(ngModel)]="txtFiltro">
+					<span fxFlex></span>
+					<!-- <div class="ar-especialidades-bar-bottom" matTooltip="Agregar nuevo" (click)="AgregarItem()" fxLayoutAlign="center">
+            <i class="material-icons">add</i>
+          </div> -->
+					<div class="ar-especialidades-bar-menu" (click)="txtFiltro=null;" matTooltip="Limpiar" fxLayoutAlign="center">
+						<i class="mdi mdi-close ar-icon-xs"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Inicio listado de ítems -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-bottom-lg">
+					<!-- Ítem expandible tipo acordeón -->
+					<mat-accordion>
+						<mat-expansion-panel *ngFor="let item of catalogo | filtrarIdDescripcion: txtFiltro">
+							<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" (click)="CapturarItem(item)">
+								<mat-panel-title class="ar-text-dark">
+									<div fxLayoutAlign="start center">
+										<div fxLayoutAlign="start center">
+											<div>
+												<span class="ar-especialidades-circle" *ngIf="!item.estado">{{item.codigo}}</span>
+												<span class="ar-especialidades-circle ar-green" *ngIf="item.estado">{{item.codigo}}</span>
+											</div>
+											<span class="mat-body-1 ar-text-uppercase">{{item.descripcion}}</span>
+										</div>
+									</div>
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<!-- Input editar ítem -->
+							<div fxLayout="column">
+								<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+									<div fxFlex="100" fxLayoutAlign="start center">
+										<mat-form-field fxFlex appearance="fill">
+											<input matInput placeholder="Descripción del ítem" [value]="item.descripcion">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+							<!-- Menú de aciones -->
+							<mat-action-row>
+								<button mat-button color="warn" *ngIf="item.estado"
+									(click)="item.estado=false;ActualizarCatalogo();">Deshabilitar</button>
+								<button mat-button class="ar-text-green" *ngIf="!item.estado"
+									(click)="item.estado=true;ActualizarCatalogo();">Habilitar</button>
+							</mat-action-row>
+						</mat-expansion-panel>
+					</mat-accordion>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+</div>

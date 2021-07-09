@@ -1,0 +1,657 @@
+@import "../src/w3.css";
+/* w3.css */
+
+/* Estilo base del proyecto */
+
+.ar-body-master {
+	margin: 0 0 0 0;
+	width: 100%;
+	height: 100%;
+}
+
+/* Ajustes al componente Stepper en la vista de inicio de sesión */
+
+.ar-form-inicio-sesion .mat-horizontal-stepper-header {
+	pointer-events: none !important;
+}
+
+.ar-form-inicio-sesion .mat-stepper-horizontal-line {
+	border-top-style: none !important;
+}
+
+/* Aumenta la opacidad de backdrop del sidenav original */
+
+.mat-sidenav-backdrop.mat-sidenav-shown {
+	background-color: rgba(0, 0, 0, .1);
+}
+
+.ar-red-dark {
+	background-color: rgb(211, 47, 47) !important;
+	color: rgba(255, 255, 255, 0.84) !important;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Input de búsqueda del toolbar principal*/
+
+.ar-search {
+	background: rgba(0, 0, 0, 0.04);
+	border: 1px solid rgba(0, 0, 0, 0);
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 720px;
+	position: relative;
+	-webkit-transition: background 100ms ease-in, width 100ms ease-out;
+	transition: background 100ms ease-in, width 100ms ease-out;
+}
+
+.ar-input-search {
+	border: none;
+	font: normal 16px Roboto, sans-serif;
+	-webkit-font-variant-ligatures: none;
+	font-variant-ligatures: none;
+	height: 44px;
+	outline: none;
+	padding: 11px 0 11px 16px;
+	width: 100%;
+	background: transparent;
+}
+
+.mat-stepper-horizontal-line {
+	border-top-style: none !important;
+}
+
+.ar-search button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	outline: none;
+	padding: 0 4px;
+	line-height: 0;
+}
+
+.ar-search-icon {
+	margin-left: 10px;
+	color: rgba(0, 0, 0, 0.54);
+}
+
+.ar-clear-icon {
+	margin-right: 10px;
+	color: rgba(0, 0, 0, 0.54);
+}
+
+mat-toolbar {
+	min-height: 64px !important;
+	font-size: 18px !important;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Versión de mat-content para crear scroll individuales*/
+
+.ar-content {
+	display: block;
+	position: relative;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.ar-content[mat-scroll-y] {
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.ar-content[mat-scroll-x] {
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.ar-content.autoScroll {
+	-webkit-overflow-scrolling: auto;
+}
+
+/* Linea divisoria */
+
+.ar-divider {
+	display: block;
+	border-top-width: 1px;
+	border-top-style: solid;
+	margin: 20px 0 0 0;
+	width: 100%;
+	color: rgba(0, 0, 0, 0.12);
+}
+
+/* Linea divisoria blanca */
+
+.ar-divider-white {
+	display: block;
+	border-top-width: 1px;
+	border-top-style: solid;
+	margin: 20px 0 20px 0;
+	width: 100%;
+	color: rgba(255, 255, 255, 0.12);
+}
+
+.mat-dialog-container {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* Agrega el padding del diálogo de datapicker touch */
+
+.mat-datepicker-content-touch {
+	margin: 0 !important;
+}
+
+/* Texto centrado */
+
+.ar-text-center {
+	text-align: center;
+}
+
+/* Margin y padding top, bottom, left, right*/
+
+.ar-margin-top-none {
+	margin-top: 0 !important;
+}
+
+.ar-margin-top-xs {
+	margin-top: 10px !important;
+}
+
+.ar-margin-top-sm {
+	margin-top: 20px !important;
+}
+
+.ar-margin-top-md {
+	margin-top: 40px !important;
+}
+
+.ar-margin-top-lg {
+	margin-top: 60px !important;
+}
+
+.ar-margin-top-xlg {
+	margin-top: 80px !important;
+}
+
+.ar-margin-bottom-none {
+	margin-bottom: 0 !important;
+}
+
+.ar-margin-bottom-xs {
+	margin-bottom: 10px !important;
+}
+
+.ar-margin-bottom-sm {
+	margin-bottom: 20px !important;
+}
+
+.ar-margin-bottom-md {
+	margin-bottom: 40px !important;
+}
+
+.ar-margin-bottom-lg {
+	margin-bottom: 60px !important;
+}
+
+.ar-margin-bottom-xlg {
+	margin-bottom: 80px !important;
+}
+
+.ar-margin-left-none {
+	margin-left: 0 !important;
+}
+
+.ar-margin-left-xs {
+	margin-left: 10px !important;
+}
+
+.ar-margin-left-sm {
+	margin-left: 20px !important;
+}
+
+.ar-margin-left-md {
+	margin-left: 40px !important;
+}
+
+.ar-margin-left-lg {
+	margin-left: 60px !important;
+}
+
+.ar-margin-left-xlg {
+	margin-left: 80px !important;
+}
+
+.ar-margin-right-none {
+	margin-right: 0 !important;
+}
+
+.ar-margin-right-xs {
+	margin-right: 10px !important;
+}
+
+.ar-margin-right-sm {
+	margin-right: 20px !important;
+}
+
+.ar-margin-right-md {
+	margin-right: 40px !important;
+}
+
+.ar-margin-right-lg {
+	margin-right: 60px !important;
+}
+
+.ar-margin-right-xlg {
+	margin-right: 80px !important;
+}
+
+.ar-margin-center {
+	margin: 10px !important;
+}
+
+.ar-padding-top-xs {
+	padding-top: 10px !important;
+}
+
+.ar-padding-top-sm {
+	padding-top: 20px !important;
+}
+
+.ar-padding-top-md {
+	padding-top: 40px !important;
+}
+
+.ar-padding-top-lg {
+	padding-top: 60px !important;
+}
+
+.ar-padding-top-xlg {
+	padding-top: 80px !important;
+}
+
+.ar-padding-bottom-xs {
+	padding-bottom: 10px !important;
+}
+
+.ar-padding-bottom-sm {
+	padding-bottom: 20px !important;
+}
+
+.ar-padding-bottom-md {
+	padding-bottom: 40px !important;
+}
+
+.ar-padding-bottom-lg {
+	padding-bottom: 60px !important;
+}
+
+.ar-padding-bottom-xlg {
+	padding-bottom: 80px !important;
+}
+
+.ar-padding-left-xs {
+	padding-left: 10px !important;
+}
+
+.ar-padding-left-sm {
+	padding-left: 20px !important;
+}
+
+.ar-padding-left-md {
+	padding-left: 40px !important;
+}
+
+.ar-padding-left-lg {
+	padding-left: 60px !important;
+}
+
+.ar-padding-left-xlg {
+	padding-left: 80px !important;
+}
+
+.ar-padding-right-xs {
+	padding-right: 10px !important;
+}
+
+.ar-padding-right-sm {
+	padding-right: 20px !important;
+}
+
+.ar-padding-right-md {
+	padding-right: 40px !important;
+}
+
+.ar-padding-right-lg {
+	padding-right: 60px !important;
+}
+
+.ar-padding-right-xlg {
+	padding-right: 80px !important;
+}
+
+/* Ajustes de color y forma en la tipografía */
+
+.ar-text-lowercase {
+	text-transform: none !important;
+}
+
+.ar-text-uppercase {
+	text-transform: uppercase !important;
+}
+
+.ar-text-black {
+	color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ar-text-white {
+	color: #FFF !important;
+}
+
+.ar-text-red {
+	color: #c0392b !important;
+}
+
+.ar-text-green {
+	color: #7eba0c !important;
+}
+
+.ar-text-orange {
+	color: #f57c00 !important;
+}
+
+.ar-text-secondary-color {
+	color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.ar-text-disabled-color {
+	color: rgba(0, 0, 0, 0.38) !important;
+}
+
+.ar-text-bold {
+	font-weight: bold !important;
+}
+
+.ar-text-italic {
+	font-style: italic !important;
+}
+
+.ar-text-uppercase {
+	text-transform: uppercase !important;
+}
+
+.ar-text-primary-white {
+	color: rgba(255, 255, 255, 0.87) !important;
+}
+
+.ar-text-secondary-white {
+	color: rgba(255, 255, 255, 0.54) !important;
+}
+
+.ar-text-disabled-white {
+	color: rgba(255, 255, 255, 0.38) !important;
+}
+
+.ar-no-color {
+	background-color: inherit !important;
+}
+
+.ar-no-margin {
+	margin: 0 !important;
+}
+
+.ar-no-space {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.ar-no-padding {
+	padding: 0 !important;
+}
+
+.ar-text-black {
+	color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ar-text-dark {
+	color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.ar-text-white {
+	color: #FFF !important;
+}
+
+/* Estilos de colores */
+
+.ar-red-dark {
+	background-color: rgb(211, 47, 47) !important;
+}
+
+.ar-yellow {
+	background-color: rgb(255, 193, 7) !important;
+	color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ar-green {
+	background-color: #7cb342 !important;
+	color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ar-orange {
+	background-color: #f57c00 !important;
+	color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ar-blue {
+	background-color: rgb(31, 87, 150) !important;
+	color: rgba(255, 255, 255, 0.87) !important;
+}
+
+.ar-dark {
+	color: #fff !important;
+	background-color: #2c3e50 !important;
+}
+
+.ar-gray {
+	background-color: #f2f2f2 !important;
+}
+
+/* Porcentaje de márgenes */
+
+.ar-margin-percentage-sm {
+	margin: 20%;
+	background-color: transparent;
+}
+
+.ar-margin-percentage-xs {
+	margin: 15%;
+	background-color: transparent;
+}
+
+/* Tamaños de iconos */
+
+.material-icons.ar-icon-sm {
+	font-size: 14px !important;
+	color: currentColor;
+}
+
+.material-icons.ar-icon-xs {
+	font-size: 24px !important;
+	color: currentColor;
+}
+
+.material-icons.ar-icon-md {
+	font-size: 32px !important;
+}
+
+.material-icons.ar-icon-xmd {
+	font-size: 48px !important;
+}
+
+.material-icons.ar-icon-lg {
+	font-size: 64px !important;
+	color: currentColor;
+}
+
+.material-icons.ar-icon-xlg {
+	font-size: 128px !important;
+	color: currentColor;
+}
+
+.mdi.ar-icon-sm {
+	font-size: 14px !important;
+	color: currentColor;
+}
+
+.mdi.ar-icon-xs {
+	font-size: 24px !important;
+	color: currentColor;
+}
+
+.mdi.ar-icon-md {
+	font-size: 32px !important;
+}
+
+.mdi.ar-icon-lg {
+	font-size: 64px !important;
+	color: currentColor;
+}
+
+.mdi.ar-icon-xlg {
+	font-size: 128px !important;
+	color: currentColor;
+}
+
+.ar-icon-sm {
+	font-size: 14px !important;
+	color: currentColor;
+}
+
+.ar-icon-xs {
+	font-size: 24px !important;
+	color: currentColor;
+}
+
+.ar-icon-md {
+	font-size: 32px !important;
+}
+
+.ar-icon-lg {
+	font-size: 64px !important;
+	color: currentColor;
+}
+
+.ar-icon-xlg {
+	font-size: 128px !important;
+	color: currentColor;
+}
+
+/* Elimina la linea inferior del control mat-select */
+
+.ar-select-no-underline .mat-form-field-underline {
+	display: none;
+}
+
+.ar-background-white {
+	background-color: #fff !important;
+}
+
+.ar-dark {
+	color: rgb(255, 193, 7) !important;
+	background-color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ar-truncate {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Progressbar */
+
+.ar-progressbar {
+	min-height: 5px;
+}
+
+/* Porcentaje de márgenes */
+
+.ar-margin-percentage-sm {
+	margin: 20%
+}
+
+.ar-margin-percentage-xs {
+	margin: 15%
+}
+
+/* Tamaños de iconos */
+
+.material-icons.ar-icon-sm {
+	font-size: 14px !important;
+	color: currentColor;
+}
+
+.material-icons.ar-icon-xs {
+	font-size: 24px !important;
+	color: currentColor;
+}
+
+.material-icons.ar-icon-md {
+	font-size: 32px !important;
+}
+
+.material-icons.ar-icon-xmd {
+	font-size: 48px !important;
+	color: currentColor;
+}
+
+.material-icons.ar-icon-lg {
+	font-size: 64px !important;
+	color: currentColor;
+}
+
+.material-icons.ar-icon-xlg {
+	font-size: 128px !important;
+	color: currentColor;
+}
+
+.mdi.ar-icon-sm {
+	font-size: 14px !important;
+	color: currentColor;
+}
+
+.mdi.ar-icon-xs {
+	font-size: 24px !important;
+	color: currentColor;
+}
+
+.mdi.ar-icon-md {
+	font-size: 32px !important;
+}
+
+.mdi.ar-icon-lg {
+	font-size: 64px !important;
+	color: currentColor;
+}
+
+.mdi.ar-icon-xlg {
+	font-size: 128px !important;
+	color: currentColor;
+}
+
+/* Estilos que modifican mat menu para notificaciones y alerta del chat del toolbar */
+
+.mat-menu-panel.ar-chat-menu {
+	min-width: 150px !important;
+	max-width: 310px !important;
+	width: 420px !important;
+	max-height: calc(100vh - 150px) !important;
+}
+
+.mat-menu-item.ar-chat-item {
+	line-height: 1 !important;
+}
+
+.ar-tiempos-sala-expansion-header .mat-expansion-indicator:after {
+	color: #F7C544 !important;
+}

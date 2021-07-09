@@ -1,0 +1,284 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /app/shared/controls/archivos/archivos.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	03/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+-------------------------------------------------------------------*/
+/* Estilos generales de la vista */
+
+.ar-archivos-content {
+  height: auto;
+  width: 100%;
+  background-color: #fff;
+}
+
+/* Estilos del div archivo temporal */
+.ar-archivos-temporal {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left:10px;
+  background-color: #f44336 !important;
+}
+
+/* Estilos del div archivo temporal */
+.ar-archivos-permanente {
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #fcfcfc !important;
+}
+
+/*Truncate del nombre archivo*/
+.ar-archivos-truncate {
+  white-space: normal;
+  overflow: normal;
+  text-overflow: ellipsis;
+  display: block;
+  width: 48px;
+  text-align: left;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+  outline: 0;
+}
+
+/*estilos del botón de subir archivos*/
+.ar-archivos-file-input {
+  display: inline-block;
+  text-align: left;
+  background: #fff;
+  padding: 16px 0 16px 0;
+  width: 100%;
+  position: relative;
+  border-radius: 3px;
+}
+  
+.ar-archivos-file-input > [type='file'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+  
+.ar-archivos-file-input > .button {
+  display: inline-block;
+  cursor: pointer;
+  background: #eee;
+  padding: 8px 16px;
+  border-radius: 2px;
+  margin-right: 8px;
+  width: 100%;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.57);
+}
+  
+.ar-archivos-file-input:hover > .button {
+  background: #f57c00;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.ar-archivos-text-space {
+  font-size: 0.8375em;
+  padding: 0.4125em 1.25em;
+  color: rgba(0,0,0,.54);
+  background-color: #f5f5f5;
+}
+
+/* visor de imágenes */
+.ar-archivos-visor-img { 
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  overflow: visible;
+  position: absolute;
+  top: 0; 
+  bottom:0; 
+  left: 0; 
+  right:0;
+  margin: auto;
+}
+
+.ar-archivos-visor-img img {
+  width: 100%;
+  display: block;
+  height: auto;
+}
+.ar-archivos-o-flag {
+  display: table;
+  width: 100%;
+}
+
+.ar-archivos-o-flag__body {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* COMPONENTS */
+.ar-archivos-ar-archivos-c-slider-wrap {
+  position: relative;
+}
+
+.ar-archivos-c-slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.ar-archivos-c-slider__container {
+  -ms-touch-action: pan-y;
+      touch-action: pan-y;
+  font-size: 0;
+  white-space: nowrap;
+}
+
+.ar-archivos-c-slider__container--mouse-drag-enabled > .ar-archivos-c-slider__slide {
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.ar-archivos-c-slider__container--is-dragging > .ar-archivos-c-slider__slide * {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+.ar-archivos-c-slider__slide {
+  display: inline-block;
+  white-space: normal;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+}
+
+.ar-archivos-c-slider__banner {
+  position: relative;
+  padding-bottom: 40%;
+  min-height: 550px;
+}
+
+.ar-archivos-c-slider__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.ar-archivos-c-slider__dots {
+  text-align: center;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  bottom: 0.5em;
+  left: 0;
+}
+
+.ar-archivos-c-slider__dot {
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  background: #fff;
+  opacity: 0.4;
+}
+
+.ar-archivos-c-slider__dot:not(:last-child) {
+  margin-right: 0.5em;
+}
+
+.ar-archivos-c-slider__dot--is-active {
+  opacity: 0.9;
+}
+
+.ar-archivos-c-slider__btn {
+  position: absolute;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  -ms-touch-action: none;
+      touch-action: none;
+  width: 50px;
+  height: 100%;
+  top: 0;
+  margin-top: 0;
+  opacity: 0.4;
+  background-color: #fff;
+  padding: 0;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+}
+.ar-archivos-c-slider__btn::before {
+  position: absolute;
+  content: "";
+  display: block;
+  height: 24px;
+  width: 24px;
+  top: 50%;
+  margin-top: -12px;
+  border-style: solid;
+  border-width: 6px 6px 0 0;
+  border-color: rgba(0, 0, 0, 0.87);
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.ar-archivos-c-slider__btn:focus {
+  outline: 0;
+}
+.ar-archivos-c-slider__btn:hover {
+  opacity: 0.95;
+}
+
+.ar-archivos-c-slider__btn--left {
+  left: 0;
+}
+.ar-archivos-c-slider__btn--left::before {
+  left: 10.6666666667px;
+  -webkit-transform: rotate(-135deg);
+          transform: rotate(-135deg);
+}
+
+.ar-archivos-c-slider__btn--right {
+  right: 0;
+}
+.ar-archivos-c-slider__btn--right::before {
+  left: 10.6666666667px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.ar-archivos-text-wrap {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.54);
+  position: absolute;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  height: 28px;
+  bottom: 0;
+
+}
+/* UTILITIES */
+.ar-archivos-u-bg-brand {
+  background: #fff !important;
+}
+/* Tips */
+.ar-archivos-tips {
+  background-color: #FFFDE7;
+}

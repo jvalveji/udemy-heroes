@@ -1,0 +1,592 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /admin/chat]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	07/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+-------------------------------------------------------------------*/
+
+html {
+  padding-top: 0;
+  height: 100%;
+  font-family: Roboto;
+  background-color: #fff !important;
+  display: flex;
+}
+
+/* Toolbar principal */
+
+.ar-chat-toolbar {
+  background-color: white !important;
+  z-index: 9;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
+/* Marca arca */
+
+.ar-chat-marca {
+  font-family: muli;
+}
+
+/* Titular del toolbar */
+
+.ar-chat-title {
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Barra de agregar mensaje */
+
+#ar-chat-composer.ar-chat-compose-bar {
+  background: #2D3047;
+  border-radius: 26px;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .16), 0 4px 4px 0 rgba(0, 0, 0, .10), 0 3px 3px 0 rgba(0, 0, 0, .08);
+  margin: 0 auto;
+}
+
+.ar-chat-compose-bar {
+  border: 0;
+  color: #222029;
+  flex-shrink: 1;
+  font-size: 15px;
+  margin: 0 5px 0 15px;
+  padding: 3px;
+}
+
+#ar-chat-composer.messages-view {
+  bottom: 20px;
+  width: 100%;
+  color: white;
+}
+
+.ar-chat-compose-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Textarea de barra de escritura de mensajes */
+
+textarea.ar-chat-textarea {
+  position: relative;
+  outline: none;
+  border: none;
+  resize: none;
+  background: inherit;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 2.5;
+  text-align: inherit;
+}
+
+/* Item de burbuja */
+
+.ar-chat-message-item {
+  margin: 0 12px 0 12px;
+}
+
+/* Burbuja de mensaje */
+
+.ar-chat-bubble-message {
+  display: inline-block;
+  font-size: 15px;
+  letter-spacing: .1px;
+  max-width: 400px;
+  position: relative;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 8px 16px;
+}
+
+/* Burbuja de mensaje de sistema */
+
+.ar-chat-bubble-system-message {
+  display: inline-block;
+  font-size: 15px;
+  letter-spacing: .1px;
+  max-width: 400px;
+  position: relative;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 8px 16px;
+  border-radius: 10px 10px 10px 2px !important;
+}
+
+/* Burbuja de mensaje enviado */
+
+.ar-chat-message-sent {
+  float: right;
+  margin: 2px 0 2px 25px;
+  background-color: #f2f2f2;
+  color: rgba(0, 0, 0, 0.54);
+  border-radius: 18px 18px 4px 18px;
+}
+
+/* Burbuja de mensaje recibido */
+
+.ar-chat-message-received {
+  float: left;
+  margin: 2px 25px 2px 0;
+  background-color: #4f86ec;
+  color: white;
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* Burbuja de mensaje recibido del sistema */
+
+.ar-chat-message-received {
+  float: left;
+  margin: 2px 25px 2px 0;
+  color: white;
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* Área de la barra de conctactos */
+
+.ar-chat-user-area {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Item de contacto */
+
+.ar-chat-user-item {
+  cursor: pointer;
+  height: 72px;
+  padding: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ar-chat-user-item:hover {
+  background: #ECF0F1;
+}
+
+/* User name de área de contactos */
+
+.ar-chat-user-name {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 2px;
+  color: rgb(69, 90, 100);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Burbujas de mensajes en area de contactos */
+
+.ar-chat-user-message {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 13px;
+  margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 160px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Unidad programática en toolbar principal */
+
+.ar-chat-user-up {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 13px;
+  margin-top: 5px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Círculo del avatas del área de contacto */
+
+.ar-chat-contact-circle {
+  background: #cccccc;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  text-align: center;
+  width: 1.6em;
+  font-size: 24px;
+}
+
+/* Ávatar de arca en notificaciones del sistema */
+
+.ar-chat-arca-circle {
+  // Indicar SIEMPRE el nombre del servidor de recursos Web a travez de las variables definidas en el styles.scss
+  background-image: url(#{$webKitServer}images/home/arca_chat.svg);
+  box-shadow: none;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 50%;
+  height: 38px;
+  overflow: hidden;
+  width: 38px;
+  size: 44px;
+}
+
+/* Imagen svg background del área de mensajes */
+
+.ar-chat-arca-background {
+  // Indicar SIEMPRE el nombre del servidor de recursos Web a travez de las variables definidas en el styles.scss
+  background-image: url(#{$webKitServer}/images/home/arcaBackgroundChat.svg);
+  box-shadow: none;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Círculo numeral de mensajes no leidos */
+
+.ar-chat-contador-circle {
+  border-radius: 17px;
+  color: rgba(0, 0, 0, 0.54);
+  display: inline-block;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  width: 24px;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f2f2f2;
+}
+
+/* Área de búsqueda de contactos */
+
+.ar-chat-user-search-content {
+  margin: 25px;
+}
+
+/* Colores random de los avatares de los contactos */
+
+.ar-chat-avatar-01 {
+  background-color: #db4437 !important;
+}
+
+.ar-chat-avatar-02 {
+  background-color: #4285f4 !important;
+}
+
+.ar-chat-avatar-03 {
+  background-color: #57bb8a !important;
+}
+
+.ar-chat-avatar-04 {
+  background-color: #ff5722 !important;
+}
+
+.ar-chat-avatar-05 {
+  background-color: #673ab7 !important;
+}
+
+.ar-chat-avatar-06 {
+  background-color: #3f51b5 !important;
+}
+
+.ar-chat-avatar-07 {
+  background-color: #00bcd4 !important;
+}
+
+.ar-chat-avatar-08 {
+  background-color: #ff5722 !important;
+}
+
+.ar-chat-avatar-09 {
+  background-color: #f4b400 !important;
+}
+
+/* * {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #FF5722;
+}
+
+.title {
+  color: #ffffff; 
+  font-weight: 100;
+}
+
+.wrapper {
+  height: 520px;
+  width: 320px;
+  overflow: hidden;
+  background-color: white;
+  position: fixed;
+  top: 100px; 
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.5);
+  transition: 0.3s ease;
+}
+
+.wrapper .inner {
+  overflow: scroll;
+  height: 520px;
+  padding-top: 64px;
+  background: #f2f2f2;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+
+.wrapper .inner::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.wrapper .inner .content {
+  padding: 10.6666666667px;
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 100;
+  transition: 0.3s ease;
+}
+
+.nav .default-nav {
+  height: 64px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 110;
+  background-color: #F44336;
+  border-bottom: 3px solid #ea1c0d;
+  color: #ffffff;
+  box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.1);
+  transition: 0.3s ease;
+}
+
+.nav .default-nav .main-nav {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: 0.3s ease;
+}
+
+.nav .default-nav .main-nav .toggle {
+  height: 32px;
+  width: 32px;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/ic_arrow_back_white_48dp.png);
+  background-size: contain;
+  margin: 16px;
+  float: left;
+}
+
+.nav .default-nav .main-nav .toggle:hover {
+  cursor: pointer;
+}
+
+.nav .default-nav .main-nav .options {
+  height: 32px;
+  width: 32px;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/ic_more_vert_white_48dp.png);
+  background-size: contain;
+  margin: 16px;
+  position: absolute;
+  right: 0;
+}
+
+.nav .default-nav .main-nav .options:hover {
+  cursor: pointer;
+}
+
+.nav .default-nav .main-nav .main-nav-item {
+  float: left;
+  height: 64px;
+  margin-right: 50px;
+  position: relative;
+  line-height: 64px;
+  transition: 0.3s ease;
+}
+
+.nav .default-nav .main-nav .main-nav-item .main-nav-item-link {
+  display: block;
+  position: relative;
+  height: 64px;
+  width: 100%;
+  text-align: center;
+  line-height: 64px;
+  text-decoration: none;
+  color: inherit;
+  transition: 0.3s ease;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #ffffff;
+}
+
+.bottom .input {
+  height: 64px;
+  background: #ffffff;
+  border: none;
+  width: calc(100% - 64px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 5%;
+  resize: none;
+  overflow: scroll;
+  padding-top: 24px;
+  font-weight: 300;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+
+.bottom .input:focus {
+  outline: none;
+}
+
+.bottom .input::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.bottom .send {
+  position: fixed;
+  height: 42.6666666667px;
+  width: 42.6666666667px;
+  border-radius: 50%;
+  border: 0;
+  background: #F44336;
+  color: #ffffff;
+  bottom: 10.6666666667px;
+  right: 10.6666666667px;
+}
+
+.bottom .send:before {
+  content: '';
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/ic_send_white_48dp.png) no-repeat center center;
+  background-size: 25.6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.bottom .send:focus {
+  outline: none;
+}
+
+.bottom .send:hover {
+  cursor: pointer;
+}
+
+.message-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin: 10.6666666667px 0;
+  padding: 10.6666666667px 0;
+}
+
+.message-wrapper .circle-wrapper {
+  height: 42.6666666667px;
+  width: 42.6666666667px;
+  border-radius: 50%;
+}
+
+.message-wrapper .text-wrapper {
+  padding: 10.6666666667px;
+  min-height: 42.6666666667px;
+  width: 60%;
+  margin: 0 10.6666666667px;
+  box-shadow: 0px 1px 0px 0px rgba(50, 50, 50, 0.3);
+  border-radius: 2px;
+  font-weight: 300;
+  position: relative;
+  opacity: 0;
+}
+
+.message-wrapper .text-wrapper:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.message-wrapper.them .circle-wrapper,
+.message-wrapper.them .text-wrapper {
+  background: #F44336;
+  float: left;
+  color: #ffffff;
+}
+
+.message-wrapper.them .text-wrapper:before {
+  border-width: 0 10px 10px 0;
+  border-color: transparent #F44336 transparent transparent;
+  position: absolute;
+  top: 0;
+  left: -9px;
+}
+
+.message-wrapper.me .circle-wrapper,
+.message-wrapper.me .text-wrapper {
+  background: #FF5722;
+  float: right;
+  color: #333333;
+}
+
+.message-wrapper.me .text-wrapper {
+  background: #ffffff;
+}
+
+.message-wrapper.me .text-wrapper:before {
+  border-width: 10px 10px 0 0;
+  border-color: #ffffff transparent transparent transparent;
+  position: absolute;
+  top: 0;
+  right: -9px;
+}
+
+@media (max-width: 560px) {
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  .wrapper .inner {
+    height: 100%;
+    height: 100vh;
+  }
+} */

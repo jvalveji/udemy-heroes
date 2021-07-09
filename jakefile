@@ -1,0 +1,226 @@
+// Definición  para el fichero de tareas jakefile v2.0.0
+// Proyecto: Bitzú
+// Definiciones por: Ing. Dagoberto Gómez Jiménez
+// Fichero con las instrucciones para los despliegues de las aplicaciones Bitzú según ambiente.
+// Referencias 	-> (jake) https://jakejs.com/index.html
+// 				-> (bash colors and formatting) https://misc.flogisoft.com/bash/tip_colors_and_formatting
+// Este fichero contiene los comandos necesarios para la compilación de la aplicación Angular del proyecto MEAN.
+//
+// Para ejecutar el fichero se hace con algunos de estos 2 comandos:
+// 		* Deploy normal: $ jake build[<ambiente>]
+// 		* Deploy CODISA: $ jake build-CODISA[<ambiente>]
+//
+// Lista de Ambientes:
+// 				- developer -> dev
+// 				- test -> test
+// 				- production -> prod
+// 				- demo/capacitación -> demo
+//
+// IMPORTANTE: En caso de utilizar el shell de zsh (MAC) se debe realizar de la siguiente forma:
+// 				* Agregar las comillas simples a la instrucción:
+// 				Ejs.: jake 'nombreTarea[param1,param2,etc.]'
+// 									ó
+// 				* De forma permanente (global) desactivar el uso de comillas simples en el shell de zsh para jake.
+// 				Esto se hace agregando  la siguiente linea al fichero ~/.zshrc (si no existe, se crea):
+// 				alias jake="noglob jake"
+// 				Una vez editado se abre otro shell o se reinicia el shell actual ejecutando el comando: $ source ~/.zshrc
+// Modificado: (15-05-2021) Equipo TI Plan de Innovación
+
+// Se importa el módulo principal de jake
+let { task, desc } = require('jake');
+
+// Constante que indica el nombre del proyecto
+// Esta se utilizará para cambiar el ruteo de la aplicación en caso de los
+// despliegues a CODISA bajo el balanceador F5
+const project = 'pi';
+// Constante que representa la cantidad de memoria que va requerir el motor V8 para la compilación
+// (incrementa a 1GB) --max-old-space-size=1024
+// (incrementa a 2GB) --max-old-space-size=2048
+// (incrementa a 3GB) --max-old-space-size=3072
+// (incrementa a 4GB) --max-old-space-size=4096
+// (incrementa a 5GB) --max-old-space-size=5120
+// (incrementa a 6GB) --max-old-space-size=6144
+// (incrementa a 7GB) --max-old-space-size=7168
+// (incrementa a 8GB) --max-old-space-size=8192
+// etc.
+const memoryGB = 8; // Entero que representa la cantidad de GigaBytes
+
+// Se establecen variables para el manejo de colores en el texto de los mensajes para las consolas bash
+const redText = '\x1B[31m';
+const greenText = '\x1B[32m';
+const yellowText = '\x1B[33m';
+const blueText = '\x1B[34m';
+const darkGrayBG = '\x1B[100m';
+const endFormat = '\x1B[49m';
+
+/**
+ * Tarea encargada de realizar el build dependiendo del ambiente
+ */
+task('BuildEnvironment', function (env, esF5) {
+	// Variable que representa un proceso en memoria para node
+	const proc = require('child_process');
+	// Variables que se utilizan para los ajustes de memoria para el motor V8
+	const memV8 = 1024 * memoryGB; // representa la cantidad de GIGAS a establecer el motor V8 para la compilación
+	// representa la cantidad de memoria default con la que la aplicación puede
+	// ejecutarse "comunmente" en modo developer
+	const defaultMem = 4096;
+	// Variables que contrendran el comando a ejecutar
+	const cmdMem = `node --max_old_space_size=${memV8}`;
+	const cmdNgBuild = './node_modules/@angular/cli/bin/ng build';
+	const cmdDelOutput = '--deleteOutputPath=true';
+	let CMD = null;
+
+	// Mensaje indicando el ambiente a desplegar
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Ambiente: ${greenText}${env}`);
+
+	// Valida el ambiente indicado por el usuario
+	switch (env.toLowerCase()) {
+		case 'dev':
+			CMD = `${cmdMem} ${cmdNgBuild}`;
+			break;
+		case 'test':
+			CMD = `${cmdMem} ${cmdNgBuild} --configuration=test ${cmdDelOutput}`;
+			break;
+		case 'prod':
+			CMD = `${cmdMem} ${cmdNgBuild} --prod --build-optimizer ${cmdDelOutput}`;
+			break;
+		case 'demo':
+			CMD = `${cmdMem} ${cmdNgBuild} --configuration=demo ${cmdDelOutput}`;
+			break;
+		default:
+			CMD = null;
+			break;
+	}
+
+	// Valida el ambiente
+	if (!CMD) {
+		// Al no existir se notifica del error
+		throw new Error(`${darkGrayBG}BitzuBuild${endFormat}${redText} -> No se puede establecer el ambiente a desplegar.\nVerifique el ambiente.`);
+	}
+
+	// Se valida si el despliegue es para CODISA o es normal
+	if (esF5) {
+		// Mensaje indicando que se va a cambiar la URL del proyecto durante el build
+		console.log(`${darkGrayBG}BitzuBuild${endFormat}${yellowText} -> Cambio en la URL del proyecto: "/${project}/"`);
+		// Se agrega al comando el flag para cambio en el ruteo del proyecto
+		CMD += ` --deploy-url /${project}/`;
+	}
+
+	// Elimina (limpia) la carpeta dist en caso de existir
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Limpiando build previo del proyecto...`);
+
+	// Mensaje indicando que se realizo un ajuste en la memoria de node para la compilación
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${yellowText} -> Ajuste de memoria del motor V8 para la compilación (--max_old_space_size=${memV8}).`);
+
+	// Mensaje indicando que se va a iniciar el proceso build
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Iniciando proceso build; por favor espere...`);
+
+	// Se ejecuta el comando para el build
+	proc.execSync(CMD, { stdio: 'inherit' });
+
+	// Mensaje indicando que se finalizo con éxito el proceso build
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Proceso build finalizado con éxito.`);
+
+	// Mensaje indicando que se realiza un ajuste en la memoria de node post compilación
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${yellowText} -> Restableciendo memoria del motor V8 post-compilación (--max_old_space_size=${defaultMem}).`);
+
+	// Se aplica el comando de memoria para restablecerla
+	proc.execSync(`export NODE_OPTIONS=--max_old_space_size=${defaultMem}`);
+
+	// Valida si es un despliegue en producción para cambiar el index.html generado
+	if (env.toLowerCase() === 'prod') {
+		// Ejecuta el comando que cambia el nombre del fichero index.html
+		proc.execSync('mv ./dist/index.prod.html ./dist/index.html');
+		// Mensaje indicando que se cambio el fichero index.html
+		console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Estableciendo fichero index.html para producción.`);
+	}
+
+	// Cuando termine la ejecución del comando se procede a llamar a la función complete()
+	// para salir de la tarea actual y pasar a la siguiente
+	complete();
+});
+
+/**
+ * Tarea encargado de mover los bundles en caso de ser un despliegue para CODISA
+ * Nota: Como pre-requisito es necesario que se haya ejecutado la tarea build de primero
+ */
+task('MoveBundles', function (env) {
+	// Variable que representa un proceso en memoria para node
+	const proc = require('child_process');
+
+	// Mensaje indicando que va iniciarse la tarea de mover los ficheros
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Iniciando proceso para relocalizar los bundles del proyecto...`);
+
+	// Crea la carpeta con el nombre del proyecto
+	jake.mkdirP(`./dist/${project}`);
+
+	// Valida si el ambiente es producción para incluir los ficheros de estilos
+	const estilos = (env.toLowerCase() === 'prod') ? `&& mv ./dist/*.css ./dist/${project}/` : '';
+
+	// Comando MOVE (se mueven todos archivos necesarios a la carpeta de proyecto)
+	const CMD = `mv ./dist/*.js* ./dist/${project}/ ${estilos}`;
+
+	// Una vez aplicado el comando de memoria se procede a ejecuar el comando para el build
+	proc.execSync(CMD, { stdio: 'inherit' });
+
+	// Mensaje indicando que se finalizo con éxito el proceso de mover los ficheros
+	console.log(`${darkGrayBG}BitzuBuild${endFormat}${blueText} -> Proceso para relocalizar los bundles finalizado con éxito.`);
+
+	// Cuando termine la ejecución del comando se procede a llamar a la función complete()
+	// para salir de la tarea actual y pasar a la siguiente
+	complete();
+});
+
+/**
+ * Tarea que administra las demás tareas que realizan el proceso build
+ */
+task('ProcesoBuild', function (env, esF5) {
+	// Se establecen variables que se asocian a las tareas a ejecutar
+	const buildEnvironment = jake.Task['BuildEnvironment'];
+	const moveBundles = jake.Task['MoveBundles'];
+
+	// Se agrega evento para capturar cuando termina el deploy por ambiente
+	buildEnvironment.addListener('complete', () => {
+		// Una vez completado se valida si es un despliegue para CODISA
+		// ya que se deben mover los ficheros a una nueva carpeta
+		if (esF5) { moveBundles.invoke(env); }
+	});
+
+	// Se agrega evento para capturar cuando terminan de moverse los ficheros creados
+	moveBundles.addListener('complete', () => {
+		// Una vez finalizado se ejecuta la función complete() para psar al siguiente task;
+		// que para este caso al no existir más da por finalizado todo el proceso
+		complete();
+	});
+
+	// Se agrega evento en caso de error
+	buildEnvironment.addListener('error', (e) => {
+		// En caso de error se emite el mensaje y se finaliza todo el proceso (abort)
+		fail(e.message, 42);
+	});
+
+	// Se agrega evento en caso de error
+	moveBundles.addListener('error', (e) => {
+		// En caso de error se emite el mensaje y se finaliza todo el proceso (abort)
+		fail(e.message, 42);
+	});
+
+	// Ejecuta la primer tarea (que desencadena todo el proceso)
+	buildEnvironment.invoke(env, esF5);
+});
+
+/**
+ * Tarea que desencadena el proceso BUILD NORMAL
+ */
+desc('Empaquetado de la aplicación Angular del proyecto MEAN (normal).');
+task('build', function (env) {
+	jake.Task['ProcesoBuild'].invoke(env, false);
+});
+
+/**
+ * Tarea que desencadena el proceso BUILD PARA CODISA CON EL BALANCEADOR
+ */
+desc('Empaquetado de la aplicación Angular del proyecto MEAN (para CODISA).');
+task('build-CODISA', function (env) {
+	jake.Task['ProcesoBuild'].invoke(env, true);
+});

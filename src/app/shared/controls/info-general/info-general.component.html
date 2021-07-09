@@ -1,0 +1,117 @@
+<!-- ========================================================================
+  [HTML /main/rpm/materiales/crear.component.html]
+
+  Proyecto: 			Bitzú RPM
+  Version:  			1.0
+  Fecha de creación:  	06/2021
+  Asignado a: 			Equipo Bitzú RPM
+  Desarrollo: 			Tecnologías de Información y Comunicaciones
+  Unidad: 				Plan de Innovación
+  Cliente: 				Caja Costarricense de Seguro Social
+  Justificación:        Proporcionar un control en común para las gestiones de RPM donde se requiera, como lo es
+  inclusión, modificación, exclusión, etc...
+======================================================================== -->
+<div fxFlex fxLayout="column" class="ar-background" layout>
+    <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+        <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+            <form [formGroup]="frmInfoGeneral" (ngSubmit)="validar()">
+                <div fxFlex fxLayout="column">
+                    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                        <!-- Avatar circular -->
+                        <div class="ar-avatar">
+                            <p class="ar-avatar-sm">
+                                <span>G</span>
+                            </p>
+                        </div>
+
+                        <!-- Nombre y cédula -->
+                        <div fxLayout="column" class="ar-margin-left-xs">
+                            <span class="ar-color-54">Guideon Bojorges Bolaños</span>
+                            <span class="ar-color-87" fxLayoutAlign="start center">Gerencia Financiera</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Titulo del control -->
+                    <div class="ar-color-54 ar-margin-bottom-xs ar-core-text ar-margin-top-sm">
+                        Agregue la información general del encargado del proceso.
+                    </div>
+
+                    <!-- Nombre del servicio o área-->
+                    <arca-autocomplete
+                        class="ar-color-87"
+                        Placeholder="Nombre del servicio o área"
+                        #serviciosAutoComplete
+                        [value]="serviciosAreas._id"
+                        [Source]="serviciosAreas"
+                        (ItemSeleccionado)="seleccionarServicioArea($event)"
+                        (ItemDigitado)="validarItemDigitado($event)"
+                    >
+                    </arca-autocomplete>
+                    <mat-error *ngIf="serviciosAutoCompleteStatus"
+                        >*Debe ingresar un servicio o área valido
+                    </mat-error>
+
+                    <!-- Nombre de la Jefatura del servicio o área-->
+                    <mat-form-field class="ar-margin-top-sm" appearance="outline">
+                        <mat-label>Nombre de la Jefatura del servicio o área</mat-label>
+                        <input matInput formControlName="jefeServicio" class="ar-color-87" />
+                        <mat-error *ngIf="frmInfoGeneral.controls['jefeServicio'].invalid"
+                            >*Debe ingresar un jefe de servicio o área valido</mat-error
+                        >
+                    </mat-form-field>
+
+                    <!-- Correo electronico del solicitante-->
+                    <mat-form-field class="ar-margin-top-sm" appearance="outline">
+                        <mat-label>Correo electrónico para notificaciones</mat-label>
+                        <input
+                            type="email"
+                            formControlName="correo"
+                            placeholder="usuario@ccsss.sa.cr"
+                            matInput
+                            class="ar-color-87"
+                        />
+                        <mat-error *ngIf="frmInfoGeneral.controls['correo'].invalid"
+                            >*Debe ingresar un correo valido
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+                        <!-- Número de telefono-->
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Numero telefonico</mat-label>
+                            <input
+                                type="text"
+                                formControlName="numtel"
+                                matInput
+                                mask="0000-0000"
+                                placeholder="Digite el número telefonico"
+                                class="ar-color-87"
+                            />
+                            <mat-error *ngIf="frmInfoGeneral.controls['numtel'].invalid"
+                                >*Debe ingresar un número de telefono valido</mat-error
+                            >
+                        </mat-form-field>
+
+                        <mat-form-field
+                            ngClass="ar-margin-left-xs"
+                            ngClass.xs="ar-margin-left-none"
+                            appearance="outline"
+                            fxFlex
+                        >
+                            <!-- Extensión telefonica-->
+                            <mat-label>Extensión</mat-label>
+                            <input
+                                type="text"
+                                formControlName="ext"
+                                matInput
+                                mask="0000"
+                                class="ar-color-87"
+                            />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

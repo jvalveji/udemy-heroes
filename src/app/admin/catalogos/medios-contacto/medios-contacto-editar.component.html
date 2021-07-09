@@ -1,0 +1,162 @@
+<!-- *********************************************************************************
+[Master Stylesheet /admin/catalogos/medios-contacto/medios-contacto-editar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2017
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño: 09/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+********************************************************************************* -->
+
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-toolbar mat-elevation-z0">
+			<button mat-icon-button (click)="IrPaginaAnterior()" *ngIf="!esEdicion">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<button mat-icon-button (click)="esEdicion = false;" *ngIf="esEdicion">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span class="ar-margin-left-xs" *ngIf="!esEdicion" fxHide.xs>Medios de contacto</span>
+			<span class="ar-margin-left-xs" *ngIf="esEdicion">Agregar nuevo</span>
+			<span fxFlex></span>
+			<div class="ar-margin-right-xs">
+				<!-- Agregar nuevo -->
+				<div *ngIf="!esEdicion">
+					<button color="accent" mat-button matTooltip="Crear nueva solicitud"
+						(click)="esEdicion=true; LimpiarItem();">
+						<i class="mdi mdi-plus ar-icons-sm"></i>
+						Nuevo
+					</button>
+				</div>
+			</div>
+			<!-- Habilitar o deshabilitar en modo edición -->
+			<div *ngIf="esEdicion" class="ar-margin-right-xs">
+				<button mat-stroked-button color="warn" *ngIf="item.estado"
+					(click)="item.estado=false;">Deshabilitar</button>
+				<button mat-stroked-button class="ar-text-green" *ngIf="!item.estado"
+					(click)="item.estado=true;">Habilitar</button>
+			</div>
+			<button mat-stroked-button matTooltip="Guardar los cambios" color="primary" *ngIf="!esEdicion"
+				[disabled]="!utilidadesService.DiffEstadoObjeto(estadoInicial, catalogo)"
+				(click)="ActualizarCatalogo();">Listo</button>
+			<button mat-stroked-button matTooltip="Guardar los cambios" color="primary" *ngIf="esEdicion"
+				[disabled]="item.descripcion.length === 0" (click)="AgregarItem()">Listo</button>
+			<!-- <button mat-stroked-button mat-button>Listo</button> -->
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<div class="ar-progressbar">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Toolbar de búsqueda -->
+		<div class="ar-searchbar-toolbar ar-margin-top-sm" fxLayoutAlign="center center" *ngIf="!esEdicion">
+			<div class="ar-searchbar" fxFlex="45" fxFlex.sm="75" fxFlex.md="65" fxFlex.xs="80"
+				fxLayoutAlign="center center">
+				<!-- Input de búsqueda  -->
+				<input class="ar-searchbar-input ar-margin-left-sm ar-color-54" placeholder="Buscar"
+					[(ngModel)]="txtFiltro">
+				<span fxFlex></span>
+				<button mat-icon-button matTooltip="Limpiar" (click)="txtFiltro=null;">
+					<i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+				</button>
+			</div>
+		</div>
+		<!-- Inicio listado de ítems -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-bottom-lg ar-margin-top-sm">
+					<!-- Ítem expandible tipo acordeón -->
+					<mat-accordion *ngIf="!esEdicion">
+						<mat-expansion-panel class="ar-background mat-elevation-z0"
+							*ngFor="let item of catalogo | filtrarIdDescripcion: txtFiltro">
+							<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center"
+								(click)="CapturarItem(item)">
+								<mat-panel-title>
+									<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+										<div class="ar-avatar" *ngIf="item.estado">
+											<p class="ar-avatar-xs ar-avatar-green">
+												<mat-icon class="ar-icons-xs">{{ item?.icon }}</mat-icon>
+											</p>
+										</div>
+										<div class="ar-avatar" *ngIf="!item.estado">
+											<p class="ar-avatar-xs ar-avatar-red">
+												<mat-icon class="ar-icons-xs">{{ item?.icon }}</mat-icon>
+											</p>
+										</div>
+										<div fxLayout="column" class="ar-margin-left-sm">
+											<span class="ar-h4 ar-color-87"> {{item.descripcion}} </span>
+										</div>
+										<span fxFlex></span>
+										<mat-chip-list class="ar-margin-right-xs" *ngIf="!item.estado">
+											<ng-container>
+												<mat-chip class="ar-chips-xs ar-chips-red">
+													<span>DESHABILITADO</span>
+												</mat-chip>
+											</ng-container>
+										</mat-chip-list>
+									</div>
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<!-- Input editar ítem -->
+							<div fxLayout="column">
+								<div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+									<div fxFlex>
+										<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-right-xs"
+											ngClass.xs="ar-margin-left-none">
+											<mat-label>Nombre del ícono</mat-label>
+											<input matInput fxFlex placeholder="Nombre del ícono" name="descripcion"
+												[(ngModel)]="item.icon" [ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+									<div fxFlex>
+										<mat-form-field fxFlex appearance="outline">
+											<mat-label>Descripción</mat-label>
+											<input matInput fxFlex placeholder="Descripción" name="descripcion"
+												[(ngModel)]="item.descripcion" [ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+							<!-- Menú de aciones -->
+							<mat-action-row>
+								<button mat-button color="warn" *ngIf="item.estado"
+									(click)="item.estado=false;ActualizarCatalogo();">Deshabilitar</button>
+								<button mat-button class="ar-text-green" *ngIf="!item.estado"
+									(click)="item.estado=true;ActualizarCatalogo();">Habilitar</button>
+							</mat-action-row>
+						</mat-expansion-panel>
+					</mat-accordion>
+					<mat-card *ngIf="esEdicion" class="ar-margin-top-md ar-background mat-elevation-z0">
+						<form #frmTiposEntrega="ngForm">
+							<div fxLayout="column">
+								<div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+									<div fxFlex>
+										<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-right-xs"
+											ngClass.xs="ar-margin-left-none">
+											<mat-label>Nombre del ícono</mat-label>
+											<input matInput fxFlex placeholder="Nombre del ícono" name="descripcion"
+												[(ngModel)]="item.icon" [ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+									<div fxFlex>
+										<mat-form-field fxFlex appearance="outline">
+											<mat-label>Descripción</mat-label>
+											<input matInput fxFlex placeholder="Descripción" name="descripcion"
+												[(ngModel)]="item.descripcion" [ngModelOptions]="{standalone: true}">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+						</form>
+					</mat-card>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+</div>

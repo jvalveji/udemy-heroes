@@ -1,0 +1,12 @@
+@import "styles.scss";
+.atp-time-picker{
+    .icon-container{
+        display: inline-block;
+        margin-right: .2em;
+        svg{
+            cursor: pointer;
+            position: relative;
+            top: .5em;
+        }
+    }
+}

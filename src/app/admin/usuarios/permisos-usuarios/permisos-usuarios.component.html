@@ -1,0 +1,151 @@
+<!-- *************************************************************
+[Master HTML /admin/permisos-usuarios]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	01/04/2018
+Asignado a: Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+******************************************************************* -->
+
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+		<div fxFlex fxLayout="column" layout>
+			<!-- Toolbar principal -->
+			<mat-toolbar class="ar-toolbar mat-elevation-z0">
+				<button mat-icon-button (click)="IrPaginaAnterior()">
+					<mat-icon>arrow_back</mat-icon>
+				</button>
+				<!-- Texto de unidad programática y nombre de la aplicación -->
+				<mat-chip-list fxFlex class="ar-margin-left-md">
+					<mat-chip class="ar-chips">
+						{{appSeleccionada?.nombre}} / {{upSeleccionada?.descripcion}}
+					</mat-chip>
+				</mat-chip-list>
+				<span fxFlex></span>
+				<ng-container>
+					<button color="primary" mat-button matTooltip="Crear nueva solicitud" *ngIf="!esModoEditarPermisos"
+						(click)="AccionEditarPermisos(true)">
+						<mat-icon class="ar-icons-sm">lock</mat-icon>
+						Configurar
+					</button>
+					<button color="primary" mat-button matTooltip="Crear nueva solicitud" *ngIf="esModoEditarPermisos"
+						(click)="AccionEditarPermisos(false)">
+						<mat-icon class="ar-icons-sm">lock_open</mat-icon>
+						Listo
+					</button>
+				</ng-container>
+			</mat-toolbar>
+			<!-- Barra de progreso -->
+			<div class="ar-progressbar">
+				<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+			</div>
+			<div fxLayout="row" fxLayoutAlign="center start" class="ar-margin-bottom-xs">
+				<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+					<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+						<div class="ar-avatar">
+							<p class="ar-avatar-sm ar-avatar-orange"> {{datosUsuario.persona.nombre | slice:0:1}}
+							</p>
+						</div>
+						<div fxLayout="column" class="ar-margin-left-sm">
+							<span class="ar-caption ar-color-54"> {{datosUsuario.persona.identificacion}} </span>
+							<span class="ar-h3 ar-color-87">
+								{{datosUsuario.persona.nombre}}
+								{{datosUsuario.persona.apellido1}}
+								{{datosUsuario.persona.apellido2}} </span>
+							<!-- Detalle de la ubicación -->
+							<div fxLayout="row" fxLayoutAlign="start center">
+								<i class="mdi mdi-lock ar-icons-xs ar-margin-right-xxs ar-color-38"
+									*ngIf="!esAdministrador"></i>
+								<i class="mdi mdi-lock-open-outline ar-icons-xs ar-margin-right-xxs ar-color-38"
+									*ngIf="esAdministrador"></i>
+								<span class="ar-color-54 ar-truncate ar-caption" *ngIf="esAdministrador">
+									Administrador
+								</span>
+								<span class="ar-color-54 ar-truncate ar-caption" *ngIf="!esAdministrador">
+									Usuario
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ar-border-05"></div>
+			<!-- Área principal -->
+			<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+				<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+					<div fxLayout="column" class="ar-padding-bottom-lg ar-margin-top-sm">
+						<!-- Selección de Aplicación y UP -->
+						<div fxLayout="column" class="ar-distritos-filtro">
+							<div fxLayout="row" fxLayoutAlign="center center">
+								<div fxFlex="65" fxFlex.sm="80" fxFlex.md="75" fxFlex.xs="95">
+									<div fxLayout="row" fxLayoutAlign="center center">
+										<mat-form-field fxFlex appearance="outline" class="ar-margin-right-xs">
+											<mat-label>Aplicación</mat-label>
+											<mat-select placeholder="Aplicación"
+												[disabled]="!esAdministrador || !esEditarAplicacionUP">
+												<mat-option *ngFor="let item of arcaAplicaciones"
+													(click)="SeleccionarAplicacion(item)" [value]="arcaAplicaciones">
+													{{item.nombre}}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+										<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs"
+											ngClass.xs="ar-margin-left-none">
+											<mat-select placeholder="Unidad programática"
+												[disabled]="!esAdministrador || !esEditarAplicacionUP">
+												<mat-option *ngFor="let item of arcaUnidadesProgramaticas"
+													[value]="arcaUnidadesProgramaticas"
+													(click)="SeleccionarUnidadProgramatica(item)">
+													{{item.descripcion}}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Lista de permisos -->
+						<div fxFlex fxLayout="column" *ngIf="esPanelListaPermisos">
+							<!-- <mat-selection-list #list [(ngModel)]="permisosSeleccionados" (ngModelChange)="CambioPermisos($event)"> -->
+							<mat-selection-list #list [(ngModel)]="permisosSeleccionados">
+								<mat-list-option class="ar-background ar-permisos-no-border"
+									*ngFor="let item of permisosTemporal" [disabled]="!esModoEditarPermisos"
+									[value]="item._id">
+									<div fxLayout="row" fxLayoutAlign="start center">
+										<span class="ar-h4 ar-color-87 ar-margin-right-xs">{{item.nombre}}</span>
+										<span class="ar-caption ar-color-87">/ {{item.idPermiso}}</span>
+									</div>
+								</mat-list-option>
+							</mat-selection-list>
+						</div>
+						<!--Tarjeta de importación de usuario-->
+						<!-- <mat-card class="ar-margin-bottom-xs" *ngIf="esImportarUsuario">
+						<img mat-card-image src="./assets/arcaCambiarUP.svg" alt="Imagen principal de login">
+						<mat-card-content>
+							<span class="ar-core-truncate ar-permisos-headline">Importación de usuario</span>
+							<div fxLayout="column">
+								<span>U.P. actual: 2222</span>
+								<span class="ar-text-italic mat-caption ar-text-bold ar-margin-top-xs">El usuario
+									<strong>dgomezj</strong> pertenece a otra unidad programática.</span>
+							</div>
+						</mat-card-content>
+						<mat-card-content>
+							<div fxLayout="column">
+								<span class="mat-caption ar-margin-top-xs ar-text-dark">Si desea cambiar el usuario a su unidad
+									programática, oprima el botón
+									<strong>Importar</strong>. Esta acción no se puede revertir.</span>
+							</div>
+						</mat-card-content>
+						<mat-card-actions>
+							<span fxFlex></span>
+							<button mat-button mat-raised-button color="warn">Importar</button>
+						</mat-card-actions>
+					</mat-card> -->
+					</div>
+				</div>
+			</perfect-scrollbar>
+		</div>

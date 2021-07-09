@@ -1,0 +1,87 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /app/shared/controls/dialog/dialog.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2017
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño); Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Modificación: 05/2019 Adrián Fallas (afallasp@ccss.sa.cr) (diseño)
+-------------------------------------------------------------------*/
+
+/*Clases para dar color al encabezado del dialogo*/
+
+.ar-dialog-area {
+  width: 350px;
+  background-color: #262e41 !important;
+}
+
+.ar-cantones-toolbar {
+  z-index: 10;
+  background-color: #262e41;
+}
+
+.ar-dialog-header-error {
+  background-color: #262e41;
+  color: #F44336;
+  height: 98px;
+}
+
+.ar-dialog-header-warning {
+  background-color: #262e41;
+  color: #FF9800;
+  height: 98px;
+}
+
+.ar-dialog-header-info {
+  background-color: #262e41;
+  color: #2196F3;
+  height: 98px;
+}
+
+.ar-dialog-header-ok {
+  background-color: #262e41;
+  color: #4CAF50;
+  height: 98px;
+}
+
+.ar-dialog-header-question {
+  background-color: #262e41;
+  color: rgba(205, 220, 57, 1);
+  height: 98px;
+}
+
+/*Clase para dar estilos de los iconos*/
+
+.ar-dialog-icon {
+  padding: 20px 0px;
+}
+
+/*Clase para dar estilos al título*/
+
+.ar-dialog-title {
+  margin-top: 10px;
+  padding: 0px 20px;
+  color: rgba(255, 255, 255, 0.54);
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+}
+
+/*Clase para dar estilos al mensaje*/
+
+.ar-dialog-message {
+  padding: 0px 20px;
+  color: rgba(255, 255, 255, 0.54);
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+}
+
+/*Clase para dar estilos al botón*/
+
+.ar-dialog-button {
+  padding: 0 0 10px 0;
+}

@@ -1,0 +1,124 @@
+/* -----------------------------------------------------------------------------
+[Master Stylesheet /core/patologia/home/home.component.html]
+
+Proyecto:	arca Core
+Version: 1.1
+Fecha de creación: 07/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño:	11/2017 Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Rediseño:	05/2018 Asignado a:	Joseph Arias (jariass@ccss.sa.cr) (diseño)
+Rediseño:	04/2021 Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+----------------------------------------------------------------------------- */
+
+@import "styles.scss";
+
+html {
+  padding-top: 64px;
+  height: 100%;
+  font-family: Roboto;
+  display: flex;
+}
+
+.ar-page {
+  padding-top: 0;
+  height: 100%;
+  font-family: Roboto;
+}
+
+.ar-core-card-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ar-core-card {
+  flex: 1 0 500px;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  outline: none;
+  margin-top: 28px;
+}
+
+.ar-core-card:hover {
+  opacity: 0.7;
+  -webkit-opacity: 0.7;
+  -moz-opacity: 0.7;
+  transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+}
+
+.ar-core-card-item {
+  @include border-radius(8px);
+  height: 148px;
+  width: 138px;
+  outline: none;
+  padding: 16px;
+}
+
+.ar-core-card-text {
+  @include font(16, 3);
+  font-family: "Mada", sans-serif;
+  letter-spacing: 0.01rem;
+  margin: 0;
+}
+
+.ar-core-caption {
+  @include font(12, 3);
+  font-family: "Mada", sans-serif;
+}
+
+.ar-color-accent {
+  color: #52b788 !important;
+}
+
+/* The media queries are where the number of cards is determined: */
+
+@media screen and (min-width: 20em) {
+  .ar-core-card {
+    max-width: calc(48% - 0.5em);
+  }
+}
+
+@media screen and (min-width: 30em) {
+  .ar-core-card {
+    max-width: calc(34% - 0.5em);
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .ar-core-card {
+    max-width: calc(26% - 0.5em);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .ar-core-card {
+    max-width: calc(18% - 0.5em);
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .ar-core-card {
+    max-width: calc(18% - 0.5em);
+  }
+}
+
+@media screen and (min-width: 80em) {
+  .ar-core-card {
+    max-width: calc(14% - 0.5em);
+  }
+}
+
+@media screen and (min-width: 84em) {
+  .ar-core-card {
+    max-width: calc(12% - 0.5em);
+  }
+}

@@ -1,0 +1,201 @@
+<!-- ***************************************************************************
+[HTML /admin/catalogos/tipo-cambio/tipo-cambio-editar.component.html]
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2017
+Asignado a:	Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Felipe Jimenez Calderon<fjimenca@ccss.sa.cr>, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+*************************************************************************** -->
+
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-toolbar mat-elevation-z0">
+			<button mat-icon-button (click)="IrPaginaAnterior()" *ngIf="!esEdicion">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<button mat-icon-button (click)="esEdicion = false;" *ngIf="esEdicion">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span class="ar-margin-left-xs" *ngIf="!esEdicion" fxHide.xs>Editar tipo de cambio</span>
+			<span class="ar-margin-left-xs" *ngIf="esEdicion">Agregar banco</span>
+			<span fxFlex></span>
+			<form [formGroup]="form" novalidate>
+				<!-- Selección de fecha de visualización de tipo de cambio -->
+				<mat-form-field class="ar-margin-top-sm" fxHide>
+					<mat-label></mat-label>
+					<input matInput class="ar-color-87" [matDatepicker]="picker" [max]="fechaMax"
+						formControlName='fechaIndicador' (ngModelChange)="CambioFecha()">
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker touchUi #picker></mat-datepicker>
+				</mat-form-field>
+				<button color="warn" mat-button matTooltip="Fecha de visualización"
+					(click)="picker.open();CambioFecha();">
+					{{fechaMostrar}}
+					<i class="fas fa-calendar-day ar-icons-sm ar-margin-left-xs"></i>
+				</button>
+			</form>
+			<div class="ar-tipo-cambio-vertical-line ar-border-05 ar-margin-left-xs ar-margin-right-xs"></div>
+			<!-- Agregar nuevo -->
+			<div class="ar-margin-right-xs" *ngIf="!esEdicion">
+				<button color="warn" mat-button matTooltip="Crear nueva solicitud"
+					(click)="esEdicion=true; LimpiarItem();">
+					<i class="mdi mdi-plus ar-icons-sm"></i>
+					Nuevo
+				</button>
+			</div>
+			<!-- Habilitar o deshabilitar en modo edición -->
+			<button mat-stroked-button matTooltip="Guardar los cambios" color="primary" *ngIf="!esEdicion"
+				[disabled]="!utilidadesService.DiffEstadoObjeto(estadoInicial, catalogo)"
+				(click)="ActualizarCatalogo();">Listo</button>
+			<button mat-stroked-button matTooltip="Guardar los cambios" color="primary" *ngIf="esEdicion"
+				[disabled]="item.nombreBanco.length === 0" (click)="AgregarItem()">Listo</button>
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<div class="ar-progressbar">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Inicio listado de ítems -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-bottom-lg ar-margin-top-sm">
+					<div *ngIf="esTipoCambio" fxLayout="row" fxLayoutAlign="center center"
+						class="ar-margin-percentage-sm">
+						<div fxLayout="column" fxLayoutAlign="center center">
+							<i class="fas fa-piggy-bank ar-icons-md ar-margin-left-xs ar-color-54"></i>
+							<span class="mat-caption ar-color-54 ar-margin-top-xs">
+								No hay indicadores de bancos en esta fecha</span>
+						</div>
+					</div>
+					<!-- Ítem expandible tipo acordeón -->
+					<mat-accordion *ngIf="!esEdicion">
+						<mat-expansion-panel class="ar-background mat-elevation-z0"
+							*ngFor="let item of catalogo | filtrarIdDescripcion: txtFiltro">
+							<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center"
+								(click)="CapturarItem(item)">
+								<mat-panel-title>
+									<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+										<div class="ar-avatar" *ngIf="item.nombreBanco">
+											<p class="ar-avatar-xs ar-avatar-green"> {{item.nombreBanco | slice:0:1}}
+											</p>
+										</div>
+										<div class="ar-avatar" *ngIf="!item.nombreBanco">
+											<p class="ar-avatar-xs ar-avatar-red"> {{item.nombreBanco | slice:0:1}}</p>
+										</div>
+										<div fxLayout="column" class="ar-margin-left-sm">
+											<span fxLayout="row" class="ar-h4 ar-color-87"> {{item.nombreBanco}} </span>
+											<span fxLayout="row" class="mat-caption ar-color-54">
+												{{item.fechaVenta | date:'dd/MM/yyyy'}} </span>
+										</div>
+									</div>
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<div fxLayout="column">
+								<!-- Input editar ítem  el valor de venta y compra-->
+								<div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Valor de venta</mat-label>
+										<input matInput placeholder="Valor de venta" name="valorVenta"
+											[(ngModel)]="item.valorVenta " [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+									<button class="ar-margin-right-xs" mat-icon-button matTooltip="Obtener valor venta"
+										(click)="ObtenerIndicadoresPorBanco(true)">
+										<mat-icon>insert_chart_outlined</mat-icon>
+									</button>
+									<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs"
+										ngClass.xs="ar-margin-left-none">
+										<mat-label>Valor de compra</mat-label>
+										<input matInput placeholder="Valor de compra" name="valorCompra"
+											[(ngModel)]="item.valorCompra" [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+									<button class="ar-margin-right-xs" mat-icon-button matTooltip="Obtener valor compra"
+										(click)="ObtenerIndicadoresPorBanco(false)">
+										<mat-icon>insert_chart_outlined</mat-icon>
+									</button>
+								</div>
+								<!-- Input editar ítem la fecha en que se asignan lo valore s de compra y venta-->
+								<div fxFlex="100">
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Fecha</mat-label>
+										<input matInput [matDatepicker]="picker" placeholder="Fecha" name="fechaCompra"
+											[(ngModel)]="item.fechaCompra" [ngModelOptions]="{standalone: true}">
+										<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+										<mat-datepicker touchUi #picker></mat-datepicker>
+									</mat-form-field>
+								</div>
+							</div>
+						</mat-expansion-panel>
+					</mat-accordion>
+					<mat-card *ngIf="esEdicion" class="ar-margin-top-md ar-background mat-elevation-z0">
+						<form #frmTiposEntrega="ngForm">
+							<div fxFlex="100" fxLayout="column">
+								<div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+									<!-- Input para seleccionar el banco con sus indicadores economicos-->
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Bancos</mat-label>
+										<mat-select (selectionChange)="SeleccionarBanco($event.value)">
+											<mat-option *ngFor="let banco of itemBancos" [value]="banco._id">
+												{{banco.nombreBanco}}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+									<!-- Input incluir la fecha de los indicadores de compra y venta-->
+									<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs"
+										ngClass.xs="ar-margin-left-none">
+										<mat-label>Fecha</mat-label>
+										<input matInput [matDatepicker]="picker" placeholder="Fecha de indicador"
+											name="item.fechaCompra" [max]="fechaMax" [(ngModel)]="item.fechaCompra"
+											[ngModelOptions]="{standalone: true}">
+										<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+										<mat-datepicker touchUi #picker></mat-datepicker>
+									</mat-form-field>
+								</div>
+								<!-- Input incluir el indicador de venta al seleccionar un banco-->
+								<div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Indicador de venta</mat-label>
+										<input matInput disabled placeholder="Indicador de venta" name="indicadorVenta"
+											[(ngModel)]="indicadorVenta" [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+									<!-- Input incluir el indicador de compra al seleccionar un banco-->
+									<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs"
+										ngClass.xs="ar-margin-left-none">
+										<mat-label>Indicador de compra</mat-label>
+										<input matInput disabled placeholder="Indicador de compra"
+											name="indicadorCompra" [(ngModel)]="indicadorCompra"
+											[ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+								</div>
+								<!-- Input incluir el valor de venta -->
+								<div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Valor de venta</mat-label>
+										<input matInput type="number" placeholder="Valor de venta" name="valorVenta"
+											[(ngModel)]="item.valorVenta" [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+									<button class="ar-margin-right-xs" mat-icon-button matTooltip="Obtener valor venta"
+										(click)="ObtenerIndicadoresPorBanco(true)">
+										<mat-icon>insert_chart_outlined</mat-icon>
+									</button>
+									<!-- Input incluir el valor de compra-->
+									<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs"
+										ngClass.xs="ar-margin-left-none">
+										<mat-label>Valor de compra</mat-label>
+										<input matInput type="number" placeholder="Valor de compra" name="valorCompra"
+											[(ngModel)]="item.valorCompra" [ngModelOptions]="{standalone: true}">
+									</mat-form-field>
+									<button class="ar-margin-right-xs" mat-icon-button matTooltip="Obtener valor compra"
+										(click)="ObtenerIndicadoresPorBanco(false)">
+										<mat-icon>insert_chart_outlined</mat-icon>
+									</button>
+								</div>
+							</div>
+						</form>
+					</mat-card>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+</div>

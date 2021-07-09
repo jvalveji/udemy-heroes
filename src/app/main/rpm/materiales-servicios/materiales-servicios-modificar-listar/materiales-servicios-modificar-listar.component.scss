@@ -1,0 +1,249 @@
+/* ========================================================================
+[Master Stylesheet /materiales-servicios-modificar-listar.component.scss]
+
+Proyecto: 			Bitzu RPM
+Version:  			1.0
+Fecha de creación:  07/2021
+Asignado a: 		Bitzu RPM, colaboración de Adrián Fallas (afallasp@ccss.sa.cr) en diseño
+Desarrollo: 		Tecnologías de Información y Comunicaciones
+Unidad: 			Plan de Innovación
+Cliente: 			Caja Costarricense de Seguro Social
+======================================================================== */
+
+@import "styles.scss";
+html {
+    padding-top: 0;
+    height: 100%;
+    font-family: Roboto;
+}
+
+.ar-page {
+    padding-top: 0;
+    height: 100%;
+    font-family: Roboto;
+}
+
+//  Texto
+.ar-productos-caption {
+    font-size: 0.8rem;
+    font-family: 'Mada', sans-serif;
+}
+
+.ar-productos-text {
+    font-size: 1rem;
+    font-family: 'Mada', sans-serif;
+}
+
+// Items de información
+.ar-productos-info {
+    padding: 8px 16px 8px 16px;
+    @include border-radius(8px);
+    height: 44px;
+}
+
+.ar-productos-headline {
+    font-size: 1.3rem;
+    margin: 0 0 16px;
+    font-family: 'Mada', sans-serif;
+}
+
+.ar-dialisis-text {
+    font-size: 0.9rem;
+    font-family: 'Mada', sans-serif;
+}
+
+.ar-core-headline {
+    font-size: 1.4rem;
+    margin: 0 0 16px;
+    font-family: 'Mada', sans-serif;
+}
+
+// Chips
+.ar-productos-chips-options {
+    border: 0 solid transparent !important;
+    font-size: 14px !important;
+    // -webkit-font-smoothing: antialiased;
+    z-index: 10;
+    @include border-radius(2px);
+    font-family: 'Mada', sans-serif;
+    cursor: pointer;
+    font-family: Inconsolata, monospace;
+    font-weight: 800;
+}
+
+.no-selected {
+    background-color: transparent !important;
+}
+
+.selected {
+    background-color: rgba(var(--ar-color-black), 0.24) !important;
+    color: rgba(var(--ar-color-white), 0.87) !important;
+}
+
+.no-selected-blue {
+    background-color: rgba(var(--ar-color-black), 0.24) !important;
+    color: rgba(var(--ar-color-blue), 1) !important;
+}
+
+
+/* Tarjetas */
+
+.ar-core-card-area {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ar-core-card {
+    cursor: pointer;
+    flex: 1 0 400px;
+    box-sizing: border-box;
+    margin: 0.5rem 0.5em;
+    @include border-radius(8px);
+    outline: none;
+    @include box-shadow(none);
+}
+
+// .ar-core-card:hover {
+//   opacity: 0.7;
+//   -webkit-opacity: 0.7;
+//   -moz-opacity: 0.7;
+//   transition: 0.5s ease;
+//   -webkit-transition: 0.5s ease;
+//   -moz-transition: 0.5s ease;
+// }
+.ar-productos-detail {
+    background-color: rgba(0, 0, 0, 0.18) !important;
+    padding: 3px 10px 3px 10px;
+    @include border-radius(4px);
+    font-family: 'Mada', sans-serif;
+    cursor: pointer;
+    font-size: 0.92rem;
+    &--01 {
+        background-image: linear-gradient(to bottom, rgba(76, 175, 80, 0.87), rgba(76, 175, 80, 1));
+    }
+    &--02 {
+        background-image: linear-gradient(to bottom, rgba(244, 67, 54, 0.87), rgba(244, 67, 54, 1));
+    }
+    &--03 {
+        background-image: linear-gradient(to bottom, rgba(255, 152, 0, 0.87), rgba(255, 152, 0, 1));
+    }
+    &--04 {
+        background-image: linear-gradient( to bottom, rgba(33, 150, 243, 0.87), rgba(33, 150, 243, 1));
+    }
+    &--max {
+        max-width: 120px !important;
+    }
+}
+
+
+/* The media queries are where the number of cards is determined: */
+
+@media screen and (min-width: 20em) {
+    .ar-core-card {
+        max-width: calc(100% - 1em);
+    }
+}
+
+@media screen and (min-width: 30em) {
+    .ar-core-card {
+        max-width: calc(100% - 1em);
+    }
+}
+
+@media screen and (min-width: 40em) {
+    .ar-core-card {
+        max-width: calc(50% - 1em);
+    }
+}
+
+@media screen and (min-width: 60em) {
+    .ar-core-card {
+        max-width: calc(50% - 1em);
+    }
+}
+
+@media screen and (min-width: 64em) {
+    .ar-core-card {
+        max-width: calc(33% - 1em);
+    }
+}
+
+@media screen and (min-width: 80em) {
+    .ar-core-card {
+        max-width: calc(33% - 1em);
+    }
+}
+
+@media screen and (min-width: 90em) {
+    .ar-core-card {
+        max-width: calc(25% - 1em);
+    }
+}
+
+.ar-button-custom {
+    min-width: 120px !important;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// Toolbar footer
+.ar-footer-bar {
+    background-color: rgba(var(--ar-color-black), 0.3) !important;
+    padding: 0 16px;
+    &--secondary {
+        height: 64px;
+        min-height: 64px;
+        width: 100% !important;
+    }
+    &--primary {
+        height: 64px;
+        min-height: 64px;
+        width: 100% !important;
+    }
+}
+
+.ar-footer-bar-button {
+     :hover {
+        color: rgba(var(--ar-color-blue), 1) !important;
+        transition: 0.5s ease;
+        -webkit-transition: 0.5s ease;
+        -moz-transition: 0.5s ease;
+    }
+}
+
+.ar-footer-bar-container {
+    z-index: 99;
+}
+
+// Chips de toolbar inferior
+.ar-menu-detail {
+    background-color: rgba(0, 0, 0, 0.14) !important;
+    // padding: 3px 10px 3px 10px;
+    @include border-radius(4px);
+    max-width: 280px;
+    font-family: 'Mada', sans-serif;
+    cursor: pointer;
+    font-size: 0.92rem;
+    &--libre {
+        background-image: linear-gradient( to bottom, rgba(82, 183, 136, 0.87), rgba(82, 183, 136, 1));
+    }
+    &--ocupado {
+        background-image: linear-gradient(to bottom, rgba(255, 152, 0, 1), rgba(255, 152, 0, 1));
+    }
+    &--reservado {
+        background-image: linear-gradient(to bottom, rgba(255, 193, 7, 0.87), rgba(255, 193, 7, 1));
+    }
+    &--todos {
+        background-image: linear-gradient( to bottom, rgba(33, 150, 243, 0.87), rgba(33, 150, 243, 1));
+    }
+}
+
+// Línea vertical
+.ar-cola-vertical-line {
+    border: none;
+    border-left: 1px solid;
+    height: 50%;
+    width: 1px;
+}

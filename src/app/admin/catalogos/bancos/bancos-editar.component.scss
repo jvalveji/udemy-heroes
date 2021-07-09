@@ -1,0 +1,26 @@
+/* -----------------------------------------------------------------------------------------------
+[Master Stylesheet /admin/catalogos/bancos/ bancos-editar.component.scss]
+
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  03/2020
+Asignado a: Adriá Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Felipe Jimenez Calderon, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+----------------------------------------------------------------------------------------------- */
+
+@import "styles.scss";
+
+/* Estilos de la vista general */
+
+.ar-page {
+  padding-top: 0px;
+  height: 100%;
+}
+
+/* Estilos header panel de expansion */
+
+mat-expansion-panel-header {
+  min-height: 64px !important;
+}

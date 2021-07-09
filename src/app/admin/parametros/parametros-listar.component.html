@@ -1,0 +1,159 @@
+<!-- *************************************************************
+  [HTML /parametros-listar.html]
+
+  Proyecto: arca Core
+  Version:  1.1
+  Fecha de creación:  03/2019
+  Asignado a: Adrián Fallas (afallasp@ccss.sa.cr)
+  Desarrollo: Centro de Gestión Informática
+  Centro: Hospital San Vicente de Paúl
+  Cliente: Caja Costarricense de Seguro Social
+************************************************************* -->
+
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar de acciones estilo formulario -->
+		<mat-toolbar class="ar-toolbar mat-elevation-z0">
+			<button type="button" mat-icon-button (click)="IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span class="ar-margin-left-xs">Parámetros</span>
+		</mat-toolbar>
+		<!-- Progressbar -->
+		<div class="ar-progressbar">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Selección filtro aplicación y Unidad Programática -->
+		<div fxLayout="column" class="ar-distritos-filtro">
+			<div fxLayout="row" fxLayoutAlign="center center">
+				<div fxFlex="40" fxFlex.sm="80" fxFlex.md="65" fxFlex.xs="95">
+					<div fxLayout="row" fxLayoutAlign="center center">
+						<mat-form-field fxFlex appearance="outline" class="ar-margin-right-xs">
+							<mat-label>Aplicación</mat-label>
+							<mat-select fxFlex placeholder="Aplicación" [(ngModel)]="aplicacionSeleccionada"
+								(ngModelChange)="VerificarFiltrosPorAplicacion()" class="ar-margin-right-xs">
+								<mat-option *ngFor="let item of aplicacionesArca" [value]="item">
+									{{item.nombre}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+						<mat-form-field fxFlex appearance="outline">
+							<mat-label>Unidad programática</mat-label>
+							<mat-select fxFlex placeholder="Unidad programática" [(ngModel)]="upSeleccionada"
+								(ngModelChange)="VerificarFiltrosPorUnidadProgramatica()" class="ar-margin-right-xs">
+								<mat-option *ngFor="let item of unidadesProgramaticas" [value]="item">
+									{{item.descripcion}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ar-border-05"></div>
+		<!-- Toolbar de búsqueda -->
+		<div class="ar-searchbar-toolbar ar-margin-top-sm" fxLayoutAlign="center center" *ngIf="esAreaSearch">
+			<div class="ar-searchbar" fxFlex="45" fxFlex.sm="75" fxFlex.md="65" fxFlex.xs="80"
+				fxLayoutAlign="center center">
+				<!-- Input de búsqueda  -->
+				<input class="ar-searchbar-input ar-margin-left-sm ar-color-54" placeholder="Buscar"
+					[(ngModel)]="txtFiltro">
+				<span fxFlex></span>
+				<button mat-icon-button matTooltip="Limpiar" (click)="txtFiltro=null;">
+					<i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+				</button>
+			</div>
+		</div>
+		<!-- Área principal -->
+		<perfect-scrollbar fxFlex class="ar-content">
+			<div fxLayoutAlign="center">
+				<div fxLayout="column" fxFlex="70" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="90">
+					<!--Área de listados de los parámetros-->
+					<mat-accordion class="ar-padding-bottom-lg ar-margin-top-sm">
+						<!--Panel PARAMETROS-->
+						<mat-expansion-panel class="ar-background mat-elevation-z0"
+							*ngFor="let tipo of tiposParametros; let idxTiposParametros=index;"
+							(opened)="ObtenerParametros(tipo)">
+							<mat-expansion-panel-header class="ar-catalogos-expansion-header">
+								<mat-panel-title>
+									<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+										<div class="ar-avatar">
+											<p class="ar-avatar-xs ar-avatar-orange"> {{tipo.descripcion | slice:0:1}}
+											</p>
+										</div>
+										<div fxLayout="column" class="ar-margin-left-sm">
+											<span class="ar-h4 ar-color-87"> {{tipo.descripcion}} </span>
+										</div>
+									</div>
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<!-- Lista de salas con avatar -->
+							<div class="ar-list-item-sm" fxLayoutAlign="start center"
+								*ngFor="let item of listaParametros | filtrarNombre: txtFiltro; let idxParametro=index;">
+								<!-- Avatar circular -->
+								<div class="ar-avatar" *ngIf="item.estado" matTooltip="Activo">
+									<p class="ar-avatar-xs ar-avatar-green"> {{item.nombre | slice:0:1}}
+									</p>
+								</div>
+								<div class="ar-avatar" *ngIf="!item.estado" matTooltip="Inactivo">
+									<p class="ar-avatar-xs ar-avatar-red"> {{item.nombre | slice:0:1}}</p>
+								</div>
+								<div fxLayout="column" class="ar-margin-left-sm">
+									<span class="ar-color-54 ar-body-2">
+										{{item.valor}}
+									</span>
+									<span class="ar-color-87 ar-h3">{{item.nombre}}</span>
+									<!-- Descripción -->
+									<div fxLayout="row" class="ar-margin-right-lg">
+										<span class="ar-color-54 ar-caption">
+											{{item.descripcion}}
+										</span>
+									</div>
+								</div>
+							</div>
+							<!--Listado de parámetros-->
+							<div fxLayout="row" *ngIf="false">
+								<div fxFlex>
+									<div fxLayout="column" class="ar-margin-top-xs">
+										<div fxLayout="row" class="ar-catalogo-item">
+											<!--Indicador deshabilitado-->
+											<div fxFlex="5" fxLayout="column">
+												<div fxLayout="row" fxLayoutAlign="center center">
+													<!--Muestra icono de deshabilitado-->
+													<i *ngIf="!item.estado" class="material-icons ar-color-54"
+														matTooltip="Deshabilitado">visibility_off</i>
+												</div>
+											</div>
+											<!--Detalles del parametro-->
+											<div fxFlex="65" fxLayout="column">
+												<div fxLayout="row" fxLayoutAlign="start center">
+													<span class="ar-catalogos-text-header ar-color-54">
+														{{item.nombre}}
+													</span>
+												</div>
+												<div fxLayout="row" fxLayoutAlign="start center">
+													<span class="ar-catalogos-text-descripcion ar-text-secondary-white">
+														{{item.descripcion}} </span>
+												</div>
+											</div>
+											<!--Valor del parametro-->
+											<div fxFlex="30" fxLayout="column">
+												<div fxLayout="row" fxLayoutAlign="center center">
+													<span class="ar-color-54"> {{item.valor}} </span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<mat-action-row>
+								<button *ngIf="esBotonEditar" mat-stroked-button color="primary"
+									(click)="EditarParametros(tipo)">Editar</button>
+							</mat-action-row>
+						</mat-expansion-panel>
+					</mat-accordion>
+				</div>
+			</div>
+		</perfect-scrollbar>
+
+	</div>

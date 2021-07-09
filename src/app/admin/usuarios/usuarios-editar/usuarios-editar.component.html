@@ -1,0 +1,224 @@
+<!-- **********************************************************************
+[Master Stylesheet /app/admin/usuarios/usuarios-editar.component.html] 
+
+Proyecto: arca Core Version: 1.1 
+Fecha de creación: 09/2017 
+Asignado a: Joseph Arias (jariass@ccss.sa.cr)(diseño) 
+Desarrollo: Centro de Gestión Informática 
+Centro: Hospital San Vicente de Paúl 
+Cliente: Caja Costarricense de Seguro Social 
+
+Modificación: 05/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Modificación: 10/2018 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+************************************************************************ -->
+
+<div class="ar-page" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<mat-toolbar class="header-toolbar mat-elevation-z1 ar-text-dark" style="z-index:10;">
+			<button mat-icon-button (click)="IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span>Registro de usuarios</span>
+			<span fxFlex></span>
+			<button class="ar-text-dark" mat-button [disabled]="frmUsuarios.invalid" (click)="Guardar()">Listo</button>
+		</mat-toolbar>
+		<!-- <div class="ar-progressbar">
+				<mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+			</div> -->
+		<form [formGroup]="frmUsuarios" novalidate>
+			<div fxFlex class="ar-content" fxLayoutAlign="center start">
+				<div fxLayout="column" fxFlex="60" fxFlex.md="70" fxFlex.sm="90" fxFlex.xs="100">
+					<div fxLayout="column" class="ar-person-content">
+						<div fxLayout="column">
+							<!-- Barra de búsqueda de personas -->
+							<div *ngIf="esBuscarPersona" fxLayout.xs="column" fxFlex="100">
+								<arca-personas-search #personasSearch (ItemSeleccionado)="SeleccionarPersona($event)" [TipoBusqueda]="1"></arca-personas-search>
+							</div>
+							<div fxFlex="100" fxLayout="column" class="ar-margin-top-sm ar-margin-right-sm ar-margin-left-sm">
+								<!-- Datos personales del usuario -->
+								<div class="ar-buscar-expansion-header ar-margin-bottom-sm" fxLayoutAlign="start center">
+									<!-- Avatar circular -->
+									<div>
+										<div class="ar-buscar-avatar ar-activo">
+											{{ frmUsuarios.get("nombre")?.value | slice:0:1}}
+										</div>
+									</div>
+									<div fxLayout="column">
+										<div fxLayout="row" fxLayoutAlign="start center">
+											<span class="ar-buscar-text-descripcion"> {{ frmUsuarios.get("identificacion")?.value }}
+											</span>
+										</div>
+										<div fxLayout="row" fxLayoutAlign="start center">
+											<span class="ar-buscar-text-header ar-text-dark">{{ frmUsuarios.get("nombre")?.value }} {{
+												frmUsuarios.get("apellido1")?.value }} {{ frmUsuarios.get("apellido2")?.value }}</span>
+										</div>
+										<div fxLayout="row" fxLayoutAlign="start center">
+											<span class="mat-caption ar-text-dark"> {{ frmUsuarios.get("tipoIdentificacion_descripcion")?.value }}
+											</span>
+										</div>
+										<div fxLayout="row" fxLayoutAlign="start center">
+											<span class="mat-caption ar-text-dark ar-text-italic"> {{ frmUsuarios.get("genero_descripcion")?.value }}
+											</span>
+										</div>
+									</div>
+								</div>
+								<!--Mensaje vacio-->
+								<ng-container *ngIf="!existePersona">
+									<div fxLayout="row" fxLayoutAlign="center center" class="ar-margin-percentage-xs">
+										<div fxLayout="column" fxLayoutAlign="center center">
+											<i class="material-icons ar-text-dark ar-icon-xx">announcement</i>
+											<span class="mat-caption ar-text-dark ar-margin-top-xs">
+												Realizar búsqueda de usuario
+											</span>
+										</div>
+									</div>
+								</ng-container>
+							</div>
+						</div>
+					</div>
+					<!-- Nombre de usuario y contraseña -->
+					<div fxLayout="column" class="ar-person-content ar-margin-top-xs">
+						<div fxLayout="column" class="ar-margin-right-sm ar-margin-left-sm ar-margin-top-xs ar-margin-bottom-xs">
+							<!-- Datos personales del usuario -->
+							<div fxLayout="column" class="ar-buscar-expansion-header ar-margin-top-sm">
+								<div fxFlex="100" fxLayout="row">
+									<div fxFlex fxLayoutAlign="center center">
+										<!-- Avatar nombre de usuario -->
+										<i class="material-icons ar-text-dark ar-margin-right-sm" fxHide.xs>perm_identity</i>
+										<mat-form-field fxFlex>
+											<input matInput placeholder="Nombre" formControlName="nombre">
+										</mat-form-field>
+									</div>
+								</div>
+								<div fxFlex="100" fxLayout.xs="column" fxLayout="row">
+									<div fxFlex="50" ngClass="ar-margin-left-sm" ngClass.xs="ar-margin-left-none">
+										<mat-form-field fxFlex>
+											<input matInput placeholder="1er. apellido" formControlName="apellido1">
+										</mat-form-field>
+									</div>
+									<div fxFlex="50" ngClass="ar-margin-left-sm" ngClass.xs="ar-margin-left-none">
+										<mat-form-field fxFlex>
+											<input matInput placeholder="2do. apellido" formControlName="apellido2">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Área de fecha de nacimiento -->
+					<div fxFlex="100" fxLayout="column" class="ar-person-content ar-margin-top-xs ar-margin-bottom-xs">
+						<div fxFlex="100" fxLayout="column" class="ar-margin-right-sm ar-margin-left-sm ar-margin-top-sm">
+							<mat-form-field fxFlex appearance="legacy">
+								<input matInput [matDatepicker]="dtpFechaNacimiento" placeholder="Fecha de nacimiento" formControlName="fechaNacimiento">
+								<mat-datepicker-toggle class="ar-text-dark" matSuffix [for]="dtpFechaNacimiento"></mat-datepicker-toggle>
+								<mat-datepicker #dtpFechaNacimiento></mat-datepicker>
+							</mat-form-field>
+						</div>
+					</div>
+					<div fxFlex="100" fxLayout="row" class="ar-person-content">
+						<!-- Área de género -->
+						<div fxFlex="50" fxLayout="column" class="ar-margin-right-sm ar-margin-left-sm ar-margin-top-sm">
+							<mat-form-field fxFlex>
+								<mat-select placeholder="Género" formControlName="genero">
+									<mat-option *ngFor="let item of tiposGenero" [value]="item._id" (click)="tipoGeneroSeleccionado=item">
+										{{item.descripcion}}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<!-- Área de tipo indentificación -->
+						<div fxFlex="50" fxLayout="column" class="ar-margin-right-sm ar-margin-left-sm ar-margin-top-sm">
+							<mat-form-field fxFlex>
+								<mat-select placeholder="Tipo identificación" formControlName="tipoIdentificacion">
+									<mat-option *ngFor="let item of tiposIdentificacion" [value]="item._id" (click)="tipoIdentificacionSeleccionado=item">
+										{{item.descripcion}}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+					<!-- Nombre de usuario y contraseña -->
+					<div fxLayout="column" class="ar-person-content ar-margin-top-xs">
+						<div fxLayout="column" class="ar-margin-right-sm ar-margin-left-sm ar-margin-top-xs ar-margin-bottom-xs">
+							<!-- Datos personales del usuario -->
+							<div class="ar-buscar-expansion-header ar-margin-top-sm" fxLayoutAlign="start center">
+								<div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+									<div fxFlex="50" fxLayoutAlign="center center">
+										<!-- Avatar nombre de usuario -->
+										<i class="mdi mdi-mail-ru ar-margin-right-sm ar-text-dark ar-icon-xs"></i>
+										<!-- <i class="material-icons ar-text-dark ar-margin-right-sm" fxHide.xs>perm_identity</i> -->
+										<mat-form-field fxFlex>
+											<input matInput placeholder="Nombre de usuario" formControlName="usuario">
+										</mat-form-field>
+									</div>
+									<div fxFlex="50" ngClass="ar-margin-left-sm" ngClass.xs="ar-margin-left-none">
+										<mat-form-field fxFlex>
+											<input type="password" matInput placeholder="Contraseña" formControlName="password">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Toggle de usuario MISE y activo o inactivo -->
+					<div fxLayout="column" class="ar-person-content ar-margin-bottom-xs ar-margin-top-xs">
+						<div fxLayout="column">
+							<div fxLayout="column">
+								<div class="ar-person-toggle" fxLayoutAlign="start start">
+									<span class="mat-body-1 ar-text-dark">Usuario MISE</span>
+									<span fxFlex></span>
+									<mat-slide-toggle class="ar-text-dark" formControlName="esMise"></mat-slide-toggle>
+								</div>
+								<div class="ar-person-toggle" fxLayoutAlign="start start">
+									<span class="mat-body-1 ar-text-dark">Activo / inactivo</span>
+									<span fxFlex></span>
+									<mat-slide-toggle class="ar-text-dark" formControlName="estado"></mat-slide-toggle>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Formulario agregar medio de contacto -->
+					<div fxLayout="column" class="ar-person-content ar-margin-bottom-xs">
+						<div fxFlex="100" fxLayout.xs="column" class="ar-margin-right-sm ar-margin-left-sm ar-margin-top-xs">
+							<div fxFlex="50">
+								<mat-form-field fxFlex>
+									<mat-select placeholder="Medio de contacto" [(value)]="txtIdMedioContacto">
+										<mat-option *ngFor="let item of tiposMediosContacto" [value]="item">
+											{{item.descripcion}}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+							<div fxFlex="50" fxLayout="row" fxLayout.xs="row" fxLayout.sm="row" fxLayoutAlign="space-between center" ngClass="ar-margin-left-sm"
+							 ngClass.xs="ar-margin-left-none">
+								<mat-form-field fxFlex>
+									<input matInput placeholder="Dato" [(ngModel)]="txtDetalleMedioContacto" [ngModelOptions]="{standalone: true}">
+								</mat-form-field>
+								<button matTooltip="Agregar medio de contacto" class="ar-text-dark" mat-icon-button (click)="AgregarMedioContacto()">
+									<mat-icon>add_circle</mat-icon>
+								</button>
+							</div>
+						</div>
+						<!-- Item agregado medio de contacto -->
+						<div class="ar-margin-right-sm ar-margin-left-sm ar-margin-top-xs">
+							<div *ngFor="let item of mediosContactoUsuario; let i = index;" fxLayoutAlign="start center" class="ar-person-page-contact-list ar-text-dark">
+								<div fxLayout="row" fxLayoutAlign="start center" fxFlex="50" fxFlex.xs="30">
+									<mat-icon class="ar-margin-right-xs ar-margin-left-xs">{{ObtenerMedioContactoPorId(item.tipoMedioContacto_id)?.icon}}</mat-icon>
+									<span fxHide.xs>{{ObtenerMedioContactoPorId(item.tipoMedioContacto_id)?.descripcion}}</span>
+								</div>
+								<span fxFlex></span>
+								<div fxFlex="50" fxFlex.xs="70" fxLayout="row" fxLayoutAlign="start center">
+									<span>{{item.descripcion}}</span>
+									<span fxFlex></span>
+									<button mat-icon-button (click)="mediosContactoUsuario.splice(i, 1);">
+										<mat-icon>clear</mat-icon>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>

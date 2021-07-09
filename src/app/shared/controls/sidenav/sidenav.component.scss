@@ -1,0 +1,292 @@
+@import "styles.scss";
+
+.ar-header-toolbar {
+  position: fixed;
+  z-index: 1;
+  overflow: hidden;
+  @include customize(theme) {
+    background-color: getValue(arBackgroundThemeColor);
+  }
+}
+
+.ar-bitzu-logo {
+  font-family: muli;
+  font-weight: 800;
+  // margin-bottom: 3px;
+  @include customize(theme) {
+    color: getValue(arColor87);
+  }
+}
+
+/* Estilos del toolbar del sidenav */
+.ar-sidenav-toolbar {
+  @include customize(theme) {
+    background-color: getValue(arBackgroundThemeColor);
+  }
+}
+
+/* Estilos del área de perfil y menú de opciones */
+.ar-sidenav-profile {
+  @include customize(theme) {
+    background-color: getValue(arBackgroundThemeColor);
+  }
+  overflow: hidden;
+}
+
+/* Color de logo arca de acuerdo al módulo */
+.ar-arca-hex {
+  color: #ffa000;
+}
+
+/* Estilos del menú flotante de notificaciones del chat y alertas */
+.ar-chat-item {
+  height: 68px;
+  padding: 7px 15px 10px 15px;
+}
+
+/* Estilos del menú flotante para ingresar al sistema de mensajería */
+.ar-chat-title {
+  height: 28px;
+  padding: 0 15px 0 15px;
+}
+
+.ar-chat-title:hover {
+  color: #db4437 !important;
+  cursor: pointer;
+}
+
+.ar-chat-content {
+  height: 23em;
+}
+
+.ar-sidenav-avatar-area {
+  @include customize(theme) {
+    background-color: getValue(arBackgroundThemeColor);
+  }
+}
+
+.ar-sidenav-exit-area {
+  @include customize(theme) {
+    background-color: getValue(arBackgroundThemeColor);
+  }
+  padding: 5px;
+}
+
+.ar-sidenav-name {
+  font-family: "Mada", sans-serif;
+  @include customize(theme) {
+    color: getValue(arColor87);
+  }
+  font-size: 16px;
+}
+
+.ar-sidenav-place {
+  font-family: "Mada", sans-serif;
+  @include customize(theme) {
+    color: getValue(arColor54);
+  }
+  font-size: 10px;
+}
+
+/* Item del menú  */
+
+.ar-sidenav-menu {
+  list-style: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ar-sidenav-menu-item {
+  @include customize(theme) {
+    color: getValue(arColor54);
+  }
+  cursor: pointer;
+}
+
+.ar-sidenav-menu li {
+  @include customize(theme) {
+    color: getValue(arColor54);
+  }
+  @include border-radius(0 50px 50px 0);
+  padding: 4px 16px 4px 24px;
+  outline: 0px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.ar-sidenav-menu li:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  @include border-radius(0 50px 50px 0);
+  padding: 4px 16px 4px 24px;
+  margin-right: 15px;
+  outline: 0px;
+  transition: background 15ms;
+}
+
+/* Botón custom de salir de la aplicación */
+.ar-sidenav-button {
+  @include customize(theme) {
+    color: getValue(arColor54);
+  }
+  @include border-radius(16px);
+  line-height: 24px;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ar-sidenav-menu-item {
+  align-items: center;
+  cursor: pointer;
+  flex-direction: row;
+  height: 62px;
+  margin-left: 20px;
+  position: relative;
+  width: 100%;
+  color: #454545 !important;
+}
+
+.ar-sidenav-menu i {
+  font-size: 24px;
+  color: #2b2b33;
+  outline: 0px;
+}
+
+.ar-sidenav-menu li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 0 66px 66px 0;
+  border-radius: 0 66px 66px 0;
+  margin-right: 15px;
+  outline: 0px;
+}
+
+.ar-sidenav-area {
+  height: 100%;
+  display: table-cell;
+  vertical-align: top;
+  display: flex;
+  flex-wrap: wrap;
+  height: 65vh !important;
+  padding-bottom: 54px;
+}
+
+/* Tamaño del sidenav */
+
+@media screen and (min-width: 20em) {
+  .ar-sidenav-area {
+    width: 375px;
+  }
+}
+
+@media screen and (min-width: 30em) {
+  .ar-sidenav-area {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .ar-sidenav-area {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .ar-sidenav-area {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .ar-sidenav-area {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 80em) {
+  .ar-sidenav-area {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 80em) {
+  .ar-sidenav-area {
+    width: 400px;
+  }
+}
+
+/* Linea divisoria del toolbar */
+
+.ar-toolbar-line {
+  width: 1px;
+  height: 40%;
+  float: left;
+}
+
+/* Imagen svg background del área de mensajes */
+
+.ar-chat-arca-background {
+  // Indicar SIEMPRE el nombre del servidor de recursos Web a travez de las variables definidas en el styles.scss
+  background-image: url(#{$webKitServer}/images/home/arcaBackgroundChat.svg);
+  box-shadow: none;
+  background-size: cover;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Menú footer */
+.ar-sidenav-footer-menu {
+  @include customize(theme) {
+    background-color: getValue(arBackgroundThemeColor);
+  }
+  cursor: pointer;
+  height: 42px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 375px;
+}
+
+/* Tamaño del footer */
+
+@media screen and (min-width: 20em) {
+  .ar-sidenav-footer-menu {
+    width: 375px;
+  }
+}
+
+@media screen and (min-width: 30em) {
+  .ar-sidenav-footer-menu {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .ar-sidenav-footer-menu {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .ar-sidenav-footer-menu {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .ar-sidenav-footer-menu {
+    width: 400px;
+  }
+}
+
+.ar-sidenav-footer-item:hover {
+  outline: none;
+  cursor: pointer;
+}
+
+.ar-sidenav-footer-item {
+  cursor: pointer;
+  margin-left: 10px;
+  position: relative;
+  font-size: 0.625em;
+}

@@ -1,0 +1,35 @@
+@import "styles.scss";
+.ar-sidenav-menu {
+	padding-left: 30px !important;
+}
+
+.ar-sidenav-menu-icon {
+	height: 24px;
+	top: 20px;
+	width: 24px;
+	line-height: 1;
+}
+
+.ar-sidenav-menu-icon i {
+	color: #454545 !important;
+}
+
+.ar-sidenav-menu-item {
+	align-items: center;
+	cursor: pointer;
+	flex-direction: row;
+	height: 62px;
+	position: relative;
+	padding-left: 20px;
+	width: 100%;
+	color: #454545 !important;
+}
+
+/* Linea divisoria del menú */
+
+.ar-sidenav-line {
+	border-bottom: 1px solid #e8eaed;
+	margin: 8px 0;
+	margin-left: -30px;
+	padding: 0;
+}

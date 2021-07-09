@@ -1,0 +1,187 @@
+<!-- ***************************************************************************
+[HTML /admin/catalogos/perfiles/perfiles-editar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	01/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño: 09/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+*************************************************************************** -->
+
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal de la vista -->
+		<mat-toolbar class="ar-toolbar mat-elevation-z0">
+			<button mat-icon-button (click)="estadoTabPerfiles ? estadoTabPerfiles = false : IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<button mat-icon-button (click)="esEdicion = false;" *ngIf="esEdicion">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span class="ar-margin-left-xs" *ngIf="!estadoTabPerfiles" fxHide.xs>Perfiles de usuario</span>
+			<span class="ar-margin-left-xs" *ngIf="estadoTabPerfiles">Agregar perfiles</span>
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<div class="ar-progressbar">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<!-- Toolbar de búsqueda -->
+		<div class="ar-searchbar-toolbar ar-margin-top-sm" fxLayoutAlign="center center" *ngIf="!estadoTabPerfiles">
+			<div class="ar-searchbar" fxFlex="45" fxFlex.sm="75" fxFlex.md="65" fxFlex.xs="80"
+				fxLayoutAlign="center center">
+				<!-- Input de búsqueda  -->
+				<input class="ar-searchbar-input ar-margin-left-sm ar-color-54" placeholder="Buscar"
+					[(ngModel)]="txtFiltro">
+				<span fxFlex></span>
+				<button mat-icon-button matTooltip="Limpiar" (click)="txtFiltro=null;">
+					<i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+				</button>
+			</div>
+		</div>
+		<!-- Inicio listado de ítems -->
+		<perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+			<div fxLayout="column" fxFlex="60" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+				<div fxLayout="column" class="ar-padding-top-xs ar-padding-bottom-lg">
+					<!-- Div con cada uno de los ítems del catálogo -->
+					<ng-container *ngIf="!estadoTabPerfiles">
+						<!-- Lista de salas con avatar -->
+						<div class="ar-list-item-sm" fxLayoutAlign="start center"
+							*ngFor="let item of aplicaciones | filtrarNombre: txtFiltro"
+							(click)="ObtenerPerfiles(item);">
+							<!-- Avatar circular -->
+							<div class="ar-avatar ar-margin-left-xs">
+								<p class="ar-avatar-orange ar-avatar-sm">
+									<span>{{item.nombre | slice:0:1}}</span>
+								</p>
+							</div>
+							<div fxLayout="column" class="ar-margin-left-sm">
+								<span class="ar-color-54 ar-caption">
+									{{item.nombre}}
+								</span>
+								<span class="ar-color-87 ar-body-2">{{item.descripcion}}</span>
+							</div>
+							<span fxFlex></span>
+							<!-- Botón de seleccionar -->
+							<button mat-icon-button color="primary">
+								<mat-icon aria-label="Seleccionar" class="ar-color-87">navigate_next
+								</mat-icon>
+							</button>
+						</div>
+					</ng-container>
+					<!-- Div sub-ítems de cada catálogo seleccionado -->
+					<ng-container *ngIf="estadoTabPerfiles">
+						<form fxLayout="column" [formGroup]="frmPerfiles">
+							<!-- Segmento con los inputs de id y nombre -->
+							<mat-card fxLayout="column" class="ar-margin-top-md ar-background mat-elevation-z0">
+								<div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+									<div fxFlex="30">
+										<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-right-xs"
+											ngClass.xs="ar-margin-left-none">
+											<mat-label>Id</mat-label>
+											<input matInput placeholder="Id" formControlName="idPerfil">
+										</mat-form-field>
+									</div>
+									<div fxFlex="70">
+										<mat-form-field fxFlex appearance="outline">
+											<mat-label>Nombre</mat-label>
+											<input matInput placeholder="Nombre" formControlName="nombre">
+										</mat-form-field>
+									</div>
+								</div>
+								<!-- Segmento con el inputs de descripción y botones de limpiar, agregar y eliminar -->
+								<div fxFlex="100">
+									<mat-form-field fxFlex appearance="outline">
+										<mat-label>Descripción</mat-label>
+										<input type="text" matInput placeholder="Descripción"
+											formControlName="descripcion">
+									</mat-form-field>
+								</div>
+								<mat-card-actions>
+									<span fxFlex></span>
+									<button mat-button color="warn" (click)="Limpiar()">Limpiar</button>
+									<button mat-button color="warn" [disabled]="!frmPerfiles.valid"
+										(click)="AgregarPerfil()">Agregar</button>
+								</mat-card-actions>
+							</mat-card>
+						</form>
+						<!-- Inicio del acordeón -->
+						<mat-accordion class="ar-margin-top-sm">
+							<mat-expansion-panel class="ar-background mat-elevation-z0 ar-border-12 ar-margin-top-xs"
+								*ngFor="let item of perfiles; let i = index">
+								<mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center">
+									<mat-panel-title>
+										<div fxFlex fxLayout="row" fxLayoutAlign="start center">
+											<div class="ar-avatar" *ngIf="item.estado">
+												<p class="ar-avatar-xs ar-avatar-green"> {{item.nombre | slice:0:1}}</p>
+											</div>
+											<div class="ar-avatar" *ngIf="!item.estado">
+												<p class="ar-avatar-xs ar-avatar-red">{{item.nombre | slice:0:1}}</p>
+											</div>
+											<div fxLayout="column" class="ar-margin-left-sm">
+												<span class="ar-body-2 ar-color-87"> {{item.nombre}} </span>
+											</div>
+											<span fxFlex></span>
+											<mat-chip-list class="ar-margin-right-xs" *ngIf="!item.estado">
+												<ng-container>
+													<mat-chip class="ar-chips-xs ar-chips-red">
+														<span>DESHABILITADO</span>
+													</mat-chip>
+												</ng-container>
+											</mat-chip-list>
+										</div>
+									</mat-panel-title>
+								</mat-expansion-panel-header>
+								<!-- Input editar ítem -->
+								<div fxLayout="column">
+									<!-- Input editar ítem -->
+									<div fxLayout="column">
+										<div class="ar-margin-bottom-xs" fxFlex="100" fxLayout="row"
+											fxLayout.xs="column" fxLayout.sm="column">
+											<div fxFlex="30" fxLayoutAlign="start center">
+												<mat-form-field fxFlex appearance="outline" ngClass="ar-margin-right-xs"
+													ngClass.xs="ar-margin-left-none">
+													<mat-label>Id</mat-label>
+													<input matInput placeholder="Id" [value]="item.idPerfil" disabled>
+												</mat-form-field>
+											</div>
+											<div fxFlex="70" fxLayoutAlign="start center">
+												<mat-form-field fxFlex appearance="outline">
+													<mat-label>Nombre</mat-label>
+													<input matInput placeholder="Nombre" [(ngModel)]="item.nombre">
+												</mat-form-field>
+											</div>
+										</div>
+										<mat-form-field fxFlex appearance="outline">
+											<mat-label>Descripción</mat-label>
+											<input matInput placeholder="Descripción" [(ngModel)]="item.descripcion">
+										</mat-form-field>
+									</div>
+									<!-- Botón de habilitar o deshabilitar-->
+									<mat-slide-toggle fxFlex [(ngModel)]="item.estado" class="ar-margin-top-xs">Activo
+									</mat-slide-toggle>
+								</div>
+								<!-- Menú de aciones -->
+								<mat-action-row>
+									<button *ngIf="item.esLocal" type="button" mat-icon-button
+										matTooltip="Actualizar Perfil" (click)="ActualizarPerfil(item)">
+										<mat-icon>cached</mat-icon>
+									</button>
+									<!-- Botón de Eliminar perfiles -->
+									<button *ngIf="esAdministrador" mat-icon-button matTooltip="Eliminar Perfil"
+										(click)="EliminarItem(item, i)">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</mat-action-row>
+							</mat-expansion-panel>
+						</mat-accordion>
+					</ng-container>
+				</div>
+			</div>
+		</perfect-scrollbar>
+	</div>
+</div>

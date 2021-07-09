@@ -1,0 +1,29 @@
+/* -----------------------------------------------------------------------------------------------
+[Master Stylesheet /admin/catalogos/perfiles/perfiles.component.scss]
+
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  01/2018
+Asignado a: Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Rediseño: 10/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+----------------------------------------------------------------------------------------------- */
+
+@import "styles.scss";
+
+/* Estilos de la vista general */
+
+.ar-page {
+  padding-top: 0px;
+  height: 100%;
+}
+
+/* Estilos header panel de expansion */
+
+mat-expansion-panel-header {
+  min-height: 64px !important;
+}

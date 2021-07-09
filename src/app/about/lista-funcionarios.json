@@ -1,0 +1,154 @@
+{
+	"listaFuncionarios": [
+		{
+			"nombre": "Katherine Yesenia Ugalde",
+			"usuario": "kyugalde",
+			"foto": "pic_01.jpg",
+			"email": "kyugalde@ccss.sa.cr"
+		},
+		{
+			"nombre": "Yendri Veronica Gonzalez",
+			"usuario": "yvgonzals",
+			"foto": "pic_00.jpg",
+			"email": "yvgonzals@ccss.sa.cr"
+		},
+		{
+			"nombre": "Adrián Fallas",
+			"usuario": "afallasp",
+			"foto": "pic_03.jpg",
+			"email": "afallasp@ccss.sa.cr"
+		},
+		{
+			"nombre": "Alejandro Elizondo",
+			"usuario": "laelizon",
+			"foto": "pic_04.jpg",
+			"email": "laelizon@ccss.sa.cr"
+		},
+		{
+			"nombre": "Alexánder Picado",
+			"usuario": "apicadoj",
+			"foto": "pic_05.jpg",
+			"email": "apicadoj@ccss.sa.cr"
+		},
+		{
+			"nombre": "Andrés Alonso Salas",
+			"usuario": "aasalab",
+			"foto": "pic_06.jpg",
+			"email": "aasalab@ccss.sa.cr"
+		},
+		{
+			"nombre": "Carlos Alberto Castro",
+			"usuario": "ccastroma",
+			"foto": "pic_07.jpg",
+			"email": "ccastroma@ccss.sa.cr"
+		},
+		{
+			"nombre": "Dagoberto Gomez",
+			"usuario": "dgomezj",
+			"foto": "pic_08.jpg",
+			"email": "dgomezj@ccss.sa.cr"
+		},
+		{
+			"nombre": "Luis Diego Carmona Rojas",
+			"usuario": "ldcarmona",
+			"foto": "pic_24.jpg",
+			"email": "ldcarmona@ccss.sa.cr"
+		},
+		{
+			"nombre": "Esteban Mondragón",
+			"usuario": "emondrag",
+			"foto": "pic_17.jpg",
+			"email": "emondrag@ccss.sa.cr"
+		},
+		{
+			"nombre": "Fabián Francisco Cascante",
+			"usuario": "fcascant",
+			"foto": "pic_10.jpg",
+			"email": "fcascant@ccss.sa.cr"
+		},
+		{
+			"nombre": "Federico Jara",
+			"usuario": "fjarao",
+			"foto": "pic_26.jpg",
+			"email": "fjarao@ccss.sa.cr"
+		},
+		{
+			"nombre": "José Fabio Arroyo",
+			"usuario": "jfarroyo",
+			"foto": "pic_25.jpg",
+			"email": "jfarroyo@ccss.sa.cr"
+		},
+		{
+			"nombre": "Félix Lee Pan",
+			"usuario": "fleepan",
+			"foto": "pic_11.jpg",
+			"email": "fleepan@ccss.sa.cr"
+		},
+		{
+			"nombre": "Felipe Jiménez Calderón",
+			"usuario": "fjimenca",
+			"foto": "pic_23.jpg",
+			"email": "fjimenca@ccss.sa.cr"
+		},
+		{
+			"nombre": "Geiner Prieto",
+			"usuario": "gprietoc",
+			"foto": "pic_27.jpg",
+			"email": "gprietoc@ccss.sa.cr"
+		},
+		{
+			"nombre": "George Aguilar",
+			"usuario": "gprieto",
+			"foto": "pic_00.jpg",
+			"email": "gprieto@ccss.sa.cr"
+		},
+		{
+			"nombre": "Hanzel Cruz",
+			"usuario": "hgcruzl",
+			"foto": "pic_15.jpg",
+			"email": "hgcruzl@ccss.sa.cr"
+		},
+		{
+			"nombre": "Jose Pablo Saenz",
+			"usuario": "jsaenzb",
+			"foto": "pic_16.jpg",
+			"email": "jsaenzb@ccss.sa.cr"
+		},
+		{
+			"nombre": "Joseph Arias Sandí",
+			"usuario": "jariass",
+			"foto": "pic_18.jpg",
+			"email": "jariass@ccss.sa.cr"
+		},
+		{
+			"nombre": "Juan Carlos Montero",
+			"usuario": "jmonterov",
+			"foto": "pic_22.jpg",
+			"email": "jmonterov@ccss.sa.cr"
+		},
+		{
+			"nombre": "Manuel Villegas",
+			"usuario": "mvillegasa",
+			"foto": "pic_00.gif",
+			"email": "mvillegasa@ccss.sa.cr"
+		},
+		{
+			"nombre": "Márcel Solano",
+			"usuario": "msolanoca",
+			"foto": "pic_19.jpg",
+			"email": "msolanoca@ccss.sa.cr"
+		},
+		{
+			"nombre": "Michael Stuar Méndez",
+			"usuario": "msmendes",
+			"foto": "pic_20.jpg",
+			"email": "msmendes@ccss.sa.cr"
+		},
+		{
+			"nombre": "Michelzin Alfaro",
+			"usuario": "malfaro",
+			"foto": "pic_21.jpg",
+			"email": "malfaro@ccss.sa.cr"
+		}
+	]
+}

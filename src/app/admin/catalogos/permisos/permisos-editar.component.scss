@@ -1,0 +1,30 @@
+/* -----------------------------------------------------------------------------------------------
+[Master Stylesheet catalogos/permisos/permisos-editar.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	11/2017
+Diseño por :	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo por: Dagoberto Gómez, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+----------------------------------------------------------------------------------------------- */
+
+@import "styles.scss";
+
+/* Estilos de la vista general */
+
+.ar-page {
+  padding-top: 0px;
+  height: 100%;
+}
+
+/* Estilos linea separación botón habilitar - desabilitar */
+
+.ar-permisos-item-separator {
+  height: 32px;
+  margin: 0 16px;
+  width: 0;
+}

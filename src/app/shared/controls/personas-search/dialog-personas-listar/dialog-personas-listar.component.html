@@ -1,0 +1,45 @@
+<!-- ------------------------------------------------------------------
+[Master Stylesheet /recursos-humanos/empleados/empleados-listar.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2018
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Félix Lee, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+------------------------------------------------------------------- -->
+
+<div fullscreen fxLayout="column" class="ar-dialog-main">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar principal -->
+		<div class="ar-dialog-toolbar ar-text-dark" fxLayout="row" fxLayoutAlign="start center">
+			<!-- <span class="ar-padding-left-md">Seleccionar persona</span> -->
+			<span fxFlex></span>
+			<button mat-icon-button class="ar-text-white" mat-dialog-close>
+				<mat-icon>close</mat-icon>
+			</button>
+		</div>
+		<!-- Inicio del listado de personas -->
+		<perfect-scrollbar fxFlex class="ar-content">
+			<div fxLayoutAlign="center">       
+				<div fxLayout="column" fxFlex="95" fxFlex.xs="98">
+					<div fxLayout="column">
+						<!-- Div con la información de cada empleado -->
+						<div class="ar-dialog-expansion-header" fxLayoutAlign="start center" *ngFor="let persona of personas" (click)="dialogRef.close(persona)">
+							<div fxHide.xs fxHide.sm class="ar-margin-right-sm">
+								<i class="mdi mdi-account-circle ar-dialog-icon-list"></i>
+							</div>
+							<div fxLayout="column">
+								<span class="ar-dialog-text-header">{{ persona?.identificacion }}</span>
+								<span class="ar-dialog-text-header">{{ persona?.fullname }}</span>
+							</div>
+							<span fxFlex></span>
+							<mat-icon aria-label="Abrir o cerrar información" class="ar-text-primary-white">navigate_next</mat-icon>
+						</div>
+					</div>
+				</div>
+			</div>         
+		</perfect-scrollbar>
+	</div>
+</div>

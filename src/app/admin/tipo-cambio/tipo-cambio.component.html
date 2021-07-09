@@ -1,0 +1,195 @@
+<!-- ***************************************************************************
+[HTML /admin/catalogos/bancos/tipo-cambio.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	03/2020
+Asignado a:	Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Felipe Jimenez Calderon<fjimenca@ccss.sa.cr>, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+*************************************************************************** -->
+
+<div class="ar-page ar-background" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar de acciones estilo formulario -->
+		<mat-toolbar class="ar-toolbar mat-elevation-z0 ar-background">
+			<button mat-icon-button matTooltip="Volver" (click)="IrPaginaAnterior()">
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<span class="ar-margin-left-xs">Tipo de cambio</span>
+			<span fxFlex></span>
+			<form [formGroup]="form" novalidate>
+				<!-- Selección de fecha de visualización de tipo de cambio -->
+				<mat-form-field class="ar-margin-top-sm" fxHide>
+					<mat-label></mat-label>
+					<input matInput class="ar-color-87" [matDatepicker]="picker" [max]="fechaMax"
+						formControlName="fecha" (ngModelChange)="CambioFecha()">
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker touchUi #picker></mat-datepicker>
+				</mat-form-field>
+				<button color="warn" mat-button matTooltip="Fecha de visualización" (click)="picker.open();">
+					{{fecha}}
+					<i class="fas fa-calendar-day ar-icons-sm ar-margin-left-xs"></i>
+				</button>
+			</form>
+			<div class="ar-tipo-cambio-vertical-line ar-border-05 ar-margin-left-xs ar-margin-right-xs"></div>
+			<!-- Opciones de catálogos -->
+			<button class="ar-margin-right-xs" mat-icon-button matTooltip="Historial de indicadores"
+				(click)="openDialogGraficos()">
+				<mat-icon>insert_chart_outlined</mat-icon>
+			</button>
+		</mat-toolbar>
+		<!-- Acordión de conversor de divisas -->
+		<mat-accordion>
+			<mat-expansion-panel class="ar-background mat-elevation-z0 ">
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						<div fxLayout="row" fxLayoutAlign="start center">
+							<i class="fas fa-money-bill-wave ar-color-orange ar-icons-xs"></i>
+							<span class="mat-caption ar-color-orange ar-margin-left-xs">
+								Conversor de divisas
+							</span>
+						</div>
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<form [formGroup]="form" novalidate>
+					<div fxLayoutAlign="center">
+						<div fxLayout="column" fxFlex="70" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="90">
+							<div fxLayout="column" class="ar-margin-top-sm ar-padding-bottom-lg">
+								<!-- Tarjeta de conversión de divisas -->
+								<mat-card class="ar-border-05 ar-background-card mat-elevation-z0 ar-border-radio-4"
+									fxLayout="column">
+									<div class="ar-margin-top-sm" fxFlex fxLayout="row" fxLayout.xs="column">
+										<!-- Divisa seleccionada de la cantidad a convertir -->
+										<mat-form-field appearance="outline">
+											<mat-label>Monedas</mat-label>
+											<mat-select formControlName="moneda1">
+												<mat-option *ngFor="let moneda of monedas" [value]="moneda.indicador">
+													{{moneda.descripcion}}
+												</mat-option>
+											</mat-select>
+											<mat-hint>Divisa</mat-hint>
+										</mat-form-field>
+										<!-- Invertir las monedas seleccionadas -->
+										<button class="ar-margin-top-xs ar-margin-left-xs ar-margin-right-xs"
+											mat-icon-button matTooltip="Invertir divisas" (click)="InvertirDivisas()">
+											<mat-icon class="ar-color-54">swap_horiz</mat-icon>
+										</button>
+										<!-- Moneda seleccionada para convertir -->
+										<mat-form-field appearance="outline">
+											<mat-label>Monedas</mat-label>
+											<mat-select formControlName="moneda2">
+												<mat-option *ngFor="let moneda of monedas" [value]="moneda.indicador">
+													{{moneda.descripcion}}
+												</mat-option>
+											</mat-select>
+											<mat-hint>Divisa a convertir</mat-hint>
+										</mat-form-field>
+									</div>
+									<div mat-card-image class="ar-border-05 ar-margin-bottom-xs ar-margin-top-xs">
+									</div>
+									<div>
+										<button mat-raised-button matTooltip="Convertir" color="warn"
+											(click)="ConvertirDivisa()">Convertir</button>
+									</div>
+									<div mat-card-image class="ar-border-05 ar-margin-top-xs ar-margin-bottom-sm">
+									</div>
+									<!-- Cantidad a convertir -->
+									<div fxLayout="column">
+										<!-- Divisa seleccionada de la cantidad a convertir -->
+										<mat-form-field appearance="outline">
+											<mat-label>Monto</mat-label>
+											<input class="ar-color-87" type="number" formControlName="cantidadConvertir"
+												matInput placeholder="Cantidad">
+										</mat-form-field>
+										<!-- Resultado -->
+										<mat-form-field appearance="outline">
+											<mat-label>Resultado</mat-label>
+											<input disabled class="ar-color-87" type="number"
+												formControlName="resultado" matInput
+												placeholder="Resultado de la conversión">
+										</mat-form-field>
+									</div>
+								</mat-card>
+							</div>
+						</div>
+					</div>
+				</form>
+			</mat-expansion-panel>
+		</mat-accordion>
+		<!-- Contenido principal de la vista -->
+		<perfect-scrollbar fxFlex class="ar-content">
+
+			<ng-container>
+				<div fxLayoutAlign="center">
+					<div fxLayout="column" fxFlex="80" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="90">
+						<div fxLayout="column" class="ar-margin-top-sm ar-padding-bottom-lg">
+							<!--Mensaje vacío-->
+							<div *ngIf="esBancosVacio" fxLayout="row" fxLayoutAlign="center center"
+								class="ar-margin-percentage-sm">
+								<div fxLayout="column" fxLayoutAlign="center center">
+									<i class="fas fa-piggy-bank ar-icons-md ar-margin-left-xs ar-color-54"></i>
+									<span class="mat-caption ar-color-54 ar-margin-top-xs">
+										No hay indicadores de bancos en esta fecha</span>
+								</div>
+							</div>
+							<form [formGroup]="form" novalidate>
+								<div fxLayoutWrap fxLayout="row" *ngIf="!esBancosVacio"
+									class="ar-core-card-area ar-padding-bottom-sm">
+									<!-- Tarjeta de tipo de cambio por banco -->
+									<mat-card *ngFor="let banco of bancos"
+										class="ar-core-card ar-background-card mat-elevation-z0 ar-border-radio-4"
+										fxLayout="column">
+										<!-- Banda de color de bancos -->
+										<div fxFlex [ngClass]="ColorBancosStyle(banco?.nombreBanco)">
+										</div>
+										<!-- Nombre del Banco -->
+										<mat-card-content fxLayout="row">
+											<span fxFlex.xs="100" fxFlex.sm="100"
+												class="ar-tipo-cambio-headline ar-color-87">{{banco?.nombreBanco}}</span>
+										</mat-card-content>
+										<div mat-card-image class="ar-border-05 ar-margin-bottom-xs"></div>
+										<!-- Área de precio de compra y venta -->
+										<div fxLayout="row" class="ar-margin-top-xs ar-margin-bottom-sm"
+											fxLayoutAlign="start center">
+											<div fxFlex="35" fxLayout="column" fxLayoutAlign="end end">
+												<span class="ar-tipo-cambio-day__number--number">
+													¢{{banco?.valorVenta|number:'000.00'}}
+												</span>
+												<span class="ar-color-54 ar-caption">
+													VENTA
+												</span>
+											</div>
+											<div fxFlex="15" class="ar-margin-left-md">
+												<i class="fas fa-arrow-right ar-color-54 ar-icons-sm"></i>
+											</div>
+											<div fxFlex="30" fxLayout="column" fxLayoutAlign="end end">
+												<span class="ar-tipo-cambio-day__number--number">
+													¢{{banco?.valorCompra|number:'000.00'}}
+												</span>
+												<span class="ar-color-54 ar-caption">
+													COMPRA
+												</span>
+											</div>
+										</div>
+										<!-- Descripción de moneda -->
+										<mat-card-actions class="ar-margin-top-xs">
+											<div fxLayout="row" fxLayoutAlign="start center">
+												<span
+													class="ar-margin-left-xs ar-color-38 ar-tipo-cambio-date ar-text-italic">
+													Dolar USD
+												</span>
+											</div>
+										</mat-card-actions>
+									</mat-card>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+		</perfect-scrollbar>
+
+	</div>
+</div>

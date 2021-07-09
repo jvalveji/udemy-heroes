@@ -1,0 +1,24 @@
+/* *************************************************************
+[HTML /parametros-listar.css]
+
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  03/2019
+Asignado a: Adrián Fallas (afallasp@ccss.sa.cr)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+************************************************************* */
+
+@import "styles.scss";
+
+.ar-page {
+  padding-top: 0;
+  height: 100%;
+}
+
+/* Estilos header panel de expansion */
+
+mat-expansion-panel-header {
+  min-height: 64px !important;
+}

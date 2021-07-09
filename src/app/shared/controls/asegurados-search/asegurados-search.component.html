@@ -1,0 +1,133 @@
+<!-- ***************************************************************
+[HTML /asegurados/SIGES]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	04/2018
+Asignado a:	Adrián Fallas. afallasp@ccss.sa.cr (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Modificación: 09/2018 Adrián Fallas (afallasp@ccss.sa.cr) (diseño)
+
+*************************************************************** -->
+<div class="ar-buscar-page" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<mat-toolbar style="z-index:99;" class="ar-search-toolbar">
+			<button mat-icon-button class="ar-margin-left-xs" (click)="IrPaginaAnterior()">
+				<mat-icon class="ar-text-secondary-white">arrow_back</mat-icon>
+			</button>
+			<span class="ar-buscar-titular ar-margin-left-xs">Búsqueda de asegurados SIAC</span>
+		</mat-toolbar>
+		<!-- Toolbar de acciones estilo formulario -->
+		<div class="ar-progressbar">
+			<mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+		</div>
+		<!-- Toolbar de búsqueda -->
+		<mat-toolbar class="ar-search-bar ar-buscar-tooltip ar-margin-top-sm" style="z-index:99;">
+			<div ngClass="ar-buscar-search " ngClass.xs="ar-buscar-search ar-margin-top-sm" fxFlex="55" fxFlex.sm="80" fxFlex.md="65"
+			 fxFlex.xs="100" fxLayoutAlign="center center">
+				<!-- Botón masculino femenino -->
+				<div *ngIf="sexo === 'M'" class="ar-search-bar-menu ar-margin-left-xs ar-margin-right-xs" (click)="CambiarGenero()"
+				 matTooltip="Masculino" fxLayoutAlign="center">
+					<i class="mdi mdi-gender-male"></i>
+				</div>
+				<div *ngIf="sexo === 'F'" class="ar-search-bar-menu ar-margin-left-xs ar-margin-right-xs" (click)="CambiarGenero()"
+				 matTooltip="Femenino" fxLayoutAlign="center">
+					<i class="mdi mdi-gender-female"></i>
+				</div>
+				<div *ngIf="sexo === 'I'" class="ar-search-bar-menu ar-margin-left-xs ar-margin-right-xs" (click)="CambiarGenero()"
+				 matTooltip="Indefinido" fxLayoutAlign="center">
+					<i class="mdi mdi-checkbox-blank-circle-outline"></i>
+				</div>
+				<!-- Input de búsqueda con chips -->
+				<mat-chip-list fxFlex #chipList>
+					<mat-chip *ngFor="let item of filtros">{{item}} </mat-chip>
+					<input class="ar-buscar-input-search" [placeholder]="dscFiltro" [(ngModel)]="filtro" name="filtro" #filtrosInput
+					 [matChipInputFor]="chipList" (matChipInputTokenEnd)="addFiltro($event)" [disabled]="filtros.length > 2">
+				</mat-chip-list>
+				<!-- Botón de limpiar input y de buscar -->
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<span fxFlex></span>
+					<div class="ar-search-bar-menu" (click)="LimpiarBusqueda();" matTooltip="Limpiar" fxLayoutAlign="center">
+						<i class="mdi mdi-close"></i>
+					</div>
+					<div fxHide.xs class="ar-search-bar-menu" (click)="Buscar();" matTooltip="Buscar" fxLayoutAlign="center">
+						<i class="mdi mdi-magnify"></i>
+					</div>
+				</div>
+			</div>
+			<!-- ar-buscar-tooltip -->
+			<div class="ar-buscar-tooltip-content" fxFlex="55" fxFlex.sm="80" fxFlex.md="65" fxFlex.xs="90">
+				<div fxLayout="row" fxLayout.xs="row" fxLayoutAlign="start center">
+					<span class="ar-search-text-ar-buscar-tooltip">NOMBRE + [enter] </span>
+					<span class="ar-margin-left-xs">APELLIDO + [enter]</span>
+					<span class="ar-margin-left-xs">APELLIDO + [enter]</span>
+				</div>
+			</div>
+		</mat-toolbar>
+		<!-- Área de filtro nacional, extrangero o indocumentado -->
+		<div fxLayoutAlign="center" class="ar-buscar-options ar-margin-top-sm">
+			<div fxFlex="70" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="90" fxLayoutAlign="start center">
+				<div class="ar-buscar-filter-group">
+					<label (click)="tipoIdentificacion=0;">
+						Registro civil
+						<div [ngClass]="(tipoIdentificacion === 0) ? 'underline nacional':'ar-buscar-filter-group-item'"></div>
+					</label>
+					<label (click)="tipoIdentificacion=7;">Extranjero
+						<div [ngClass]="(tipoIdentificacion === 7) ? 'underline extranjero':'ar-buscar-filter-group-item'"></div>
+					</label>
+					<label (click)="tipoIdentificacion=6;">Temporal o interno
+						<div [ngClass]="(tipoIdentificacion === 6) ? 'underline indocumentado':'ar-buscar-filter-group-item'"></div>
+					</label>
+				</div>
+			</div>
+		</div>
+		<!-- Área de listado de resultados de la búsqueda -->
+		<div fxLayout="column" fxFlex>
+			<perfect-scrollbar fxFlex class="ar-content">
+				<div fxLayoutAlign="center">
+					<div fxLayout="column" fxFlex="70" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="90">
+						<div fxLayout="column" class="ar-margin-top-sm ar-padding-bottom-lg" *ngIf="areaInfoBusqueda">
+							<!-- Lista de salas con avatar -->
+							<div class="ar-buscar-expansion-header" fxLayoutAlign="start center" *ngFor="let asegurado of asegurados"
+							 (click)="SeleccionarAsegurado(asegurado)">
+								<!-- Avatar circular -->
+								<div>
+									<div class="ar-buscar-avatar ar-inactivo">
+										{{asegurado.nombrePaciente ? (asegurado.nombrePaciente | slice:0:1) : null}}
+									</div>
+								</div>
+								<div fxLayout="column">
+									<div fxLayout="row" fxLayoutAlign="start center">
+										<span class="ar-buscar-text-descripcion"> {{asegurado.identificacion ? asegurado.identificacion : null}}
+										</span>
+									</div>
+									<div fxLayout="row" fxLayoutAlign="start center">
+										<span class="ar-buscar-text-header"> {{asegurado?.nombrePaciente }} {{asegurado.apellidoUnoPaciente ?
+											asegurado.apellidoUnoPaciente : null}} {{asegurado.apellidoDosPaciente ? asegurado.apellidoDosPaciente :
+											null}}</span>
+									</div>
+								</div>
+								<span fxFlex></span>
+								<!-- Botón de navegar -->
+								<button mat-icon-button color="primary">
+									<mat-icon aria-label="Seleccionar" class="ar-text-primary-white">navigate_next</mat-icon>
+								</button>
+							</div>
+						</div>
+						<!--Mensaje vacio-->
+						<div *ngIf="!areaInfoBusqueda" fxLayout="row" fxLayoutAlign="center center" class="ar-margin-percentage-xs">
+							<div fxLayout="column" fxLayoutAlign="center center">
+								<i class="material-icons ar-text-secondary-white ar-icon-xmd">announcement</i>
+								<span class="mat-body-1 ar-text-secondary-white ar-margin-top-xs">
+									Buscar asegurado por cédula o nombre
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</perfect-scrollbar>
+		</div>
+	</div>

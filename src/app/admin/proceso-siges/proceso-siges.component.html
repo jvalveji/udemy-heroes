@@ -1,0 +1,37 @@
+<!-- ------------------------------------------------------------------
+[HTML /app/core/admin/jobs/archivos.component.html]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	10/2018
+Asignado a:	Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+------------------------------------------------------------------- -->
+<!-- Componente para ejecución de JOBS-->
+<arca-jobs-task #sigesArcaJobs JobName="cargarArticulosSIGES" JobDirPath="/home/arca.bcore/DI/siges-articulos"
+	(EstadoFinalJob)="EstadoFinalTarea($event);">
+	<!--Filtros customizados para el job-->
+	<filtros>
+		<span class="mat-caption ar-text-dark">Filtros</span>
+		<div>
+			<mat-form-field appearance="outline">
+				<mat-label>Servicio</mat-label>
+				<mat-select [disabled]="idSIGESDefault" placeholder="Servicio" [(value)]="servicioSeleccionado"
+					(selectionChange)="SeleccionarServicio($event)">
+					<mat-option *ngFor="let servicio of serviciosSIGES" [value]="servicio?.idSIGES">
+						{{servicio?.descripcion}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<span class="mat-caption ar-text-dark">Archivo SIGES (Excel)</span>
+		<!-- Botón de seleccionar archivo -->
+		<div
+			[ngClass]="(!servicioSeleccionado) ? 'ar-archivos-file-input':'ar-archivos-file-input ar-archivos-file-input-filter'">
+			<input name="file" type="file" accept=".xls,.xlsx" (change)="SeleccionarFicheroSIGES($event)"
+				[disabled]="!servicioSeleccionado">
+			<span class="button ar-archivos-file-input-text">SELECCIONAR ARCHIVO</span>
+		</div>
+	</filtros>
+</arca-jobs-task>

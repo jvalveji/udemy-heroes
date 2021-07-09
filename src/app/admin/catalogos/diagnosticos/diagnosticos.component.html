@@ -1,0 +1,53 @@
+<!-- ========================================================================
+  [Master Stylesheet /catalogos/catalogos-listar.component.html]
+  
+  Proyecto: arca Core
+  Version:  1.1
+  Fecha de creación:  09/2017
+  Fecha de modificación: 12/2017
+  Asignado a: Joseph Arias (jariass@ccss.sa.cr)(diseño); Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+  Desarrollo: Centro de Gestión Informática
+  Centro: Hospital San Vicente de Paúl
+  Cliente: Caja Costarricense de Seguro Social
+  ======================================================================== -->
+
+<div class="ar-page" fullscreen fxLayout="column">
+  <div fxFlex fxLayout="column" layout>
+    <!-- <mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar> -->
+    <div fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+      <div fxLayout="column" fxFlex="60" fxFlex.xs="100" fxFlex.md="85" fxFlex.sm="95">
+        <div fxLayout="column" class="ar-listar-content">
+          <div fxFlex="100">
+            <form class="ar-catalogos-search" fxFlex="60" fxFlex.sm="70" fxFlex.xs="90">
+              <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                <div class="ar-catalogos-search-icon" fxLayout="row" fxLayoutAlign="start center" role="button">
+                  <i class="material-icons">search</i>
+                </div>
+                <input matInput class="ar-catalogos-input-search" placeholder="Buscar catálogo">
+                <span fxFlex></span>
+                <div fxLayout="row" fxLayoutAlign="start center" role="button">
+                  <button mat-icon-button matTooltip="Limpiar" (click)="MostrarBusquedaDiagnosticos()">
+                    <mat-icon class="ar-text-dark">android</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <mat-card fxHide.xs class="ar-text-black ar-listar-header-item">
+            <span class="ar-margin-right-sm" fxFlex>Resultado de la búsqueda</span>
+          </mat-card>
+          <div>
+            <mat-card fxHide.xs class="ar-text-dark ar-margin-bottom-xs" fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of diagnosticos">
+              <div class="ar-margin-right-sm" fxFlex="35" fxLayout="row" fxLayoutAlign="start center">
+                <div mat-card-avatar class="ar-listar-circle" fxLayout="row" fxLayoutAlign="center center">
+                  <i class="material-icons">folder</i>
+                </div>
+                <span>{{item.descripcion}}</span>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

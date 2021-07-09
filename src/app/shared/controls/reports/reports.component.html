@@ -1,0 +1,22 @@
+<div class="ar-reports-page arca-dark-theme" fullscreen fxLayout="column">
+	<div fxFlex fxLayout="column" layout>
+		<!-- Toolbar de acciones estilo formulario -->
+		<mat-toolbar class="mat-elevation-z0 ar-reports-toobar">
+			<i class="mdi mdi-file-document ar-text-secondary-white"></i>
+			<span class="ar-margin-left-sm ar-text-secondary-white">Visor de reportes</span>
+			<span fxFlex></span>
+
+			<button mat-icon-button mat-dialog-close class="ar-margin-left-xs">
+				<mat-icon class="ar-text-secondary-white">close</mat-icon>
+			</button>
+		</mat-toolbar>
+		<!-- Barra de progreso -->
+		<div class="ar-progressbar" *ngIf="esCargando">
+			<mat-progress-bar *ngIf="esCargando" mode="indeterminate"></mat-progress-bar>
+		</div>
+		<div fxLayout="column" fxFlex>
+			<p *ngIf='esCargando'> Espere mientras generamos su reporte...</p>
+			<iframe *ngIf='!esCargando' [src]="url" style="width:100%;height:100%;"></iframe>
+		</div>
+	</div>
+</div>

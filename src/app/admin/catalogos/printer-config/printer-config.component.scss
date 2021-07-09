@@ -1,0 +1,159 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+
+[Master Stylesheet /printer-config/form]
+
+Proyecto:	arca Core
+Version:	1.0
+Fecha de creación:	06/2019
+Asignado a:	
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Modificación: 
+-------------------------------------------------------------------*/
+
+html {
+    padding-top: 0;
+    height: 100%;
+    font-family: Roboto;
+    background-color: #2D3047 !important;
+    overflow: hidden;
+  }
+  
+  /* Tarjeta de complemento de menú */
+  
+  .ar-pedidos-toolbar {
+    background-color: #2D3047 !important;
+    height: 74px;
+    z-index: 10;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Listado de pedidos agregador */
+  
+  .ar-pedidos-list-item {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+    margin-bottom: 10px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 2.9em;
+    -moz-border-radius: 2.9em;
+    -webkit-border-radius: 2.9em;
+    outline: 0 !important;
+    height: 64px;
+  }
+  
+  .ar-pedidos-list-item:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+    border-radius: 2.9em;
+    -moz-border-radius: 2.9em;
+    -webkit-border-radius: 2.9em;
+  }
+  
+  /* Cambio de color del círculo del avatar */
+  
+  .ar-pedidos-list-item:hover .ar-pedidos-avatar {
+    background-color: #f57c00 !important;
+  }
+  
+  .ar-inactivo {
+    background-color: rgba(255, 255, 255, 0.34) !important;
+  }
+  
+  .ar-activo {
+    background-color: #f57c00 !important;
+    color: rgba(0, 0, 0, 0.87);
+  }
+  
+  .ar-pedidos-avatar {
+    font-family: 'Mada', sans-serif;
+    color: rgba(0, 0, 0, 0.87);
+    border-radius: 0.9em;
+    -moz-border-radius: 0.9em;
+    -webkit-border-radius: 0.9em;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.9em;
+    margin-right: 24px;
+    text-align: center;
+    width: 1.9em;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* Lista de chips */
+  
+  .ar-pedidos-chips {
+    border: 1px solid rgba(255, 255, 255, 0.54);
+    background-color: transparent !important;
+    font-size: 10px;
+    -webkit-font-smoothing: antialiased;
+    z-index: 10;
+    margin: 0 5px 0 0;
+    color: rgba(255, 255, 255, 255.87);
+    text-transform: uppercase;
+    padding: 0px 12px !important;
+    /* border-radius: 6px; */
+  }
+  
+  /* Estilos circle con la inicial del nombre */
+  
+  .ar-pedidos-circle p {
+    border: 1px solid #f57c00;
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    line-height: normal;
+    text-align: center;
+    font-weight: 300px;
+    line-height: 47px;
+    font-size: 14px;
+    border-radius: 50%;
+    transition: 0.3s linear;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.87);
+    margin-right: 15px;
+  }
+  
+  /* Estilos de los textos del panel de expansión */
+  
+  .ar-pedidos-text-name {
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.87);
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* Estilos del panel de expansión */
+  
+  .ar-pedidos-expansion {
+    box-shadow: none !important;
+    background-color: #2D3047 !important;
+  }
+  
+  .ar-pedidos-expansion-header {
+    background-color: #2D3047 !important;
+    min-height: 70px !important;
+  }
+  
+  .ar-pedidos-expansion-header:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+  }
+  
+  .ar-pedidos-item {
+    padding: 6px 0 6px 0;
+  }
+  
+  /* Item de formulario */
+  
+  .ar-dietas-item {
+    padding: 0 15px 0 15px;
+  }
+  
+  /* Item de formulario */
+  
+  .ar-pedidos-title {
+    padding: 0 15px 0 15px;
+  }

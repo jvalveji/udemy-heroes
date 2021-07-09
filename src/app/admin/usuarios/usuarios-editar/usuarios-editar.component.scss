@@ -1,0 +1,108 @@
+@import "styles.scss";
+/*------------------------------------------------------------------
+[Master Stylesheet /app/admin/usuarios/usuarios-editar.component.scss]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2017
+Asignado a:	Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+
+Modificación: 05/2018 Joseph Arias (jariass@ccss.sa.cr)(diseño)
+Modificación: 10/2018 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+-------------------------------------------------------------------*/
+
+/* Estilos generales de la vista */
+
+.ar-page {
+  padding-top: 0;
+  height: 100%;
+  font-family: Roboto;
+  background-color: #ECEFF1 !important;
+}
+
+.ar-person-content {
+  height: auto;
+  background-color: #fff;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+
+/* Estilos de los botones toggle */
+
+.ar-person-toggle {
+  padding-bottom: 10px;
+  padding-top: 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Estilos del avatar circle */
+
+.ar-person-circle {
+  background: #f57c00;
+  border-radius: 50% !important;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 3.5em;
+  margin-right: 10px;
+  text-align: center;
+  width: 3em;
+  height: 3em;
+}
+
+/* Estilos del listado de medios de contacto */
+
+.ar-person-page-contact-list {
+  background-color: #fafafa;
+  height: 50px;
+  z-index: 2;
+  margin-bottom: 8px;
+}
+
+.ar-inactivo {
+  background-color: #f0f0f0 !important;
+}
+
+.ar-activo {
+  background-color: #f57c00 !important;
+}
+
+.ar-buscar-avatar {
+  font-family: 'Mada', sans-serif;
+  color: rgba(0, 0, 0, 0.54);
+  border-radius: 1.9em;
+  -moz-border-radius: 1.9em;
+  -webkit-border-radius: 1.9em;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 2.9em;
+  margin-right: 24px;
+  text-align: center;
+  width: 2.9em;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Texto los item de lalista de catálogos */
+
+.ar-buscar-text-header {
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ar-buscar-text-descripcion {
+  font-family: 'Mada', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #f57c00;
+  -webkit-font-smoothing: antialiased;
+}

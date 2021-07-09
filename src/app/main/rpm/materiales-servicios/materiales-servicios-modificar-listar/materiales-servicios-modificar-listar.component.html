@@ -1,0 +1,41 @@
+<!-- ========================================================================
+  [HTML /materiales-servicios-modificar-listar.component.html]
+
+  Proyecto: 			Bitzú RPM
+  Version:  			1.0
+  Fecha de creación:  	07/2021
+  Asignado a: 			Equipo Bitzú RPM
+  Desarrollo: 			Tecnologías de Información y Comunicaciones
+  Unidad: 				Plan de Innovación
+  Cliente: 				Caja Costarricense de Seguro Social
+======================================================================== -->
+
+<html fullscreen fxLayout="column">
+<div fxFlex fxLayout="column" class="ar-background" layout>
+    <!-- Toolbar de acciones estilo formulario -->
+    <mat-toolbar class="ar-toolbar mat-elevation-z0">
+        <button mat-icon-button routerLink="/bitzu/main/rpm/materiales" routerLinkActive="active">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        <span class="ar-margin-left-xs ar-color-54">Materiales y servicios</span>
+        <span fxFlex></span>
+        <button type="submit" class="ar-margin-right-xs" color="warn" mat-button (click)="agregarModificacion()">
+                <i class="material-icons">add</i>
+                Nuevo
+            </button>
+    </mat-toolbar>
+
+    <!-- Área principal -->
+    <perfect-scrollbar fxFlex class="ar-content" *ngIf="true">
+        <div fxLayoutAlign="center">
+            <div fxFlex fxLayout="row" fxLayoutAlign="center">
+                <div fxLayout="column" fxFlex="75" fxFlex.sm="85" fxFlex.md="75" fxFlex.xs="95">
+                    <!-- Área de tarjetas de productos descartados -->
+                    <div fxLayoutWrap fxLayout="row" class="ar-core-card-area ar-margin-top-sm ar-padding-bottom-sm"></div>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>
+
+</html>

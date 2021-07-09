@@ -1,0 +1,102 @@
+<!-- *************************************************************
+[Master /core/login/inicio-sesion.component.html]
+
+Proyecto:	arca Core
+Version:	1.2
+Fecha de creación:	07/2017
+Asignado a:	Adrian Fallas (afallasp@ccss.sa.cr) (diseño)
+Desarrollador: Dagoberto Gómez Jiménez (dgomezj@ccss.sa.cr)
+Desarrollo: Centro de Gestión Informática.
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+*************************************************************-->
+
+<html fullscreen>
+<div class="ar-login-progress">
+	<mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+</div>
+<mat-toolbar class="mat-elevation-z0 ar-text-secondary-white">
+	<button mat-icon-button matTooltip="Cerrar" (click)="IrPaginaAnterior()">
+		<mat-icon aria-label="Enviar">arrow_back</mat-icon>
+	</button>
+	<span class="ar-margin-left-xs">Cambiar contraseña</span>
+</mat-toolbar>
+<div class="ar-margin-top-md" fxLayoutAlign="center">
+	<div fxFlex="30" fxFlex.xs="95" fxFlex.sm="75" fxFlex.md="45" fxLayout="column">
+		<div fxLayout="column">
+			<mat-card fxFlex>
+				<div fxLayout="column">
+					<div class="ar-margin-top-none ar-margin-right-none">
+						<img mat-card-image [src]="UrlWebkit + '/images/cambio-clave/arcaCambiarPass.svg' | safeURL"
+							alt="Imagen principal de login">
+					</div>
+				</div>
+				<div fxLayout="column">
+					<div class="ar-margin-top-md">
+						<form class="ar-form-inicio-sesion ar-margin-left-sm ar-margin-right-sm"
+							[formGroup]="frmCambioClave" (ngSubmit)="CambiarClave()">
+							<mat-horizontal-stepper>
+								<mat-step>
+									<ng-template matStepLabel>
+										<span fxHide.xs>Actual</span>
+									</ng-template>
+									<div class="ar-login-input">
+										<mat-form-field fxFlex>
+											<input matInput type="password" formControlName="passActual"
+												placeholder="Contraseña actual" required>
+										</mat-form-field>
+									</div>
+									<div fxLayout="row" fxLayoutAlign="end center">
+										<button class="ar-margin-bottom-xs" mat-raised-button type="button"
+											color="primary" matStepperNext>Siguiente</button>
+									</div>
+								</mat-step>
+								<mat-step>
+									<ng-template matStepLabel>
+										<span fxHide.xs>Nueva</span>
+									</ng-template>
+									<div class="ar-login-input">
+										<mat-form-field fxFlex>
+											<input matInput type="password" formControlName="passNuevo"
+												placeholder="Contraseña nueva" required>
+										</mat-form-field>
+									</div>
+									<div fxLayout="row" fxLayoutAlign="end center">
+										<button class="ar-margin-bottom-xs ar-margin-right-xs" mat-raised-button
+											type="button" matStepperPrevious>Anterior</button>
+										<button class="ar-margin-bottom-xs" mat-raised-button type="button"
+											color="primary" matStepperNext>Siguiente</button>
+									</div>
+								</mat-step>
+								<mat-step>
+									<ng-template matStepLabel>
+										<span fxHide.xs>Confirmar</span>
+									</ng-template>
+									<div class="ar-login-input">
+										<mat-form-field fxFlex>
+											<input matInput type="password" formControlName="passRepetido"
+												placeholder="Confirmar contraseña nueva" required>
+										</mat-form-field>
+									</div>
+									<div fxLayout="row" fxLayoutAlign="end center">
+										<button class="ar-margin-bottom-xs ar-margin-right-xs" mat-raised-button
+											type="button" matStepperPrevious>Anterior</button>
+										<button class="ar-margin-bottom-xs" mat-raised-button color="primary"
+											type="submit" [disabled]="!frmCambioClave.valid">Listo</button>
+									</div>
+								</mat-step>
+							</mat-horizontal-stepper>
+						</form>
+					</div>
+				</div>
+			</mat-card>
+		</div>
+	</div>
+</div>
+<div fxLayoutAlign="center" class="ar-margin-top-xs">
+	<span class="ar-login-credits">
+		<i class="mdi mdi-hexagon"></i> Desarrollo y diseño. C.G.I. del Hospital San Vicente de Paúl para la C.C.S.S. ©
+		2017-2019 </span>
+</div>
+
+</html>

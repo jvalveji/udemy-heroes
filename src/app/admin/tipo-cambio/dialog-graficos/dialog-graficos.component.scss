@@ -1,0 +1,33 @@
+
+.ar-insumo-nav-arrows span {
+	position: absolute;
+	z-index: 2000;
+	top: 100%;
+	width: 28px;
+	height: 28px;
+	border: 8px solid #ddd;
+	border: 8px solid rgba(150, 150, 150, 0.4);
+	text-indent: -90000px;
+	margin-top: -92px;
+	cursor: pointer;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+  }
+.ar-insumo-nav-arrows span:hover {
+	border-color: rgba(150, 150, 150, 0.9);
+  }
+
+  .ar-insumo-nav-arrows span.nav-arrow-prev {
+	left: 4%;
+	border-right: none;
+	border-top: none;
+  }
+
+  .ar-insumo-nav-arrows span.nav-arrow-next {
+	right: 4%;
+	border-left: none;
+	border-bottom: none;
+  }

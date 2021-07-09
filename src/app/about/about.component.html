@@ -1,0 +1,343 @@
+<!-- ***************************************************************
+[Master Stylesheet /about]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	09/2018
+Asignado a:	Adrián Fallas. afallasp@ccss.sa.cr (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+*************************************************************** -->
+<html fullscreen fxLayout="column">
+<div fxFlex fxLayout="column" layout>
+	<!-- Toolbar de acciones estilo formulario -->
+	<mat-toolbar class="ar-about-toolbar" style="z-index:10; ">
+		<img class="ar-margin-left-xs" [src]="UrlWebkit + '/images/about/arca.svg' | safeURL" width="28" height="28">
+		<span style="font-family: muli; margin-bottom: 0.25em; font-size: 1.2em;"
+			class="ar-margin-left-xs ar-text-dark">arca</span>
+		<span fxFlex></span>
+		<div fxLayout="row" fxLayoutAlign="center center">
+			<button mat-icon-button (click)="IrPaginaAnterior()">
+				<mat-icon class="ar-text-dark" aria-label="Cerrar">close</mat-icon>
+			</button>
+		</div>
+	</mat-toolbar>
+	<perfect-scrollbar fxFlex class="ar-content ar-about-cover" fxLayoutAlign="center start">
+		<div fxLayout="column" fxFlex="100">
+			<!-- Versión y titular -->
+			<div fxLayout="column">
+				<div class="ar-about-subarea" fxLayoutAlign="center start">
+					<div fxLayout="column" class="ar-margin-top-xlg" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90"
+						fxFlex.md="70">
+						<div class="ar-margin-bottom-sm">
+							<div class="ar-about-circle">
+								PLATAFORMA ARCA - MEAN V{{VERSION}}
+							</div>
+						</div>
+						<span class="ar-about-titulares">Haciendo la gestión hospitalaria más poderosa, abierta y fácil
+							de usar.
+						</span>
+						<span class="about-lead-paragraph">Desarrollamos la mejor experiencia digital para el acceso a
+							la
+							información del asegurado, aplicando las mejores prácticas y metodologías
+							de seguimiento diario y utilizando las más recientes tecnologías de desarrollo de software.
+						</span>
+						<span class="about-paragraph">
+							El marco de trabajo Scrum permite un ágil desarrollo de software basado en un proceso
+							interactivo, con
+							reuniones de planificación, revisión y reuniones diarias de equipos organizados. El
+							resultado de la
+							metodología es software potencialmente utilizable a corto plazo y acumulativo a largo plazo.
+						</span>
+					</div>
+				</div>
+			</div>
+			<!-- Imagen -->
+			<div class="ar-about-img ar-margin-top-sm" fxLayoutAlign="center start">
+				<div fxLayout="column" class="ar-margin-top-xs" fxFlex="55" fxFlex.xs="95" fxFlex.sm="90"
+					fxFlex.md="70">
+					<img mat-card-image [src]="UrlWebkit + '/images/about/arcabout_01.svg' | safeURL">
+				</div>
+			</div>
+			<!-- Sus inicios -->
+			<div fxLayout="column">
+				<div class="ar-about-subarea" fxLayoutAlign="center start">
+					<div fxLayout="column" class="ar-margin-top-xs" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90"
+						fxFlex.md="70">
+						<span class="ar-about-titulares">Sus inicios.</span>
+						<span class="about-lead-paragraph">El Centro de Gestión Informática del Hospital San Vicente de
+							Paúl,
+							inicia sus labores en 1996 mediante la implementación de una red de datos con el fin de
+							automatizar el
+							proceso de citación en la consulta de especialidades médicas, para tal efecto se contaba con
+							dos
+							técnicos.
+						</span>
+						<span class="about-paragraph">
+							En el 2003 se automatizó el proceso de hospitalización mediante software donado por el
+							gobierno de cuba
+							(Galen) y en el 2007 se implementó el sistema Medisys. En el 2009 se remplazaron las
+							funciones de Medisys
+							Emergencias por una aplicación de desarrollo local denominada Emerweb.
+							Durante este periodo, se inició el desarrollo del Sistema Operativo de Recursos Humanos
+							(SOGERH)
+							convirtiéndoce en el sistema oficial en las unidades de Recursos Humanos a nivel nacional.
+						</span>
+						<span class="about-paragraph">
+							Para el año 2010 se materializó el traslado al nuevo hospital y con ello un cambio no solo
+							de
+							infraestructura, sino también en tecnología y recurso humano especializado, dando
+							continuidad a proyectos
+							bajo una nueva metodología denominada Scrum. Este esquema de trabajo, permitió el desarrollo
+							del sistema
+							web arca, utilizando altos estándares de desarrollo de software y tecnología moderna,
+							logrando en el
+							2014, la implementación de la interfaz arca Hospitalización en 23 hospitales del país.
+						</span>
+						<span class="about-paragraph">
+							Durante los últimos años al presente año 2018, continuamos innovando en el desarrollo de
+							aplicaciones
+							como lo son: arca Nutrición, arca Trasplantes, arca Tiempo Quirúrgico, Visita Hospitalaria y
+							arca
+							Recursos Humanos, mejorando sustancialmente la manera que hacemos las cosas, y como siempre,
+							desarrollando
+							sistemas fáciles de usar y con la más alta calidad en tecnología y diseño. </span>
+					</div>
+				</div>
+			</div>
+			<!-- Equipo de trabajo -->
+			<div fxLayout="column">
+				<div class="ar-about-subarea" fxLayoutAlign="center start">
+					<div fxLayout="column" class="ar-margin-top-xs" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90"
+						fxFlex.md="70">
+						<span class="ar-about-titulares">Equipo de trabajo.</span>
+						<span class="about-lead-paragraph">Un equipo comprometido desde sus inicios.
+						</span>
+						<span class="about-paragraph">
+							Sabemos donde iniciamos y donde queremos llegar, teniendo claro que las posibilidades no
+							tienen límites.
+							Nuestro punto de partida está sobre una base sólida, con una visión clara y con ideas
+							innovadoras.
+							Estamos convencidos que la perseverancia nos llevará a satisfacer las necesidades
+							institucionales, esta
+							es nuestra responsabilidad. Fijamos nuestros objetivos con el único afán de ofrecer
+							soluciones a nivel
+							nacional promoviendo el talento y la creatividad. Alcanzar más allá de los objetivos,
+							impulsa nuestro
+							trabajo.</span>
+					</div>
+				</div>
+			</div>
+			<!-- Área de chips de filtro por categoría -->
+			<div class="ar-carousel-area" fxLayoutAlign="center start">
+				<div class="ar-about-parents" fxLayout="row" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90" fxFlex.md="70">
+					<div class="photobanner items">
+						<!-- Lista de miembros del equipo -->
+						<div [ngClass]="i === 0 ? 'first': ''" class="item"
+							*ngFor="let funcionario of listaFuncionarios; let i = index;">
+							<!-- <ng-container *ngIf="funcionario.foto.length > 0"> -->
+							<div id="card" class="card card-green">
+								<div class="card-info">
+									<div class="card-image">
+										<ng-container *ngIf="funcionario.foto.length > 0">
+											<a [href]="'mailto:' + funcionario.email">
+												<img [src]="UrlWebkit + '/images/about/colaboradores/' + funcionario.foto | safeURL"
+													[alt]="funcionario.nombre" class="card-avatar card-avatar--circle">
+											</a>
+										</ng-container>
+									</div>
+									<div class="card-fields">
+										<h1 class="card-name">{{ funcionario.nombre }}</h1>
+									</div>
+									<div class="card-fields">
+										<h2 class="card-email">{{ funcionario.usuario }}</h2>
+									</div>
+								</div>
+							</div>
+							<!-- </ng-container> -->
+						</div>
+						<div class="item" *ngFor="let funcionario of listaFuncionarios.slice(0, 7);">
+							<!-- <ng-container *ngIf="funcionario.foto.length > 0"> -->
+							<div id="card" class="card card-green">
+								<div class="card-info">
+									<div class="card-image">
+										<ng-container *ngIf="funcionario.foto.length > 0">
+											<a [href]="'mailto:' + funcionario.email">
+												<img [src]="funcionario.foto" class="card-avatar card-avatar--circle">
+											</a>
+										</ng-container>
+									</div>
+									<div class="card-fields">
+										<h1 class="card-name">{{ funcionario.nombre }}</h1>
+									</div>
+									<div class="card-fields">
+										<h2 class="card-email">{{ funcionario.usuario }}</h2>
+									</div>
+								</div>
+							</div>
+							<!-- </ng-container> -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Tecnología -->
+			<div fxLayout="column">
+				<div class="ar-about-subarea" fxLayoutAlign="center start">
+					<div fxLayout="column" class="ar-margin-top-xs" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90"
+						fxFlex.md="70">
+						<span class="ar-about-titulares">Tecnología.</span>
+						<span class="about-lead-paragraph">Las tecnologías utilizadas ofrecen seguridad, accesibilidad y
+							bajo
+							costo. La utilización de Linux, minería de datos y otras plataformas de software libre, nos
+							dan
+							independencia.
+						</span>
+						<span class="about-paragraph"> El uso de tecnología web, permite al usuario el acceso al sistema
+							desde
+							un navegador y una conexión a la Intranet. El diseño <i>responsive</i> de todo el sistema,
+							ofrecen una
+							excelente experiencia de uso al usuario.
+						</span>
+						<span class="about-paragraph">
+							Implementamos herramientas complementarias que ayudan a tener un valor agregado. La
+							plataforma de envío
+							de mensajes SMS, el Soporte Técnico por medio de tiquetes electrónicos y las pantallas de
+							seguimiento de
+							la atención médica, el llamado por voz y la visita hospitalario con códigos QR, son algunas
+							herramientas
+							permiten avanzar al objetivo que queremos alcanzar. </span>
+					</div>
+				</div>
+			</div>
+			<!-- Alcance -->
+			<div fxLayout="column">
+				<div class="ar-about-subarea" fxLayoutAlign="center start">
+					<div fxLayout="column" class="ar-margin-top-xs" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90"
+						fxFlex.md="70">
+						<span class="ar-about-titulares">Alcance.</span>
+						<span class="about-lead-paragraph">Creemos que el límite lo establecemos nosotros, por eso
+							realizamos un
+							esfuerzo colectivo en investigación para obtener respuestas y crear soluciones.
+						</span>
+						<span class="about-paragraph">
+							Nuestro deseo es ayudar a que los funcionarios de la institución accedan y utilicen la
+							información como
+							nunca antes lo habían
+							hecho. Con estas herramientas y con la ayuda de un equipo especializado en diferentes áreas,
+							logramos
+							mejorar notablemente la variedad y la calidad de los sistemas hospitalarios. </span>
+						<span class="about-paragraph">
+							Desde el funcionario que recibe al paciente en una ventanilla hasta el doctor que realiza un
+							procedimiento, queremos alimentar con innovación a los usuarios con una plataforma
+							tecnológica sobre la
+							nube. </span>
+						<span class="about-paragraph">
+							A través de la continua interacción con los usuarios finales, hemos resuelto problemas
+							complejos y
+							realizamos actualizaciones periódicas. Nuestra dedicación en escuchar a los usuarios, nos
+							ayuda a aplicar
+							lo que hemos aprendido en nuevos productos a la medida.</span>
+					</div>
+				</div>
+			</div>
+			<!-- Enfoque -->
+			<div fxLayout="column">
+				<div class="ar-about-subarea" fxLayoutAlign="center start">
+					<div fxLayout="column" class="ar-margin-top-xs" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90"
+						fxFlex.md="70">
+						<span class="ar-about-titulares">Enfoque.</span>
+						<span class="about-lead-paragraph">Sabemos que el paciente es valioso, por eso nos enfocamos en
+							ellos.
+							Sabemos que no tenemos contacto directo con los pacientes, pero al brindar herramientas
+							institucionales
+							eficientes, complacemos sus necesidades.
+						</span>
+						<span class="about-paragraph">
+							Los usuarios necesitan tener acceso a la información donde estén y en el momento que lo
+							requieran.
+							Queremos ofrecer, sin importar su condición social y económica un servicio de calidad.
+							Conocemos lo
+							relevante que es la información, que incluso puede salvar vidas. Sabemos que la información
+							debe estar
+							disponible en momentos vitales. </span>
+					</div>
+				</div>
+			</div>
+			<!-- Quote -->
+			<div fxLayout="column">
+				<div class="ar-about-subarea ar-margin-bottom-md" fxLayoutAlign="center">
+					<div fxLayout="column" class="ar-margin-top-xs" fxFlex="50" fxFlex.xs="100" fxFlex.sm="90"
+						fxFlex.md="70">
+						<i class="material-icons about-quote">
+							format_quote
+						</i>
+						<span class="about-lead-paragraph">Nuestro deseo es ayudar a que los funcionarios de la
+							institución accedan
+							y utilicen la información como nunca antes lo habían hecho. </span>
+						<div fxFlex>
+							<span fxFlex></span>
+							<i class="material-icons about-quote">
+								format_quote
+							</i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Optimizado -->
+			<div fxLayout="column" class="ar-margin-bottom-lg">
+				<div class="ar-about-subarea" fxLayoutAlign="center start">
+					<div fxLayout="column" class="ar-margin-top-xs" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90"
+						fxFlex.md="70">
+						<span class="ar-about-titulares">Optimizado.</span>
+						<span class="about-lead-paragraph">Diseñado desde cero con el objetivo de optimizar los sistemas
+							de
+							información a necesidades específicas, con un enfoque colaborativo entre el usuario y el
+							desarrollador.
+						</span>
+						<span class="about-paragraph">
+							Durante la implementación del sistema,
+							se dispone de usuarios expertos, comprometidos en la capacitación al personal, ayudando a
+							eliminar la resistencia al cambio. </span>
+
+						<span class="about-paragraph"> Arca brinda la mejor experiencia de usuario al combinar diseño,
+							usabilidad, lógica y la contribución del usuario experto durante el desarrollo. <i
+								class="mdi mdi-hexagon ar-icon-sm"></i></span>
+					</div>
+				</div>
+			</div>
+			<!-- Footer -->
+			<div class="ar-about-footer" fxLayout="column">
+				<div fxLayoutAlign="center start">
+					<div fxLayout="column" fxFlex="50" fxFlex.xs="95" fxFlex.sm="90" fxFlex.md="70">
+						<div fxLayout="row">
+							<div class="ar-margin-right-sm">
+								<img [src]="UrlWebkit + '/images/about/ccss.svg' | safeURL" width="42" height="42">
+							</div>
+							<div fxLayout="column">
+								<img [src]="UrlWebkit + '/images/about/arca.svg' | safeURL" width="38" height="38">
+							</div>
+						</div>
+						<span class="about-paragraph-footer ar-margin-top-sm">
+							Arca es desarrollado en el Centro de Gestión Informática del Hospital San Vicente de Paúl,
+							con
+							el objetivo de contribuir con el desarrollo de sistemas Edus para
+							la Caja Costarricense de Seguro Social. Los sistemas han sido implementados en los
+							diferentes
+							servicios de la institución en el país. Este sistema se encuentra en desarrollo, las
+							caraterísticas, diseño y
+							funcionalidades pueden cambiar sin previo aviso.
+						</span>
+						<span class="about-paragraph-footer ar-margin-top-xs ar-bottom-top-sm">
+							<i class="mdi mdi-copyright"></i>
+							CGI. 2017-{{annoActual.getFullYear()}}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</perfect-scrollbar>
+</div>
+
+</html>

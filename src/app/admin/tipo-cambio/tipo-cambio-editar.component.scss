@@ -1,0 +1,35 @@
+/* -----------------------------------------------------------------------------------------------
+[Master Stylesheet /admin/tipo-cambio/ tipo-cambio-editar.component.scss]
+
+Proyecto: arca Core
+Version:  1.1
+Fecha de creación:  03/2020
+Asignado a: Adriá Fallas (afallasp@ccss.sa.cr)(diseño)
+Desarrollo: Felipe Jimenez Calderon<fjimenca@ccss.sa.cr>, Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente: Caja Costarricense de Seguro Social
+----------------------------------------------------------------------------------------------- */
+
+@import "styles.scss";
+
+/* Estilos de la vista general */
+
+.ar-page {
+  padding-top: 0px;
+  height: 100%;
+}
+
+/* Estilos header panel de expansion */
+
+mat-expansion-panel-header {
+  min-height: 64px !important;
+}
+
+// Línea vertical
+
+.ar-tipo-cambio-vertical-line {
+  border: none;
+  border-left: 1px solid;
+  height: 50%;
+  width: 1px;
+}

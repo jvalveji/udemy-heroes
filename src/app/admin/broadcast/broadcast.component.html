@@ -1,0 +1,129 @@
+<!-- ***************************************************************
+HTML /admin/broadcast]
+
+Proyecto:	arca Core
+Version:	1.1
+Fecha de creación:	05/2018
+Asignado a:	Adrián Fallas. afallasp@ccss.sa.cr (diseño)
+Desarrollo: Centro de Gestión Informática
+Centro: Hospital San Vicente de Paúl
+Cliente:	Caja Costarricense de Seguro Social
+
+Modificado: 10/2019 Adrián Fallas (afallasp@ccss.sa.cr)(diseño)
+*************************************************************** -->
+
+<html fullscreen fxLayout="column">
+<!-- Toolbar principal -->
+<mat-toolbar class="ar-toolbar ar-background">
+  <button type="button" mat-icon-button (click)="IrPaginaAnterior()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span style="font-family: muli; margin-bottom:3px;" class="ar-margin-left-xs" fxHide.xs>arca</span>
+  <span class="ar-margin-left-xs ar-h4" fxHide.xs>Mensajería</span>
+  <span fxFlex></span>
+  <div fxLayout="row" class="ar-margin-right-xs" fxLayoutAlign="start center">
+    <!-- Nombre de contacto y unidad programática -->
+    <div fxLayout="column" fxLayoutAlign="start end" class="ar-margin-right-sm">
+      <span class="ar-body-1">Administrador</span>
+      <span class="mat-caption">{{nombreUnidadProgramatica}}</span>
+    </div>
+    <div>
+      <div class="ar-chat-arca-circle"></div>
+    </div>
+  </div>
+</mat-toolbar>
+<!-- Área general del chat -->
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex="100">
+  <div fxFlex="40" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxLayout="column">
+    <!-- Área de opciones -->
+    <perfect-scrollbar class="ar-content ar-chat-background" fxLayoutAlign="center"> 
+      <form [formGroup]="frmBroadcast" fxFlex fxLayout="row" fxLayoutAlign="center">
+        <div fxLayout="column" fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" class="ar-background">
+          <!-- Color del mensaje -->
+          <div fxLayout="column" class="ar-chat-options-item ar-margin-top-md">
+            <div fxLayout="column" fxFlex="50">
+              <span class="ar-color-54 mat-title">Color</span>
+              <span class="ar-color-87 mat-caption">Selección de color de acuerdo al tipo de mensaje que desea
+                enviar. </span>
+              <span class="ar-color-87 mat-caption">Informativo, preventivo, advertencia o alerta. </span>
+            </div>
+            <div fxLayout="row" class="ar-margin-top-xs">
+              <div class="ar-margin-right-xs" *ngFor="let color of colores; let _index = index"
+                (click)="SeleccionarColorMensaje(_index)">
+                <div class="ar-chat-color-picker  {{color.clase}} {{color.estado?'ar-chat-color-picker-active':''}}">
+                  <i class="material-icons"> done </i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Hora y fecha del inicio del mensaje -->
+          <div fxLayout="column" class="ar-chat-options-item ar-margin-top-xs">
+            <div fxLayout="column" fxFlex="100">
+              <span class="ar-color-54 mat-title">Inicio</span>
+              <span class="ar-color-87 mat-caption ar-margin-right-xs">Indique la fecha y hora de envío del
+                mensaje.</span>
+            </div>
+            <div class="ar-margin-top-xs">
+              <arca-date-time-picker fxFlex="100" #dtpFechaHoraInicio SelectTiempo="true"
+                (ItemSeleccionado)="ObtenerFechaHoraInicio($event)"></arca-date-time-picker>
+            </div>
+          </div>
+          <!-- Hora y fecha del final del mensaje -->
+          <div fxLayout="column" class="ar-chat-options-item ar-margin-top-xs">
+            <div fxLayout="column" fxFlex="100">
+              <span class="ar-color-54 mat-title">Fin</span>
+              <span class="ar-color-87 mat-caption ar-margin-right-xs">Indique la fecha y hora de previsualización
+                del
+                mensaje en notificaciones.</span>
+            </div>
+            <div class="ar-margin-top-xs">
+              <arca-date-time-picker fxFlex #dtpFechaHoraFinal SelectTiempo="true"
+                (ItemSeleccionado)="ObtenerFechaHoraFin($event)"></arca-date-time-picker>
+            </div>
+          </div>
+          <!-- Mensaje principal -->
+          <div class="ar-chat-options-item">
+            <mat-form-field fxFlex="100" appearance="outline">
+              <mat-label>Mensaje</mat-label>
+              <textarea class="ar-color-87" formControlName="mensaje" matInput matTextareaAutosize
+                matAutosizeMinRows="6" placeholder="Mensaje"></textarea>
+              <mat-hint>15 caracteres como mínimo</mat-hint>
+            </mat-form-field>
+          </div>
+          <!-- Botón de enviar mensaje -->
+          <div fxLayoutAlign="start center" class="ar-margin-top-xs ar-margin-right-md ar-margin-bottom-sm">
+            <span fxFlex></span>
+            <button mat-raised-button color="warn" [disabled]="!frmBroadcast.valid" (click)="Enviar()">
+              <mat-icon class="ar-icons-sm">send</mat-icon>
+              Enviar
+            </button>
+          </div>
+        </div>
+      </form>
+    </perfect-scrollbar>
+  </div>
+  <!-- Área de mensajes enviados -->
+  <div fxFlex="60" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxLayout="column" fxHide.xs fxHide.sm>
+    <perfect-scrollbar fxLayout="column" class="ar-content ar-chat-arca-background">
+      <div fxFlex="100" fxLayoutAlign="center" fxLayout="row">
+        <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
+          <div class="ar-padding-top-xs"></div>
+          <!-- Lista de mensajes del sistema generados -->
+          <div class="ar-chat-message-item" fxLayout="column" *ngFor="let _mensaje of listaMensajes">
+            <div class="ar-chat-bubble-system-message ar-chat-message-received {{_mensaje.color}}">
+              <span>{{_mensaje.mensaje}}</span>
+            </div>
+            <!-- Fecha de los mensajes -->
+            <div class="ar-margin-bottom-sm">
+              <span class="ar-text-dark mat-caption ar-text-italic">Programado:
+                {{MostrarFechaLocal(_mensaje.fechaInicio) | date:'long'}}</span>
+            </div>
+          </div>
+          <div class="ar-padding-bottom-xlg"></div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+</html>
