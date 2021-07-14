@@ -21,6 +21,8 @@ const parametrosController = require('./modules/admin/parametros/controllers/par
 const loginRoutes = require('./modules/login/routes/loginRoutes');
 const adminModuleRoutes = require('./modules/admin/module.routes');
 const sharedModuleRoutes = require('./modules/shared/module.routes');
+const rpmModuleRoutes = require('./modules/rpm/models.routes');
+
 
 // Validación que indica que el servicio en esta ruta esta disponible 
 router.get('/check', (req, res) =>
@@ -116,6 +118,7 @@ router.get('/autorizacion', function (req, res) {
 // Enrutamiento de los módulos de la aplicación 
 router.use('/admin', adminModuleRoutes);
 router.use('/shared', sharedModuleRoutes);
+router.use('/rpm', rpmModuleRoutes);
 
 // (Incluir las rutas [module.routes.js] requeridas de la aplicación rest desde acá)
 // Recordar que la ruta ya esta compuesta por el nombre de la aplicación más la palabra API,

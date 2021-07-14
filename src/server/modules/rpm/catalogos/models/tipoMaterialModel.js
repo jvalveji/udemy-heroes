@@ -15,4 +15,4 @@ let tipoMaterialSchema = new Schema({
 	'estado': Boolean,
 });
 
-if (dbCore) { module.exports = dbCore.model('catalogo-material-tipo', tipoMaterialSchema, 'catalogo-material-tipo'); }
+if (dbCore) { module.exports = dbCore.model('catalogo-materiales-tipos', tipoMaterialSchema, 'catalogo-materiales-tipos'); }

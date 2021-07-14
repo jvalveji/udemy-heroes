@@ -10,131 +10,118 @@
   Cliente: 				Caja Costarricense de Seguro Social
 ======================================================================== -->
 
-<html fullscreen fxLayout="column" class="{{ temaApp }}">
-<div fxFlex fxLayout="column" class="ar-background" layout>
-    <!-- Toolbar de acciones estilo formulario -->
-    <mat-toolbar class="ar-toolbar mat-elevation-z0">
-        <button mat-icon-button>
+<html fullscreen class="{{ temaApp }}">
+    <div fxFlex fxLayout="column" class="ar-background">
+        <!-- Barra de progreso *ngIf="esCargando" -->
+        <div class="ar-progressbar">
+            <mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+        </div>
+        <!-- Toolbar de acciones estilo formulario -->
+        <mat-toolbar class="ar-toolbar mat-elevation-z0">
+            <button mat-icon-button>
                 <mat-icon>close</mat-icon>
             </button>
-        <span class="ar-margin-left-xs ar-color-54">Modifición de acceso</span>
-        <span fxFlex></span>
-        <button mat-button disabled>
-                <i class="material-icons">save</i>
-                Listo
+            <span fxFlex></span>
+            <button mat-button *ngIf="mostrarSig" (click)="validarInfo()">
+                <i class="material-icons">arrow_forward</i>
+                Siguiente
             </button>
-    </mat-toolbar>
-    <!-- Barra de progreso *ngIf="esCargando" -->
-    <div class="ar-progressbar">
-        <mat-progress-bar mode="indeterminate" *ngIf="false"></mat-progress-bar>
-    </div>
+            <button mat-button *ngIf="mostrarAnt" (click)="atras()">
+                <i class="material-icons">arrow_back</i>
+                Anterior
+            </button>
+            <button mat-button color="accent" *ngIf="guardarInfo">
+                <i class="material-icons">save</i>
+                Guardar
+            </button>
+        </mat-toolbar>
+        <!-- Listado de Materiales-->
+        <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+            <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+                <div fxLayout="column" fxFlex class="ar-margin-bottom-lg ar-margin-top-sm">
+                    <bitzu-info-general *ngIf="mostrarSig" [@apps]="'fadeIn'"> </bitzu-info-general>
+                    <!-- Formulario de modificar material -->
+                    <ng-container *ngIf="guardarInfo">
+                        <div fxFlex fxLayout="column" [@apps]="'fadeIn'">
+                            <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                                <!-- Avatar circular -->
+                                <div class="ar-avatar">
+                                    <p class="ar-avatar-sm">
+                                        <span>B</span>
+                                    </p>
+                                </div>
+                                <!-- Identificador del Material -->
+                                <div fxLayout="column" class="ar-margin-left-xs">
+                                    <span class="ar-color-54">8889999</span>
+                                    <span class="ar-color-87">Bolsas quirúrgicas</span>
+                                </div>
+                            </div>
+                            <div
+                                class="
+                                    ar-color-54 ar-margin-bottom-sm ar-core-text ar-margin-top-xs
+                                "
+                            >
+                                Modifique las características del material seleccionado.
+                            </div>
+                            <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+                                <!-- Descripción del material o servicio -->
+                                <mat-form-field fxFlex appearance="outline">
+                                    <mat-label>Descripción del material o servicio</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Descripción del material o servicio"
+                                        class="ar-color-87"
+                                        value="Descripción"
+                                        disabled
+                                    />
+                                </mat-form-field>
 
-    <!-- Listado de asegurados -->
-    <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start" *ngIf="true">
-        <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
-            <div fxLayout="column" fxFlex class="ar-margin-bottom-lg ar-margin-top-sm">
-                <!-- Formulario de nueva cita -->
-
-                <div fxFlex fxLayout="column">
-                    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-                        <!-- Avatar circular -->
-                        <div class="ar-avatar">
-                            <p class="ar-avatar-sm">
-                                <span>B</span>
-                            </p>
+                                <!-- Detalle de la modificación -->
+                                <mat-form-field
+                                    fxFlex
+                                    appearance="outline"
+                                    ngClass="ar-margin-left-xs"
+                                    ngClass.xs="ar-margin-left-none"
+                                >
+                                    <mat-label>Detalle de la modificación</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Detalle de la modificación"
+                                        class="ar-color-87"
+                                        value="Descripción"
+                                        size="20"
+                                        maxlength="30"
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <!-- Descripción propuesta -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Descripción de la propuesta</mat-label>
+                                <textarea
+                                    class="ar-color-87"
+                                    matInput
+                                    placeholder="Descripción de la propuesta"
+                                    cdkTextareaAutosize
+                                    cdkAutosizeMinRows="5"
+                                ></textarea>
+                                <input matInput class="ar-color-87" />
+                            </mat-form-field>
+                            <!-- Justificación de la modificación -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Justificación de la modificación</mat-label>
+                                <textarea
+                                    class="ar-color-87"
+                                    matInput
+                                    placeholder="Justificación de la modificación"
+                                    cdkTextareaAutosize
+                                    cdkAutosizeMinRows="5"
+                                ></textarea>
+                                <input matInput class="ar-color-87" />
+                            </mat-form-field>
                         </div>
-                        <!-- Nombre y cédula -->
-                        <div fxLayout="column" class="ar-margin-left-xs">
-                            <span class="ar-color-54">8889999</span>
-                            <span class="ar-color-87">Bolsas quirúrgicas</span>
-                        </div>
-                    </div>
-                    <!-- Descripción del material o servicio -->
-                    <mat-form-field class="ar-margin-top-sm" appearance="outline">
-                        <mat-label>Descripción del material o servicio</mat-label>
-                        <textarea class="ar-color-87" disabled matInput placeholder="Descripción del material o servicio" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-                    </mat-form-field>
-                    <!-- Detalle de la modificación -->
-                    <mat-form-field appearance="outline">
-                        <mat-label>Detalle de la modificación</mat-label>
-                        <textarea class="ar-color-87" matInput placeholder="Detalle de la modificación" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-                    </mat-form-field>
-
-                    <!-- Descripción propuesta -->
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Descripción propuesta</mat-label>
-                        <textarea class="ar-color-87" matInput placeholder="Descripción propuesta" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-                        <mat-hint>Describir la propuesta del campo detalladamente</mat-hint>
-                    </mat-form-field>
-
-                    <!-- Justificación de la modificación -->
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Justificación de la modificación</mat-label>
-                        <textarea class="ar-color-87" matInput placeholder="Justificación de la modificación" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-                    </mat-form-field>
-
-                    <!--<mat-form-field appearance="outline">
-                        <mat-label>Select</mat-label>
-                        <mat-select>
-                            <mat-option value="one">First option</mat-option>
-                            <mat-option value="two">Second option</mat-option>
-                        </mat-select>
-                    </mat-form-field>--->
+                    </ng-container>
                 </div>
             </div>
-        </div>
-    </perfect-scrollbar>
-</div>
-
+        </perfect-scrollbar>
+    </div>
 </html>
-
-<div *ngIf="false">
-    <mat-card>
-        <!-- <mat-form-field appearance="fill">
-            <mat-label>Tipo de Identificación</mat-label>
-            <select #tipoID matNativeControl required placeholder="Tipo de Identificación">
-                <option value="0">Nacional</option>
-                <option value="7">Extranjero</option>
-                <option value="7">Dimex</option>
-            </select>
-        </mat-form-field> -->
-
-        <form>
-            <div>
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Número Identificación</mat-label>
-                    <input #numIdentificacion matInput placeholder="Número Identificación" name="idAsegurado" />
-                </mat-form-field>
-            </div>
-
-            <div>
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Nombre Completo</mat-label>
-                    <input #nombreCompleto matInput disabled placeholder="Nombre Completo" name="nombreCompleto" />
-                </mat-form-field>
-            </div>
-
-            <!-- Select de asegurado, se deberia cargar segun información del WS que me traiga este dato-->
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Tipo de Seguro</mat-label>
-                    <select #tipoSeguro [(ngModel)]="opcionSeleccionadaSeguro" (change)="verificarSeguro($event.target.value)" #isAsegurado matNativeControl required placeholder="Tipo de Seguro">
-                        <option *ngFor="let dato of datos">{{ dato }}</option>
-                    </select>
-                </mat-form-field>
-            </div>
-
-            <div>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Teléfono Celular</mat-label>
-                    <span matPrefix>+506 &nbsp;</span>
-                    <input type="tel" #numeroTelefono matInput placeholder="5555-1234" maxlength="9" />
-                    <mat-hint align="end">{{ numeroTelefono.value.length }} / 9</mat-hint>
-                    <mat-icon matSuffix>mode_edit</mat-icon>
-                </mat-form-field>
-            </div>
-        </form>
-    </mat-card>
-</div>

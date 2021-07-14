@@ -3,19 +3,33 @@
 // Definiciones por: Equipo Bitzú RPM
 // Modificado: 08/07/2021
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { InfoGeneralComponent } from 'app/shared/controls/info-general/info-general.component';
+import { Subscription } from 'rxjs';
+import { MaterialesServiciosModificarEditarComponent } from '../materiales-servicios-modificar-editar/materiales-servicios-modificar-editar.component';
+import { MaterialesSevice } from '../servicios/materiales.service';
 
 @Component({
     selector: 'bitzu-materiales-servicios-modificar-listar',
     templateUrl: './materiales-servicios-modificar-listar.component.html',
     styleUrls: ['./materiales-servicios-modificar-listar.component.scss']
 })
-export class MaterialesServiciosModificarListarComponent implements OnInit {
+export class MaterialesServiciosModificarListarComponent implements OnInit, OnDestroy {
+    @Input() nuevo: string = 'NuevoRotulo';
+    materiales: any[] = [];
+    buscarPorNombre: string;
+    txtFiltro: string;
+
     public material: any;
 
-    constructor(private dialogos: MatDialog) {}
+    private materialesSubscription!: Subscription;
+
+    constructor(private materialesService: MaterialesSevice, private dialogos: MatDialog) {}
+
+    Buscar(para: string): void {
+        const imprime = para;
+        console.log(imprime);
+    }
 
     agregarModificacion() {
         const configDialogoCrear = {
@@ -28,9 +42,12 @@ export class MaterialesServiciosModificarListarComponent implements OnInit {
             maxHeight: '100vh',
             data: null
         };
-
+        
         // Se crea una variable que representa a la ventana de cración de solicitud para modificación
-        const busquedaMaterial = this.dialogos.open(InfoGeneralComponent, configDialogoCrear);
+        const busquedaMaterial = this.dialogos.open(
+            MaterialesServiciosModificarEditarComponent,
+            configDialogoCrear
+        ); 
         // Se customiza el evento que retorna información de la ventana de búsqueda
         busquedaMaterial.afterClosed().subscribe((res) => {
             // Se valida que exista una respuesta
@@ -40,6 +57,14 @@ export class MaterialesServiciosModificarListarComponent implements OnInit {
             }
         });
     }
-
-    ngOnInit(): void {}
+    ngOnInit() {
+        this.materiales = this.materialesService.obtenerMateriales();
+        this.materialesSubscription = this.materialesService.materialesSubject.subscribe(() => {
+            this.materiales = this.materialesService.obtenerMateriales();
+        });
+    }
+    
+    ngOnDestroy() {
+        this.materialesSubscription.unsubscribe;
+    }
 }
