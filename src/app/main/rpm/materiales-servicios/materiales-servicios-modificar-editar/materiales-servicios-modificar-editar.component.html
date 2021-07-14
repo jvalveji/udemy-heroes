@@ -22,7 +22,7 @@
                 <mat-icon>close</mat-icon>
             </button>
             <span fxFlex></span>
-            <button mat-button *ngIf="mostrarSig" (click)="validarInfo()">
+            <button mat-button *ngIf="mostrarSig" (click)="validarInfoGeneral()">
                 <i class="material-icons">arrow_forward</i>
                 Siguiente
             </button>
@@ -39,7 +39,7 @@
         <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
             <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
                 <div fxLayout="column" fxFlex class="ar-margin-bottom-lg ar-margin-top-sm">
-                    <bitzu-info-general *ngIf="mostrarSig" [@apps]="'fadeIn'"> </bitzu-info-general>
+                    <bitzu-info-general *ngIf="mostrarSig" [IvalorDefaultServicioArea]="valorDefaultServicioArea" #infoGeneralService [@apps]="'fadeIn'" [Idatos]="dataInfoGeneral" (validarItem)="obtenerDatosInfoGeneral($event)"> </bitzu-info-general>
                     <!-- Formulario de modificar material -->
                     <ng-container *ngIf="guardarInfo">
                         <div fxFlex fxLayout="column" [@apps]="'fadeIn'">

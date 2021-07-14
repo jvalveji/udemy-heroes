@@ -4,9 +4,9 @@
 // Modificado: 08/07/2021
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { UtilidadesService } from 'app/shared/services/utilidades.service';
-import { AutocompleteComponent } from 'app/shared/controls/autocomplete/autocomplete.component';
+import { IdataModelInfoGeneral, InfoGeneralComponent } from 'app/shared/controls/info-general/info-general.component';
 
 @Component({
     selector: 'bitzu-materiales-servicios-modificar-editar',
@@ -41,30 +41,61 @@ export class MaterialesServiciosModificarEditarComponent implements OnInit {
      */
     public esCargando = false;
 
+    /**
+     * Datos obtenidos del formulario info general
+     */
+    public dataInfoGeneral: IdataModelInfoGeneral;
 
-    constructor(private utilidadesService: UtilidadesService) {}
 
-    public validarInfo(){
+    /**
+     * Variable que contiene el valor por defecto del servicio
+     */
+    public valorDefaultServicioArea: string;
+
+    /**
+     * Propiedad decorativa para acceder al componente desde el HTML 
+     */
+    @ViewChild("infoGeneralService")
+    infoGeneralService: InfoGeneralComponent;
+
+
+    constructor(private utilidadesService: UtilidadesService) { }
+
+    public validarInfo() {
         this.mostrarSig = false;
         this.mostrarAnt = true;
         this.guardarInfo = true;
         // Inicia la barra de progreso
-		//this.esCargando = true;
-	};
+        //this.esCargando = true;
+    };
 
-    public atras(){
+    public atras() {
         this.mostrarSig = true;
         this.mostrarAnt = false;
         this.guardarInfo = false;
         // Inicia la barra de progreso
-		//this.esCargando = true;
-	};
+        //this.esCargando = true;
+    };
+    /**
+     * Evento que dispara submit para el formulario hijo (child)
+     */
+    public validarInfoGeneral() {
+        this.infoGeneralService.documentForm.onSubmit(undefined);
+    };
 
-    public validarInfoGeneral(){
-        this.mostrarSig = false;
-        this.mostrarAnt = true;
-        this.guardarInfo = true;
-	};
+    /**
+     * Evento que viene del componente hijo info general, con el conjunto de datos valido
+     * @param dataModel Modelo de datos
+     */
+    public obtenerDatosInfoGeneral(dataModel: IdataModelInfoGeneral): void {
+        if (dataModel != undefined) {
+            this.dataInfoGeneral = dataModel;
+            this.valorDefaultServicioArea = this.dataInfoGeneral.servicio._id;
+            this.mostrarSig = false;
+            this.mostrarAnt = true;
+            this.guardarInfo = true;
+        }
+    }
 
     ngOnInit(): void {
         //Se obtiene el tema

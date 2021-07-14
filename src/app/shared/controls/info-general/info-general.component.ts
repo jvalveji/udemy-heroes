@@ -1,7 +1,8 @@
 //#region Librerias
 import {
-	Component,	
+	Component,
 	EventEmitter,
+	Input,
 	OnInit,
 	Output,
 	ViewChild,
@@ -10,18 +11,23 @@ import { UtilidadesService } from "../../services/utilidades.service";
 import {
 	FormGroup,
 	Validators,
-	FormBuilder	
+	FormBuilder,
+	FormGroupDirective
 } from "@angular/forms";
 import { AutocompleteComponent } from "../autocomplete/autocomplete.component";
 //#endregion
 
+//#region Decorador
 @Component({
 	selector: "bitzu-info-general",
 	templateUrl: "./info-general.component.html",
 	styleUrls: ["./info-general.component.scss"],
 })
+//#endregion
 
+//#region Clase del componente
 export class InfoGeneralComponent implements OnInit {
+
 	//#region Variables locales
 
 	/**
@@ -35,6 +41,11 @@ export class InfoGeneralComponent implements OnInit {
 	 * */
 	@ViewChild("jefeAreasServiciosAutoComplete")
 	jefeAreasServiciosAutoComplete: AutocompleteComponent;
+
+	/**
+	 * Variable para poder acceder al evento submit del formulario reactivo
+	 */
+	@ViewChild('documentForm') documentForm: FormGroupDirective;
 
 	/**
 	 * Variable temporal que maneja la lista de areas o servicios en el formulario
@@ -64,6 +75,11 @@ export class InfoGeneralComponent implements OnInit {
 	private datosUsuario: any;
 
 	/**
+	 * Variable de formulario que almacena el valor por defecto de los servicios
+	 */
+	private valorDefaultServicioArea: string;
+
+	/**
    Datos de formulario de informacion general para manipular la información y se traslada a otros componentes
    */
 	public frmInfoGeneral: FormGroup;
@@ -78,7 +94,11 @@ export class InfoGeneralComponent implements OnInit {
 	 */
 	public esEstadoInicialForm = false;
 
-	dataModel: any; //active model
+	/**
+	 * Variable para recibir los datos de forma temporal y cargarlos al formgroup
+	 */
+	private datos: IdataModelInfoGeneral;
+
 
 	//#endregion
 
@@ -87,7 +107,44 @@ export class InfoGeneralComponent implements OnInit {
 	 * Atributo de salida que retorna el conjunto de datos dados por el usuario
 	 */
 	@Output("validarItem")
-	private validarItem: EventEmitter<any> = new EventEmitter<any>();
+	private validarItem: EventEmitter<IdataModelInfoGeneral> = new EventEmitter<IdataModelInfoGeneral>();
+
+	//#endregion
+
+	//#region Varibles de entrada 
+
+	/**
+	 * Propiedad de entrada para establecer los valores del formulario por default
+	 */
+	@Input()
+	set Idatos(_data: IdataModelInfoGeneral) {
+		if (
+			typeof _data !== "undefined" &&
+			_data !== null
+		) {
+			this.datos = _data;
+		}
+	}
+	get Idatos() {
+		return this.datos;
+	}
+
+	/**
+		* Variable para poder establecer el valor defaulta del combo del autocomplete servicios 
+	   **/
+
+	@Input()
+	set IvalorDefaultServicioArea(_data: string) {
+		if (
+			typeof _data !== "undefined" &&
+			_data !== null
+		) {
+			this.valorDefaultServicioArea = _data;
+		}
+	}
+	get IvalorDefaultServicioArea() {
+		return this.valorDefaultServicioArea;
+	}
 
 	//#endregion
 
@@ -95,7 +152,7 @@ export class InfoGeneralComponent implements OnInit {
 	constructor(
 		private utilidadesService: UtilidadesService,
 		private fb: FormBuilder
-	) {}
+	) { }
 
 	ngOnInit(): void {
 		// Asigna los controles al objeto formulario
@@ -117,7 +174,7 @@ export class InfoGeneralComponent implements OnInit {
 		});
 		//Se obtiene el tema
 		this.temaApp = this.utilidadesService.GetTemaAplicacion();
-		
+
 		//Se obtiene los datos de sesion actual del usuario
 		this.datosUsuario = this.utilidadesService.ListUsuarioLocal();
 
@@ -126,10 +183,11 @@ export class InfoGeneralComponent implements OnInit {
 			this.datosUsuario?.correo
 		);
 
-		//Subscripción al metodo valueChanges del formulario, que permite obtener los datos propiamente
-		this.frmInfoGeneral.valueChanges.subscribe((data) => {
-			this.dataModel = data;
-		});
+		//Cargar datos si existen previamente
+		if (this.datos != undefined) {
+			this.frmInfoGeneral.setValue(this.datos);
+		}
+
 	}
 	//#endregion
 
@@ -151,6 +209,7 @@ export class InfoGeneralComponent implements OnInit {
 	 * Método que se encarga de carga los servicios o areas del catalogo
 	 * desde la BD
 	 */
+
 	public obtenerServiciosAreas(): void {
 		// Inicia la barra de progreso
 		this.esCargando = true;
@@ -212,16 +271,19 @@ export class InfoGeneralComponent implements OnInit {
 	//#region Eventos
 
 	/**
-	 * Método que captura  valida y envia los datos del formulario de
+	 * Método que captura  valida y envia los datos del formulario hacia el padre
 	 */
 	public validar(): void {
+
 		//Se valida el status del componente serviciosAutoComplete
 		this.serviciosAutoCompleteStatus =
 			this.serviciosAutoComplete.filtro.invalid;
 
-		if (this.frmInfoGeneral.valid) {
-			this.validarItem.emit(this.dataModel);
+		if (this.frmInfoGeneral.valid && this.serviciosAutoComplete.filtro.valid) {
+			this.validarItem.emit(this.frmInfoGeneral.getRawValue());
 		} else this.validarItem.emit(null);
+
+
 	}
 
 	/**
@@ -260,3 +322,18 @@ export class InfoGeneralComponent implements OnInit {
 	}
 	//#endregion
 }
+//#endregion
+
+//#region Interfaces
+export interface IdataModelInfoGeneral {
+	correo: string;
+	numtel: number;
+	jefeServicio: string;
+	ext: string;
+	servicio: {
+		descripcion: string;
+		idServicio: string;
+		_id: string;
+	}
+}
+//#endregion

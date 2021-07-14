@@ -14,7 +14,7 @@
 <div fxFlex fxLayout="column" class="ar-background" layout>
     <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
         <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
-            <form [formGroup]="frmInfoGeneral" (ngSubmit)="validar()">
+            <form [formGroup]="frmInfoGeneral" (ngSubmit)="validar()" #documentForm="ngForm">
                 <div fxFlex fxLayout="column">
                     <div fxFlex fxLayout="row" fxLayoutAlign="start center">
                         <!-- Avatar circular -->
@@ -44,6 +44,7 @@
                         #serviciosAutoComplete
                         [value]="serviciosAreas._id"
                         [Source]="serviciosAreas"
+                        [ValorDefault]="IvalorDefaultServicioArea"
                         (ItemSeleccionado)="seleccionarServicioArea($event)"
                         (ItemDigitado)="validarItemDigitado($event)"
                     >
@@ -108,7 +109,7 @@
                                 mask="0000"
                                 class="ar-color-87"
                             />
-                        </mat-form-field>
+                        </mat-form-field>      
                     </div>
                 </div>
             </form>
