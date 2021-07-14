@@ -11,31 +11,125 @@
 ======================================================================== -->
 
 <html fullscreen fxLayout="column">
-<div fxFlex fxLayout="column" class="ar-background" layout>
-    <!-- Toolbar de acciones estilo formulario -->
-    <mat-toolbar class="ar-toolbar mat-elevation-z0">
-        <button mat-icon-button routerLink="/bitzu/main/rpm/materiales" routerLinkActive="active">
+    <div fxFlex fxLayout="column" class="ar-background" layout>
+        <!-- Toolbar de acciones estilo formulario -->
+        <mat-toolbar class="ar-toolbar mat-elevation-z0">
+            <button
+                mat-icon-button
+                routerLink="/bitzu/main/rpm/materiales"
+                routerLinkActive="active"
+            >
                 <mat-icon>arrow_back</mat-icon>
             </button>
-        <span class="ar-margin-left-xs ar-color-54">Materiales y servicios</span>
-        <span fxFlex></span>
-        <button type="submit" class="ar-margin-right-xs" color="warn" mat-button (click)="agregarModificacion()">
+            <span class="ar-margin-left-xs ar-color-54">Materiales y servicios</span>
+            <span fxFlex></span>
+            <button
+                type="submit"
+                class="ar-margin-right-xs"
+                color="warn"
+                mat-button
+                (click)="agregarModificacion()"
+            >
                 <i class="material-icons">add</i>
                 Nuevo
             </button>
-    </mat-toolbar>
+        </mat-toolbar>
 
-    <!-- Área principal -->
-    <perfect-scrollbar fxFlex class="ar-content" *ngIf="true">
-        <div fxLayoutAlign="center">
-            <div fxFlex fxLayout="row" fxLayoutAlign="center">
-                <div fxLayout="column" fxFlex="75" fxFlex.sm="85" fxFlex.md="75" fxFlex.xs="95">
-                    <!-- Área de tarjetas de productos descartados -->
-                    <div fxLayoutWrap fxLayout="row" class="ar-core-card-area ar-margin-top-sm ar-padding-bottom-sm"></div>
-                </div>
+        <!-- Toolbar de búsqueda -->
+        <div class="ar-searchbar-toolbar ar-margin-top-sm" fxLayoutAlign="center center">
+            <div
+                class="ar-searchbar"
+                fxFlex="45"
+                fxFlex.sm="75"
+                fxFlex.md="65"
+                fxFlex.xs="80"
+                fxLayoutAlign="center center"
+            >
+                <!-- Input de búsqueda  -->
+                <!-- Refrescar::{{ nuevo }} -->
+                <input
+                    class="ar-searchbar-input ar-margin-left-sm ar-color-54"
+                    placeholder="Buscar..."
+                    name="barra"
+                    #elemento
+                    (keyup)="Buscar(elemento.value)"
+                />
+                <span fxFlex></span>
+                <button mat-icon-button matTooltip="Limpiar">
+                    <i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+                </button>
+                <button mat-icon-button matTooltip="Buscar por nombre">
+                    <i class="mdi mdi-magnify ar-icons-sm ar-color-54"></i>
+                </button>
             </div>
         </div>
-    </perfect-scrollbar>
-</div>
+        <!--Mensajes-->
+        <ng-container *ngIf="false">
+            <!-- Mensaje vacío -->
+            <div fxLayout="row" fxLayoutAlign="center center" class="ar-margin-percentage-xs">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <ng-container>
+                        <i class="mdi mdi-baguette ar-color-54 ar-icons-md"></i>
+                        <span class="mat-caption ar-color-54">Buscar material</span>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
 
+        <!-- Área principal -->
+        <perfect-scrollbar fxFlex class="ar-content" *ngIf="true">
+            <div fxLayoutAlign="center">
+                <div fxFlex fxLayout="row" fxLayoutAlign="center">
+                    <div fxLayout="column" fxFlex="75" fxFlex.sm="85" fxFlex.md="75" fxFlex.xs="95">
+                        <!-- Área de tarjetas de productos descartados -->
+                        <div
+                            fxLayoutWrap
+                            fxLayout="row"
+                            class="ar-core-card-area ar-margin-top-sm ar-padding-bottom-sm"
+                        ></div>
+
+                        <!-- despliegue de lista de materiales  -->
+
+                        <div
+                            class="ar-list-item-xs ar-margin-bottom-xs"
+                            fxLayoutAlign="start center"
+                            *ngFor="let material of materiales"
+                        >
+                            <!-- Avatar circular -->
+                            <div class="ar-avatar">
+                                <p class="ar-avatar-xs" matTooltip="Material">
+                                    <span> {{ material.idMaterial }} </span>
+                                </p>
+                            </div>
+                            <!-- despliegue de descripcion de materiales -->
+                            <div
+                                class="ar-margin-left-xs"
+                                fxLayout="row"
+                                fxLayoutAlign="start center"
+                            >
+                                <span class="ar-body-1 ar-color-87">
+                                    {{ material.descripcion }}
+                                </span>
+                            </div>
+                            <!-- espacio de separacion entre lista alineacion izquiera y boton de accion a la derecha -->
+                            <span fxFlex> </span>
+
+                            <!-- Botón de seleccionar -->
+                            <button mat-icon-button color="primary">
+                                <mat-icon aria-label="Seleccionar" class="ar-color-87">
+                                    edit
+                                </mat-icon>
+                            </button>
+                        </div>
+
+                        <!--  -->
+                    </div>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
+
+    <!--  -->
+
+    <!--  -->
 </html>

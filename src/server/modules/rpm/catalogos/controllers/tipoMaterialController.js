@@ -10,7 +10,7 @@ const HttpResponse = require('../../../shared/interfaces/httpResponse');
 const tipoMaterial = require('../models/tipoMaterialModel');
 // Se incluye el fichero de funciones utilitarias
 const utils = require('../../../shared/services/utilidadesService');
-const tipoMaterialModel = require('../models/tipoMaterialModel');
+
 /**
  * broadcastController.js
  

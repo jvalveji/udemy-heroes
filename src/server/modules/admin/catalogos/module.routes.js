@@ -43,7 +43,6 @@ const permisosRoutes = require('./routes/permisosRoutes');
 const tiposMonedaRoutes = require('./routes/tiposMonedaRoutes');
 const bancos = require('./routes/bancosRoutes');
 const tiposPartidaPresupuestariaRoutes = require("./routes/tiposPartidaPresupuestariaRoutes");
-const tipoMaterialRoutes = require("./routes/tipoMaterialRoutes");
 
 // Se obtienen los ficheros de rutas de otros sub-módulos
 
@@ -94,7 +93,6 @@ router.use('/permisos', permisosRoutes);
 router.use('/tipos-moneda', tiposMonedaRoutes);
 router.use('/bancos', bancos);
 router.use('/tipos-partida-presupuestaria', tiposPartidaPresupuestariaRoutes);
-router.use('/tipo-material', tipoMaterialRoutes);
 
 // Enrutamiento otros sub-módulos
 
