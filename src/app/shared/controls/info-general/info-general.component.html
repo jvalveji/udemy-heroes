@@ -19,22 +19,24 @@
                     <div fxFlex fxLayout="row" fxLayoutAlign="start center">
                         <!-- Avatar circular -->
                         <div class="ar-avatar">
-                            <p class="ar-avatar-sm">
-                                <span>G</span>
+                            <p class="ar-avatar-sm" fxLayoutAlign="center center">
+                                <span class="material-icons">
+                                    person
+                                    </span>
                             </p>
                         </div>
 
                         <!-- Nombre y cédula -->
                         <div fxLayout="column" class="ar-margin-left-xs">
-                            <span class="ar-color-54">Guideon Bojorges Bolaños</span>
-                            <span class="ar-color-87" fxLayoutAlign="start center">Gerencia Financiera</span
+                            <span class="ar-color-54">{{datosUsuario.nombreCompleto}}</span>
+                            <span class="ar-color-87" fxLayoutAlign="start center">Centro Logistico: {{centroLogistico.descripcion}}</span
                             >
                         </div>
                     </div>
 
                     <!-- Titulo del control -->
                     <div class="ar-color-54 ar-margin-bottom-xs ar-core-text ar-margin-top-sm">
-                        Agregue la información general del encargado del proceso.
+                        Agregue la información general.
                     </div>
 
                     <!-- Nombre del servicio o área-->

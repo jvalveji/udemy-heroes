@@ -15,6 +15,7 @@ import {
 	FormGroupDirective
 } from "@angular/forms";
 import { AutocompleteComponent } from "../autocomplete/autocomplete.component";
+import { UnidadesProgramaticasService } from "app/admin/catalogos/unidades-programaticas/unidades-programaticas.service";
 //#endregion
 
 //#region Decorador
@@ -61,6 +62,14 @@ export class InfoGeneralComponent implements OnInit {
 	 */
 	public serviciosAutoCompleteStatus: boolean = false;
 
+	/**
+	 * Variable para almacenar el centro logistico
+	 */
+	public centroLogistico: any= {		
+		idCentroLogistico: '',
+		descripcion: ''
+	};
+
 	//Variable que maneja la lista de personas de personas para ser seleecionada como jefatura de area o serivicio
 	public personasJefeAreasServicios: any;
 
@@ -72,7 +81,7 @@ export class InfoGeneralComponent implements OnInit {
 	/**
 	 *Variable que contiene los datos del usuario actual
 	 */
-	private datosUsuario: any;
+	public datosUsuario: any;
 
 	/**
 	 * Variable de formulario que almacena el valor por defecto de los servicios
@@ -151,6 +160,7 @@ export class InfoGeneralComponent implements OnInit {
 	//#region Constructor-Inicio
 	constructor(
 		private utilidadesService: UtilidadesService,
+		private unidadesProgramaticasService: UnidadesProgramaticasService,
 		private fb: FormBuilder
 	) { }
 
@@ -171,6 +181,7 @@ export class InfoGeneralComponent implements OnInit {
 				]),
 			],
 			ext: ["", Validators.compose([])],
+			centroLogistico: [""]
 		});
 		//Se obtiene el tema
 		this.temaApp = this.utilidadesService.GetTemaAplicacion();
@@ -188,10 +199,51 @@ export class InfoGeneralComponent implements OnInit {
 			this.frmInfoGeneral.setValue(this.datos);
 		}
 
+		//Cargar centro de gestión
+		this.cargarCentroLogistico(this.datosUsuario.unidadProgramatica_id);
+
+		//Asignar valor al formulario del centro logistico
+		this.frmInfoGeneral.controls["centroLogistico"].setValue(this.centroLogistico);
+
 	}
 	//#endregion
 
 	//#region Metodos
+
+/**
+ * Metodo encargado de obtener el centro logistico al que pertenece la unidad programatica
+ * @param id 
+ */
+	public cargarCentroLogistico(id: string): void {
+
+		// Inicia la barra de progreso
+		this.esCargando = true;
+		// Se llama a la función del servicio que envia los datos al server
+		this.unidadesProgramaticasService.Show(id).then((res) => {
+			// Oculta la barra de progreso una vez obtenida la respuesta
+			this.esCargando = false;
+			// Recibe la respuesta
+			if (res.exito) {
+				// Asigna las unidades programáticas a la variable general
+				this.centroLogistico.descripcion = res.data.descripcionCentroLogistico;
+			    this.centroLogistico.idCentroLogistico= res.data.idCentroLogistico;
+			}
+			else {
+				// Muestra el mensaje de error
+				//this.msgBox.open('ERROR', 'Error', res.mensaje);
+				// .subscribe(res => alert(res));
+			}
+		}, (err) => {
+			// Oculta la barra de progreso en caso de error
+			this.esCargando = false;
+			// Muestra el mensaje con el error
+			//if (err.error) { this.msgBox.open('ERROR', 'Error de carga', err.error.message); }
+			// .subscribe(res => alert(res));
+		});
+
+	}
+
+
 	/** Permite restablecer la vista del formulario a un estado inicial */
 	public restablecerVistaFormulario(): void {
 		if (this.esEstadoInicialForm) {
@@ -279,7 +331,7 @@ export class InfoGeneralComponent implements OnInit {
 		this.serviciosAutoCompleteStatus =
 			this.serviciosAutoComplete.filtro.invalid;
 
-		if (this.frmInfoGeneral.valid && this.serviciosAutoComplete.filtro.valid) {
+		if (this.frmInfoGeneral.valid && this.serviciosAutoComplete.filtro.valid) {			 
 			this.validarItem.emit(this.frmInfoGeneral.getRawValue());
 		} else this.validarItem.emit(null);
 
@@ -334,6 +386,10 @@ export interface IdataModelInfoGeneral {
 		descripcion: string;
 		idServicio: string;
 		_id: string;
+	}
+	centroLogistico: {		
+		idCentroLogistico: string;
+		descripcion: string;
 	}
 }
 //#endregion

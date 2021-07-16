@@ -14,6 +14,8 @@ let unidadProgramaticaSchema = new Schema({
 	'idUP': Number,
 	'descripcion': String,
 	'estado': Boolean,
+	'idCentroLogistico': String,
+	'descripcionCentroLogistico': String,
 	logs: arcaLog
 });
 
