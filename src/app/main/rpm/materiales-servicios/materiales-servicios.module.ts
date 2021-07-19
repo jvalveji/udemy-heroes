@@ -42,6 +42,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {​​​​​​​​ FormsModule, ReactiveFormsModule }​​​​​​​​ from'@angular/forms';
+
 
 // Modulos extras
 import { FlexLayoutModule } from '@angular/flex-layout'; // Modulo para crear efecto flex
@@ -99,7 +101,9 @@ import { MaterialesSevice } from './servicios/materiales.service';
         MatDialogModule,
         MatTableModule,
         MatProgressSpinnerModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        FormsModule
     ],
 
     providers: [MaterialesSevice],
