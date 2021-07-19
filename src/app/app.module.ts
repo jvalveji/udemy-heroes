@@ -50,6 +50,7 @@ import { PathsService } from './admin/catalogos/paths/paths.service';
 import { PerfilesService } from './admin/catalogos/perfiles/perfiles.service';
 import { BroadcastService } from './admin/broadcast/broadcast.service';
 
+
 @NgModule({
 	imports: [
 		BrowserModule,

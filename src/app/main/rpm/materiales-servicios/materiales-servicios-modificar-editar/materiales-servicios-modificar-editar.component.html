@@ -26,9 +26,13 @@
                 <i class="material-icons">arrow_forward</i>
                 Siguiente
             </button>
-            <button mat-button *ngIf="mostrarAnt" (click)="atras()">
+            <button mat-button *ngIf="mostrarAnt" (click)="validar()">
                 <i class="material-icons">arrow_back</i>
                 Anterior
+            </button>
+            <button mat-button *ngIf="guardarInfo" (click)="limpiar()">
+                <i class="material-icons">clear_all</i>
+                Limpiar
             </button>
             <button mat-button color="accent" *ngIf="guardarInfo">
                 <i class="material-icons">save</i>
@@ -39,87 +43,141 @@
         <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
             <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
                 <div fxLayout="column" fxFlex class="ar-margin-bottom-lg ar-margin-top-sm">
-                    <bitzu-info-general *ngIf="mostrarSig" [IvalorDefaultServicioArea]="valorDefaultServicioArea" #infoGeneralService [@apps]="'fadeIn'" [Idatos]="dataInfoGeneral" (validarItem)="obtenerDatosInfoGeneral($event)"> </bitzu-info-general>
-                    <!-- Formulario de modificar material -->
-                    <ng-container *ngIf="guardarInfo">
-                        <div fxFlex fxLayout="column" [@apps]="'fadeIn'">
-                            <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-                                <!-- Avatar circular -->
-                                <div class="ar-avatar">
-                                    <p class="ar-avatar-sm">
-                                        <span>B</span>
-                                    </p>
+                    <bitzu-info-general
+                        *ngIf="mostrarSig"
+                        [IvalorDefaultServicioArea]="valorDefaultServicioArea"
+                        #infoGeneralService
+                        [@apps]="'fadeIn'"
+                        [Idatos]="dataInfoGeneral"
+                        (validarItem)="obtenerDatosInfoGeneral($event)"
+                    >
+                    </bitzu-info-general>
+                    <form [formGroup]="frmModificacionMaterial" *ngIf="guardarInfo">
+                        <!-- Formulario de modificar material -->
+                        <ng-container>
+                            <div fxFlex fxLayout="column" [@apps]="'fadeIn'">
+                                <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                                    <!-- Avatar circular -->
+                                    <div class="ar-avatar">
+                                        <p class="ar-avatar-sm">
+                                            <span>B</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Identificador del Material -->
+                                    <div fxLayout="column" class="ar-margin-left-xs">
+                                        <span class="ar-color-54">8889999</span>
+                                        <span class="ar-color-87">Bolsas quirúrgicas</span>
+                                    </div>
                                 </div>
-                                <!-- Identificador del Material -->
-                                <div fxLayout="column" class="ar-margin-left-xs">
-                                    <span class="ar-color-54">8889999</span>
-                                    <span class="ar-color-87">Bolsas quirúrgicas</span>
+                                <div
+                                    class="
+                                        ar-color-54
+                                        ar-margin-bottom-sm
+                                        ar-core-text
+                                        ar-margin-top-xs
+                                    "
+                                >
+                                    Modifique las características del material seleccionado.
                                 </div>
-                            </div>
-                            <div
-                                class="
-                                    ar-color-54 ar-margin-bottom-sm ar-core-text ar-margin-top-xs
-                                "
-                            >
-                                Modifique las características del material seleccionado.
-                            </div>
-                            <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
-                                <!-- Descripción del material o servicio -->
-                                <mat-form-field fxFlex appearance="outline">
-                                    <mat-label>Descripción del material o servicio</mat-label>
-                                    <input
-                                        matInput
-                                        placeholder="Descripción del material o servicio"
+                                <div
+                                    fxLayout.xs="column"
+                                    fxLayout="row"
+                                    fxFlex="100"
+                                    fxFlex.xs="100"
+                                >
+                                    <!-- Descripción del material o servicio -->
+                                    <mat-form-field fxFlex appearance="outline">
+                                        <mat-label>Descripción del material o servicio</mat-label>
+                                        <input
+                                            matInput
+                                            name="descMatServ"
+                                            formControlName="descMatServ"
+                                            placeholder="Descripción del material o servicio"
+                                            class="ar-color-87"
+                                        />
+                                        <mat-error
+                                            *ngIf="
+                                                frmModificacionMaterial.controls['descMatServ']
+                                                    .invalid
+                                            "
+                                            >*Debe ingresar una descripcion valido</mat-error
+                                        >
+                                    </mat-form-field>
+
+                                    <!-- Detalle de la modificación -->
+                                    <mat-form-field
+                                        fxFlex
+                                        appearance="outline"
+                                        ngClass="ar-margin-left-xs"
+                                        ngClass.xs="ar-margin-left-none"
+                                    >
+                                        <mat-label>Detalle de la modificación</mat-label>
+                                        <input
+                                            matInput
+                                            formControlName="detModificacion"
+                                            class="ar-color-87"
+                                            size="20"
+                                            maxlength="30"
+                                        />
+                                        <mat-error
+                                            *ngIf="
+                                                frmModificacionMaterial.controls['detModificacion']
+                                                    .invalid
+                                            "
+                                        >
+                                            *Debe ingresar una Justificación de la modificacion
+                                            valida
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- Descripción propuesta -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Descripción de la propuesta</mat-label>
+                                    <textarea
                                         class="ar-color-87"
-                                        value="Descripción"
-                                        disabled
-                                    />
+                                        formControlName="descPropuesta"
+                                        matInput
+                                        placeholder="Descripción de la propuesta"
+                                        cdkTextareaAutosize
+                                        cdkAutosizeMinRows="5"
+                                    ></textarea>
+                                    <input matInput class="ar-color-87" />
+                                    <mat-error
+                                        *ngIf="
+                                            frmModificacionMaterial.controls['descPropuesta']
+                                                .invalid
+                                        "
+                                    >
+                                        *Debe ingresar una descripcion propuesta valida
+                                    </mat-error>
                                 </mat-form-field>
 
-                                <!-- Detalle de la modificación -->
-                                <mat-form-field
-                                    fxFlex
-                                    appearance="outline"
-                                    ngClass="ar-margin-left-xs"
-                                    ngClass.xs="ar-margin-left-none"
-                                >
-                                    <mat-label>Detalle de la modificación</mat-label>
-                                    <input
-                                        matInput
-                                        placeholder="Detalle de la modificación"
+                                <!-- Justificación de la modificación -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Justificación de la modificación</mat-label>
+                                    <textarea
                                         class="ar-color-87"
-                                        value="Descripción"
-                                        size="20"
-                                        maxlength="30"
-                                    />
+                                        matInput
+                                        formControlName="JustModificacion"
+                                        placeholder="Justificación de la modificación"
+                                        cdkTextareaAutosize
+                                        cdkAutosizeMinRows="5"
+                                    ></textarea>
+                                    <input matInput class="ar-color-87" />
+                                    <mat-error
+                                        *ngIf="
+                                            frmModificacionMaterial.controls['JustModificacion']
+                                                .invalid
+                                        "
+                                    >
+                                        *Debe ingresar una Justificación de la modificacion valida
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
-                            <!-- Descripción propuesta -->
-                            <mat-form-field appearance="outline">
-                                <mat-label>Descripción de la propuesta</mat-label>
-                                <textarea
-                                    class="ar-color-87"
-                                    matInput
-                                    placeholder="Descripción de la propuesta"
-                                    cdkTextareaAutosize
-                                    cdkAutosizeMinRows="5"
-                                ></textarea>
-                                <input matInput class="ar-color-87" />
-                            </mat-form-field>
-                            <!-- Justificación de la modificación -->
-                            <mat-form-field appearance="outline">
-                                <mat-label>Justificación de la modificación</mat-label>
-                                <textarea
-                                    class="ar-color-87"
-                                    matInput
-                                    placeholder="Justificación de la modificación"
-                                    cdkTextareaAutosize
-                                    cdkAutosizeMinRows="5"
-                                ></textarea>
-                                <input matInput class="ar-color-87" />
-                            </mat-form-field>
-                        </div>
-                    </ng-container>
+                        </ng-container>
+                    </form>
                 </div>
             </div>
         </perfect-scrollbar>
