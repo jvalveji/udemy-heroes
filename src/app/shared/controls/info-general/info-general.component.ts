@@ -89,11 +89,6 @@ export class InfoGeneralComponent implements OnInit {
 	private valorDefaultServicioArea: string;
 
 	/**
-	 * Variable de formulario que almacena el valor por defecto de los servicios
-	 */
-	private valorDefaultServicioArea: string;
-
-	/**
    Datos de formulario de informacion general para manipular la información y se traslada a otros componentes
    */
 	public frmInfoGeneral: FormGroup;
@@ -203,6 +198,12 @@ export class InfoGeneralComponent implements OnInit {
 		if (this.datos != undefined) {
 			this.frmInfoGeneral.setValue(this.datos);
 		}
+
+		//Cargar centro de gestión
+		this.cargarCentroLogistico(this.datosUsuario.unidadProgramatica_id);
+
+		//Asignar valor al formulario del centro logistico
+		this.frmInfoGeneral.controls["centroLogistico"].setValue(this.centroLogistico);
 
 	}
 	//#endregion
@@ -330,7 +331,7 @@ export class InfoGeneralComponent implements OnInit {
 		this.serviciosAutoCompleteStatus =
 			this.serviciosAutoComplete.filtro.invalid;
 
-		if (this.frmInfoGeneral.valid && this.serviciosAutoComplete.filtro.valid) {
+		if (this.frmInfoGeneral.valid && this.serviciosAutoComplete.filtro.valid) {			 
 			this.validarItem.emit(this.frmInfoGeneral.getRawValue());
 		} else this.validarItem.emit(null);
 
@@ -385,6 +386,10 @@ export interface IdataModelInfoGeneral {
 		descripcion: string;
 		idServicio: string;
 		_id: string;
+	}
+	centroLogistico: {		
+		idCentroLogistico: string;
+		descripcion: string;
 	}
 }
 //#endregion
