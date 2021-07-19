@@ -26,15 +26,15 @@
                 <i class="material-icons">arrow_forward</i>
                 Siguiente
             </button>
-            <button mat-button *ngIf="mostrarAnt" (click)="validar()">
+            <button mat-button *ngIf="mostrarAnt" (click)="atras()">
                 <i class="material-icons">arrow_back</i>
                 Anterior
             </button>
-            <button mat-button *ngIf="guardarInfo" (click)="limpiar()">
+            <button mat-button  (click)="limpiar()">
                 <i class="material-icons">clear_all</i>
                 Limpiar
             </button>
-            <button mat-button color="accent" *ngIf="guardarInfo">
+            <button mat-button color="accent" (click)="guardar()" >
                 <i class="material-icons">save</i>
                 Guardar
             </button>
@@ -52,7 +52,7 @@
                         (validarItem)="obtenerDatosInfoGeneral($event)"
                     >
                     </bitzu-info-general>
-                    <form [formGroup]="frmModificacionMaterial" *ngIf="guardarInfo">
+                    <form [formGroup]="frmModificacionMaterial" *ngIf="guardarInfo" (ngSubmit)="validar()" #documentFormModificar="ngForm">
                         <!-- Formulario de modificar material -->
                         <ng-container>
                             <div fxFlex fxLayout="column" [@apps]="'fadeIn'">

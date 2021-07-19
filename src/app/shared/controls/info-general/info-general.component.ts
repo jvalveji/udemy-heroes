@@ -246,7 +246,7 @@ export class InfoGeneralComponent implements OnInit {
 
 	/** Permite restablecer la vista del formulario a un estado inicial */
 	public restablecerVistaFormulario(): void {
-		if (this.esEstadoInicialForm) {
+		
 			this.frmInfoGeneral.reset(); // Limpia el formulario
 			this.serviciosAutoComplete.Reset(); // Limpia el control de autocompletar de servicios
 			this.jefeAreasServiciosAutoComplete.Reset(); // Limpia el control de autocompletar de jefes servicios
@@ -254,7 +254,7 @@ export class InfoGeneralComponent implements OnInit {
 			this.frmInfoGeneral.controls["correo"].setValue(
 				this.datosUsuario?.correo
 			); //Cargar correo del usuario logueado.		
-		}
+		
 	}
 
 	/**
