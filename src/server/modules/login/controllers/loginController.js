@@ -749,7 +749,8 @@ let ProcesoActualizarPermisosMISE = function (args, appId, upId, usuarioId, dato
 					usuario: args.usuario,
 					clave: args.clave,
 					up: upId,
-					app: appId
+					app: appId,
+					correo: datosMISE.sesion.usuario.correoElectronico
 				}, false, function (err, datosUsuario) {
 					if (err) {
 						callback(err, null);
