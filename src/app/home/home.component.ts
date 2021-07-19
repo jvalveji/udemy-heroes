@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 @Component({
 	templateUrl: './home.component.html',
 	styleUrls: [
-		'./styles/styles-bootstrap.min.css',
+		// './styles/styles-bootstrap.min.css',
 		'./styles/styles.css'
 	]
 })

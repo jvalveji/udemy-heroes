@@ -1,323 +1,447 @@
 <!-- ***************************************
 [HTML /home/]
 
-Proyecto:	arca Core
+Proyecto:	bitzú Core
 Version:	1.1
-Fecha de creación:	07/2017
+Fecha de creación:	06/2021
 Asignado a:	Adrián Fallas (afallasp@ccss.sa.cr) (diseño)
 Desarrollo: Centro de Gestión Informática
 Centro: Hospital San Vicente de Paúl
 Cliente:	Caja Costarricense de Seguro Social
 
-Rediseño: 01/2019 
 *********************************************-->
 
-<body id="page-top">
-    <!-- Menú -->
-    <nav
-        id="mainNav"
-        class="navbar navbar-default navbar-fixed-top"
-        style="background-color: #2d3047"
-    >
-        <div class="container">
-            <div class="navbar-header navbar-left">
-                <a
-                    class="navbar-brand page-scroll"
-                    pageScroll
-                    [pageScrollDuration]="300"
-                    href="#page-top"
-                    ><img
-                        [src]="UrlWebkit + '/images/home/arca.svg' | safeURL"
-                        width="24"
-                        height="24"
-                /></a>
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Bitzú || Plan de Innovación</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.png"> -->
+
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <!-- <link rel="stylesheet" crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="> -->
+    <!-- <link href="assets/css/theme.css" rel="stylesheet" /> -->
+
+    <!-- <link href="vendors/swiper/swiper-bundle.min.css" rel="stylesheet"> -->
+</head>
+
+
+<body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <nav class="navbar navbar-light sticky-top mt-6" data-navbar-darken-on-scroll="900">
+            <div class="container pt-2"><a href="index.html"> <i
+                        class="bi-isotipo_bitzu ar-icons-sm ar-color-87"></i></a>
+                <div class="navbar-nav ms-auto">
+                    <!-- <button class="btn btn-secondary">Login</button> -->
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a
-                            class="navbar-brand page-scroll"
-                            pageScroll
-                            [pageScrollDuration]="300"
-                            href="#features"
-                            >Características</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="navbar-brand page-scroll"
-                            pageScroll
-                            [pageScrollDuration]="300"
-                            href="#arcapp"
-                            >Arcapp</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="navbar-brand"
-                            target="_blank"
-                            href="http://soporte.gmedica.caja.ccss.sa.cr"
-                            >Soporte</a
-                        >
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- Header con imagen cover -->
-    <header class="ar-home-cover">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="header-content">
-                        <div class="header-content-inner section-title">
-                            <h1>Una nueva versión en la familia de aplicaciones Arca.</h1>
-                            <!--Ejemplo de queryParams
-								 <a [routerLink]="['/bitzu/login']" [queryParams]="{layvie: 0}" routerLinkActive="active"
-								class="btn btn-outline btn-xl page-scroll">Iniciar</a> -->
-                            <a
-                                [routerLink]="['/bitzu/login']"
-                                routerLinkActive="active"
-                                class="btn btn-outline btn-xl page-scroll"
-                                >Iniciar</a
-                            >
-                        </div>
+        </nav>
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        <section class="mt-6">
+
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-9 col-lg-8 col-xl-5">
+                        <h1 class="display-3 lh-sm">Trabaja de forma más eficiente</h1>
+                    </div>
+                    <div class="col-md-9 col-xl-5">
+                        <p class="fs-2">Con las herramientas adecuadas, ahorramos tiempo a tu equipo. Cuando todo
+                            funciona sin inconvenientes, puedes enfocarte en las tareas realmente importantes.</p>
+                        <button class="btn btn-primary mt-3" [routerLink]="['/bitzu/login']"
+                            routerLinkActive="active">Iniciar sesión</button>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Botón de navegación -->
-        <div
-            class="ar-navegation-bar scrollIndicator hidden-xs hidden-sm"
-            fxLayoutAlign="center center"
-            pageScroll
-            [pageScrollDuration]="300"
-            href="#features"
-        >
-            <i
-                class="mdi mdi-chevron-down ar-text-secondary-white ar-icon-md ar-core-element-animation"
-            ></i>
-        </div>
-    </header>
-    <!-- Características -->
-    <section class="feature-area section-padding-top" id="features">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                    <div class="page-title text-center">
-                        <h5 class="title">CARACTERÍSTICAS</h5>
-                        <div class="space-10"></div>
-                        <h3>Diseñado para simplificar tareas</h3>
+            <!-- end of .container-->
+
+        </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        <section>
+
+            <div class="container">
+                <img class="img-fluid" [src]="UrlWebkit + '/images/home/dashboard.png' | safeURL" alt="Dashboard" />
+
+            </div>
+            <!-- end of .container-->
+
+        </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        <section>
+
+            <div class="container">
+                <div class="row mx-md-5 px-md-5 d-flex justify-content-evenly">
+                    <div class="col-4 col-lg-auto mt-5 mt-lg-0"><i class="fab fa-angular ar-color-54 ar-icons-lg"></i>
+                    </div>
+                    <div class="col-4 col-lg-auto mt-5 mt-lg-0"><i
+                            class="fab fa-git-square ar-color-54 ar-icons-lg"></i></div>
+                    <div class="col-4 col-lg-auto mt-5 mt-lg-0"><i class="fab fa-js-square ar-color-54 ar-icons-lg"></i>
+                    </div>
+                    <div class="col-4 col-lg-auto mt-5 mt-lg-0"><i class="fab fa-html5 ar-color-54 ar-icons-lg"></i>
+                    </div>
+                    <div class="col-4 col-lg-auto mt-5 mt-lg-0"><i class="fab fa-css3-alt ar-color-54 ar-icons-lg"></i>
+                    </div>
+                </div>
+                <div class="px-xl-8 px-md-7">
+                    <hr class="mt-7 text-1000" />
+                </div>
+            </div>
+            <!-- end of .container-->
+
+        </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        <section>
+
+            <div class="container">
+                <h1 class="display-6 fw-semi-bold"> Características</h1>
+                <p class="fs-2">Bitzú es la colección de herramientas de productividad del Plan de Innovación
+                    institucional, que te permiten organizar tu trabajo y colaborar de forma más inteligente.</p>
+                <div class="row mb-4 mt-6">
+                    <div class="col-md-6">
+                        <div class="border rounded-1 border-700 h-100 features-items">
+                            <div class="p-5"><i class="far fa-desktop ar-color-54 ar-icons-md"></i>
+                                <h3 class="pt-3 lh-base">Escritorio personalizado</h3>
+                                <p class="mb-0">Los módulos disponibles se muestran de acuerdo a los permisos que tenga
+                                    el usuario y sus funciones dentro de la organización.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="border rounded-1 border-700 h-100 features-items">
+                            <div class="p-5"><i class="far fa-shield-alt ar-color-54 ar-icons-md"></i>
+                                <h3 class="pt-3 lh-base">Seguridad</h3>
+                                <p class="mb-0">El sistema utiliza los protocolos establecidos de seguridad de la
+                                    institución.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="border rounded-1 border-700 h-100 features-items">
+                            <div class="p-5"><i class="far fa-wand-magic ar-color-54 ar-icons-md"></i>
+                                <h3 class="pt-3 lh-base">Simplicidad</h3>
+                                <p class="mb-0">El sistema muestra lo que realmente necesita el usuario. Hemos eliminado
+                                    todos aquellos elementos innesarios.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="border rounded-1 border-700 h-100 features-items">
+                            <div class="p-5"><i class="far fa-mouse-pointer ar-color-54 ar-icons-md"></i>
+                                <h3 class="pt-3 lh-base">Facilidad de uso</h3>
+                                <p class="mb-0">Hemos investigado a fondo el modelo mental del usuario, para entregarle
+                                    un sistema fácil de usar y de aprender.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="border rounded-1 border-700 h-100 features-items">
+                            <div class="p-5"><i class="far fa-brackets-curly ar-color-54 ar-icons-md"></i>
+                                <h3 class="pt-3 lh-base">Tecnología</h3>
+                                <p class="mb-0">Usamos las últimas tecnologías de desarrollo disponibles y nos mantenemos al día con nuevas actualizaciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="border rounded-1 border-700 h-100 features-items">
+                            <div class="p-5"><i class="far fa-rabbit-fast ar-color-54 ar-icons-md"></i>
+                                <h3 class="pt-3 lh-base">Rendimiento</h3>
+                                <p class="mb-0">La tecnología utilizada nos permite tener un sistema eficiente.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row ar-margin-top-lg">
-                <div class="col-xs-12 col-sm-6 col-mat-4 ar-margin-top-md">
-                    <div class="service-box">
-                        <div class="box-icon">
-                            <i class="mdi mdi-monitor-cellphone ar-icon-md"></i>
-                        </div>
-                        <h4>Adaptable</h4>
-                        <p>Se ajusta a los diferentes resoluciones de dispositivos.</p>
-                    </div>
-                    <div class="service-box" data-wow-delay="0.4s">
-                        <div class="box-icon">
-                            <i class="mdi mdi-flash ar-icon-md"></i>
-                        </div>
-                        <h4>Actualizado</h4>
-                        <p>Creado con las últimas tecnologías de desarrollo de Software.</p>
-                    </div>
-                    <div class="service-box">
-                        <div class="box-icon">
-                            <i class="mdi mdi-star ar-icon-md"></i>
-                        </div>
-                        <h4>Personalizado</h4>
-                        <p>
-                            Diseño y lógica de funcionamiento desarrollado en coordinación con el
-                            usuario final.
-                        </p>
+            <!-- end of .container-->
+
+        </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+
+
+      
+
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        <section class="mt-5">
+
+            <div class="container">
+                <div class="text-center">
+                    <p class="fs-2 ls-2">METODOLOGÍA</p>
+                    <h1 class="display-6 fw-semi-bold">¿Cómo funciona?</h1>
+                </div>
+                <div class="row mt-6 flex-center justify-content-xl-evenly px-xl-5">
+                    <div class="col-md-7 col-lg-6 order-md-1"><img class="w-100"
+                            [src]="UrlWebkit + '/images/home/comment1.png' | safeURL" alt="Dashboard"></div>
+                    <div class="col-md-5 col-lg-4">
+                        <h3 class="fs-xl-7 fs-lg-4 fs-md-3 mt-5 mt-md-0">Listados de datos</h3>
+                        <p class="fs-xl-1 ls-3 pe-xl-2"> Los componentes de listar se utilizan para mostrar y eliminar datos de la base de datos.</p>
                     </div>
                 </div>
-                <div class="hidden-xs hidden-sm col-mat-4">
-                    <figure class="mobile-image">
-                        <img
-                            [src]="UrlWebkit + '/images/home/arca_home01.png' | safeURL"
-                            alt="Feature Photo"
-                        />
-                    </figure>
+                <div class="row mt-6 flex-center justify-content-xl-evenly px-xl-5">
+                    <div class="col-md-7 col-lg-6 false"><img class="w-100" [src]="UrlWebkit + '/images/home/comment2.png' | safeURL" alt="Dashboard"
+                            alt="..." /></div>
+                    <div class="col-md-5 col-lg-4">
+                        <h3 class="fs-xl-7 fs-lg-4 fs-md-3 mt-5 mt-md-0">Edición y creación de nuevos datos</h3>
+                        <p class="fs-xl-1 ls-3 pe-xl-2"> Los componentes de editar se utilizan para editar o agregar nuevos datos de la base de datos.</p>
+                    </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-mat-4 ar-margin-top-md">
-                    <div class="service-box">
-                        <div class="box-icon">
-                            <i class="mdi mdi-lock-open ar-icon-md"></i>
-                        </div>
-                        <h4>Open Source</h4>
-                        <p>Desarrollado con tecnología de código abierto.</p>
-                    </div>
-                    <div class="service-box">
-                        <div class="box-icon">
-                            <i class="mdi mdi-gesture-tap ar-icon-md"></i>
-                        </div>
-                        <h4>Experiencia de usuario</h4>
-                        <p>
-                            Funcionalidades simples y sin elementos innecesarios, mediante la
-                            incorporación de funciones táctiles.
-                        </p>
-                    </div>
-                    <div class="service-box wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="box-icon">
-                            <i class="mdi mdi-animation ar-icon-md"></i>
-                        </div>
-                        <h4>Dinámico</h4>
-                        <p>
-                            Puede moverse y personalizarse sin problemas entre sus aplicaciones
-                            favoritas en el escritorio.
-                        </p>
+                <div class="row mt-6 flex-center justify-content-xl-evenly px-xl-5">
+                    <div class="col-md-7 col-lg-6 order-md-1"><img class="w-100" [src]="UrlWebkit + '/images/home/comment3.png' | safeURL" alt="Dashboard"
+                            alt="..." /></div>
+                    <div class="col-md-5 col-lg-4">
+                        <h3 class="fs-xl-7 fs-lg-4 fs-md-3 mt-5 mt-md-0">Escritorio principal</h3>
+                        <p class="fs-xl-1 ls-3 pe-xl-2"> Lista los módulos disponibles de acuerdo a los permisos de usuario.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Descripción -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-mat-5">
-                    <div class="page-title">
-                        <h5 class="title">MÓDULOS</h5>
-                        <div class="space-10"></div>
-                        <h3 class="dark-color">Variedad de soluciones</h3>
-                    </div>
-                    <div>
-                        <p class="text-color">
-                            Lo mejor de Arca está integrado. Todas las aplicaciones de arca están en
-                            una sola solución, de acuerdo a su perfil de usuario, por lo que estás
-                            listo para comenzar desde el momento en que inicias sesión.
-                        </p>
-                        <p class="text-color">
-                            Actualmente se desarrollan aplicaciones para diferentes áreas, agregando
-                            nuevas funcionalidades y conceptos, de la mano con el usuario final,
-                            haciendo el trabajo más fácil y productivo.
-                        </p>
-                        <p class="text-color">
-                            Entre los productos más importantes tenemos Hospitalización, Nutrición,
-                            Patología, el Módulo Quirúrgico y Recursos Humanos.
-                        </p>
-                    </div>
+            <!-- end of .container-->
+
+        </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        <section *ngIf="false">
+
+            <div class="container-lg">
+                <div class="text-center">
+                    <p class="fs-2 ls-2">SAFLOW</p>
+                    <h1 class="display-6 fw-semi-bold">Pricing</h1>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-mat-7 col-md-offset-1 module">
-                    <div class="service-box">
-                        <div class="box-icon">
-                            <i class="mdi mdi-hexagon ar-icon-md"></i>
+                <div class="row flex-center">
+                    <div class="col-sm-9 col-md-4 mt-3">
+                        <div class="py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-md-9">
+                            <p class="fs-2 ls-2">FREE</p>
+                            <h1 class="display-4 ls-3"><span class="text-600">$</span>0</h1>
+                            <hr class="hr mt-6 text-1000" />
+                            <ul class="mt-5 ps-0">
+                                <li class="pricing-lists"><i
+                                        class="fas fa-check-circle fa-lg me-2 text-600"></i>7,000,000+ Events</li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>4
+                                    Custom Domains</li>
+                                <li class="pricing-lists"><i
+                                        class="fas fa-check-circle fa-lg me-2 text-600"></i>Dedicated Support </li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>12
+                                    Months History</li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>1
+                                    Dedicated SSL</li>
+                            </ul>
+                            <button class="btn btn-gray mt-4">Get Started <span
+                                    class="fas fa-arrow-right"></span></button>
                         </div>
-                        <h4>NUTRICIÓN</h4>
-                        <p class="text-color">
-                            Gestiona menús, ingredientes, tipos de dietas, recetas, administración
-                            de pedidos, calendarización de menús y registro de existencia de insumos
-                            y contratos.
-                        </p>
                     </div>
-                    <div class="service-box">
-                        <div class="box-icon">
-                            <i class="mdi mdi-hexagon ar-icon-md"></i>
+                    <div class="col-sm-9 col-md-4 mt-3">
+                        <div class="py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0">
+                            <p class="fs-2 ls-2">BASIC</p>
+                            <h1 class="display-4 ls-3"><span class="text-600">$</span>23</h1>
+                            <hr class="hr mt-6 text-1000" />
+                            <ul class="mt-5 ps-0">
+                                <li class="pricing-lists"><i
+                                        class="fas fa-check-circle fa-lg me-2 text-600"></i>7,000,000+ Events</li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>4
+                                    Custom Domains</li>
+                                <li class="pricing-lists"><i
+                                        class="fas fa-check-circle fa-lg me-2 text-600"></i>Dedicated Support </li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>12
+                                    Months History</li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>1
+                                    Dedicated SSL</li>
+                            </ul>
+                            <button class="btn btn-gray mt-4">Get Started <span
+                                    class="fas fa-arrow-right"></span></button>
                         </div>
-                        <h4>PATOLOGÍA</h4>
-                        <p class="text-color">
-                            Registro de solicitudes de análisis patológicos, estudios Macroscópicos
-                            y elaboración de estudios especializados de patogía.
-                        </p>
                     </div>
-                    <div class="service-box">
-                        <div class="box-icon">
-                            <i class="mdi mdi-hexagon ar-icon-md"></i>
+                    <div class="col-sm-9 col-md-4 mt-3">
+                        <div class="py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-md-9">
+                            <p class="fs-2 ls-2">PREMIUM</p>
+                            <h1 class="display-4 ls-3"><span class="text-600">$</span>59</h1>
+                            <hr class="hr mt-6 text-1000" />
+                            <ul class="mt-5 ps-0">
+                                <li class="pricing-lists"><i
+                                        class="fas fa-check-circle fa-lg me-2 text-600"></i>7,000,000+ Events</li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>4
+                                    Custom Domains</li>
+                                <li class="pricing-lists"><i
+                                        class="fas fa-check-circle fa-lg me-2 text-600"></i>Dedicated Support </li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>12
+                                    Months History</li>
+                                <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>1
+                                    Dedicated SSL</li>
+                            </ul>
+                            <button class="btn btn-gray mt-4">Get Started <span
+                                    class="fas fa-arrow-right"></span></button>
                         </div>
-                        <h4>MÓDULO QUIRÚRGICO</h4>
-                        <p class="text-color">
-                            Asignación de salas, diagnóstico pre operatorio, autorización de la
-                            programación del paciente, notas operatoria, registro de lesiones,
-                            técnica empleada, asignación de médicos y asistentes, procedimientos
-                            realizados y los tiempos quirúrgicos.
-                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Arcapp -->
-    <section class="arcapp-area" id="arcapp">
-        <div class="container" style="margin-top: -180px">
-            <div class="row">
-                <div class="col-xs-12 col-mat-4">
-                    <div class="arcapp-photo">
-                        <img
-                            [src]="UrlWebkit + '/images/home/arca_home02.png' | safeURL"
-                            alt="Feature Photo"
-                        />
-                    </div>
-                </div>
-                <div class="col-xs-12 col-mat-8 col-md-offset-1" style="margin-top: 20%">
-                    <div class="page-title">
-                        <h5 class="title">Arcapp</h5>
-                        <h3 class="ar-text-primary-white">Visita Hospitalaria</h3>
-                        <div class="desc ar-text-secondary-white">
-                            <p>
-                                La aplicación arcapp Visita Hospitalaria permite el ingreso a la
-                                visita de asegurados hospitalizados y enviar autorizaciones de
-                                visita a terceros.
-                            </p>
+            <!-- end of .container-->
+
+        </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        <section *mngIf="false">
+
+            <div class="container">
+                <div class="text-center text-xl-start">
+                    <div class="p-5 bg-primary rounded-3 d-flex flex-column justify-content-xl-between flex-xl-row">
+                        <div class="py-3">
+                            <h4 class="opacity-50 ls-2 lh-base fw-medium">LISTO PARA INICIAR</h4>
+                            <h2 class="mt-3 fs-4 fs-sm-7 latter-sp-3 lh-base fw-semi-bold">
+                                Solicite una cuenta de usuario a su jefatura inmediata
+                            </h2>
                         </div>
-                        <a
-                            href="https://play.google.com/store/apps/details?id=sa.cr.ccss.arcapp"
-                            target="_blank"
-                            class="btn btn-outline btn-xl"
-                            >Google Play</a
-                        >
+                        <!-- <div class="flex-center d-flex">
+                            <button class="btn btn-info">Get Started <span class="fas fa-arrow-right"></span></button>
+                        </div> -->
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-mat-3 col-sm-4">
-                    <div style="text-align: center">
-                        <img
-                            [src]="UrlWebkit + '/images/home/arca.svg' | safeURL"
-                            width="35"
-                            height="35"
-                        />
-                        <div style="color: #fffbee; font-size: 26px">arca</div>
+            <!-- end of .container-->
+
+        </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+          <!-- ============================================-->
+        <!-- <section> begin ============================-->
+            <section class="mt-5">
+
+                <div class="container">
+                    <div class="text-center">
+                        <div class="p-5 rounded-1 border-700 h-100 bg-secondary">
+                            <div class="py-3">
+                                <h4 class="opacity-75 ls-2 lh-base fw-medium">¿LISTO PARA UNIRSE?</h4>
+                                <h2 class="mt-3 fs-4 fs-sm-7 latter-sp-3 lh-base fw-semi-bold">Solicite una cuenta de
+                                    usuario a su jefatura inmediata
+                                </h2>
+                            </div>
+                            <!-- <div class="flex-center d-flex">
+                                <button class="btn btn-info">Get Started <span class="fas fa-arrow-right"></span></button>
+                            </div> -->
+                        </div>
                     </div>
                 </div>
-                <div class="col-mat-4 col-sm-4">
-                    <p>
-                        Arca es desarrollado en el Centro de Gestión Informática del Hospital San
-                        Vicente de Paúl, con el objetivo de contribuir con el desarrollo de sistemas
-                        para la Caja Costarricense de Seguro Social. Arca Visita Hospitalaria no se
-                        encuentra disponible en otros centros médicos. CGI. 2017-{{
-                            annoActual.getFullYear()
-                        }}
-                        . Google Play y el logotipo de Google Play son marcas comerciales de Google
-                        LLC.
-                    </p>
-                </div>
-                <div class="col-mat-5 col-sm-4">
-                    <p>
-                        Éste sistema se encuentra en desarrollo, las caraterísticas, diseño y
-                        funcionalidades pueden cambiar sin previo aviso.
-                    </p>
-                    <p></p>
-                    <p class="ar-margin-top-xs">
-                        <i class="mdi mdi-map-marker ar-icon-sm ar-margin-right-xs"></i> 700 metros
-                        sur del Estadio Eladio Rosabal Cordero, Heredia, Costa Rica.
-                    </p>
-                    <p>
-                        <i class="mdi mdi-phone ar-icon-sm ar-margin-right-xs"></i> (506) 2562-8600
-                    </p>
+                <!-- end of .container-->
+    
+            </section>
+            <!-- <section> close ============================-->
+            <!-- ============================================-->
+    
+
+
+        <!-- ============================================-->
+        <!-- <section> begin ============================-->
+        <section class="bg-primary">
+
+            <div class="container">
+                <div class="row">
+                    <!-- <div class="col-xl-3 text-center text-xl-start"><a href="#!"><img class="footer-img me-xl-5 me-3"
+                                src="assets/img/gallery/facebook-line1.svg" alt="fb"
+                                style="width:20px;height:20px;" /></a><a href="#!"><img class="footer-img me-xl-5 me-3"
+                                src="assets/img/gallery/linkedin-line1.svg" alt="in"
+                                style="width:20px;height:20px;" /></a><a href="#!"><img class="footer-img me-xl-5 me-3"
+                                src="assets/img/gallery/twitter-line1.svg" alt="twitter"
+                                style="width:20px;height:20px;" /></a><a href="#!"><img class="footer-img me-xl-5 me-3"
+                                src="assets/img/gallery/instagram-line1.svg" alt="instragram"
+                                style="width:20px;height:20px;" /></a>
+                    </div> -->
+                    <div class="col-xl-4 pt-2 pt-xl-0">
+                        <p class="mb-0 text-center text-xl-end">
+                            Plan de Innovación
+                        </p>
+                    </div>
+                    <div class="col-xl-5 pt-2 pt-xl-0 text-center text-xl-end">
+                        <p class="mb-0 text-300">Caja Costarricense de Seguro Social</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+            <!-- end of .container-->
+
+        </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+
+
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="vendors/swiper/swiper-bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <script src="assets/js/theme.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400&amp;display=swap" rel="stylesheet">
+ 
 </body>
+
+</html>

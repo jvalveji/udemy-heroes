@@ -70,7 +70,6 @@ import { PrinterService } from './printer/printer.service';
 import { AmazingTimePickerService } from './date-time-picker/atp-library/atp-time-picker.service';
 import { AtpCoreService } from './date-time-picker/atp-library/atp-core.service';
 
-
 @NgModule({
 	imports: [
 		CommonModule,
