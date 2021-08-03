@@ -1,3 +1,4 @@
+
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -14,6 +15,7 @@ import { MaterialesServiciosBajaListarComponent } from './materiales-servicios-b
 import { MaterialesServiciosModificarEditarComponent } from './materiales-servicios-modificar-editar/materiales-servicios-modificar-editar.component';
 import { MaterialesServiciosBajaEditarComponent } from './materiales-servicios-baja-editar/materiales-servicios-baja-editar.component';
 import { MaterialesServiciosAltaEditarComponent } from './materiales-servicios-alta-editar/materiales-servicios-alta-editar.component';
+import { GestionFormulariosCentroLogisticoListarComponent } from './gestion-formularios-centro-logistico-listar/gestion-formularios-centro-logistico-listar.component';
 
 // Componentes Angular Material
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -50,7 +52,7 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PipesModule } from 'app/shared/pipes/pipes.module';
-
+import {ScrollingModule} from '@angular/cdk/scrolling';
 // Servicios
 import { MaterialesSevice } from './servicios/materiales.service';
 
@@ -63,7 +65,8 @@ import { MaterialesSevice } from './servicios/materiales.service';
         MaterialesServiciosModificarListarComponent,
         MaterialesServiciosModificarEditarComponent,
         MaterialesServiciosBajaEditarComponent,
-        MaterialesServiciosAltaEditarComponent
+        MaterialesServiciosAltaEditarComponent,
+        GestionFormulariosCentroLogisticoListarComponent
     ],
     imports: [
         ArcaControlsModule,
@@ -92,7 +95,8 @@ import { MaterialesSevice } from './servicios/materiales.service';
         MatRadioModule,
         MatCheckboxModule,
         FlexLayoutModule,
-        PerfectScrollbarModule,
+        PerfectScrollbarModule,        
+        ScrollingModule,
         MatStepperModule,
         MatTabsModule,
         MatProgressBarModule,
