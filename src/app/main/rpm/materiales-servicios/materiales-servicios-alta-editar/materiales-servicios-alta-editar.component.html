@@ -1,1 +1,273 @@
-<p>materiales-servicios-alta-editar works!</p>
+<!-- ========================================================================
+  [HTML /materiales-servicios-alta-editar.component.html]
+
+  Proyecto: 			Bitzú RPM
+  Version:  			1.0
+  Fecha de creación:  	07/2021
+  Asignado a: 			Equipo Bitzú RPM
+  Desarrollo: 			Tecnologías de Información y Comunicaciones
+  Unidad: 				Plan de Innovación
+  Cliente: 				Caja Costarricense de Seguro Social
+======================================================================== -->
+
+<html fullscreen class="{{ temaApp }}">
+<div fxFlex fxLayout="column" class="ar-background">
+    <!-- Barra de progreso *ngIf="esCargando" -->
+    <div class="ar-progressbar">
+        <mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+    </div>
+    <!-- Toolbar de acciones estilo formulario -->
+    <mat-toolbar class="ar-toolbar mat-elevation-z0">
+        <button mat-icon-button (click)="CerrarDialogo()">
+                <mat-icon>close</mat-icon>
+            </button>
+        <span fxFlex></span>
+        <button mat-button *ngIf="mostrarSigGeneral" (click)="validarInfoGeneral()">
+                <i class="material-icons">arrow_forward</i>
+                Siguiente
+            </button>
+
+        <button mat-button *ngIf="mostrarAnt" (click)="atras()">
+                <i class="material-icons">arrow_back</i>
+                Anterior
+            </button>
+
+        <button mat-button *ngIf="mostrarSigAlta" (click)="validarInfoAlta()">
+                <i class="material-icons">arrow_forward</i>
+                Siguiente
+            </button>
+        <button mat-button (click)="limpiar()">
+                <i class="material-icons">clear_all</i>
+                Limpiar
+            </button>
+        <button mat-button color="accent" (click)="guardar()">
+                <i class="material-icons">save</i>
+                Guardar
+            </button>
+    </mat-toolbar>
+    <!-- Listado de Materiales-->
+    <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+            <div fxLayout="column" fxFlex class="ar-margin-bottom-lg ar-margin-top-sm">
+                <bitzu-info-general *ngIf="mostrarSigGeneral" [IvalorDefaultServicioArea]="valorDefaultServicioArea" #infoGeneralService [@apps]="'fadeIn'" [Idatos]="dataInfoGeneral" (validarItem)="obtenerDatosInfoGeneral($event)">
+                </bitzu-info-general>
+
+                <form [formGroup]="frmAltaMaterial" *ngIf="esAlta" (ngSubmit)="validar()" #documentFormAlta="ngForm">
+                    <!-- Formulario alta de material -->
+                    <ng-container>
+                        <div fxFlex fxLayout="column" [@apps]="'fadeIn'">
+                            <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                                <!-- Avatar circular -->
+                                <div class="ar-avatar">
+                                    <p class="ar-avatar-sm" fxLayoutAlign="center center">
+                                        <span class="material-icons"> person </span>
+                                    </p>
+                                </div>
+
+                                <!-- Identificador del Material -->
+                                <!--<div fxLayout="column" class="ar-margin-left-xs">
+                                    <span class="ar-color-54">8889999</span>
+                                    <span class="ar-color-87">Bolsas quirúrgicas</span
+                                        >
+                                    </div>-->
+                            </div>
+                            <div class="
+                                        ar-color-54
+                                        ar-margin-bottom-sm
+                                        ar-core-text
+                                        ar-margin-top-xs
+                                    ">
+                                Ingreso de solicitud para alta de material o servicio.
+                            </div>
+
+                            <!-- Descripción del material o servicio -->
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Descripción</mat-label>
+                                <input matInput name="descMatServ" formControlName="descMatServ" class="ar-color-87" />
+                                <mat-error *ngIf="frmAltaMaterial.controls['descMatServ'].invalid">*Debe ingresar una descripcion válida
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Estructura de grupos -->
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Seleccione la estructura</mat-label>
+                                <input matInput name="estMatServ" formControlName="estMatServ" class="ar-color-87" />
+                                <mat-error *ngIf="frmAltaMaterial.controls['estMatServ'].invalid">*Debe seleccionar una opción</mat-error>
+                            </mat-form-field>
+                            <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+                                <!-- Unidad de medida -->
+                                <mat-form-field fxFlex appearance="outline">
+                                    <mat-label>Seleccione la unidad de medida </mat-label>
+                                    <input matInput name="medMatServ" formControlName="medMatServ" class="ar-color-87" />
+                                    <mat-error *ngIf="frmAltaMaterial.controls['medMatServ'].invalid">*Debe seleccionar una opción
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <!-- Unidad de medida para despacho-->
+                                <mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs" ngClass.xs="ar-margin-left-none">
+                                    <mat-label>Seleccione la unidad de medida para despacho
+                                    </mat-label>
+                                    <input matInput name="despMatServ" formControlName="despMatServ" class="ar-color-87" size="20" maxlength="30" />
+                                    <mat-error *ngIf="frmAltaMaterial.controls['despMatServ'].invalid">*Debe ingresar una unidad
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Otras unidades de medida equivalentes -->
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Digite la unidad equivalente</mat-label>
+                                <input matInput name="otrundMatServ" formControlName="otrundMatServ" class="ar-color-87" />
+                                <mat-error *ngIf="frmAltaMaterial.controls['otrundMatServ'].invalid">*Debe ingresar una unidad de medida
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Tipo de material -->
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Seleccione el tipo de material o servicio
+                                </mat-label>
+                                <mat-select name="tipMatServ" formControlName="tipMatServ" class="ar-color-87">
+                                    <mat-option *ngFor="let tip_mat of catalogo" [value]="tip_mat.nomenclatura">
+                                        {{ tip_mat.nomenclatura }} - {{ tip_mat.descripcion }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="frmAltaMaterial.controls['tipMatServ'].invalid">*Debe seleccionar un tipo
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Consumo promedio anual -->
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Digite el consumo promedio anual </mat-label>
+                                <input matInput name="promdMatServ" formControlName="promdMatServ" class="ar-color-87" />
+                                <mat-error *ngIf="frmAltaMaterial.controls['promdMatServ'].invalid">*Debe indicar el consumo</mat-error>
+                            </mat-form-field>
+
+                            <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+                                <!-- Tipo de moneda -->
+                                <mat-form-field fxFlex appearance="outline">
+                                    <mat-label>Seleccione el tipo de moneda </mat-label>
+                                    <mat-select name="monedaMatServ" formControlName="monedaMatServ" class="ar-color-87">
+                                        <mat-option *ngFor="let tip_mon of tipoMoneda" [value]="tip_mon._id">
+                                            {{ tip_mon._id }} - {{ tip_mon.descripcion }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+                                                frmAltaMaterial.controls['monedaMatServ'].invalid
+                                            ">*Debe seleccionar un tipo de moneda
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <!-- Valor unitario -->
+                                <mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs" ngClass.xs="ar-margin-left-none">
+                                    <mat-label>Digite el valor unitario</mat-label>
+                                    <input matInput name="valMatServ" formControlName="valMatServ" class="ar-color-87" size="20" maxlength="30" />
+                                    <mat-error *ngIf="frmAltaMaterial.controls['valMatServ'].invalid">*Debe indicar un valor</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Justificación de la modificación -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Justificación</mat-label>
+                                <textarea class="ar-color-87" matInput formControlName="JustAlta" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                                <input matInput class="ar-color-87" />
+                                <mat-error *ngIf="frmAltaMaterial.controls['JustAlta'].invalid">
+                                    *Debe ingresar una Justificación de la modificacion valida
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+                </form>
+
+                <!-- Formulario ficha técnica -->
+                <form [formGroup]="frmFichaMaterial" *ngIf="esFicha" (ngSubmit)="validarFicha()" #documentFormFicha="ngForm">
+                    <ng-container>
+                        <div fxFlex fxLayout="column" [@apps]="'fadeIn'">
+                            <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                                <!-- Avatar circular -->
+                                <div class="ar-avatar">
+                                    <p class="ar-avatar-sm">
+                                        <span>B</span>
+                                    </p>
+                                </div>
+
+                                <!-- Identificador del Material -->
+                                <!--<div fxLayout="column" class="ar-margin-left-xs">
+                                    <span class="ar-color-54">8889999</span>
+                                    <span class="ar-color-87">Bolsas quirúrgicas</span
+                                        >
+                                    </div>-->
+                            </div>
+                            <div class="
+                                        ar-color-54
+                                        ar-margin-bottom-sm
+                                        ar-core-text
+                                        ar-margin-top-xs
+                                    ">
+                                Ingreso de la información sobre la ficha técnica.
+                            </div>
+                            <!-- Descripción técnica del Material o Servicio-->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Descripción técnica</mat-label>
+                                <textarea class="ar-color-87" matInput formControlName="desctec" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                                <input matInput class="ar-color-87" />
+                                <mat-error *ngIf="frmFichaMaterial.controls['desctec'].invalid">
+                                    *Debe ingresar una descripción válida
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Literatura -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Literatura</mat-label>
+                                <textarea class="ar-color-87" matInput formControlName="literatura" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                                <input matInput class="ar-color-87" />
+                                <mat-error *ngIf="frmFichaMaterial.controls['literatura'].invalid">
+                                    *Debe ingresar una literatura válida
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Certificados de Calidad  -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Certificados de Calidad</mat-label>
+                                <textarea class="ar-color-87" matInput formControlName="certcal" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                                <input matInput class="ar-color-87" />
+                                <mat-error *ngIf="frmFichaMaterial.controls['certcal'].invalid">
+                                    *Debe ingresar una descripción válida
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Empaque primario -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Empaque primario</mat-label>
+                                <textarea class="ar-color-87" matInput formControlName="emppri" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                                <input matInput class="ar-color-87" />
+                                <mat-error *ngIf="frmFichaMaterial.controls['emppri'].invalid">
+                                    *Debe ingresar una descripción válida
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Empaque secuandario -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Empaque secundario</mat-label>
+                                <textarea class="ar-color-87" matInput formControlName="empsec" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                                <input matInput class="ar-color-87" />
+                                <mat-error *ngIf="frmFichaMaterial.controls['empsec'].invalid">
+                                    *Debe ingresar una descripción válida
+                                </mat-error>
+                            </mat-form-field>
+                            <!-- Empaque terciario -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Empaque terciario</mat-label>
+                                <textarea class="ar-color-87" matInput formControlName="empter" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                                <input matInput class="ar-color-87" />
+                                <mat-error *ngIf="frmFichaMaterial.controls['empter'].invalid">
+                                    *Debe ingresar una descripción válida
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+                </form>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>
+
+</html>

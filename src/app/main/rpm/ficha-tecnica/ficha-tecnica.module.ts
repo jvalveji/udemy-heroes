@@ -5,13 +5,13 @@ import {
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
-import { RpmRoutingModule } from "./rpm-routing.module";
+import { FichaTecnicaRoutingModule } from "./ficha-tecnica-routing.module";
 
 // Importación de los componentes a utilizar
 
 import { ArcaControlsModule } from "app/shared/controls/controls.module";
 import { LayoutComponent } from "./layout.component";
-import { HomeComponent } from "app/main/rpm/home/home.component";
+import { FichaTecnicaComponent } from "./ficha-tecnica.component";
 
 // Componentes Angular Material
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
@@ -40,6 +40,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTableModule } from "@angular/material/table";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 // Modulos extras
 import { FlexLayoutModule } from "@angular/flex-layout"; // Modulo para crear efecto flex
@@ -47,16 +48,18 @@ import { NgxPageScrollModule } from "ngx-page-scroll";
 import { NgxPageScrollCoreModule } from "ngx-page-scroll-core";
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { PipesModule } from "app/shared/pipes/pipes.module";
-import { MaterialesServiciosModule } from "./materiales-servicios/materiales-servicios.module";
+import { FichaTecnicaEditarComponent } from './ficha-tecnica-editar/ficha-tecnica-editar.component';
+
+// Servicios
 
 @NgModule({
-	declarations: [LayoutComponent, HomeComponent],
-
+	declarations: [LayoutComponent, FichaTecnicaComponent, FichaTecnicaEditarComponent],
 	imports: [
 		ArcaControlsModule,
 		CommonModule,
-		RpmRoutingModule,
-		MaterialesServiciosModule,
+		FormsModule,
+		ReactiveFormsModule,
+		FichaTecnicaRoutingModule,
 		NgxPageScrollModule,
 		NgxPageScrollCoreModule,
 		PerfectScrollbarModule,
@@ -89,9 +92,10 @@ import { MaterialesServiciosModule } from "./materiales-servicios/materiales-ser
 		MatTableModule,
 		MatProgressSpinnerModule,
 		MatPaginatorModule,
-		MaterialesServiciosModule,
 	],
+
+	providers: [],
 
 	schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class RpmModule {}
+export class FichaTecnicaModule {}

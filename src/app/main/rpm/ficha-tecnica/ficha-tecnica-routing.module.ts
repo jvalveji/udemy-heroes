@@ -1,15 +1,16 @@
 // Definición typescript para el módulo RpmRoutingModule v1.0.0
 // Proyecto: Bitzu RPM - MEAN
 // Definiciones por: Ing. Michael Alexander Jiménez Muñoz <majimenj@ccss.sa.cr>
-// Modificado: (08-07-2020) Ing. Michael Alexander Jiménez Muñoz
+// Modificado: (08-07-2021) Ing. Michael Alexander Jiménez Muñoz
 
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { FichaTecnicaComponent } from "./ficha-tecnica.component";
 
 // Importa los componentes creados
 
 import { LayoutComponent } from "./layout.component";
-import { HomeComponent } from "./home/home.component";
+//import { MaterialesServiciosAltaListarComponent } from './materiales-servicios-alta-listar/materiales-servicios-alta-listar.component';
 
 // Se declara una variable que contiene las rutas del módulo
 const rutas: Routes = [
@@ -19,28 +20,15 @@ const rutas: Routes = [
 
 		children: [
 			// Componentes
-			{ path: "", component: HomeComponent },
+			{ path: "", component: FichaTecnicaComponent },
+			//{ path: 'alta', component: MaterialesServiciosAltaListarComponent },
+
+			// { path: 'acceso', component:  }
 
 			// { path: 'not-authorized', component: NotAuthorizedComponent },
 			// // Las siguientes 2 lineas de componente no encontrado SIEMPRE van de últimas
 			// { path: '404', component: NotFoundComponent },
 			// { path: '**', redirectTo: '404' }
-
-			// Módulo agregado por DT Bitzú RPM
-			{
-				path: "materiales",
-				loadChildren: () =>
-					import(
-						"./materiales-servicios/materiales-servicios.module"
-					).then((m) => m.MaterialesServiciosModule),
-			},
-			{
-				path: "ficha",
-				loadChildren: () =>
-					import("./ficha-tecnica/ficha-tecnica.module").then(
-						(m) => m.FichaTecnicaModule
-					),
-			},
 		],
 	},
 ];
@@ -49,4 +37,4 @@ const rutas: Routes = [
 	imports: [RouterModule.forChild(rutas)],
 	exports: [RouterModule],
 })
-export class RpmRoutingModule {}
+export class FichaTecnicaRoutingModule {}

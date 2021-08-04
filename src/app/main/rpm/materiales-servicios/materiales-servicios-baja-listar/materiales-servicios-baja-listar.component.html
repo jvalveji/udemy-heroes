@@ -1,5 +1,5 @@
 <!-- ========================================================================
-  [HTML /materiales-servicios-baja-listar.component.html]
+  [HTML /materiales-servicios-modificar-listar.component.html]
 
   Proyecto: 			Bitzú RPM
   Version:  			1.0
@@ -19,7 +19,7 @@
             </button>
         <span class="ar-margin-left-xs ar-color-54">Materiales y servicios</span>
         <span fxFlex></span>
-        <button type="submit" class="ar-margin-right-xs" color="warn" mat-button (click)="agregarBaja()">
+        <button type="submit" class="ar-margin-right-xs" color="warn" mat-button (click)="agregarModificacion()">
                 <i class="material-icons">add</i>
                 Nuevo
             </button>
@@ -30,14 +30,14 @@
         <div class="ar-searchbar" fxFlex="45" fxFlex.sm="75" fxFlex.md="65" fxFlex.xs="80" fxLayoutAlign="center center">
             <!-- Input de búsqueda  -->
             <!-- Refrescar::{{ nuevo }} -->
-            <input class="ar-searchbar-input ar-margin-left-sm ar-color-54" placeholder="Buscar..." name="barra" #elemento (keyup)="Buscar(elemento.value)" />
+            <input class="ar-searchbar-input ar-margin-left-sm ar-color-54" placeholder="Buscar..." name="txtFiltro" [(ngModel)]="txtFiltro" />
             <span fxFlex></span>
-            <button mat-icon-button matTooltip="Limpiar">
+            <button mat-icon-button matTooltip="Limpiar" (click)="LimpiarBusqueda()">
                     <i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
                 </button>
-            <button mat-icon-button matTooltip="Buscar por nombre">
+            <!-- <button mat-icon-button matTooltip="Buscar por nombre">
                     <i class="mdi mdi-magnify ar-icons-sm ar-color-54"></i>
-                </button>
+                </button> -->
         </div>
     </div>
     <!--Mensajes-->
@@ -63,17 +63,17 @@
 
                     <!-- despliegue de lista de materiales  -->
 
-                    <div class="ar-list-item-xs ar-margin-bottom-xs" fxLayoutAlign="start center" *ngFor="let material of materiales">
+                    <div class="ar-list-item-xs ar-margin-bottom-xs" fxLayoutAlign="start center" *ngFor="let item of catalogo | filtrarIdDescripcion: txtFiltro">
                         <!-- Avatar circular -->
                         <div class="ar-avatar">
                             <p class="ar-avatar-xs" matTooltip="Material">
-                                <span> {{ material.idMaterial }} </span>
+                                <span> {{ item.nomenclatura | slice: 0:4 }} </span>
                             </p>
                         </div>
                         <!-- despliegue de descripcion de materiales -->
                         <div class="ar-margin-left-xs" fxLayout="row" fxLayoutAlign="start center">
                             <span class="ar-body-1 ar-color-87">
-                                    {{ material.descripcion }}
+                                    {{ item.descripcion }}
                                 </span>
                         </div>
                         <!-- espacio de separacion entre lista alineacion izquiera y boton de accion a la derecha -->

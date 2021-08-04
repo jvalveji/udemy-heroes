@@ -7,18 +7,18 @@
  * Interfaz que permite manejar las respuestas Http recibidas desde los servicios REST.
  */
 export interface IHttpResponse {
-	/**
+    /**
      * Indicador de éxito en la operación realizada con el servidor
      */
-	exito: boolean;
+    exito: boolean;
 
-	/**
+    /**
      * Mensaje enviado desde el servidor con información sobre la operación efectuada
      */
-	mensaje?: string;
+    mensaje?: string;
 
-	/**
+    /**
      * Conjunto de datos enviados en la respuesta desde el servidor
      */
-	data?: any;
+    data?: any;
 }
