@@ -13,7 +13,7 @@ import { MaterialesServiciosAltaListarComponent } from './materiales-servicios-a
 import { MaterialesServiciosComponent } from './materiales-servicios.component';
 import { MaterialesServiciosModificarListarComponent } from './materiales-servicios-modificar-listar/materiales-servicios-modificar-listar.component';
 import { MaterialesServiciosBajaListarComponent } from './materiales-servicios-baja-listar/materiales-servicios-baja-listar.component';
-
+import { MaterialesServiciosAccesoListarComponent } from './materiales-servicios-acceso-listar/materiales-servicios-acceso-listar.component';
 import { GestionFormulariosCentroLogisticoListarComponent } from './gestion-formularios-centro-logistico-listar/gestion-formularios-centro-logistico-listar.component';
 
 // Se declara una variable que contiene las rutas del módulo
@@ -29,6 +29,8 @@ const rutas: Routes = [
             { path: 'modificar', component: MaterialesServiciosModificarListarComponent },
             { path: 'baja', component: MaterialesServiciosBajaListarComponent },
             { path: 'gestion-formulario-centro-logistico', component: GestionFormulariosCentroLogisticoListarComponent },
+            { path: 'acceso', component: MaterialesServiciosAccesoListarComponent },
+            
             
             // { path: 'acceso', component:  }
 

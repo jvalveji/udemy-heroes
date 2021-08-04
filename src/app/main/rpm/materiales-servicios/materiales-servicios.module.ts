@@ -16,6 +16,9 @@ import { MaterialesServiciosModificarEditarComponent } from './materiales-servic
 import { MaterialesServiciosBajaEditarComponent } from './materiales-servicios-baja-editar/materiales-servicios-baja-editar.component';
 import { MaterialesServiciosAltaEditarComponent } from './materiales-servicios-alta-editar/materiales-servicios-alta-editar.component';
 import { GestionFormulariosCentroLogisticoListarComponent } from './gestion-formularios-centro-logistico-listar/gestion-formularios-centro-logistico-listar.component';
+import { MaterialesServiciosAltaEditar } from './materiales-servicios-alta-editar/materiales-servicios-alta-editar.service';
+import { MaterialesServiciosAccesoListarComponent } from './materiales-servicios-acceso-listar/materiales-servicios-acceso-listar.component';
+import { MaterialesServiciosAccesoEditarComponent } from './materiales-servicios-acceso-editar/materiales-servicios-acceso-editar.component';
 
 // Componentes Angular Material
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -46,6 +49,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 // Modulos extras
 import { FlexLayoutModule } from '@angular/flex-layout'; // Modulo para crear efecto flex
 import { NgxPageScrollModule } from 'ngx-page-scroll';
@@ -55,7 +59,6 @@ import { PipesModule } from 'app/shared/pipes/pipes.module';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 // Servicios
 import { MaterialesSevice } from './servicios/materiales.service';
-import { MaterialesServiciosAltaEditar } from './materiales-servicios-alta-editar/materiales-servicios-alta-editar.service';
 
 @NgModule({
     declarations: [
@@ -67,7 +70,9 @@ import { MaterialesServiciosAltaEditar } from './materiales-servicios-alta-edita
         MaterialesServiciosModificarEditarComponent,
         MaterialesServiciosBajaEditarComponent,
         MaterialesServiciosAltaEditarComponent,
-        GestionFormulariosCentroLogisticoListarComponent
+        GestionFormulariosCentroLogisticoListarComponent,
+        MaterialesServiciosAccesoListarComponent,
+        MaterialesServiciosAccesoEditarComponent
     ],
     imports: [
         ArcaControlsModule,
