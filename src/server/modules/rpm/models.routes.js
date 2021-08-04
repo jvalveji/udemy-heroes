@@ -16,13 +16,13 @@ const tipoMaterialRoutes = require('../rpm/catalogos/model.routes');
  * GET /check - Validación que indica que el servicio en esta ruta esta disponible
  * */
 router.get('/check', (req, res) =>
-	res.send('OK Estoy en Bitzu-RPM')
+    res.send('OK Estoy en Bitzu-RPM main')
 );
 
 // Enrutamiento interno del módulo catalogos
 router.use('/materiales', tipoMaterialRoutes);
-// Enrutamiento interno del módulo
+
+// // Enrutamiento interno del módulo jvj 26/07
+// router.use('/catalogos', grupoMaterialRoutes);
 
 module.exports = router;
-
- 

@@ -18,7 +18,7 @@ export class MaterialesServiciosModificarListarComponent implements OnInit, OnDe
     @Input() nuevo: string = 'NuevoRotulo';
     materiales: any[] = [];
     buscarPorNombre: string;
-    txtFiltro: string;
+    txtFiltro: string = 'Inicio';
 
     public material: any;
 
@@ -42,12 +42,12 @@ export class MaterialesServiciosModificarListarComponent implements OnInit, OnDe
             maxHeight: '100vh',
             data: null
         };
-        
+
         // Se crea una variable que representa a la ventana de cración de solicitud para modificación
         const busquedaMaterial = this.dialogos.open(
             MaterialesServiciosModificarEditarComponent,
             configDialogoCrear
-        ); 
+        );
         // Se customiza el evento que retorna información de la ventana de búsqueda
         busquedaMaterial.afterClosed().subscribe((res) => {
             // Se valida que exista una respuesta
@@ -57,13 +57,21 @@ export class MaterialesServiciosModificarListarComponent implements OnInit, OnDe
             }
         });
     }
+
+    agregarlinea() {
+        let item = { _id: '11', descripcion: '', idMaterial: 11 };
+        item.descripcion = this.txtFiltro;
+        console.log(this.materiales);
+        this.materiales.push(item);
+    }
+
     ngOnInit() {
         this.materiales = this.materialesService.obtenerMateriales();
         this.materialesSubscription = this.materialesService.materialesSubject.subscribe(() => {
             this.materiales = this.materialesService.obtenerMateriales();
         });
     }
-    
+
     ngOnDestroy() {
         this.materialesSubscription.unsubscribe;
     }

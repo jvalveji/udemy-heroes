@@ -10,10 +10,9 @@ const Schema = mongoose.Schema;
 const dbCore = require('./../../../../config/db')('mixin', 'rpm');
 
 let tipoMaterialSchema = new Schema({
-    'nomenclatura': String,
+    'id_grupo': Number,
     'descripcion': String,
-    'categoria': String,
     'estado': Boolean,
 });
 
-if (dbCore) { module.exports = dbCore.model('catalogo-materiales-servicios-tipos', tipoMaterialSchema, 'catalogo-materiales-servicios-tipos'); }
+if (dbCore) { module.exports = dbCore.model('catalogo-materiales-grupos', tipoMaterialSchema, 'catalogo-materiales-grupos'); }

@@ -1,12 +1,6 @@
-// Definición typescript para el componente materiales-servicios-baja-editar.component v1.0
-// Proyecto: Bitzú - RPM
-// Definiciones por: Equipo Bitzú RPM
-// Modificado: 08/07/2021
-
 import {
 	Component,
 	EventEmitter,
-	Input,
 	OnInit,
 	Output,
 	ViewChild,
@@ -22,16 +16,13 @@ import {
 	Validators,
 	FormBuilder,
 	FormGroupDirective,
-	FormsModule,
-	ReactiveFormsModule,
 } from "@angular/forms";
 import { DialogService } from "app/shared/controls/dialog/dialog.service";
-import { compact } from "lodash";
 
 @Component({
-	selector: "bitzu-materiales-servicios-baja-editar",
-	templateUrl: "./materiales-servicios-baja-editar.component.html",
-	styleUrls: ["./materiales-servicios-baja-editar.component.scss"],
+	selector: "bitzu-ficha-tecnica-editar",
+	templateUrl: "./ficha-tecnica-editar.component.html",
+	styleUrls: ["./ficha-tecnica-editar.component.scss"],
 	animations: [
 		// Evento que se ejecuta la transición 'fade in o fade out' para los componentes que tienen como identificador 'apps'
 		trigger("apps", [
@@ -45,7 +36,7 @@ import { compact } from "lodash";
 		]),
 	],
 })
-export class MaterialesServiciosBajaEditarComponent implements OnInit {
+export class FichaTecnicaEditarComponent implements OnInit {
 	/**
 	 * Variable que maneja la clase para el tema
 	 */
@@ -59,9 +50,9 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 	public guardarInfo: boolean = false;
 
 	/**
-   Datos de formulario de informacion general para manipular la información y se traslada a otros componentes
-   */
-	public frmBajaMaterial: FormGroup;
+ Datos de formulario de informacion general para manipular la información y se traslada a otros componentes
+ */
+	public frmfichaTecnica: FormGroup;
 
 	/**
 	 *Variable para indicar si el formulario se debe resetar a un estado inicial
@@ -71,7 +62,7 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 	/**
 	 * Variable para recibir los datos de forma temporal y cargarlos al formgroup
 	 */
-	private datos: IdataModelBajaMat;
+	private datos: IdataModelFichaTecnica;
 
 	/**
 	 * Variable para mostrar/ocultar la barra de progreso
@@ -79,43 +70,42 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 	public esCargando = false;
 
 	/**
-	 * Datos obtenidos del formulario info general
-	 */
-	public dataInfoGeneral: IdataModelInfoGeneral;
-
-	/**
 	 * Variable que contiene el valor por defecto del servicio
 	 */
 	public valorDefaultServicioArea: string;
 
 	/**
-	 * Propiedad decorativa para acceder al componente desde el HTML
-	 */
-	@ViewChild("infoGeneralService")
-	infoGeneralService: InfoGeneralComponent;
-
-	/**
 	 * Variable para poder acceder al evento submit del formulario reactivo
 	 */
-	@ViewChild("documentFormBaja")
-	documentFormBaja: FormGroupDirective;
+	@ViewChild("documentFormFicha")
+	documentFormFicha: FormGroupDirective;
 
 	/**
-	 * Atributo de salida que retorna el conjunto de datos dados por el usuario
+	 * Variable temporal que maneja la lista de areas o servicios en el formulario
 	 */
-	@Output("validarItem")
-	private validarItem: EventEmitter<IdataModelInfoGeneral> = new EventEmitter<IdataModelInfoGeneral>();
+	public tipoMoneda: any = [
+		{ _id: "1", descripcion: "Colones", idServicio: 1 },
+		{ _id: "2", descripcion: "Dólares", idServicio: 2 },
+		{ _id: "3", descripcion: "Euros", idServicio: 3 },
+	];
 
 	constructor(
 		private utilidadesService: UtilidadesService,
 		private fb: FormBuilder,
 		private msgBox: DialogService
 	) {
-		this.frmBajaMaterial = this.fb.group({
+		this.frmfichaTecnica = this.fb.group({
 			descMatServ: [null, Validators.required],
-			detBaja: [null, Validators.required],
-			descPropuesta: [null, Validators.required],
-			JustBaja: [null, Validators.required],
+			estMatServ: [null, Validators.required],
+			medMatServ: [null, Validators.required],
+			despMatServ: [null, Validators.required],
+			otrundMatServ: [null, Validators.required],
+			tipMatServ: [null, Validators.required],
+			promdMatServ: [null, Validators.required],
+			valMatServ: [null, Validators.required],
+			monedaMatServ: [null, Validators.required],
+			fichaMatServ: [null, Validators.required],
+			JustAlta: [null, Validators.required],
 		});
 	}
 
@@ -138,35 +128,14 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 	/** Permite restablecer la vista del formulario a un estado inicial */
 	public restablecerVistaFormulario(): void {
 		if (this.esEstadoInicialForm) {
-			this.frmBajaMaterial.reset(); // Limpia el formulario
+			this.frmfichaTecnica.reset(); // Limpia el formulario
 			this.esEstadoInicialForm = false; // Resetea el estado inicial del formulario
-		}
-	}
-
-	/**
-	 * Evento que dispara submit para el formulario hijo (child)
-	 */
-	public validarInfoGeneral() {
-		this.infoGeneralService.documentForm.onSubmit(undefined);
-	}
-
-	/**
-	 * Evento que viene del componente hijo info general, con el conjunto de datos valido
-	 * @param dataModel Modelo de datos
-	 */
-	public obtenerDatosInfoGeneral(dataModel: IdataModelInfoGeneral): void {
-		if (dataModel != undefined) {
-			this.dataInfoGeneral = dataModel;
-			this.valorDefaultServicioArea = this.dataInfoGeneral.servicio._id;
-			this.mostrarSig = false;
-			this.mostrarAnt = true;
-			this.guardarInfo = true;
 		}
 	}
 
 	//Funcion validar campos texto y materiales
 	public validar(): void {
-		if (this.frmBajaMaterial.valid) {
+		if (this.frmfichaTecnica.valid) {
 			console.log("valido");
 		} else {
 			console.log("invalido");
@@ -175,7 +144,7 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 
 	//Funcion validar campos texto y materiales
 	public guardar(): void {
-		this.documentFormBaja.onSubmit(undefined);
+		this.documentFormFicha.onSubmit(undefined);
 	}
 
 	public limpiar(): void {
@@ -188,12 +157,13 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 			.subscribe((res) => {
 				if (res === "YES") {
 					// Limpiar el formulario
-					this.frmBajaMaterial.reset();
+					this.frmfichaTecnica.reset();
 					// Deshabilita el modo edición
 					this.esEstadoInicialForm = false;
-				} else {
-					this.infoGeneralService.restablecerVistaFormulario();
 				}
+				//else {
+				//	this.infoGeneralService.restablecerVistaFormulario();
+				//}
 			});
 	}
 
@@ -204,9 +174,16 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 }
 
 //Interfaz de Variables
-export interface IdataModelBajaMat {
+export interface IdataModelFichaTecnica {
 	descMatServ: string;
-	detBaja: string;
-	descPropuesta: string;
-	JustBaja: string;
+	estMatServ: string;
+	medMatServ: string;
+	despMatServ: string;
+	otrundMatServ: string;
+	tipMatServ: string;
+	promdMatServ: number;
+	valMatServ: number;
+	monedaMatServ: string;
+	fichaMatServ: string;
+	JustAlta: string;
 }

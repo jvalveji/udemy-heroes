@@ -55,6 +55,7 @@ import { PipesModule } from 'app/shared/pipes/pipes.module';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 // Servicios
 import { MaterialesSevice } from './servicios/materiales.service';
+import { MaterialesServiciosAltaEditar } from './materiales-servicios-alta-editar/materiales-servicios-alta-editar.service';
 
 @NgModule({
     declarations: [
@@ -109,7 +110,7 @@ import { MaterialesSevice } from './servicios/materiales.service';
         MatPaginatorModule
     ],
 
-    providers: [MaterialesSevice],
+    providers: [MaterialesSevice, MaterialesServiciosAltaEditar],
 
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

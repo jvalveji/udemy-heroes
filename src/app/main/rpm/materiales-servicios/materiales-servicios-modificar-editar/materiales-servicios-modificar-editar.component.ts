@@ -179,7 +179,6 @@ export class MaterialesServiciosModificarEditarComponent implements OnInit {
 		this.documentFormModificar.onSubmit(undefined);
 	}
 
-
 	public limpiar(): void {
 		this.msgBox
 			.open(
@@ -193,12 +192,9 @@ export class MaterialesServiciosModificarEditarComponent implements OnInit {
 					this.frmModificacionMaterial.reset();
 					// Deshabilita el modo edición
 					this.esEstadoInicialForm = false;
+				} else {
+					this.infoGeneralService.restablecerVistaFormulario();
 				}
-                else
-                {
-                    this.infoGeneralService.restablecerVistaFormulario();
-
-                }
 			});
 	}
 

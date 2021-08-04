@@ -1,5 +1,5 @@
 <!-- ========================================================================
-  [HTML /main/rpm/materiales/materiales-servicios-baja-editar.component.html]
+  [HTML /ficha-tecnica-editar.component.html]
 
   Proyecto: 			Bitzú RPM
   Version:  			1.0
@@ -45,8 +45,8 @@
             <div fxLayout="column" fxFlex class="ar-margin-bottom-lg ar-margin-top-sm">
                 <bitzu-info-general *ngIf="mostrarSig" [IvalorDefaultServicioArea]="valorDefaultServicioArea" #infoGeneralService [@apps]="'fadeIn'" [Idatos]="dataInfoGeneral" (validarItem)="obtenerDatosInfoGeneral($event)">
                 </bitzu-info-general>
-                <form [formGroup]="frmBajaMaterial" *ngIf="guardarInfo" (ngSubmit)="validar()" #documentFormBaja="ngForm">
-                    <!-- Formulario de modificar material -->
+                <form [formGroup]="frmAltaMaterial" *ngIf="guardarInfo" (ngSubmit)="validar()" #documentFormAlta="ngForm">
+                    <!-- Formulario alta de material -->
                     <ng-container>
                         <div fxFlex fxLayout="column" [@apps]="'fadeIn'">
                             <div fxFlex fxLayout="row" fxLayoutAlign="start center">
@@ -58,80 +58,54 @@
                                 </div>
 
                                 <!-- Identificador del Material -->
-                                <div fxLayout="column" class="ar-margin-left-xs">
+                                <!--<div fxLayout="column" class="ar-margin-left-xs">
                                     <span class="ar-color-54">8889999</span>
                                     <span class="ar-color-87">Bolsas quirúrgicas</span
-										>
-									</div>
-								</div>
-								<div
-									class="
+                                        >
+                                    </div>-->
+                            </div>
+                            <div class="
 										ar-color-54
 										ar-margin-bottom-sm
 										ar-core-text
 										ar-margin-top-xs
-									"
-								>
-									Ingreso de solicitud para baja de material o
-									servicio.
-								</div>
-								<div
-									fxLayout.xs="column"
-									fxLayout="row"
-									fxFlex="100"
-									fxFlex.xs="100"
-								>
-									<!-- Descripción del material o servicio -->
-									<mat-form-field fxFlex appearance="outline">
-										<mat-label
-											>Código y descripción</mat-label
-										>
-										<input
-											matInput
-											name="descMatServ"
-											formControlName="descMatServ"
-											placeholder="Descripción del material o servicio"
-											class="ar-color-87"
-										/>
-										<mat-error
-											*ngIf="
-												frmBajaMaterial.controls[
-													'descMatServ'
-												].invalid
-											"
-											>*Debe ingresar una descripcion
-											valido</mat-error
-										>
-									</mat-form-field>
-								</div>
+									">
+                                Ingreso de la ficha técnica para el material o servicio.
+                            </div>
+                            <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
+                                <!-- Descripción técnica -->
+                                <mat-form-field fxFlex appearance="outline">
+                                    <mat-label>Descripción técnica</mat-label>
+                                    <input matInput name="destecMatServ" formControlName="destecMatServ" class="ar-color-87" />
+                                    <!--<mat-error
+			*ngIf="
+				frmAltaMaterial.controls[
+					'fichaMatServ'
+				].invalid
+			"
+			>*Debe seleccionar un tipo de moneda</mat-error
+		>-->
+                                </mat-form-field>
+                                <!-- Literatura -->
+                                <mat-form-field fxFlex appearance="outline">
+                                    <mat-label>Literatura</mat-label>
+                                    <input matInput name="liteMatServ" formControlName="liteMatServ" class="ar-color-87" />
+                                    <!--<mat-error
+			*ngIf="
+				frmAltaMaterial.controls[
+					'fichaMatServ'
+				].invalid
+			"
+			>*Debe seleccionar un tipo de moneda</mat-error
+		>-->
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </ng-container>
+                </form>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>
 
-								<!-- Justificación de la modificación -->
-								<mat-form-field appearance="outline">
-									<mat-label>Justificación</mat-label>
-									<textarea
-										class="ar-color-87"
-										matInput
-										formControlName="JustBaja"
-										placeholder="Justificación de la baja"
-										cdkTextareaAutosize
-										cdkAutosizeMinRows="5"
-									></textarea>
-									<input matInput class="ar-color-87" />
-									<mat-error
-										*ngIf="
-											frmBajaMaterial.controls['JustBaja']
-												.invalid
-										"
-									>
-										*Debe ingresar una Justificación de la
-										modificacion valida
-									</mat-error>
-								</mat-form-field>
-							</div>
-						</ng-container>
-					</form>
-				</div>
-			</div>
-		</perfect-scrollbar>
-	</div>
 </html>
