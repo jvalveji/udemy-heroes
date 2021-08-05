@@ -10,6 +10,8 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
+	Inject,
+	Optional,
 } from "@angular/core";
 import { animate, style, transition, trigger } from "@angular/animations";
 import { UtilidadesService } from "app/shared/services/utilidades.service";
@@ -26,6 +28,7 @@ import {
 	ReactiveFormsModule,
 } from "@angular/forms";
 import { DialogService } from "app/shared/controls/dialog/dialog.service";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { compact } from "lodash";
 
 @Component({
@@ -110,7 +113,9 @@ export class MaterialesServiciosModificarEditarComponent implements OnInit {
 	constructor(
 		private utilidadesService: UtilidadesService,
 		private fb: FormBuilder,
-		private msgBox: DialogService
+		private msgBox: DialogService,
+		public dialogRef: MatDialogRef<MaterialesServiciosModificarEditarComponent>,
+		@Optional() @Inject(MAT_DIALOG_DATA) public data: any
 	) {
 		this.frmModificacionMaterial = this.fb.group({
 			descMatServ: [null, Validators.required],
@@ -194,6 +199,24 @@ export class MaterialesServiciosModificarEditarComponent implements OnInit {
 					this.esEstadoInicialForm = false;
 				} else {
 					this.infoGeneralService.restablecerVistaFormulario();
+				}
+			});
+	}
+
+	/**
+	 * Funcion para cerrar dialogo
+	 */
+	public CerrarDialogo(): void {
+		this.msgBox
+			.open(
+				"QUESTION",
+				"Precaución",
+				"¿Esta seguro de cerrar la ventana ?"
+			)
+			.subscribe((res) => {
+				if (res === "YES") {
+					// Cierra el dialogo completo
+					this.dialogRef.close();
 				}
 			});
 	}
