@@ -12,208 +12,294 @@
 
 <html fullscreen fxLayout="column">
 <div fxFlex fxLayout="column" layout class="ar-contratos-main ar-background">
-	<!-- Toolbar de acciones -->
-	<mat-toolbar class="mat-elevation-z0 ar-toolbar">
-		<!-- Devuelve a página anterior -->
-		<button mat-icon-button matTooltip="Volver" routerLink="/bitzu/main/rpm/materiales" routerLinkActive="active">
-			<mat-icon>arrow_back</mat-icon>
-		</button>	
-
-		<!-- Chips de filtros Todos, vigentes y vencidos -->
-		<mat-chip-list class="ar-margin-left-md" *ngIf="true">
-			<mat-chip class="ar-margin-right-xs"
-				[ngClass]="ObtenerBusquedaSeleccionado()?.id == 'todos' ? 'ar-chips-selected':'ar-chips'"
-				(click)="CambioBusqueda('todos');MostrarTodosformularios(); txtFiltroOrden=''">
-				Todos
-			</mat-chip>
-			<mat-chip class="ar-margin-right-xs"
-				[ngClass]="ObtenerBusquedaSeleccionado()?.id == 'alta' ? 'ar-chips-selected':'ar-chips'"
-				(click)="CambioBusqueda('alta');FiltrarFormulariosAlta(); txtFiltroOrden=''">
-				<i class="mdi mdi-arrow-up-circle-outline ar-icons-sm ar-margin-right-xs"></i>
-				Alta de Materiales/Servicios
-			</mat-chip>
-			<mat-chip class="ar-margin-right-xs"
-				[ngClass]="ObtenerBusquedaSeleccionado()?.id == 'modificacion' ? 'ar-chips-selected':'ar-chips'"
-				(click)="CambioBusqueda('modificacion');FiltrarFormulariosModificar(); txtFiltroOrden=''">
-				<i class="mdi mdi-arrow-down-circle-outline ar-icons-sm ar-margin-right-xs"></i>
-				Modificación de Materiales/Servicios
-			</mat-chip>
-			<mat-chip class="ar-margin-right-xs"
-				[ngClass]="ObtenerBusquedaSeleccionado()?.id == 'acceso' ? 'ar-chips-selected':'ar-chips'"
-				(click)="CambioBusqueda('acceso');FiltrarFormulariosAcceso(); txtFiltroOrden=''">
-				<i class="mdi mdi-alert-circle-outline ar-icons-sm ar-margin-right-xs"></i>
-				Solicitud de Acceso Material/Servicios
-			</mat-chip>
-		</mat-chip-list>
-		<span fxFlex></span>
-		
-
-	</mat-toolbar>
-	<div class="ar-border-05"></div>
-	<div class="ar-progressbar">
-		<mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
-	</div>
-	<!-- Toolbar de búsqueda -->
-	<div class="ar-searchbar-toolbar ar-margin-top-xs" fxLayoutAlign="center center" *ngIf="ObtenerEstadoBandera('listadoformularios')">
-		<div class="ar-searchbar" fxFlex="45" fxFlex.sm="50" fxFlex.md="65" fxFlex.xs="80"
-			fxLayoutAlign="center center">
-			<!-- Input de búsqueda  -->
-			<input class="ar-searchbar-input ar-margin-left-sm ar-color-54"
-				placeholder="{{CambioPlaceHolderBusqueda()}}" [ngModelOptions]="{standalone: true}"
-				[(ngModel)]="txtFiltroOrden" (keyup.enter)="ObtenerformulariosPorFiltro();">
-			<span fxFlex></span>
-			<button mat-icon-button matTooltip="Limpiar" (click)="LimpiarBusqueda();">
-				<i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+    <!-- Toolbar de acciones -->
+    <mat-toolbar class="mat-elevation-z0 ar-toolbar">
+        <!-- Devuelve a página anterior -->
+        <button mat-icon-button matTooltip="Volver" routerLink="/bitzu/main/rpm/materiales" routerLinkActive="active">
+				<mat-icon>arrow_back</mat-icon>
 			</button>
-		</div>
-	</div>
 
+        <!-- Chips de filtros Todos, vigentes y vencidos -->
+        <mat-chip-list class="ar-margin-left-md" *ngIf="true">
+            <mat-chip class="ar-margin-right-xs" [ngClass]="
+						ObtenerBusquedaSeleccionado()?.id == 'todos'
+							? 'ar-chips-selected'
+							: 'ar-chips'
+					" (click)="
+						CambioBusqueda('todos');
+						MostrarTodosformularios();
+						txtFiltroOrden = ''
+					">
+                Todos
+            </mat-chip>
+            <mat-chip class="ar-margin-right-xs" [ngClass]="
+						ObtenerBusquedaSeleccionado()?.id == 'alta'
+							? 'ar-chips-selected'
+							: 'ar-chips'
+					" (click)="
+						CambioBusqueda('alta');
+						FiltrarFormulariosAlta();
+						txtFiltroOrden = ''
+					">
+                <i class="
+							mdi mdi-arrow-up-circle-outline
+							ar-icons-sm ar-margin-right-xs
+						"></i> Alta de Materiales/Servicios
+            </mat-chip>
+            <mat-chip class="ar-margin-right-xs" [ngClass]="
+						ObtenerBusquedaSeleccionado()?.id == 'modificacion'
+							? 'ar-chips-selected'
+							: 'ar-chips'
+					" (click)="
+						CambioBusqueda('modificacion');
+						FiltrarFormulariosModificar();
+						txtFiltroOrden = ''
+					">
+                <i class="
+							mdi mdi-arrow-down-circle-outline
+							ar-icons-sm ar-margin-right-xs
+						"></i> Modificación de Materiales/Servicios
+            </mat-chip>
+            <mat-chip class="ar-margin-right-xs" [ngClass]="
+						ObtenerBusquedaSeleccionado()?.id == 'acceso'
+							? 'ar-chips-selected'
+							: 'ar-chips'
+					" (click)="
+						CambioBusqueda('acceso');
+						FiltrarFormulariosAcceso();
+						txtFiltroOrden = ''
+					">
+                <i class="
+							mdi mdi-alert-circle-outline
+							ar-icons-sm ar-margin-right-xs
+						"></i> Solicitud de Acceso Material/Servicios
+            </mat-chip>
+        </mat-chip-list>
+        <span fxFlex></span>
+    </mat-toolbar>
+    <div class="ar-border-05"></div>
+    <div class="ar-progressbar">
+        <mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+    </div>
+    <!-- Toolbar de búsqueda -->
+    <div class="ar-searchbar-toolbar ar-margin-top-xs" fxLayoutAlign="center center" *ngIf="ObtenerEstadoBandera('listadoformularios')">
+        <div class="ar-searchbar" fxFlex="45" fxFlex.sm="50" fxFlex.md="65" fxFlex.xs="80" fxLayoutAlign="center center">
+            <!-- Input de búsqueda  -->
+            <input class="ar-searchbar-input ar-margin-left-sm ar-color-54" placeholder="{{ CambioPlaceHolderBusqueda() }}" [ngModelOptions]="{ standalone: true }" [(ngModel)]="txtFiltroOrden" (keyup.enter)="ObtenerformulariosPorFiltro()" />
+            <span fxFlex></span>
+            <button mat-icon-button matTooltip="Limpiar" (click)="LimpiarBusqueda()">
+					<i class="mdi mdi-close-circle ar-icons-sm ar-color-54"></i>
+				</button>
+        </div>
+    </div>
 
-	<!-- Área principal -->
-	<perfect-scrollbar fxFlex class="ar-content" *ngIf="true">
-		<div fxLayoutAlign="center">
-			<div fxFlex fxLayout="row" fxLayoutAlign="center">
-				<div fxLayout="column" fxFlex="75" fxFlex.sm="85" fxFlex.md="75" fxFlex.xs="95">				
+    <!-- Área principal -->
+    <perfect-scrollbar fxFlex class="ar-content" *ngIf="true">
+        <div fxLayoutAlign="center">
+            <div fxFlex fxLayout="row" fxLayoutAlign="center">
+                <div fxLayout="column" fxFlex="75" fxFlex.sm="85" fxFlex.md="75" fxFlex.xs="95">
+                    <!-- despliegue de lista de formularios  -->
+                    <div fxLayoutAlign="center center">
+                        <cdk-virtual-scroll-viewport itemSize="30" class="scroller-viewport">
+                            <div class="ar-list-item-xs ar-margin-bottom-xs" fxLayoutAlign="start center" *cdkVirtualFor="
+										let formulario of formulariosFiltro
+									">
+                                <!-- Avatar circular -->
+                                <div class="ar-avatar">
+                                    <p class="ar-avatar-xs" matTooltip="Material">
+                                        <span> {{ formulario.id }} </span>
+                                    </p>
+                                </div>
+                                <!-- despliegue de descripcion de materiales -->
+                                <div class="ar-margin-left-xs" fxLayout="row" fxLayoutAlign="start center">
+                                    <span class="ar-body-1 ar-color-87">
+											<dt class="ar-text-bold">
+												{{
+													formulario.tipoSolicitud.toUpperCase()
+												}}
+											</dt>
+											<dd class="ar-color-87">
+												Fecha Solicitud:
+												{{ formulario.fechaSolicitud }}
+												-{{
+													formulario.up.toUpperCase()
+												}}
+												-{{
+													formulario.nombreSolicitante.toUpperCase()
+												}}
+											</dd>
+										</span>
+                                </div>
+                                <!-- espacio de separacion entre lista alineacion izquierda y boton de accion a la derecha -->
+                                <span fxFlex> </span>
 
-					<!-- despliegue de lista de formularios  -->
-					<div fxLayoutAlign="center center">
-						<cdk-virtual-scroll-viewport itemSize="30" class="scroller-viewport">
-							<div class="ar-list-item-xs ar-margin-bottom-xs" fxLayoutAlign="start center"
-								*cdkVirtualFor="let formulario of formulariosFiltro">
-								<!-- Avatar circular -->
-								<div class="ar-avatar">
-									<p class="ar-avatar-xs" matTooltip="Material">
-										<span> {{formulario.id}} </span>
-									</p>
-								</div>
-								<!-- despliegue de descripcion de materiales -->
-								<div class="ar-margin-left-xs" fxLayout="row" fxLayoutAlign="start center">
-									<span class="ar-body-1 ar-color-87">
-										<dt class="ar-text-bold">{{ formulario.tipoSolicitud.toUpperCase() }} </dt>
-										<dd class="ar-color-87">
-											Fecha Solicitud: {{formulario.fechaSolicitud}}
-											-{{formulario.up.toUpperCase()}}
-											-{{formulario.nombreSolicitante.toUpperCase()}}
-										</dd>
+                                <!-- Botón de seleccionar -->
+                                <button mat-icon-button color="primary" (click)="MostrarFormulario(formulario)">
+										<mat-icon
+											aria-label="Seleccionar"
+											class="ar-color-87"
+										>
+											edit
+										</mat-icon>
+									</button>
+                            </div>
+                        </cdk-virtual-scroll-viewport>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
 
-									</span>
-								</div>
-								<!-- espacio de separacion entre lista alineacion izquierda y boton de accion a la derecha -->
-								<span fxFlex> </span>
-
-								<!-- Botón de seleccionar -->
-								<button mat-icon-button color="primary" (click)="MostrarFormulario(formulario)">
-									<mat-icon aria-label="Seleccionar" class="ar-color-87">
-										edit
-									</mat-icon>
-								</button>
-							</div>
-
-						</cdk-virtual-scroll-viewport>
-					</div>
-				</div>
-			</div>
-		</div>
-	</perfect-scrollbar>
-
-
-	<!-- ***********************
+    <!-- ***********************
   Área de formularios abiertos
 **************************** -->
-	<ng-container *ngIf="ObtenerEstadoBandera('formularioAbierto');">
-		<perfect-scrollbar class="ar-content" fxLayoutAlign="center start">
-			<!-- Área informativa del formulario -->
-			<div fxLayoutAlign="center">
-				<div fxLayout="column" fxFlex="65" fxFlex.xs="95" fxFlex.sm="90" fxFlex.md="85">
-					<mat-card fxLayout="column"
-						class="ar-margin-bottom-sm ar-margin-top-xs ar-background mat-elevation-z0">
-						<mat-card-content fxLayout="column">
-							<div class="ar-contratos-item-info" fxLayout="column">
-								<mat-toolbar class="ar-toolbar mat-elevation-z0">
-									<button mat-icon-button (click)="OcultarContrato()">
-										<mat-icon>close</mat-icon>
-									</button>
-									<span fxFlex></span>
-									<button mat-button color="accent" (click)="ConfirmarGuardar()">
-										<i class="material-icons">save</i>
-										Guardar
-									</button>
-								</mat-toolbar>
-									<!-- Datos del formulario seleccionado -->
-								<div class="ar-searchbar" fxLayoutAlign="center center"> Detalle de la solicitud </div>
-								<div fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
-									<div fxFlex="50" class="ar-contratos-item">
-										<div fxLayout="column">
-											<span class="mat-caption ar-color-54">Fecha de Solicitud</span>
-											<span class="mat-body-2">{{formularioSeleccionado?.fechaSolicitud}}</span>
+    <ng-container *ngIf="ObtenerEstadoBandera('formularioAbierto')">
+        <perfect-scrollbar class="ar-content" fxLayoutAlign="center start">
+            <!-- Área informativa del formulario -->
+            <div fxLayoutAlign="center">
+                <div fxLayout="column" fxFlex="65" fxFlex.xs="95" fxFlex.sm="90" fxFlex.md="85">
+                    <mat-card fxLayout="column" class="
+								ar-margin-bottom-sm
+								ar-margin-top-xs
+								ar-background
+								mat-elevation-z0
+							">
+                        <mat-card-content fxLayout="column">
+                            <div class="ar-contratos-item-info" fxLayout="column">
+                                <mat-toolbar class="ar-toolbar mat-elevation-z0">
+                                    <button mat-icon-button (click)="OcultarContrato()">
+											<mat-icon>close</mat-icon>
+										</button>
+                                    <span fxFlex></span>
+                                    <button mat-button color="accent" (click)="ConfirmarGuardar()">
+											<i class="material-icons">save</i>
+											Guardar
+										</button>
+                                </mat-toolbar>
+                                <!-- Datos del formulario seleccionado -->
+                                <div class="ar-searchbar" fxLayoutAlign="center center">
+                                    Detalle de la solicitud
+                                </div>
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
+                                    <div fxFlex="50" class="ar-contratos-item">
+                                        <div fxLayout="column">
+                                            <span class="
+														mat-caption
+														ar-color-54
+													">Fecha de Solicitud</span
+												>
+												<span class="mat-body-2">{{
+													formularioSeleccionado?.fechaSolicitud
+												}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="50" class="ar-contratos-item">
+                                        <div fxLayout="column">
+                                            <span class="
+														mat-caption
+														ar-color-54
+													">Tipo Solicitud</span
+												>
+												<span class="mat-body-1">
+													{{
+														formularioSeleccionado?.tipoSolicitud.toUpperCase()
+													}}</span
+												>
+											</div>
 										</div>
 									</div>
-									<div fxFlex="50" class="ar-contratos-item">
-										<div fxLayout="column">
-											<span class="mat-caption ar-color-54">Tipo Solicitud</span>
-											<span class="mat-body-1">
-												{{ formularioSeleccionado?.tipoSolicitud.toUpperCase() }}</span>
+
+									<div
+										fxLayout="row"
+										fxLayout.xs="column"
+										fxFlex="100"
+										fxFlex.xs="100"
+									>
+										<div
+											fxFlex="50"
+											class="ar-contratos-item"
+										>
+											<div fxLayout="column">
+												<span
+													class="
+														mat-caption
+														ar-color-54
+													"
+													>Unidad Programatica</span
+												>
+												<span class="mat-body-2">{{
+													formularioSeleccionado?.up
+												}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="50" class="ar-contratos-item">
+                                        <div fxLayout="column">
+                                            <span class="
+														mat-caption
+														ar-color-54
+													">Nombre solicitante</span
+												>
+												<span class="mat-body-1">
+													{{
+														formularioSeleccionado?.nombreSolicitante
+													}}</span
+												>
+											</div>
 										</div>
 									</div>
-								</div>
-								
-								<div fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
-									<div fxFlex="50" class="ar-contratos-item">
-										<div fxLayout="column">
-											<span class="mat-caption ar-color-54">Unidad Programatica</span>
-											<span class="mat-body-2">{{formularioSeleccionado?.up}}</span>
-										</div>
-									</div>
-									<div fxFlex="50" class="ar-contratos-item">
-										<div fxLayout="column">
-											<span class="mat-caption ar-color-54">Nombre solicitante</span>
-											<span class="mat-body-1">
-												{{ formularioSeleccionado?.nombreSolicitante }}</span>
-										</div>
-									</div>
-								</div>
 
-								<span layout="row">
-									<hr flex />
-								</span>
-								<!-- Gestión del formulario -->
-								<div class="ar-searchbar" fxLayoutAlign="center center"> Gestión del formulario </div>
-								<mat-form-field ngClass="ar-margin-left-xs" ngClass.xs="ar-margin-left-none"
-									appearance="outline" fxFlex>
-									<mat-label>Seleccione un criterio de gestión</mat-label>
-									<mat-select fxFlex [(ngModel)]="criterioSeleccionado" name="criterioSeleccionado"
-										(ngModelChange)="obtenerCriterioSeleccionado(criterioSeleccionado)">
-										<mat-select-trigger *ngIf="criterioSeleccionado" class="criterio">
-											<mat-icon [ngStyle]="{'color': criterioSeleccionado.color}">
-												{{criterioSeleccionado.icon}}</mat-icon>
-											<span>{{criterioSeleccionado.descripcion}}</span>
-										</mat-select-trigger>
-										<mat-option *ngFor="let criterio of criterios" [value]="criterio">
-											<mat-icon [ngStyle]="{'color': criterio.color}">{{criterio.icon}}</mat-icon>
-											<span>{{criterio.descripcion}}</span>
-										</mat-option>
-									</mat-select>
-								</mat-form-field>
+									<span layout="row">
+										<hr flex />
+									</span>
+                                            <!-- Gestión del formulario -->
+                                            <div class="ar-searchbar" fxLayoutAlign="center center">
+                                                Gestión del formulario
+                                            </div>
+                                            <mat-form-field ngClass="ar-margin-left-xs" ngClass.xs="ar-margin-left-none" appearance="outline" fxFlex>
+                                                <mat-label>Seleccione un criterio de gestión
+                                                </mat-label>
+                                                <mat-select fxFlex [(ngModel)]="criterioSeleccionado" name="criterioSeleccionado" (ngModelChange)="
+												obtenerCriterioSeleccionado(
+													criterioSeleccionado
+												)
+											">
+                                                    <mat-select-trigger *ngIf="criterioSeleccionado" class="criterio">
+                                                        <mat-icon [ngStyle]="{
+														color: criterioSeleccionado.color
+													}">
+                                                            {{ criterioSeleccionado.icon }}
+                                                        </mat-icon>
+                                                        <span>{{
+													criterioSeleccionado.descripcion
+												}}</span>
+                                                    </mat-select-trigger>
+                                                    <mat-option *ngFor="
+													let criterio of criterios
+												" [value]="criterio">
+                                                        <mat-icon [ngStyle]="{
+														color: criterio.color
+													}">{{ criterio.icon }}
+                                                        </mat-icon>
+                                                        <span>{{
+													criterio.descripcion
+												}}</span>
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
 
-								<!-- Observaciones a ingresar en caso de devolución o rechazo -->
-								<mat-form-field appearance="outline" *ngIf="mostrarObservaciones">
-									<mat-label>Ingrese los motivos</mat-label>
-									<textarea class="ar-color-87" matInput cdkTextareaAutosize
-										cdkAutosizeMinRows="5"></textarea>
-									<input matInput class="ar-color-87" />
-
-								</mat-form-field>
-							
-							</div>
-
-						</mat-card-content>
-					</mat-card>
-				</div>
-			</div>
-		</perfect-scrollbar>
-	</ng-container>
-
-</div>
-
+                                            <!-- Observaciones a ingresar en caso de devolución o rechazo -->
+                                            <mat-form-field appearance="outline" *ngIf="mostrarObservaciones">
+                                                <mat-label>Ingrese los motivos</mat-label>
+                                                <textarea class="ar-color-87" matInput cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                                                <input matInput class="ar-color-87" />
+                                            </mat-form-field>
+                                        </div>
+                        </mat-card-content>
+                    </mat-card>
+                    </div>
+                    </div>
+        </perfect-scrollbar>
+    </ng-container>
+    </div>
 
 </html>

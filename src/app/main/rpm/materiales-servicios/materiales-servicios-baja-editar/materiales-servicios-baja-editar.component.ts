@@ -10,6 +10,8 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
+	Inject,
+	Optional,
 } from "@angular/core";
 import { animate, style, transition, trigger } from "@angular/animations";
 import { UtilidadesService } from "app/shared/services/utilidades.service";
@@ -27,6 +29,7 @@ import {
 } from "@angular/forms";
 import { DialogService } from "app/shared/controls/dialog/dialog.service";
 import { compact } from "lodash";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 @Component({
 	selector: "bitzu-materiales-servicios-baja-editar",
@@ -109,7 +112,9 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 	constructor(
 		private utilidadesService: UtilidadesService,
 		private fb: FormBuilder,
-		private msgBox: DialogService
+		private msgBox: DialogService,
+		public dialogRef: MatDialogRef<MaterialesServiciosBajaEditarComponent>,
+		@Optional() @Inject(MAT_DIALOG_DATA) public data: any
 	) {
 		this.frmBajaMaterial = this.fb.group({
 			descMatServ: [null, Validators.required],
@@ -193,6 +198,24 @@ export class MaterialesServiciosBajaEditarComponent implements OnInit {
 					this.esEstadoInicialForm = false;
 				} else {
 					this.infoGeneralService.restablecerVistaFormulario();
+				}
+			});
+	}
+
+	/**
+	 * Funcion para cerrar dialogo
+	 */
+	public CerrarDialogo(): void {
+		this.msgBox
+			.open(
+				"QUESTION",
+				"Precaución",
+				"¿Esta seguro de cerrar la ventana ?"
+			)
+			.subscribe((res) => {
+				if (res === "YES") {
+					// Cierra el dialogo completo
+					this.dialogRef.close();
 				}
 			});
 	}

@@ -1,4 +1,3 @@
-
 <!-- ========================================================================
   [HTML /materiales-servicios-acceso-editar.component.html]
 
@@ -11,167 +10,167 @@
   Cliente: 				Caja Costarricense de Seguro Social
 ======================================================================== -->
 
-
 <html fullscreen class="{{ temaApp }}">
-    <div fxFlex fxLayout="column" class="ar-background">
-        <!-- Barra de progreso *ngIf="esCargando" -->
-        <div class="ar-progressbar">
-            <mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
-        </div>
-        <!-- Toolbar de acciones estilo formulario -->
-        <mat-toolbar class="ar-toolbar mat-elevation-z0">
-            <button mat-icon-button (click)="CerrarDialogo()">
-                <mat-icon>close</mat-icon>
-            </button>
-            <span fxFlex></span>
-            <button mat-button (click)="limpiar()">
-                <i class="material-icons">clear_all</i>
-                Limpiar
-            </button>
-            <div class="ar-divider ar-elevation-24"></div>
-            <button mat-button *ngIf="mostrarSig" (click)="validarInfoGeneral()">
-                <i class="material-icons">arrow_forward</i>
-                Siguiente
-            </button>
-            <button mat-button *ngIf="mostrarAnt" (click)="atras()">
-                <i class="material-icons">arrow_back</i>
-                Anterior
-            </button>
-            <button mat-button color="accent" (click)="guardar()">
-                <i class="material-icons">save</i>
-                Guardar
-            </button>
-        </mat-toolbar>
+<div fxFlex fxLayout="column" class="ar-background">
+    <!-- Barra de progreso *ngIf="esCargando" -->
+    <div class="ar-progressbar">
+        <mat-progress-bar mode="indeterminate" *ngIf="esCargando"></mat-progress-bar>
+    </div>
+    <!-- Toolbar de acciones estilo formulario -->
+    <mat-toolbar class="ar-toolbar mat-elevation-z0">
+        <button mat-icon-button (click)="CerrarDialogo()">
+				<mat-icon>close</mat-icon>
+			</button>
+        <span fxFlex></span>
 
-        <!-- Listado de Materiales-->
-        <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
-            <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
-                <div fxLayout="column" fxFlex class="ar-margin-bottom-lg ar-margin-top-sm">
-                    <bitzu-info-general
-                        *ngIf="mostrarSig"
-                        [IvalorDefaultServicioArea]="valorDefaultServicioArea"
-                        #infoGeneralService
-                        [@apps]="'fadeIn'"
-                        [Idatos]="dataInfoGeneral"
-                        (validarItem)="obtenerDatosInfoGeneral($event)"
-                    >
-                    </bitzu-info-general>
-                    <form
-                        [formGroup]="frmAcceso"
-                        *ngIf="guardarInfo"
-                        (ngSubmit)="validar()"
-                        #documentFormAcceso="ngForm"
-                    >
-                        <!-- Formulario de modificar material -->
-                        <ng-container>
-                            <div fxFlex fxLayout="column" [@apps]="'fadeIn'">
-                                <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-                                    <!-- Avatar circular -->
-                                    <div class="ar-avatar">
-                                        <p class="ar-avatar-sm">
-                                            <span>B</span>
-                                        </p>
-                                    </div>
+        <button mat-button *ngIf="mostrarSig" (click)="validarInfoGeneral()">
+				<i class="material-icons">arrow_forward</i>
+				Siguiente
+			</button>
+        <button mat-button (click)="limpiar()">
+				<i class="material-icons">clear_all</i>
+				Limpiar
+			</button>
+        <button mat-button *ngIf="mostrarAnt" (click)="atras()">
+				<i class="material-icons">arrow_back</i>
+				Anterior
+			</button>
+        <button mat-button color="accent" (click)="guardar()">
+				<i class="material-icons">save</i>
+				Guardar
+			</button>
+    </mat-toolbar>
 
-                                    <!-- Identificador del codigo de acceso -->
-                                    <div fxLayout="column" class="ar-margin-left-xs">
-                                        <span class="ar-color-54">8889999</span>
-                                        <span class="ar-color-87">Bolsas quirúrgicas</span>
-                                    </div>
-                                </div>
-                                <div
-                                    class="
-                                        ar-color-54
-                                        ar-margin-bottom-sm
-                                        ar-core-text
-                                        ar-margin-top-xs
-                                    "
-                                >
-                                    Modifique los permisos de acceso a materiales o servicios.
+    <!-- Listado de Materiales-->
+    <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex="55" fxFlex.xs="95" fxFlex.sm="95" fxFlex.md="80">
+            <div fxLayout="column" fxFlex class="ar-margin-bottom-lg ar-margin-top-sm">
+                <bitzu-info-general *ngIf="mostrarSig" [IvalorDefaultServicioArea]="valorDefaultServicioArea" #infoGeneralService [@apps]="'fadeIn'" [Idatos]="dataInfoGeneral" (validarItem)="obtenerDatosInfoGeneral($event)">
+                </bitzu-info-general>
+                <form [formGroup]="frmAcceso" *ngIf="guardarInfo" (ngSubmit)="validar()" #documentFormAcceso="ngForm">
+                    <!-- Formulario de modificar material -->
+                    <ng-container>
+                        <div fxFlex fxLayout="column" [@apps]="'fadeIn'">
+                            <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                                <!-- Avatar circular -->
+                                <div class="ar-avatar">
+                                    <p class="ar-avatar-sm">
+                                        <span>B</span>
+                                    </p>
                                 </div>
 
-                                <!-- Codigo a Modificar -->
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Codigo del Material o Servicio</mat-label>
-                                    <mat-select formControlName="mat_selec">
-                                        <mat-option
-                                            *ngFor="let mat of materiales"
-                                            [value]="mat._id"
-                                            (click)="setItem(mat)"
-                                        >
-                                            {{ mat._id }} - {{ mat.descripcion }}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="frmAcceso.controls['mat_selec'].invalid"
-                                        >*Debe seleccionar un tipo de moneda
-                                    </mat-error>
-                                </mat-form-field>
+                                <!-- Identificador del codigo de acceso -->
+                                <div fxLayout="column" class="ar-margin-left-xs">
+                                    <span class="ar-color-54">8889999</span>
+                                    <span class="ar-color-87">Bolsas quirúrgicas</span
+										>
+									</div>
+								</div>
+								<div
+									class="
+										ar-color-54
+										ar-margin-bottom-sm
+										ar-core-text
+										ar-margin-top-xs
+									"
+								>
+									Modifique los permisos de acceso a
+									materiales o servicios.
+								</div>
 
-                                <!-- Justificacion de Acceso -->
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Justificacion de Acceso</mat-label>
-                                    <textarea
-                                        class="ar-color-87"
-                                        formControlName="justificacion"
-                                        matInput
-                                        placeholder="justificacion"
-                                        cdkTextareaAutosize
-                                        cdkAutosizeMinRows="5"
-                                    ></textarea>
-                                    <input matInput class="ar-color-87" />
-                                    <mat-error *ngIf="frmAcceso.controls['justificacion'].invalid">
-                                        *Debe ingresar una justificacion valida
-                                    </mat-error>
-                                </mat-form-field>
+								<!-- Codigo a Modificar -->
+								<mat-form-field appearance="outline">
+									<mat-label
+										>Codigo del Material o
+										Servicio</mat-label
+									>
+									<mat-select formControlName="mat_selec">
+										<mat-option
+											*ngFor="let mat of materiales"
+											[value]="mat._id"
+											(click)="setItem(mat)"
+										>
+											{{ mat._id }} -
+											{{ mat.descripcion }}
+										</mat-option>
+									</mat-select>
+									<mat-error
+										*ngIf="
+											frmAcceso.controls['mat_selec']
+												.invalid
+										"
+										>*Debe seleccionar un tipo de moneda
+									</mat-error>
+								</mat-form-field>
 
-                                <div>
-                                    <span fxFlex> </span>
+								<!-- Justificacion de Acceso -->
+								<mat-form-field appearance="outline">
+									<mat-label
+										>Justificacion de Acceso</mat-label
+									>
+									<textarea
+										class="ar-color-87"
+										formControlName="justificacion"
+										matInput
+										placeholder="justificacion"
+										cdkTextareaAutosize
+										cdkAutosizeMinRows="5"
+									></textarea>
+									<input matInput class="ar-color-87" />
+									<mat-error
+										*ngIf="
+											frmAcceso.controls['justificacion']
+												.invalid
+										"
+									>
+										*Debe ingresar una justificacion valida
+									</mat-error>
+								</mat-form-field>
+
+								<div>
+									<span fxFlex> </span>
                                     <button mat-button color="accent" (click)="agregarMaterial()">
-                                        <i class="material-icons">add</i>
-                                        Agregar
-                                    </button>
+										<i class="material-icons">add</i>
+										Agregar
+									</button>
                                 </div>
 
                                 <!-- despliegue de lista de materiales  -->
-                                <div
-                                    class="ar-list-item-xs ar-margin-top-xs"
-                                    fxLayoutAlign="start center"
-                                    *ngFor="let materiales of mat_sel"
-                                >
+                                <div class="ar-list-item-xs ar-margin-top-xs" fxLayoutAlign="start center" *ngFor="let materiales of mat_sel">
                                     <!-- despliegue de id y descripcion de materiales -->
-                                    <div
-                                        class="ar-margin-left-xs"
-                                        fxLayout="row"
-                                        fxLayoutAlign="start center"
-                                    >
+                                    <div class="ar-margin-left-xs" fxLayout="row" fxLayoutAlign="start center">
                                         <div class="ar-avatar">
                                             <p class="ar-avatar-xs" matTooltip="Código">
                                                 {{ materiales._id }}
                                             </p>
                                         </div>
-                                        <span class="ar-body-1 ar-color-87 ar-margin-left-xs">
-                                            {{ materiales.descripcion }}
-                                        </span>
+                                        <span class="
+												ar-body-1
+												ar-color-87
+												ar-margin-left-xs
+											">
+											{{ materiales.descripcion }}
+										</span>
                                     </div>
                                     <!-- espacio de separacion entre lista alineacion izquiera y boton de accion a la derecha -->
                                     <span fxFlex> </span>
 
                                     <!-- Botón Decorativo-->
-                                    <button
-                                        mat-icon-button
-                                        color="primary"
-                                        (click)="eliminarMaterial()"
-                                    >
-                                        <mat-icon aria-label="Seleccionar" class="ar-color-87">
-                                            clear
-                                        </mat-icon>
-                                    </button>
+                                    <button mat-icon-button color="primary" (click)="eliminarMaterial(materiales)">
+										<mat-icon
+											aria-label="Seleccionar"
+											class="ar-color-87"
+										>
+											clear
+										</mat-icon>
+									</button>
                                 </div>
                             </div>
-                        </ng-container>
-                    </form>
+                    </ng-container>
+                </form>
                 </div>
             </div>
-        </perfect-scrollbar>
+    </perfect-scrollbar>
     </div>
+
 </html>
