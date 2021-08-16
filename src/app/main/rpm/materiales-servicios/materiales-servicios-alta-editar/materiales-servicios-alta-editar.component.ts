@@ -112,7 +112,15 @@ export class MaterialesServiciosAltaEditarComponent implements OnInit {
 	/**
 	 * Variable que almacena los datos obtenidos de los catálogos
 	 */
-	public catalogo: any = [];
+	public catalogoArt: any = [];
+
+	/**
+	 * Variable que almacena los datos obtenidos de los catálogos
+	 */
+	 public catalogoFamArt: any = [];
+
+
+
 
 	/**
 	 * Propiedad decorativa para acceder al componente desde el HTML
@@ -158,11 +166,12 @@ export class MaterialesServiciosAltaEditarComponent implements OnInit {
 	) {
 		this.frmAltaMaterial = this.fb.group({
 			descMatServ: [null, Validators.required],
-			estMatServ: [null, Validators.required],
+			artMatServ: [null, Validators.required],
+			famMatServ: [null, Validators.required],
+			subFamMatServ: [null, Validators.required],
 			medMatServ: [null, Validators.required],
 			despMatServ: [null, Validators.required],
 			otrundMatServ: [null, Validators.required],
-			tipMatServ: [null, Validators.required],
 			promdMatServ: [null, Validators.required],
 			valMatServ: [null, Validators.required],
 			monedaMatServ: [null, Validators.required],
@@ -323,7 +332,7 @@ export class MaterialesServiciosAltaEditarComponent implements OnInit {
 	/**
 	 * Método en cargado de obtener los tipos de materiaes.
 	 */
-	private ObtenerCatalogo(): void {
+	private ObtenerCatalogoArticulo(): void {
 		// Inicia la barra de progreso
 		//this.esCargando = true;
 		// Se llama a la función del servicio que envia los datos al server
@@ -335,7 +344,7 @@ export class MaterialesServiciosAltaEditarComponent implements OnInit {
 				// res.exito = true;
 				if (res.exito) {
 					// Se asigna los datos a la variable para mostrar la lista de ítems.
-					this.catalogo = res.data;
+					this.catalogoArt = res.data;
 					// se almacena el estado inicial de la estructura
 					// this.estadoInicial = JSON.parse(JSON.stringify(this.catalogo));
 				} else {
@@ -358,22 +367,66 @@ export class MaterialesServiciosAltaEditarComponent implements OnInit {
 		);
 	}
 
+
+	/**
+	 * Método en cargado de obtener los tipos de materiaes.
+	 */
+	 private ObtenerCatalogoFamArt(): void {
+		// Inicia la barra de progreso
+		//this.esCargando = true;
+		// Se llama a la función del servicio que envia los datos al server
+		this.materialesServiciosAltaEditar.ListFamArt().then(
+			(res) => {
+				// Oculta la barra de progreso una vez obtenida la respuesta
+				// this.esCargando = false;
+				// Recibe la respuesta
+				// res.exito = true;
+				if (res.exito) {
+					// Se asigna los datos a la variable para mostrar la lista de ítems.
+					this.catalogoFamArt = res.data;
+					// se almacena el estado inicial de la estructura
+					// this.estadoInicial = JSON.parse(JSON.stringify(this.catalogo));
+				} else {
+					// Muestra el mensaje en el caso de que no se encontraran registros asociados al catálogo
+					this.snackBar.open(res.mensaje, "Sin datos.", {
+						duration: 5000,
+					});
+				}
+			},
+			(err) => {
+				// Oculta la barra de progreso en caso de error
+				// this.esCargando = false;
+				// Muestra el mensaje con el error
+				if (err.error) {
+					this.snackBar.open(err.error.message, null, {
+						duration: 5000,
+					});
+				}
+			}
+		);
+	}
+
+
+
+
 	ngOnInit(): void {
 		//Se obtiene el tema
 		this.temaApp = this.utilidadesService.GetTemaAplicacion();
 		// Carga el catálogo de tipos de provincias
-		this.ObtenerCatalogo();
+		this.ObtenerCatalogoArticulo();
+		this.ObtenerCatalogoFamArt();
 	}
 }
 
 //Interfaz de Variables
 export interface IdataModelAltaMat {
 	descMatServ: string;
-	estMatServ: string;
+	artMatServ: string;
+	famMatServ: string;
+	subFamMatServ: string;
 	medMatServ: string;
 	despMatServ: string;
 	otrundMatServ: string;
-	tipMatServ: string;
 	promdMatServ: number;
 	valMatServ: number;
 	monedaMatServ: string;

@@ -12,13 +12,14 @@ import { IHttpResponse } from './../../../../shared/interfaces/http-response';
 @Injectable()
 export class MaterialesServiciosAltaEditar implements ICRUD {
     /** Url del servicio api a consumir por el servicio */
-    private apiUrl = environment.urlApi.main + '/rpm/materiales/tipo/listarTipoMaterial'; // URL web API
-    /**
+    private apiUrl = environment.urlApi.main + '/rpm/catalogos/grupo-articulos'; // URL web API
+	private apiUrlFamArt = environment.urlApi.main + '/rpm/catalogos/familias-articulos/'; // URL web API
+    /**127.0.0.1:3000/bitzu-api/rpm/catalogos/grupo-articulos
      *  Constructor de la clase
      * @param http Variable que representa al módulo HTTP
      */
 
-    materialesSubject = new Subject();
+    articulosSubject = new Subject();
 
 
     constructor(private http: HttpClient) {}
@@ -33,6 +34,25 @@ export class MaterialesServiciosAltaEditar implements ICRUD {
         return new Promise((resolve, reject) => {
             this.http
                 .get(this.apiUrl)
+                .pipe(map((res: IHttpResponse) => res))
+                .subscribe(
+                    (res) => {
+                        resolve(res);
+                    },
+                    (err) => {
+                        reject(err);
+                    }
+                );
+        });
+    }
+
+
+
+    public ListFamArt(): Promise<IHttpResponse> {
+        // Crea la promesa con la solicitud al servidor
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(this.apiUrlFamArt)
                 .pipe(map((res: IHttpResponse) => res))
                 .subscribe(
                     (res) => {

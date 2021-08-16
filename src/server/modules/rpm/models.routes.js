@@ -11,6 +11,8 @@ const router = express.Router();
 
 // Se obtienen los ficheros de rutas del módulo actual
 const tipoMaterialRoutes = require('../rpm/catalogos/model.routes');
+const catalogosModuleRoutes = require('../rpm/catalogos/model.routes');
+
 
 /**
  * GET /check - Validación que indica que el servicio en esta ruta esta disponible
@@ -21,7 +23,7 @@ router.get('/check', (req, res) =>
 
 // Enrutamiento interno del módulo catalogos
 router.use('/materiales', tipoMaterialRoutes);
-
+router.use('/catalogos', catalogosModuleRoutes);
 // // Enrutamiento interno del módulo jvj 26/07
 // router.use('/catalogos', grupoMaterialRoutes);
 

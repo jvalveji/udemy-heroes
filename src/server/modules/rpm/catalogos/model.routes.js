@@ -12,16 +12,18 @@ const router = express.Router();
 // Se obtienen los ficheros de rutas del módulo actual
 const tipoMaterialRoutes = require('../catalogos/routes/tipoMaterialRoutes');
 const grupoMaterialRoutes = require('../catalogos/routes/grupoMaterialRoutes');
-
+const grupoArticulosRoutes = require('../catalogos/routes/grupoArticulosRoutes');
+const familiasArticulosRoutes = require('../catalogos/routes/familiasArticulosRoutes');
 /**
  * GET /check - Validación que indica que el servicio en esta ruta esta disponible
  * */
 router.get('/check', (req, res) =>
-    res.send('OK Estoy en Bitzu-RPM materiales')
+    res.send('OK Estoy en Bitzu-RPM catalogos')
 );
 
 // Enrutamiento interno del catalogo tipo Materiales
 router.use('/tipo', tipoMaterialRoutes);
 router.use('/grupo', grupoMaterialRoutes);
-
+router.use('/grupo-articulos', grupoArticulosRoutes);
+router.use('/familias-articulos', familiasArticulosRoutes);
 module.exports = router;

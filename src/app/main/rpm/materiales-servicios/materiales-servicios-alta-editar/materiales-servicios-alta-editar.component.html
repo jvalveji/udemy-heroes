@@ -94,16 +94,58 @@
                                 </mat-error>
                             </mat-form-field>
 
-                            <!-- Estructura de grupos -->
+                            <!-- Grupo de articulo -->
                             <mat-form-field fxFlex appearance="outline">
-                                <mat-label>Seleccione la estructura</mat-label>
-                                <input matInput name="estMatServ" formControlName="estMatServ" class="ar-color-87" />
+                                <mat-label>Seleccione el grupo de artículo</mat-label>
+                                <mat-select name="artMatServ" formControlName="artMatServ" class="ar-color-87">
+                                    <mat-option *ngFor="
+													let itemArt of catalogoArt
+												" [value]="itemArt.descripcion">
+                                        {{ itemArt.descripcion }}
+                                    </mat-option>
+                                </mat-select>
                                 <mat-error *ngIf="
 											frmAltaMaterial.controls[
-												'estMatServ'
+												'artMatServ'
 											].invalid
 										">*Debe seleccionar una opción</mat-error>
                             </mat-form-field>
+
+                            <!-- Familia -->
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Seleccione la familia</mat-label>
+                                <mat-select name="famMatServ" formControlName="famMatServ" class="ar-color-87">
+                                    <mat-option *ngFor="
+									let itemFamArt of catalogoFamArt
+								" [value]="itemFamArt.descripcion">
+                                        {{ itemFamArt.descripcion }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="
+							frmAltaMaterial.controls[
+								'famMatServ'
+							].invalid
+						">*Debe seleccionar una opción</mat-error>
+                            </mat-form-field>
+
+                            <!-- Subfamilia -->
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Seleccione la subfamilia</mat-label>
+                                <mat-select name="subFamMatServ" formControlName="subFamMatServ" class="ar-color-87">
+                                    <mat-option *ngFor="
+									let tip_mon of tipoMoneda
+								" [value]="tip_mon._id">
+                                        {{ tip_mon._id }} - {{ tip_mon.descripcion }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="
+							frmAltaMaterial.controls[
+								'subFamMatServ'
+							].invalid
+						">*Debe seleccionar una opción</mat-error>
+                            </mat-form-field>
+
+
                             <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
                                 <!-- Unidad de medida -->
                                 <mat-form-field fxFlex appearance="outline">
@@ -144,22 +186,7 @@
                                 </mat-error>
                             </mat-form-field>
 
-                            <!-- Tipo de material -->
-                            <mat-form-field fxFlex appearance="outline">
-                                <mat-label>Seleccione el tipo de material o servicio
-                                </mat-label>
-                                <mat-select name="tipMatServ" formControlName="tipMatServ" class="ar-color-87">
-                                    <mat-option *ngFor="let tip_mat of catalogo" [value]="tip_mat.nomenclatura">
-                                        {{ tip_mat.nomenclatura }} - {{ tip_mat.descripcion }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="
-											frmAltaMaterial.controls[
-												'tipMatServ'
-											].invalid
-										">*Debe seleccionar un tipo
-                                </mat-error>
-                            </mat-form-field>
+
 
                             <!-- Consumo promedio anual -->
                             <mat-form-field fxFlex appearance="outline">
