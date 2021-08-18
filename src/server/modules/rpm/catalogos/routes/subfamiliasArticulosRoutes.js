@@ -23,7 +23,6 @@ router.get('/', subfamiliasArticulosController.list);
 /*
  * get
  */
-///router.get('/:id_familia', subfamiliasArticulosController.showByFamilia;
-
+router.get('/:id_familia', subfamiliasArticulosController.showByFamilia);
 
 module.exports = router;
