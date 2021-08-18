@@ -14,6 +14,7 @@ const tipoMaterialRoutes = require('../catalogos/routes/tipoMaterialRoutes');
 const grupoMaterialRoutes = require('../catalogos/routes/grupoMaterialRoutes');
 const grupoArticulosRoutes = require('../catalogos/routes/grupoArticulosRoutes');
 const familiasArticulosRoutes = require('../catalogos/routes/familiasArticulosRoutes');
+const subfamiliasArticulosRoutes = require('../catalogos/routes/subfamiliasArticulosRoutes');
 /**
  * GET /check - Validación que indica que el servicio en esta ruta esta disponible
  * */
@@ -26,4 +27,5 @@ router.use('/tipo', tipoMaterialRoutes);
 router.use('/grupo', grupoMaterialRoutes);
 router.use('/grupo-articulos', grupoArticulosRoutes);
 router.use('/familias-articulos', familiasArticulosRoutes);
+router.use('/subfamilias-articulos', subfamiliasArticulosRoutes);
 module.exports = router;
