@@ -65,5 +65,27 @@ export class MaterialesServiciosAltaEditar implements ICRUD {
         });
     }
 
+    public ShowFamByBrupo( filter: any ): Promise<IHttpResponse> {
+        // Crea la promesa con la solicitud al servidor
+
+		const URL = this.apiUrlFamArt + filter;
+
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(URL)
+                .pipe(map((res: IHttpResponse) => res))
+                .subscribe(
+                    (res) => {
+                        resolve(res);
+                    },
+                    (err) => {
+                        reject(err);
+                    }
+                );
+        });
+    }
+
+
+
 
 }

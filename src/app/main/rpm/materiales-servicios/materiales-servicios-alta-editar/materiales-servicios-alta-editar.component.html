@@ -19,31 +19,31 @@
     <!-- Toolbar de acciones estilo formulario -->
     <mat-toolbar class="ar-toolbar mat-elevation-z0">
         <button mat-icon-button (click)="CerrarDialogo()">
-				<mat-icon>close</mat-icon>
-			</button>
+                <mat-icon>close</mat-icon>
+            </button>
         <span fxFlex></span>
         <button mat-button *ngIf="mostrarSigGeneral" (click)="validarInfoGeneral()">
-				<i class="material-icons">arrow_forward</i>
-				Siguiente
-			</button>
+                <i class="material-icons">arrow_forward</i>
+                Siguiente
+            </button>
 
         <button mat-button *ngIf="mostrarAnt" (click)="atras()">
-				<i class="material-icons">arrow_back</i>
-				Anterior
-			</button>
+                <i class="material-icons">arrow_back</i>
+                Anterior
+            </button>
 
         <button mat-button *ngIf="mostrarSigAlta" (click)="validarInfoAlta()">
-				<i class="material-icons">arrow_forward</i>
-				Siguiente
-			</button>
+                <i class="material-icons">arrow_forward</i>
+                Siguiente
+            </button>
         <button mat-button (click)="limpiar()">
-				<i class="material-icons">clear_all</i>
-				Limpiar
-			</button>
+                <i class="material-icons">clear_all</i>
+                Limpiar
+            </button>
         <button mat-button color="accent" (click)="guardar()">
-				<i class="material-icons">save</i>
-				Guardar
-			</button>
+                <i class="material-icons">save</i>
+                Guardar
+            </button>
     </mat-toolbar>
     <!-- Listado de Materiales-->
     <perfect-scrollbar fxFlex class="ar-content" fxLayout="row" fxLayoutAlign="center start">
@@ -60,9 +60,7 @@
                                 <!-- Avatar circular -->
                                 <div class="ar-avatar">
                                     <p class="ar-avatar-sm" fxLayoutAlign="center center">
-                                        <span class="material-icons">
-												person
-											</span>
+                                        <span class="material-icons"> person </span>
                                     </p>
                                 </div>
 
@@ -74,11 +72,11 @@
                                     </div>-->
                             </div>
                             <div class="
-										ar-color-54
-										ar-margin-bottom-sm
-										ar-core-text
-										ar-margin-top-xs
-									">
+                                        ar-color-54
+                                        ar-margin-bottom-sm
+                                        ar-core-text
+                                        ar-margin-top-xs
+                                    ">
                                 Ingreso de solicitud para alta de material o servicio.
                             </div>
 
@@ -86,77 +84,49 @@
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>Descripción</mat-label>
                                 <input matInput name="descMatServ" formControlName="descMatServ" class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmAltaMaterial.controls[
-												'descMatServ'
-											].invalid
-										">*Debe ingresar una descripcion válida
+                                <mat-error *ngIf="frmAltaMaterial.controls['descMatServ'].invalid">*Debe ingresar una descripcion válida
                                 </mat-error>
                             </mat-form-field>
 
                             <!-- Grupo de articulo -->
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>Seleccione el grupo de artículo</mat-label>
-                                <mat-select name="artMatServ" formControlName="artMatServ" class="ar-color-87">
-                                    <mat-option *ngFor="
-													let itemArt of catalogoArt
-												" [value]="itemArt.descripcion">
+                                <mat-select formControlName="artMatServ" class="ar-color-87" (ngModelChange)="ObtenerCatalogoFamArt()">
+                                    <mat-option *ngFor="let itemArt of catalogoArt" [value]="itemArt._id">
                                         {{ itemArt.descripcion }}
                                     </mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="
-											frmAltaMaterial.controls[
-												'artMatServ'
-											].invalid
-										">*Debe seleccionar una opción</mat-error>
+                                <mat-error *ngIf="frmAltaMaterial.controls['artMatServ'].invalid">*Debe seleccionar una opción</mat-error>
                             </mat-form-field>
 
                             <!-- Familia -->
-                            <mat-form-field fxFlex appearance="outline">
+                            <mat-form-field fxFlex appearance="outline" *ngIf="catalogoFamArt.length !== 0">
                                 <mat-label>Seleccione la familia</mat-label>
                                 <mat-select name="famMatServ" formControlName="famMatServ" class="ar-color-87">
-                                    <mat-option *ngFor="
-									let itemFamArt of catalogoFamArt
-								" [value]="itemFamArt.descripcion">
+                                    <mat-option *ngFor="let itemFamArt of catalogoFamArt" [value]="itemFamArt.descripcion">
                                         {{ itemFamArt.descripcion }}
                                     </mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="
-							frmAltaMaterial.controls[
-								'famMatServ'
-							].invalid
-						">*Debe seleccionar una opción</mat-error>
+                                <mat-error *ngIf="frmAltaMaterial.controls['famMatServ'].invalid">*Debe seleccionar una opción</mat-error>
                             </mat-form-field>
 
                             <!-- Subfamilia -->
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>Seleccione la subfamilia</mat-label>
                                 <mat-select name="subFamMatServ" formControlName="subFamMatServ" class="ar-color-87">
-                                    <mat-option *ngFor="
-									let tip_mon of tipoMoneda
-								" [value]="tip_mon._id">
+                                    <mat-option *ngFor="let tip_mon of tipoMoneda" [value]="tip_mon._id">
                                         {{ tip_mon._id }} - {{ tip_mon.descripcion }}
                                     </mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="
-							frmAltaMaterial.controls[
-								'subFamMatServ'
-							].invalid
-						">*Debe seleccionar una opción</mat-error>
+                                <mat-error *ngIf="frmAltaMaterial.controls['subFamMatServ'].invalid">*Debe seleccionar una opción</mat-error>
                             </mat-form-field>
-
 
                             <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
                                 <!-- Unidad de medida -->
                                 <mat-form-field fxFlex appearance="outline">
-                                    <mat-label>Seleccione la unidad de medida
-                                    </mat-label>
+                                    <mat-label>Seleccione la unidad de medida </mat-label>
                                     <input matInput name="medMatServ" formControlName="medMatServ" class="ar-color-87" />
-                                    <mat-error *ngIf="
-												frmAltaMaterial.controls[
-													'medMatServ'
-												].invalid
-											">*Debe seleccionar una opción
+                                    <mat-error *ngIf="frmAltaMaterial.controls['medMatServ'].invalid">*Debe seleccionar una opción
                                     </mat-error>
                                 </mat-form-field>
 
@@ -165,11 +135,7 @@
                                     <mat-label>Seleccione la unidad de medida para despacho
                                     </mat-label>
                                     <input matInput name="despMatServ" formControlName="despMatServ" class="ar-color-87" size="20" maxlength="30" />
-                                    <mat-error *ngIf="
-												frmAltaMaterial.controls[
-													'despMatServ'
-												].invalid
-											">*Debe ingresar una unidad
+                                    <mat-error *ngIf="frmAltaMaterial.controls['despMatServ'].invalid">*Debe ingresar una unidad
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -178,45 +144,29 @@
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>Digite la unidad equivalente</mat-label>
                                 <input matInput name="otrundMatServ" formControlName="otrundMatServ" class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmAltaMaterial.controls[
-												'otrundMatServ'
-											].invalid
-										">*Debe ingresar una unidad de medida
+                                <mat-error *ngIf="frmAltaMaterial.controls['otrundMatServ'].invalid">*Debe ingresar una unidad de medida
                                 </mat-error>
                             </mat-form-field>
 
-
-
                             <!-- Consumo promedio anual -->
                             <mat-form-field fxFlex appearance="outline">
-                                <mat-label>Digite el consumo promedio anual
-                                </mat-label>
+                                <mat-label>Digite el consumo promedio anual </mat-label>
                                 <input matInput name="promdMatServ" formControlName="promdMatServ" class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmAltaMaterial.controls[
-												'promdMatServ'
-											].invalid
-										">*Debe indicar el consumo</mat-error>
+                                <mat-error *ngIf="frmAltaMaterial.controls['promdMatServ'].invalid">*Debe indicar el consumo</mat-error>
                             </mat-form-field>
 
                             <div fxLayout.xs="column" fxLayout="row" fxFlex="100" fxFlex.xs="100">
                                 <!-- Tipo de moneda -->
                                 <mat-form-field fxFlex appearance="outline">
-                                    <mat-label>Seleccione el tipo de moneda
-                                    </mat-label>
+                                    <mat-label>Seleccione el tipo de moneda </mat-label>
                                     <mat-select name="monedaMatServ" formControlName="monedaMatServ" class="ar-color-87">
-                                        <mat-option *ngFor="
-													let tip_mon of tipoMoneda
-												" [value]="tip_mon._id">
+                                        <mat-option *ngFor="let tip_mon of tipoMoneda" [value]="tip_mon._id">
                                             {{ tip_mon._id }} - {{ tip_mon.descripcion }}
                                         </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="
-												frmAltaMaterial.controls[
-													'monedaMatServ'
-												].invalid
-											">*Debe seleccionar un tipo de moneda
+                                                frmAltaMaterial.controls['monedaMatServ'].invalid
+                                            ">*Debe seleccionar un tipo de moneda
                                     </mat-error>
                                 </mat-form-field>
 
@@ -224,11 +174,7 @@
                                 <mat-form-field fxFlex appearance="outline" ngClass="ar-margin-left-xs" ngClass.xs="ar-margin-left-none">
                                     <mat-label>Digite el valor unitario</mat-label>
                                     <input matInput name="valMatServ" formControlName="valMatServ" class="ar-color-87" size="20" maxlength="30" />
-                                    <mat-error *ngIf="
-												frmAltaMaterial.controls[
-													'valMatServ'
-												].invalid
-											">*Debe indicar un valor</mat-error>
+                                    <mat-error *ngIf="frmAltaMaterial.controls['valMatServ'].invalid">*Debe indicar un valor</mat-error>
                                 </mat-form-field>
                             </div>
 
@@ -237,10 +183,7 @@
                                 <mat-label>Justificación</mat-label>
                                 <textarea class="ar-color-87" matInput formControlName="JustAlta" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
                                 <input matInput class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmAltaMaterial.controls['JustAlta']
-												.invalid
-										">
+                                <mat-error *ngIf="frmAltaMaterial.controls['JustAlta'].invalid">
                                     *Debe ingresar una Justificación de la modificacion valida
                                 </mat-error>
                             </mat-form-field>
@@ -268,11 +211,11 @@
                                     </div>-->
                             </div>
                             <div class="
-										ar-color-54
-										ar-margin-bottom-sm
-										ar-core-text
-										ar-margin-top-xs
-									">
+                                        ar-color-54
+                                        ar-margin-bottom-sm
+                                        ar-core-text
+                                        ar-margin-top-xs
+                                    ">
                                 Ingreso de la información sobre la ficha técnica.
                             </div>
                             <!-- Descripción técnica del Material o Servicio-->
@@ -280,10 +223,7 @@
                                 <mat-label>Descripción técnica</mat-label>
                                 <textarea class="ar-color-87" matInput formControlName="desctec" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
                                 <input matInput class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmFichaMaterial.controls['desctec']
-												.invalid
-										">
+                                <mat-error *ngIf="frmFichaMaterial.controls['desctec'].invalid">
                                     *Debe ingresar una descripción válida
                                 </mat-error>
                             </mat-form-field>
@@ -293,11 +233,7 @@
                                 <mat-label>Literatura</mat-label>
                                 <textarea class="ar-color-87" matInput formControlName="literatura" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
                                 <input matInput class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmFichaMaterial.controls[
-												'literatura'
-											].invalid
-										">
+                                <mat-error *ngIf="frmFichaMaterial.controls['literatura'].invalid">
                                     *Debe ingresar una literatura válida
                                 </mat-error>
                             </mat-form-field>
@@ -307,10 +243,7 @@
                                 <mat-label>Certificados de Calidad</mat-label>
                                 <textarea class="ar-color-87" matInput formControlName="certcal" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
                                 <input matInput class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmFichaMaterial.controls['certcal']
-												.invalid
-										">
+                                <mat-error *ngIf="frmFichaMaterial.controls['certcal'].invalid">
                                     *Debe ingresar una descripción válida
                                 </mat-error>
                             </mat-form-field>
@@ -320,10 +253,7 @@
                                 <mat-label>Empaque primario</mat-label>
                                 <textarea class="ar-color-87" matInput formControlName="emppri" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
                                 <input matInput class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmFichaMaterial.controls['emppri']
-												.invalid
-										">
+                                <mat-error *ngIf="frmFichaMaterial.controls['emppri'].invalid">
                                     *Debe ingresar una descripción válida
                                 </mat-error>
                             </mat-form-field>
@@ -333,10 +263,7 @@
                                 <mat-label>Empaque secundario</mat-label>
                                 <textarea class="ar-color-87" matInput formControlName="empsec" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
                                 <input matInput class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmFichaMaterial.controls['empsec']
-												.invalid
-										">
+                                <mat-error *ngIf="frmFichaMaterial.controls['empsec'].invalid">
                                     *Debe ingresar una descripción válida
                                 </mat-error>
                             </mat-form-field>
@@ -345,10 +272,7 @@
                                 <mat-label>Empaque terciario</mat-label>
                                 <textarea class="ar-color-87" matInput formControlName="empter" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
                                 <input matInput class="ar-color-87" />
-                                <mat-error *ngIf="
-											frmFichaMaterial.controls['empter']
-												.invalid
-										">
+                                <mat-error *ngIf="frmFichaMaterial.controls['empter'].invalid">
                                     *Debe ingresar una descripción válida
                                 </mat-error>
                             </mat-form-field>
